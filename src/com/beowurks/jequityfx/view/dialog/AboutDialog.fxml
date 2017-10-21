@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ J'EquityFX
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<GridPane hgap="10"
+          vgap="10"
+          xmlns="http://javafx.com/javafx/8.0.141"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.beowurks.jequityfx.controller.AboutBoxController"
+          stylesheets="/com/beowurks/jequityfx/view/Main.css">
+  <padding>
+    <Insets top="10" right="10" bottom="10" left="10"/>
+  </padding>
+
+  <VBox alignment="TOP_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Hyperlink fx:id="lnkLogo" wrapText="false"/>
+    <Hyperlink fx:id="lnkLicense" wrapText="true"/>
+  </VBox>
+
+  <VBox alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <Hyperlink fx:id="lnkApplicationName" wrapText="true"/>
+    <Label fx:id="lblApplicationVersion"/>
+    <Label fx:id="lblCopyright"/>
+
+    <TableView fx:id="tblEnvironment">
+      <columns>
+        <TableColumn fx:id="colKey" prefWidth="200.0" text="Key"/>
+        <TableColumn fx:id="colValue" prefWidth="400.0" text="Value"/>
+      </columns>
+    </TableView>
+  </VBox>
+</GridPane>

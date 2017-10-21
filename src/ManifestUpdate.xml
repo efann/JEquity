@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+  ~ J'EquityFX
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<project name="ManifestUpdate" default="build" basedir="../">
+
+  <property name="dirs.base" value="${basedir}"/>
+  <property name="src" value="${dirs.base}"/>
+
+  <property name="Beo.Title" value="unknown"/>
+  <property name="Beo.Version" value="unknown"/>
+  <property name="Beo.Vendor" value="unknown"/>
+  <property name="Beo.AppClass" value="unknown"/>
+
+
+  <tstamp>
+    <format property="buildtime.isoformat" pattern="yyyy-MM-dd HH:mm:ss"/>
+  </tstamp>
+
+  <loadfile property="Beo.artifact.xml" srcfile="${src}/.idea/artifacts/JEquityFX.xml"/>
+
+  <target depends="extractXMLValues,buildManifest" name="build"/>
+
+  <target name="extractXMLValues">
+    <!--
+        You can use JavaScript in Ant! Woah!!!!!!!!!!!!
+        And combine with Java libraries!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    -->
+    <script language="javascript">
+      <![CDATA[
+
+        // From https://stackoverflow.com/questions/22503100/java-8-javascript-engine-backwards-compatibility
+        load("nashorn:mozilla_compat.js");
+
+        // Here's more information: https://ant.apache.org/manual/Tasks/script.html
+        importClass(java.io.StringReader);
+
+        importClass(Packages.org.xml.sax.InputSource);
+        importClass(Packages.javax.xml.parsers.DocumentBuilderFactory);
+        importClass(Packages.javax.xml.parsers.DocumentBuilder);
+        importClass(Packages.org.w3c.dom.Document);
+        importClass(Packages.org.w3c.dom.NodeList);
+        importClass(Packages.org.w3c.dom.Node);
+        importClass(Packages.org.w3c.dom.Element);
+
+        var loDBFactory = DocumentBuilderFactory.newInstance();
+	      var loDocBuilder = loDBFactory.newDocumentBuilder();
+
+		    var loDoc = loDocBuilder.parse(new InputSource(new StringReader(ManifestUpdate.getProperty("Beo.artifact.xml"))));
+
+        var lcAppClass = 'unknown';
+        var lcTitle = 'unknown';
+        var lcVersion = 'unknown';
+        var lcVendor = 'unknown';
+
+        var loNodeList = loDoc.getElementsByTagName("option");
+        var lnCount = loNodeList.getLength();
+        for (var i = 0; i < lnCount; i++)
+        {
+          var loNode = loNodeList.item(i);
+
+          var lcName = loNode.getAttributes().getNamedItem('name').getValue();
+          if (lcName)
+          {
+            switch (lcName)
+            {
+              case 'appClass':
+                lcAppClass = loNode.getAttributes().getNamedItem('value').getValue();
+                break;
+              case 'title':
+                lcTitle = loNode.getAttributes().getNamedItem('value').getValue();
+                break;
+              case 'version':
+                lcVersion = loNode.getAttributes().getNamedItem('value').getValue();
+                break;
+              case 'vendor':
+                lcVendor = loNode.getAttributes().getNamedItem('value').getValue();
+                break;
+            }
+          }
+        }
+
+        ManifestUpdate.setProperty("Beo.Title", lcTitle);
+        ManifestUpdate.setProperty("Beo.Version", lcVersion);
+        ManifestUpdate.setProperty("Beo.Vendor", lcVendor);
+        ManifestUpdate.setProperty("Beo.AppClass", lcAppClass);
+      ]]>
+    </script>
+
+  </target>
+
+  <!-- Recreate the manifest for the project -->
+  <target name="buildManifest">
+    <manifest file="${src}/META-INF/Manifest.mf">
+      <attribute name="Manifest-Version" value="1.0"/>
+      <attribute name="Main-Class" value="${Beo.AppClass}"/>
+      <attribute name="Implementation-Vendor" value="${Beo.Vendor}"/>
+      <attribute name="Implementation-Version" value="${Beo.Version}"/>
+      <attribute name="Implementation-Title" value="${Beo.Title}"/>
+      <attribute name="Built-On" value="${buildtime.isoformat}"/>
+    </manifest>
+  </target>
+
+</project>

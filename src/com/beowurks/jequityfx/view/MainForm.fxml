@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ J'EquityFX
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.VBox?>
+<VBox maxHeight="-Infinity"
+      maxWidth="-Infinity"
+      prefHeight="600.0"
+      prefWidth="800.0"
+      stylesheets="@Main.css"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.beowurks.jequityfx.controller.MainFormController">
+  <MenuBar fx:id="menuBar">
+    <menus>
+      <Menu text="File">
+        <items>
+          <MenuItem styleClass="iconBackup" text="Backup"/>
+          <MenuItem styleClass="iconRestore" text="Restore"/>
+          <SeparatorMenuItem/>
+          <MenuItem styleClass="iconMasterKey" text="Master Key..."/>
+          <SeparatorMenuItem/>
+          <MenuItem styleClass="iconPrint" text="Print..."/>
+          <SeparatorMenuItem/>
+          <MenuItem styleClass="iconExport" text="Export..."/>
+          <SeparatorMenuItem/>
+          <MenuItem fx:id="menuExit" styleClass="iconExit" text="Exit" onAction="#exitApplication"/>
+        </items>
+      </Menu>
+      <Menu text="Edit">
+        <items>
+          <MenuItem text="Copy"/>
+          <MenuItem text="Cut"/>
+          <MenuItem text="Paste"/>
+        </items>
+      </Menu>
+      <Menu text="Data">
+        <items>
+          <MenuItem styleClass="iconGroups" text="Groups"/>
+          <MenuItem styleClass="iconUpdate" text="Update"/>
+          <MenuItem styleClass="iconRefresh" text="Refresh"/>
+        </items>
+      </Menu>
+      <Menu text="Tools">
+        <items>
+          <MenuItem styleClass="iconOptions" text="Options..."/>
+          <SeparatorMenuItem/>
+          <MenuItem styleClass="iconSampleData" text="Sample Data..."/>
+        </items>
+      </Menu>
+      <Menu text="Help">
+        <items>
+          <MenuItem styleClass="iconCredits" text="Credits" onAction="#showCredits"/>
+          <MenuItem styleClass="iconCheckForUpdates" text="Check for Updates" onAction="#showUpdates"/>
+          <SeparatorMenuItem/>
+          <MenuItem styleClass="iconAbout" text="About" onAction="#showAbout"/>
+        </items>
+      </Menu>
+    </menus>
+    <cursor>
+      <Cursor fx:constant="HAND"/>
+    </cursor>
+  </MenuBar>
+</VBox>

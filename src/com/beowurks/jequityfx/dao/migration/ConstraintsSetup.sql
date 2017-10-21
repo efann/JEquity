@@ -1,0 +1,5 @@
+ALTER TABLE <<schema>>"Financial"
+  ADD FOREIGN KEY (GROUPID) REFERENCES <<schema>>"Group" (GROUPID);
+
+ALTER TABLE <<schema>>"Group"
+  ADD CONSTRAINT "unique_DESCRIPTION" UNIQUE (DESCRIPTION);

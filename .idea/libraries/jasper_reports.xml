@@ -1,0 +1,44 @@
+<component name="libraryTable">
+  <library name="jasper-reports">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/barcode4j-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-anim.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-awt-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-bridge.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-css.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-dom.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-ext.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-gvt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-parser.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-script.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-svg-dom.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-svggen.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/batik-xml.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/castor-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/commons-beanutils-1.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/commons-collections-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/commons-digester-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/geronimo-stax-api_1.0_spec-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/itext-2.1.7.js1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/jackson-annotations-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/jackson-core-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/jackson-databind-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/jasperreports-4.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/jcommon-1.0.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/jdtcore-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/jfreechart-1.0.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/poi-3.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/poi-ooxml-3.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/poi-ooxml-schemas-3.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/stax-api-1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/xml-apis-1.3.02.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/xml-apis-ext.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasper-reports/xmlbeans-2.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

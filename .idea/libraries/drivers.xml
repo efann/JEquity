@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="drivers">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libraries/drivers/derby.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/drivers/derbyclient.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/drivers/mysql-connector-java-5.1.43-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/drivers/postgresql-42.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,168 @@
+/*
+ * J'EquityFX
+ * Copyright(c) 2008-2017
+ * Original Author: Eddie Fann
+ * License: Eclipse Public License
+ *
+ */
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  Menu Items
+*/
+
+/*
+  File
+*/
+.iconBackup > .label
+{
+  -fx-graphic: url("./images/down.png");
+}
+
+.iconRestore > .label
+{
+  -fx-graphic: url("./images/up.png");
+}
+
+.iconMasterKey > .label
+{
+  -fx-graphic: url("./images/kgpg.png");
+}
+
+.iconPrint > .label
+{
+  -fx-graphic: url("./images/printer1.png");
+}
+
+.iconExport > .label
+{
+  -fx-graphic: url("./images/filesaveas.png");
+}
+
+.iconExit > .label
+{
+  -fx-graphic: url("./images/exit16.png");
+}
+
+/*
+  Data
+*/
+
+.iconGroups > .label
+{
+  -fx-graphic: url("./images/blockdevice16.png");
+}
+
+.iconUpdate > .label
+{
+  -fx-graphic: url("./images/date16.png");
+}
+
+.iconRefresh > .label
+{
+  -fx-graphic: url("./images/reload.png");
+}
+
+/*
+  Tools
+*/
+
+.iconOptions > .label
+{
+  -fx-graphic: url("./images/misc.png");
+}
+
+.iconSampleData > .label
+{
+  -fx-graphic: url("./images/colorpicker.png");
+}
+
+/*
+  Help
+*/
+
+.iconCredits > .label
+{
+  -fx-graphic: url("./images/package_wordprocessing.png");
+}
+
+.iconCheckForUpdates > .label
+{
+  -fx-graphic: url("./images/connect_established16.png");
+}
+
+.iconAbout > .label
+{
+  -fx-graphic: url("./images/hwinfo.png");
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  Alert Dialogs
+*/
+
+.dialog-pane
+{
+  -fx-padding: 10px;
+}
+
+.dialog-pane .button
+{
+  -fx-cursor: hand;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  Hyperlinks
+*/
+
+.hyperlink
+{
+  -fx-underline: false;
+  -fx-text-fill: #870000;
+}
+
+.hyperlink:hover
+{
+  -fx-underline: true;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  TableViews
+*/
+
+.table-view .column-header
+{
+  -fx-cursor: hand;
+}
+
+.table-view .arrow
+{
+  /* Doesn't work */
+  -fx-alignment: baseline-left;
+}
+
+.table-view .column-header .label
+{
+  -fx-alignment: baseline-left;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  About Dialog
+*/
+
+#lblCopyright
+{
+  -fx-font-weight: bold;
+  -fx-padding: 0 0 20px 0;
+  -fx-font-style: italic;
+}
+
+#lnkLicense
+{
+  -fx-padding: 20px 0 0 0;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="com:beowurks:jequityfx:dao:hibernate:apachederby.cfg.xml" />
+          <unit-entry name="com:beowurks:jequityfx:dao:hibernate:mysql5.cfg.xml" />
+          <unit-entry name="com:beowurks:jequityfx:dao:hibernate:postgresql91.cfg.xml" />
+          <unit-entry name="com:beowurks:jequityfx:model:hibernate:apachederby.cfg.xml" />
+          <unit-entry name="com:beowurks:jequityfx:model:hibernate:mysql5.cfg.xml" />
+          <unit-entry name="com:beowurks:jequityfx:model:hibernate:postgresql91.cfg.xml" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/com/beowurks/jequityfx/dao/hibernate/apachederby.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/com/beowurks/jequityfx/dao/hibernate/mysql5.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/com/beowurks/jequityfx/dao/hibernate/postgresql91.cfg.xml" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="libraries" level="project" />
+    <orderEntry type="library" name="jsoup" level="project" />
+    <orderEntry type="library" name="commons-io" level="project" />
+    <orderEntry type="library" name="drivers" level="project" />
+    <orderEntry type="library" name="hibernate" level="project" />
+    <orderEntry type="library" name="jasper-reports" level="project" />
+    <orderEntry type="library" name="flyway" level="project" />
+  </component>
+</module>
