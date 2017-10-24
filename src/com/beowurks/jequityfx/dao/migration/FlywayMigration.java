@@ -7,8 +7,8 @@
  */
 package com.beowurks.jequityfx.dao.migration;
 
-import com.beowurks.jequityfx.main.Main;
 import com.beowurks.jequityfx.dao.hibernate.WhichDatabase;
+import com.beowurks.jequityfx.main.Main;
 import com.beowurks.jequityfx.utility.AppProperties;
 import com.beowurks.jequityfx.utility.Constants;
 import com.beowurks.jequityfx.utility.Misc;

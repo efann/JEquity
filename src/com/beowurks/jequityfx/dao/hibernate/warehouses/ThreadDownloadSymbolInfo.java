@@ -11,7 +11,7 @@ import com.beowurks.jequityfx.dao.hibernate.HibernateUtil;
 import com.beowurks.jequityfx.dao.hibernate.SymbolEntity;
 import com.beowurks.jequityfx.utility.Constants;
 import com.beowurks.jequityfx.utility.Misc;
-import com.beowurks.jequityfx.view.ProgressHandle;
+import com.beowurks.jequityfx.view.misc.ProgressHandle;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.hibernate.Session;

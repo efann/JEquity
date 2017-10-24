@@ -11,6 +11,12 @@
   Menu Items
 */
 
+.menu,
+.menu-item
+{
+  -fx-cursor: hand;
+}
+
 /*
   File
 */
@@ -153,9 +159,8 @@
   About Dialog
 */
 
-#lblCopyright
+#lnkCopyright
 {
-  -fx-font-weight: bold;
   -fx-padding: 0 0 20px 0;
   -fx-font-style: italic;
 }
@@ -163,6 +168,75 @@
 #lnkLicense
 {
   -fx-padding: 20px 0 0 0;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  Main toolbar
+*/
+
+.combo-box
+{
+  -fx-cursor: hand;
+  -fx-pref-width: 300px;
+}
+
+.tool-bar .button
+{
+  -fx-pref-height: 48px;
+  -fx-pref-width: 64px;
+  -fx-cursor: hand;
+}
+
+#btnRefresh
+{
+  -fx-graphic: url("./images/reload.png");
+  -fx-content-display: top;
+}
+
+#btnUpdate
+{
+  -fx-graphic: url("./images/date22.png");
+  -fx-content-display: top;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  Main tabs
+*/
+
+.tab-pane .tab
+{
+  -fx-pref-width: 95px;
+  -fx-cursor: hand;
+}
+
+#tabFinancial > .tab-container > .tab-label
+{
+  -fx-graphic: url("./images/kspread_ksp.png");
+}
+
+#tabDaily > .tab-container > .tab-label
+{
+  -fx-graphic: url("./images/date16.png");
+
+}
+
+#tabReports > .tab-container > .tab-label
+{
+  -fx-graphic: url("./images/kword_kwd.png");
+
+}
+
+#tabHistorical > .tab-container > .tab-label
+{
+  -fx-graphic: url("./images/kchart_chrt.png");
+
+}
+
+#tabGroup > .tab-container > .tab-label
+{
+  -fx-graphic: url("./images/blockdevice16.png");
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/

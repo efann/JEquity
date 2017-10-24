@@ -8,12 +8,13 @@
 
 package com.beowurks.jequityfx.main;
 
+import com.beowurks.jequityfx.controller.MainFormController;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -31,6 +32,8 @@ public class Main extends Application
 
   private static HostServices foHostService;
 
+  private static MainFormController foMainController;
+
   // ---------------------------------------------------------------------------------------------------------------------
   @Override
   public void start(final Stage toPrimaryStage) throws Exception
@@ -40,12 +43,14 @@ public class Main extends Application
 
     Main.initializeEnvironment(this);
 
-    final Parent loRoot = FXMLLoader.load(this.getClass().getResource("/com/beowurks/jequityfx/view/MainForm.fxml"));
+    final BorderPane loLoader = FXMLLoader.load(this.getClass().getResource("/com/beowurks/jequityfx/view/MainForm.fxml"));
+//    Main.foMainController = loLoader.<MainFormController>getController();
+
     toPrimaryStage.setTitle(Main.getApplicationFullName());
 
     final Rectangle2D loScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    toPrimaryStage.setScene(new Scene(loRoot, loScreenBounds.getWidth() * 0.75, loScreenBounds.getHeight() * 0.50));
+    toPrimaryStage.setScene(new Scene(loLoader, loScreenBounds.getWidth() * 0.75, loScreenBounds.getHeight() * 0.50));
     toPrimaryStage.show();
   }
 
@@ -78,6 +83,7 @@ public class Main extends Application
   {
     return (Main.foHostService);
   }
+
   // -----------------------------------------------------------------------------
   public static String getApplicationFullName()
   {
@@ -102,6 +108,11 @@ public class Main extends Application
     return (Main.APPLICATION_DEVELOPMENT);
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  public static MainFormController getController()
+  {
+    return (Main.foMainController);
+  }
   // ---------------------------------------------------------------------------------------------------------------------
   public static void main(final String[] taArgs)
   {

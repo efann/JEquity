@@ -13,7 +13,7 @@ import com.beowurks.jequityfx.dao.hibernate.GroupEntity;
 import com.beowurks.jequityfx.dao.hibernate.HibernateUtil;
 import com.beowurks.jequityfx.utility.Constants;
 import com.beowurks.jequityfx.utility.Misc;
-import com.beowurks.jequityfx.view.ProgressHandle;
+import com.beowurks.jequityfx.view.misc.ProgressHandle;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 import org.hibernate.query.NativeQuery;

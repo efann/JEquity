@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequityfx.view;
+package com.beowurks.jequityfx.view.misc;
 
 import java.util.logging.Logger;
 

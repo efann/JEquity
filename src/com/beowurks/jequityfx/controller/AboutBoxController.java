@@ -24,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.controlsfx.control.HyperlinkLabel;
 
 import java.util.Calendar;
 import java.util.Enumeration;
@@ -34,6 +35,7 @@ import java.util.concurrent.atomic.AtomicLong;
 // ---------------------------------------------------------------------------------------------------------------------
 public class AboutBoxController implements EventHandler<ActionEvent>
 {
+  private final static String JEQUITYFX_COMPANY = "http://www.beowurks.com/";
   private final static String JEQUITYFX_HOME = "http://www.beowurks.com/applications/single/J'Equity";
   private final static String JEQUITYFX_LICENSE = "https://opensource.org/licenses/EPL-1.0";
 
@@ -43,7 +45,7 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   private Hyperlink lnkLogo;
 
   @FXML
-  private Hyperlink lnkLicense;
+  private HyperlinkLabel lnkLicense;
 
   @FXML
   private Hyperlink lnkApplicationName;
@@ -52,7 +54,7 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   private Label lblApplicationVersion;
 
   @FXML
-  private Label lblCopyright;
+  private HyperlinkLabel lnkCopyright;
 
   @FXML
   private TableView tblEnvironment;
@@ -69,14 +71,15 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   @FXML
   public void initialize()
   {
-    this.lnkLicense.setText("Licensed under https://opensource.org/licenses/EPL-1.0");
+    this.lnkLicense.setText("Licensed under the [Eclipse Public License 1.0]");
     this.lnkLicense.setOnAction(this);
 
     this.lnkApplicationName.setText(Main.getApplicationName());
     this.lnkApplicationName.setOnAction(this);
 
     this.lblApplicationVersion.setText(Main.getApplicationVersion());
-    this.lblCopyright.setText(String.format("Copyright© 2008-%d Beowurks. All rights reserved.", Calendar.getInstance().get(Calendar.YEAR)));
+    this.lnkCopyright.setText(String.format("Copyright© 2008-%d [Beowurks]. All rights reserved.", Calendar.getInstance().get(Calendar.YEAR)));
+    this.lnkCopyright.setOnAction(this);
 
     Image loImage = new Image("/com/beowurks/jequityfx/view/images/JEquity.jpg");
     this.lnkLogo.setGraphic(new ImageView(loImage));
@@ -97,10 +100,16 @@ public class AboutBoxController implements EventHandler<ActionEvent>
       if (loHyperLink.getGraphic() == null)
       {
         String lcText = loHyperLink.getText();
-        if (lcText.toLowerCase().indexOf("licensed") != -1)
+
+        if (lcText.toLowerCase().indexOf("license") != -1)
         {
           lcURL = AboutBoxController.JEQUITYFX_LICENSE;
         }
+        else if (lcText.toLowerCase().indexOf("beowurks") != -1)
+        {
+          lcURL = AboutBoxController.JEQUITYFX_COMPANY;
+        }
+
       }
 
       Main.getMainHostServices().showDocument(lcURL);

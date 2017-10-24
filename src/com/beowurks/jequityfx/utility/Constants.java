@@ -7,8 +7,8 @@
  */
 package com.beowurks.jequityfx.utility;
 
-import com.beowurks.jequityfx.main.Main;
 import com.beowurks.jequityfx.dao.combobox.IntegerKeyItem;
+import com.beowurks.jequityfx.main.Main;
 
 import javax.swing.UIManager;
 import java.awt.Color;

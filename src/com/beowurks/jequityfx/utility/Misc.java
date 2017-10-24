@@ -9,6 +9,8 @@ package com.beowurks.jequityfx.utility;
 
 import com.beowurks.jequityfx.main.Main;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -24,6 +26,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
+import org.controlsfx.control.StatusBar;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.events.Event;
+import org.w3c.dom.events.EventListener;
 
 import javax.swing.SwingUtilities;
 import java.awt.Graphics2D;
@@ -170,6 +176,8 @@ public final class Misc
   // ---------------------------------------------------------------------------------------------------------------------
   public static void setStatusText(final String tcMessage)
   {
+    StatusBar loStatus = Main.getController().getStatusBar();
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -293,22 +301,23 @@ public final class Misc
   // ---------------------------------------------------------------------------------------------------------------------
   public static void displayWebContent(final String tcTitle, final String tcValue)
   {
-    final WebView loBrowser = new WebView();
+    final WebView loWebView = new WebView();
+    Misc.setupWebView(loWebView, false);
 
     final String lcInspect = tcValue.toLowerCase();
     if ((lcInspect.startsWith("http://")) || (lcInspect.startsWith("https://")))
     {
-      loBrowser.getEngine().load(tcValue);
+      loWebView.getEngine().load(tcValue);
     }
     else
     {
-      loBrowser.getEngine().loadContent(tcValue);
+      loWebView.getEngine().loadContent(tcValue);
     }
 
     final Alert loAlert = new Alert(AlertType.INFORMATION);
     final DialogPane loDialogPane = loAlert.getDialogPane();
 
-    loDialogPane.setContent(loBrowser);
+    loDialogPane.setContent(loWebView);
     loDialogPane.getStylesheets().add(Misc.ALERT_STYLE_SHEET);
     loAlert.setHeaderText(null);
 
@@ -608,6 +617,48 @@ public final class Misc
       tcString.delete(0, lnLength);
     }
   }
+
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // Unfortunately, WebView is a final class, so I can't create WebBrowser extends WebView. So. . . .
+  // Anyway, from
+  // https://stackoverflow.com/questions/15555510/javafx-stop-opening-url-in-webview-open-in-browser-instead
+  static public void setupWebView(final WebView toWebView, final boolean tlContextMenuEnabled)
+  {
+    toWebView.setContextMenuEnabled(tlContextMenuEnabled);
+
+    // https://stackoverflow.com/questions/12540044/execute-a-task-after-the-webview-is-fully-loaded
+    toWebView.getEngine().getLoadWorker().stateProperty().addListener(
+        (ObservableValue<? extends Worker.State> observable,
+         Worker.State oldValue,
+         Worker.State newValue) -> {
+          if (newValue != Worker.State.SUCCEEDED)
+          {
+            return;
+          }
+
+          final NodeList loNodeList = toWebView.getEngine().getDocument().getElementsByTagName("a");
+          for (int i = 0; i < loNodeList.getLength(); i++)
+          {
+            final org.w3c.dom.Node loNode = loNodeList.item(i);
+            final org.w3c.dom.events.EventTarget loEventTarget = (org.w3c.dom.events.EventTarget) loNode;
+            loEventTarget.addEventListener("click", new EventListener()
+            {
+              @Override
+              public void handleEvent(final Event toEvent)
+              {
+                final org.w3c.dom.events.EventTarget loCurrentTarget = toEvent.getCurrentTarget();
+                final org.w3c.dom.html.HTMLAnchorElement loAnchorElement = (org.w3c.dom.html.HTMLAnchorElement) loCurrentTarget;
+                final String lcHref = loAnchorElement.getHref();
+
+                toEvent.preventDefault();
+                Main.getMainHostServices().showDocument(lcHref);
+              }
+            }, false);
+          }
+        });
+  }
+
 
   // ---------------------------------------------------------------------------------------------------------------------
 }

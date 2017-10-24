@@ -24,7 +24,7 @@
         <option name="title" value="J'EquityFX" />
         <option name="updateMode" value="always" />
         <option name="vendor" value="Beowurks" />
-        <option name="version" value="2017.0.0" />
+        <option name="version" value="2017.0.2" />
       </options>
     </properties>
     <root id="root">
@@ -40,6 +40,7 @@
       <element id="library" level="project" name="hibernate" />
       <element id="library" level="project" name="jasper-reports" />
       <element id="library" level="project" name="jsoup" />
+      <element id="library" level="project" name="controlsfx" />
     </root>
   </artifact>
 </component>

@@ -32,5 +32,6 @@
     <orderEntry type="library" name="hibernate" level="project" />
     <orderEntry type="library" name="jasper-reports" level="project" />
     <orderEntry type="library" name="flyway" level="project" />
+    <orderEntry type="library" name="controlsfx" level="project" />
   </component>
 </module>

@@ -10,17 +10,11 @@ package com.beowurks.jequityfx.view.dialog;
 
 import com.beowurks.jequityfx.main.Main;
 import com.beowurks.jequityfx.utility.Misc;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.Hyperlink;
-import javafx.stage.Screen;
 
-import javax.swing.text.TableView;
 import java.io.IOException;
 
 // ---------------------------------------------------------------------------------------------------------------------

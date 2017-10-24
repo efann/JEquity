@@ -15,6 +15,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.HyperlinkLabel?>
 <GridPane hgap="10"
           vgap="10"
           xmlns="http://javafx.com/javafx/8.0.141"
@@ -27,13 +28,13 @@
 
   <VBox alignment="TOP_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
     <Hyperlink fx:id="lnkLogo" wrapText="false"/>
-    <Hyperlink fx:id="lnkLicense" wrapText="true"/>
+    <HyperlinkLabel fx:id="lnkLicense" />
   </VBox>
 
   <VBox alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
     <Hyperlink fx:id="lnkApplicationName" wrapText="true"/>
     <Label fx:id="lblApplicationVersion"/>
-    <Label fx:id="lblCopyright"/>
+    <HyperlinkLabel fx:id="lnkCopyright"/>
 
     <TableView fx:id="tblEnvironment">
       <columns>

@@ -6,15 +6,13 @@
  *
  */
 
-package com.beowurks.jequityfx.view;
+package com.beowurks.jequityfx.view.misc;
 
 import com.beowurks.jequityfx.main.Main;
-import com.beowurks.jequityfx.utility.AppProperties;
 import com.beowurks.jequityfx.utility.Constants;
 import com.beowurks.jequityfx.utility.Misc;
 import javafx.application.Platform;
 import javafx.scene.Cursor;
-import javafx.scene.control.CheckBox;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
