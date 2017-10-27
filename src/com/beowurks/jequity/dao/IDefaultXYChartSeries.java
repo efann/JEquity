@@ -1,5 +1,5 @@
 /*
- * J'EquityFX
+ * J'Equity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -17,22 +17,22 @@ public interface IDefaultXYChartSeries
 {
 
   // -----------------------------------------------------------------------------
-  public LineChart<java.util.Date, Number> getLineChart();
+  LineChart<java.util.Date, Number> getLineChart();
 
   // -----------------------------------------------------------------------------
-  public XYChart.Series[] getXYDataSeries();
+  XYChart.Series[] getXYDataSeries();
 
   // -----------------------------------------------------------------------------
-  public String getSymbol();
+  String getSymbol();
 
   // -----------------------------------------------------------------------------
-  public String getDescription();
+  String getDescription();
 
   // -----------------------------------------------------------------------------
-  public java.util.Date getStartDate();
+  java.util.Date getStartDate();
 
   // -----------------------------------------------------------------------------
-  public java.util.Date getEndDate();
+  java.util.Date getEndDate();
 
   // -----------------------------------------------------------------------------
 }

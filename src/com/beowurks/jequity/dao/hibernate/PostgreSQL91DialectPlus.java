@@ -1,5 +1,5 @@
 /*
- * J'EquityFX
+ * J'Equity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License

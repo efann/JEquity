@@ -1,5 +1,5 @@
 /*
- * J'EquityFX
+ * J'Equity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -96,7 +96,10 @@ public class Main extends Application
     {
       final HibernateUtil loTemp = HibernateUtil.INSTANCE;
       TimerSymbolInfo.INSTANCE.reSchedule();
+
+      Main.getController().refreshAllComponents();
     });
+
 
   }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ J'EquityFX
+  ~ J'Equity
   ~ Copyright(c) 2008-2017
   ~ Original Author: Eddie Fann
   ~ License: Eclipse Public License
@@ -43,9 +43,8 @@
           </Menu>
           <Menu text="Data">
             <items>
-              <MenuItem fx:id="menuGroups" text="Groups"/>
               <MenuItem fx:id="menuUpdate" text="Update"/>
-              <MenuItem fx:id="menuRefresh" text="Refresh"/>
+              <MenuItem fx:id="menuRefresh" text="Refresh" onAction="#refreshAllComponents"/>
             </items>
           </Menu>
           <Menu text="Tools">
@@ -65,11 +64,11 @@
           </Menu>
         </menus>
       </MenuBar>
-      <HBox alignment="CENTER_LEFT" >
-        <ComboBox fx:id="cboGroup" />
+      <HBox alignment="CENTER_LEFT">
+        <ComboBox fx:id="cboGroup"/>
         <ToolBar>
           <Button fx:id="btnUpdate" text="Update"/>
-          <Button fx:id="btnRefresh" text="Refresh"/>
+          <Button fx:id="btnRefresh" text="Refresh" onAction="#refreshAllComponents"/>
         </ToolBar>
       </HBox>
     </VBox>

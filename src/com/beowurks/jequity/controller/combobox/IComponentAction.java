@@ -1,5 +1,5 @@
 /*
- * J'EquityFX
+ * J'Equity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -14,7 +14,7 @@ public interface IComponentAction
 {
 
   // -----------------------------------------------------------------------------
-  public void performComponentAction(final int tnAction);
+  void performComponentAction(final int tnAction);
   // -----------------------------------------------------------------------------
 
 }
