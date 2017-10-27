@@ -20,32 +20,32 @@
 /*
   File
 */
-.iconBackup > .label
+#menuBackup > .label
 {
   -fx-graphic: url("./images/down.png");
 }
 
-.iconRestore > .label
+#menuRestore > .label
 {
   -fx-graphic: url("./images/up.png");
 }
 
-.iconMasterKey > .label
+#menuMasterKey > .label
 {
   -fx-graphic: url("./images/kgpg.png");
 }
 
-.iconPrint > .label
+#menuPrint > .label
 {
   -fx-graphic: url("./images/printer1.png");
 }
 
-.iconExport > .label
+#menuExport > .label
 {
   -fx-graphic: url("./images/filesaveas.png");
 }
 
-.iconExit > .label
+#menuExit > .label
 {
   -fx-graphic: url("./images/exit16.png");
 }
@@ -54,17 +54,17 @@
   Data
 */
 
-.iconGroups > .label
+#menuGroups > .label
 {
   -fx-graphic: url("./images/blockdevice16.png");
 }
 
-.iconUpdate > .label
+#menuUpdate > .label
 {
   -fx-graphic: url("./images/date16.png");
 }
 
-.iconRefresh > .label
+#menuRefresh > .label
 {
   -fx-graphic: url("./images/reload.png");
 }
@@ -73,12 +73,12 @@
   Tools
 */
 
-.iconOptions > .label
+#menuOptions > .label
 {
   -fx-graphic: url("./images/misc.png");
 }
 
-.iconSampleData > .label
+#menuSampleData > .label
 {
   -fx-graphic: url("./images/colorpicker.png");
 }
@@ -87,17 +87,17 @@
   Help
 */
 
-.iconCredits > .label
+#menuCredits > .label
 {
   -fx-graphic: url("./images/package_wordprocessing.png");
 }
 
-.iconCheckForUpdates > .label
+#menuCheckForUpdates > .label
 {
   -fx-graphic: url("./images/connect_established16.png");
 }
 
-.iconAbout > .label
+#menuAbout > .label
 {
   -fx-graphic: url("./images/hwinfo.png");
 }
@@ -186,18 +186,17 @@
   -fx-pref-height: 48px;
   -fx-pref-width: 64px;
   -fx-cursor: hand;
+  -fx-content-display: top;
 }
 
 #btnRefresh
 {
   -fx-graphic: url("./images/reload.png");
-  -fx-content-display: top;
 }
 
 #btnUpdate
 {
   -fx-graphic: url("./images/date22.png");
-  -fx-content-display: top;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/

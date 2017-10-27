@@ -9,11 +9,10 @@
   -->
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.BorderPane?>
-<?import org.controlsfx.control.StatusBar?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.StatusBar?>
 <BorderPane stylesheets="@Main.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.beowurks.jequityfx.controller.MainFormController">
@@ -23,16 +22,16 @@
         <menus>
           <Menu text="File">
             <items>
-              <MenuItem styleClass="iconBackup" text="Backup"/>
-              <MenuItem styleClass="iconRestore" text="Restore"/>
+              <MenuItem fx:id="menuBackup" text="Backup"/>
+              <MenuItem fx:id="menuRestore" text="Restore"/>
               <SeparatorMenuItem/>
-              <MenuItem styleClass="iconMasterKey" text="Master Key..."/>
+              <MenuItem fx:id="menuMasterKey" text="Master Key..."/>
               <SeparatorMenuItem/>
-              <MenuItem styleClass="iconPrint" text="Print..."/>
+              <MenuItem fx:id="menuPrint" text="Print..."/>
               <SeparatorMenuItem/>
-              <MenuItem styleClass="iconExport" text="Export..."/>
+              <MenuItem fx:id="menuExport" text="Export..."/>
               <SeparatorMenuItem/>
-              <MenuItem fx:id="menuExit" styleClass="iconExit" text="Exit" onAction="#exitApplication"/>
+              <MenuItem fx:id="menuExit" text="Exit" onAction="#exitApplication"/>
             </items>
           </Menu>
           <Menu text="Edit">
@@ -44,24 +43,24 @@
           </Menu>
           <Menu text="Data">
             <items>
-              <MenuItem styleClass="iconGroups" text="Groups"/>
-              <MenuItem styleClass="iconUpdate" text="Update"/>
-              <MenuItem styleClass="iconRefresh" text="Refresh"/>
+              <MenuItem fx:id="menuGroups" text="Groups"/>
+              <MenuItem fx:id="menuUpdate" text="Update"/>
+              <MenuItem fx:id="menuRefresh" text="Refresh"/>
             </items>
           </Menu>
           <Menu text="Tools">
             <items>
-              <MenuItem styleClass="iconOptions" text="Options..."/>
+              <MenuItem fx:id="menuOptions" text="Options..."/>
               <SeparatorMenuItem/>
-              <MenuItem styleClass="iconSampleData" text="Sample Data..."/>
+              <MenuItem fx:id="menuSampleData" text="Sample Data..."/>
             </items>
           </Menu>
           <Menu text="Help">
             <items>
-              <MenuItem styleClass="iconCredits" text="Credits" onAction="#showCredits"/>
-              <MenuItem styleClass="iconCheckForUpdates" text="Check for Updates..." onAction="#showUpdates"/>
+              <MenuItem fx:id="menuCredits" text="Credits" onAction="#showCredits"/>
+              <MenuItem fx:id="menuCheckForUpdates" text="Check for Updates..." onAction="#showUpdates"/>
               <SeparatorMenuItem/>
-              <MenuItem styleClass="iconAbout" text="About" onAction="#showAbout"/>
+              <MenuItem fx:id="menuAbout" text="About" onAction="#showAbout"/>
             </items>
           </Menu>
         </menus>

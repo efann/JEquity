@@ -13,7 +13,6 @@ import com.beowurks.jequityfx.dao.hibernate.GroupEntity;
 import com.beowurks.jequityfx.dao.hibernate.HibernateUtil;
 import com.beowurks.jequityfx.utility.Constants;
 import com.beowurks.jequityfx.utility.Misc;
-import com.beowurks.jequityfx.view.misc.ProgressHandle;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 import org.hibernate.query.NativeQuery;
@@ -122,8 +121,7 @@ public class ThreadRestore implements Runnable
         final int lnRows = loRecordsList.getLength();
 
         // Must be initialized each time.
-        final ProgressHandle loProgressHandle = ProgressHandle.createHandle("Restoring");
-        loProgressHandle.start(lnRows);
+        Misc.setStatusText("Restoring. . . .", 0.0);
 
         PreparedStatement loPreparedStatement = null;
         try
@@ -205,8 +203,7 @@ public class ThreadRestore implements Runnable
               }
             }
 
-            Misc.setStatusText(String.format("Restoring %s: %s. . . .", lcGroupDescription, loEntity.getDescription()));
-            loProgressHandle.progress(lnRow);
+            Misc.setStatusText(String.format("Restoring %s: %s. . . .", lcGroupDescription, loEntity.getDescription()), lnRow / lnRows);
 
             loPreparedStatement.setInt(1, loEntity.getGroupID());
             loPreparedStatement.setString(2, loEntity.getDescription());
@@ -243,8 +240,7 @@ public class ThreadRestore implements Runnable
           }
         }
 
-        loProgressHandle.finish();
-
+        Misc.setStatusText("Restoration complete.",0.0);
       }
     });
 

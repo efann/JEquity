@@ -8,9 +8,15 @@
 
 package com.beowurks.jequityfx.main;
 
+
 import com.beowurks.jequityfx.controller.MainFormController;
+import com.beowurks.jequityfx.dao.hibernate.HibernateUtil;
+import com.beowurks.jequityfx.dao.hibernate.warehouses.TimerSymbolInfo;
+import com.beowurks.jequityfx.utility.AppProperties;
+import com.beowurks.jequityfx.utility.Misc;
 import javafx.application.Application;
 import javafx.application.HostServices;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -27,7 +33,7 @@ public class Main extends Application
   private static Stage PRIMARY_STAGE = null;
 
   private static boolean APPLICATION_DEVELOPMENT = true;
-  private static String APPLICATION_TITLE = "J'Equity Fx Dev";
+  private static String APPLICATION_TITLE = "J'Equity";
   private static String APPLICATION_VERSION = "(Development Version)";
 
   private static HostServices foHostService;
@@ -43,15 +49,29 @@ public class Main extends Application
 
     Main.initializeEnvironment(this);
 
-    final BorderPane loLoader = FXMLLoader.load(this.getClass().getResource("/com/beowurks/jequityfx/view/MainForm.fxml"));
-//    Main.foMainController = loLoader.<MainFormController>getController();
+    final FXMLLoader loLoader = new FXMLLoader(this.getClass().getResource("/com/beowurks/jequityfx/view/MainForm.fxml"));
+
+    // loLoader.load must be run before obtaining the controller, which kind of makes sense.
+    final BorderPane loBorderPane = loLoader.load();
+
+    Main.foMainController = loLoader.getController();
 
     toPrimaryStage.setTitle(Main.getApplicationFullName());
 
     final Rectangle2D loScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    toPrimaryStage.setScene(new Scene(loLoader, loScreenBounds.getWidth() * 0.75, loScreenBounds.getHeight() * 0.50));
+    toPrimaryStage.setScene(new Scene(loBorderPane, loScreenBounds.getWidth() * 0.75, loScreenBounds.getHeight() * 0.50));
     toPrimaryStage.show();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @Override
+  public void stop()
+  {
+    AppProperties.INSTANCE.writeProperties();
+    Misc.cleanFilesFromTemporaryDirectories();
+
+    System.exit(0);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -69,6 +89,14 @@ public class Main extends Application
       Main.APPLICATION_TITLE = lcTitle;
       Main.APPLICATION_VERSION = lcVersion;
     }
+
+    Misc.makeAllTemporaryDirectories();
+
+    Platform.runLater(() ->
+    {
+      final HibernateUtil loTemp = HibernateUtil.INSTANCE;
+      TimerSymbolInfo.INSTANCE.reSchedule();
+    });
 
   }
 
@@ -113,11 +141,13 @@ public class Main extends Application
   {
     return (Main.foMainController);
   }
+
   // ---------------------------------------------------------------------------------------------------------------------
   public static void main(final String[] taArgs)
   {
     Main.launch(taArgs);
   }
+
   // ---------------------------------------------------------------------------------------------------------------------
 
 }

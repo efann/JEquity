@@ -16,17 +16,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.Tooltip;
 import javafx.stage.WindowEvent;
-import javafx.util.Duration;
 import org.controlsfx.control.StatusBar;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -104,12 +99,12 @@ private ComboBox cboGroup;
 
   // ---------------------------------------------------------------------------------------------------------------------
   @Override
-  public void handle(WindowEvent toEvent)
+  public void handle(final WindowEvent toEvent)
   {
-    Object loSource = toEvent.getSource();
+    final Object loSource = toEvent.getSource();
     if (loSource instanceof Tooltip)
     {
-      String lcText = ((Tooltip) loSource).getText();
+      final String lcText = ((Tooltip) loSource).getText();
       this.statusBar.setText(lcText);
     }
 

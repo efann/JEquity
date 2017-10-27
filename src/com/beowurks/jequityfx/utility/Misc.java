@@ -176,8 +176,54 @@ public final class Misc
   // ---------------------------------------------------------------------------------------------------------------------
   public static void setStatusText(final String tcMessage)
   {
-    StatusBar loStatus = Main.getController().getStatusBar();
+    final StatusBar loStatus = Main.getController().getStatusBar();
 
+    if (Platform.isFxApplicationThread())
+    {
+      loStatus.setText(tcMessage);
+    }
+    else
+    {
+      Platform.runLater(() -> {
+        loStatus.setText(tcMessage);
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public static void setStatusText(final String tcMessage, final double tnProgress)
+  {
+    final StatusBar loStatus = Main.getController().getStatusBar();
+
+    if (Platform.isFxApplicationThread())
+    {
+      loStatus.setText(tcMessage);
+      loStatus.setProgress(tnProgress);
+    }
+    else
+    {
+      Platform.runLater(() -> {
+        loStatus.setText(tcMessage);
+        loStatus.setProgress(tnProgress);
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public static void setStatusText(final double tnProgress)
+  {
+    final StatusBar loStatus = Main.getController().getStatusBar();
+
+    if (Platform.isFxApplicationThread())
+    {
+      loStatus.setProgress(tnProgress);
+    }
+    else
+    {
+      Platform.runLater(() -> {
+        loStatus.setProgress(tnProgress);
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -266,6 +312,23 @@ public final class Misc
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public static boolean yesNo(final String tcMessage)
+  {
+    if (!Platform.isFxApplicationThread())
+    {
+      Misc.errorMessage("Misc.yesNo should only be run in the JavaFX thread as it needs to return an answer.");
+      return (false);
+    }
+
+    final ButtonType loYes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+    final ButtonType loNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+    final Optional<ButtonType> loResult = Misc.baseAlert(tcMessage, "Question", AlertType.CONFIRMATION, loYes, loNo);
+
+    return (loResult.isPresent() && (loResult.get() == loYes));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   // From http://code.makery.ch/blog/javafx-dialogs-official/
   public static void showStackTraceInMessage(final Exception toException, final String tcTitle)
   {
@@ -287,15 +350,19 @@ public final class Misc
     loGridPane.setMaxWidth(Double.MAX_VALUE);
     loGridPane.add(loTextArea, 0, 1);
 
-    final Alert loAlert = new Alert(AlertType.ERROR);
-    final DialogPane loDialogPane = loAlert.getDialogPane();
-    loDialogPane.getStylesheets().add(Misc.ALERT_STYLE_SHEET);
-    loDialogPane.setExpandableContent(loGridPane);
+    final AlertType lnAlertType = AlertType.ERROR;
 
-    loAlert.setTitle(tcTitle);
-    loAlert.initOwner(Main.getPrimaryStage());
+    if (Platform.isFxApplicationThread())
+    {
+      Misc.baseAlert(loGridPane, tcTitle, lnAlertType);
+    }
+    else
+    {
+      Platform.runLater(() -> {
+        Misc.baseAlert(loGridPane, tcTitle, lnAlertType);
+      });
+    }
 
-    loAlert.showAndWait();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -314,65 +381,94 @@ public final class Misc
       loWebView.getEngine().loadContent(tcValue);
     }
 
-    final Alert loAlert = new Alert(AlertType.INFORMATION);
-    final DialogPane loDialogPane = loAlert.getDialogPane();
+    final AlertType lnAlertType = AlertType.INFORMATION;
 
-    loDialogPane.setContent(loWebView);
-    loDialogPane.getStylesheets().add(Misc.ALERT_STYLE_SHEET);
-    loAlert.setHeaderText(null);
+    if (Platform.isFxApplicationThread())
+    {
+      Misc.baseAlert(loWebView, tcTitle, lnAlertType);
+    }
+    else
+    {
+      Platform.runLater(() -> {
+        Misc.baseAlert(loWebView, tcTitle, lnAlertType);
+      });
+    }
 
-    loAlert.setTitle(tcTitle);
-    loAlert.initOwner(Main.getPrimaryStage());
-
-    loAlert.showAndWait();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public static void infoMessage(final String tcMessage)
   {
-    final ButtonType loOkay = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-    final Alert loAlert = new Alert(AlertType.INFORMATION, tcMessage, loOkay);
+    final String lcTitle = "Information";
+    final AlertType lnAlertType = AlertType.INFORMATION;
 
-    loAlert.getDialogPane().getStylesheets().add(Misc.ALERT_STYLE_SHEET);
-
-    loAlert.setTitle("Information");
-    loAlert.initOwner(Main.getPrimaryStage());
-
-    loAlert.showAndWait();
+    if (Platform.isFxApplicationThread())
+    {
+      Misc.baseAlert(tcMessage, lcTitle, lnAlertType);
+    }
+    else
+    {
+      Platform.runLater(() -> {
+        Misc.baseAlert(tcMessage, lcTitle, lnAlertType);
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public static void errorMessage(final String tcMessage)
   {
-    final ButtonType loOkay = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-    final Alert loAlert = new Alert(AlertType.ERROR, tcMessage, loOkay);
+    final String lcTitle = "Error Message";
+    final AlertType lnAlertType = AlertType.ERROR;
 
-    loAlert.getDialogPane().getStylesheets().add(Misc.ALERT_STYLE_SHEET);
-
-    loAlert.setTitle("Error Message");
-    loAlert.initOwner(Main.getPrimaryStage());
-
-    loAlert.showAndWait();
+    if (Platform.isFxApplicationThread())
+    {
+      Misc.baseAlert(tcMessage, lcTitle, lnAlertType);
+    }
+    else
+    {
+      Platform.runLater(() -> {
+        Misc.baseAlert(tcMessage, lcTitle, lnAlertType);
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public static boolean yesNo(final String tcMessage)
+  private static Optional<ButtonType> baseAlert(final Object toContent, final String tcTitle, final AlertType tnAlertType, final ButtonType... toButtonType)
   {
-    final ButtonType loYes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-    final ButtonType loNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-    final Alert loAlert = new Alert(AlertType.CONFIRMATION, tcMessage, loYes, loNo);
+    final Alert loAlert = new Alert(tnAlertType);
+    loAlert.setHeaderText(null);
 
-    loAlert.getDialogPane().getStylesheets().add(Misc.ALERT_STYLE_SHEET);
+    final DialogPane loDialogPane = loAlert.getDialogPane();
 
-    loAlert.setTitle("Question");
+    loDialogPane.getStylesheets().add(Misc.ALERT_STYLE_SHEET);
+    if ((toButtonType != null) && (toButtonType.length > 0))
+    {
+      loDialogPane.getButtonTypes().clear();
+      for (final ButtonType loType : toButtonType)
+      {
+        loDialogPane.getButtonTypes().addAll(loType);
+      }
+    }
+
+    if (toContent instanceof String)
+    {
+      loDialogPane.setContentText((String) toContent);
+    }
+    else if (toContent instanceof Node)
+    {
+      loDialogPane.setContent((Node) toContent);
+    }
+
+    loAlert.setTitle(tcTitle);
     loAlert.initOwner(Main.getPrimaryStage());
 
     final Optional<ButtonType> loResult = loAlert.showAndWait();
 
-    return (loResult.isPresent() && (loResult.get() == loYes));
+    return (loResult);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+
   public static String includeTrailingBackslash(final String tcFileName)
   {
     final String lcSeparator = File.separator;

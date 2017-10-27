@@ -11,7 +11,6 @@ import com.beowurks.jequityfx.dao.hibernate.HibernateUtil;
 import com.beowurks.jequityfx.dao.hibernate.SymbolEntity;
 import com.beowurks.jequityfx.utility.Constants;
 import com.beowurks.jequityfx.utility.Misc;
-import com.beowurks.jequityfx.view.misc.ProgressHandle;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.hibernate.Session;
@@ -105,11 +104,11 @@ public class ThreadDownloadSymbolInfo implements Runnable
         try
         {
           final String lcDelete = String.format("DELETE FROM %s WHERE symbol NOT IN (SELECT DISTINCT symbol FROM %s WHERE symbol <> ' ')",
-                  lcSymbolTable, lcFinancialTable);
+              lcSymbolTable, lcFinancialTable);
           final String lcInsert = String.format("INSERT INTO %s (Symbol) SELECT DISTINCT f.symbol FROM %s "
                   + "f LEFT JOIN %s "
                   + "s ON f.symbol = s.symbol WHERE (s.symbol IS NULL) AND (f.symbol <> ' ')",
-                  lcSymbolTable, lcFinancialTable, lcSymbolTable);
+              lcSymbolTable, lcFinancialTable, lcSymbolTable);
 
           loStatement = toConnection.createStatement();
 
@@ -149,16 +148,14 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
     final String lcSQL = String.format("SELECT * FROM %s ORDER BY symbol", loHibernate.getTableSymbol());
     final NativeQuery loQuery = loSession.createNativeQuery(lcSQL)
-            .addEntity(SymbolEntity.class);
+        .addEntity(SymbolEntity.class);
 
     final List<SymbolEntity> loList = loQuery.list();
 
     final int lnTotal = loList.size();
 
     // Must be initialized each time.
-    final ProgressHandle loProgressHandle = ProgressHandle.createHandle("Downloading");
-
-    loProgressHandle.start(lnTotal);
+    Misc.setStatusText("Downloading. . . .", 0.0);
 
     for (final SymbolEntity loSymbol : loList)
     {
@@ -173,9 +170,9 @@ public class ThreadDownloadSymbolInfo implements Runnable
         // If you don't use the multiple parameters of the URL constructor, then an unknown protocol
         // error will be thrown because of the c parameter.
         final URL loURL = new URL(Constants.YAHOO_SYMBOL_PROTOCOL,
-                Constants.YAHOO_SYMBOL_HOST,
-                Constants.YAHOO_SYMBOL_PORT,
-                this.buildSymbolHTMLFile(lcSymbol));
+            Constants.YAHOO_SYMBOL_HOST,
+            Constants.YAHOO_SYMBOL_PORT,
+            this.buildSymbolHTMLFile(lcSymbol));
 
         final File loFile = new File(lcSymbolFile);
 
@@ -201,12 +198,12 @@ public class ThreadDownloadSymbolInfo implements Runnable
         Misc.setStatusText(String.format("Successfully imported %s's daily information", lcSymbol));
       }
 
-      loProgressHandle.progress(loList.indexOf(loSymbol));
+      Misc.setStatusText(loList.indexOf(loSymbol) / lnTotal);
     }
 
     loSession.close();
 
-    loProgressHandle.finish();
+    Misc.setStatusText("Daily information imported. . . .", 0.0);
 
   }
 

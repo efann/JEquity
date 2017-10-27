@@ -17,7 +17,7 @@
     <!--    
             From https://docs.jboss.org/hibernate/orm/5.0/javadocs/org/hibernate/dialect/package-summary.html
     -->    
-    <property name="hibernate.dialect">com.beowurks.jequity.global.hibernate.PostgreSQL91DialectPlus</property>
+    <property name="hibernate.dialect">com.beowurks.jequityfx.dao.hibernate.PostgreSQL91DialectPlus</property>
 
     <property name="hibernate.show_sql">false</property>
     <property name="hibernate.format_sql">false</property>
@@ -48,9 +48,9 @@
     -->
     <property name="hibernate.hbm2ddl.auto">none</property>
 
-    <mapping class="com.beowurks.jequity.global.hibernate.FinancialEntity"/>
-    <mapping class="com.beowurks.jequity.global.hibernate.GroupEntity"/>
-    <mapping class="com.beowurks.jequity.global.hibernate.SymbolEntity"/>
+    <mapping class="com.beowurks.jequityfx.dao.hibernate.FinancialEntity"/>
+    <mapping class="com.beowurks.jequityfx.dao.hibernate.GroupEntity"/>
+    <mapping class="com.beowurks.jequityfx.dao.hibernate.SymbolEntity"/>
 
   </session-factory>
 </hibernate-configuration>

@@ -122,7 +122,7 @@ public final class HibernateUtil
         }
 
         final Configuration loConfiguration = new Configuration();
-        loConfiguration.configure("com/beowurks/jequity/global/hibernate/" + lcCfgFile + ".cfg.xml");
+        loConfiguration.configure(String.format("/com/beowurks/jequityfx/dao/hibernate/%s.cfg.xml", lcCfgFile));
 
         Misc.setStatusText(String.format("Reading config file for %s. . . .", lcDescription));
 
@@ -250,7 +250,7 @@ public final class HibernateUtil
     }
     catch (final Exception loErr)
     {
-      Misc.showStackTraceInMessage( loErr, "Insert Row Error");
+      Misc.showStackTraceInMessage(loErr, "Insert Row Error");
 
       try
       {
@@ -261,7 +261,7 @@ public final class HibernateUtil
       }
       catch (final RuntimeException loRuntimeErr)
       {
-        Misc.showStackTraceInMessage( loRuntimeErr, "Rollback Error");
+        Misc.showStackTraceInMessage(loRuntimeErr, "Rollback Error");
       }
     }
 
@@ -299,7 +299,7 @@ public final class HibernateUtil
       }
       catch (final RuntimeException loRuntimeErr)
       {
-        Misc.showStackTraceInMessage( loRuntimeErr, "Rollback Error");
+        Misc.showStackTraceInMessage(loRuntimeErr, "Rollback Error");
       }
     }
 
@@ -352,10 +352,10 @@ public final class HibernateUtil
       }
       catch (final RuntimeException loRuntimeErr)
       {
-        Misc.showStackTraceInMessage( loRuntimeErr, "Rollback Error");
+        Misc.showStackTraceInMessage(loRuntimeErr, "Rollback Error");
       }
 
-      Misc.showStackTraceInMessage( loErr, "Delete Row Error");
+      Misc.showStackTraceInMessage(loErr, "Delete Row Error");
     }
 
     loSession.close();

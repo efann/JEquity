@@ -81,7 +81,7 @@ public class AboutBoxController implements EventHandler<ActionEvent>
     this.lnkCopyright.setText(String.format("Copyright© 2008-%d [Beowurks]. All rights reserved.", Calendar.getInstance().get(Calendar.YEAR)));
     this.lnkCopyright.setOnAction(this);
 
-    Image loImage = new Image("/com/beowurks/jequityfx/view/images/JEquity.jpg");
+    final Image loImage = new Image("/com/beowurks/jequityfx/view/images/JEquity.jpg");
     this.lnkLogo.setGraphic(new ImageView(loImage));
     this.lnkLogo.setOnAction(this);
 
@@ -89,17 +89,17 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void handle(ActionEvent toEvent)
+  public void handle(final ActionEvent toEvent)
   {
-    Object loSource = toEvent.getSource();
+    final Object loSource = toEvent.getSource();
     if (loSource instanceof Hyperlink)
     {
-      Hyperlink loHyperLink = (Hyperlink) loSource;
+      final Hyperlink loHyperLink = (Hyperlink) loSource;
       String lcURL = AboutBoxController.JEQUITYFX_HOME;
       // If not a graphic image. . . .
       if (loHyperLink.getGraphic() == null)
       {
-        String lcText = loHyperLink.getText();
+        final String lcText = loHyperLink.getText();
 
         if (lcText.toLowerCase().indexOf("license") != -1)
         {
@@ -158,13 +158,13 @@ public class AboutBoxController implements EventHandler<ActionEvent>
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/14650787/javafx-column-in-tableview-auto-fit-size
-  private void customResize(TableView<?> toTableView)
+  private void customResize(final TableView<?> toTableView)
   {
-    AtomicLong loWidth = new AtomicLong();
+    final AtomicLong loWidth = new AtomicLong();
     toTableView.getColumns().forEach(loColumn -> {
       loWidth.addAndGet((long) loColumn.getWidth());
     });
-    double lnTableWidth = toTableView.getWidth();
+    final double lnTableWidth = toTableView.getWidth();
 
     if (lnTableWidth > loWidth.get())
     {
