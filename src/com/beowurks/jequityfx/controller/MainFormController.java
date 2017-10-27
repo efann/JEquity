@@ -8,7 +8,9 @@
 
 package com.beowurks.jequityfx.controller;
 
+import com.beowurks.jequityfx.dao.hibernate.backuprestore.ThreadRestore;
 import com.beowurks.jequityfx.main.Main;
+import com.beowurks.jequityfx.utility.Constants;
 import com.beowurks.jequityfx.utility.Misc;
 import com.beowurks.jequityfx.view.dialog.AboutDialog;
 import com.beowurks.jequityfx.view.misc.CheckForUpdates;
@@ -21,7 +23,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.Tooltip;
 import javafx.stage.WindowEvent;
+import org.apache.commons.io.FileUtils;
 import org.controlsfx.control.StatusBar;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -46,8 +53,8 @@ public class MainFormController implements EventHandler<WindowEvent>
   @FXML
   private Button btnRefresh;
 
-@FXML
-private ComboBox cboGroup;
+  @FXML
+  private ComboBox cboGroup;
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
@@ -95,6 +102,32 @@ private ComboBox cboGroup;
   {
     final AboutDialog loDialog = new AboutDialog();
     loDialog.showAndWait();
+  }
+
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
+  private void downloadSampleData()
+  {
+    if (Misc.yesNo("Do you want to add the Sample Data?\n\nBy the way, you can always remove this set at a later time."))
+    {
+      try
+      {
+        final URL loURL = new URL(Constants.SAMPLE_DATA_URL);
+        final File loFile = new File(Constants.SAMPLE_DATA_TEMPFILE);
+
+        FileUtils.copyURLToFile(loURL, loFile, 3000, 3000);
+
+        ThreadRestore.INSTANCE.start(loFile);
+      }
+      catch (IOException loErr)
+      {
+        Misc.errorMessage(String.format("There was a problem downloading %s.\n\n%s\n\nPlease try again later.",
+            Constants.SAMPLE_DATA_URL,
+            loErr.getMessage()));
+      }
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

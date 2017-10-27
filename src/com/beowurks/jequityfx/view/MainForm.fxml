@@ -52,7 +52,7 @@
             <items>
               <MenuItem fx:id="menuOptions" text="Options..."/>
               <SeparatorMenuItem/>
-              <MenuItem fx:id="menuSampleData" text="Sample Data..."/>
+              <MenuItem fx:id="menuSampleData" text="Sample Data..." onAction="#downloadSampleData"/>
             </items>
           </Menu>
           <Menu text="Help">

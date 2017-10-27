@@ -8,6 +8,7 @@
 package com.beowurks.jequityfx.utility;
 
 import com.beowurks.jequityfx.dao.combobox.IntegerKeyItem;
+import com.beowurks.jequityfx.main.Main;
 import com.beowurks.jequityfx.view.dialog.PasswordDialog;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
@@ -285,7 +286,11 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------
   public boolean getFlywayAlwaysCheck()
   {
-    return (this.getProperty(Constants.FLYWAY_ALWAYS_CHECK, false));
+    // When developing, sometimes I delete the entire databsae which will then need
+    // to be regenerated. This will not happen, if I set a default value of false as
+    // loAppProp.getFlywaySuccessfulJEquityVersion().compareTo(Main.getApplicationFullName()) != 0) will be equal
+    // after the first time . . . unless I remember to also delete <user>.Properties.
+    return (this.getProperty(Constants.FLYWAY_ALWAYS_CHECK, Main.isDevelopmentEnvironment()));
   }
 
   // -----------------------------------------------------------------------------
