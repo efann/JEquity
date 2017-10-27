@@ -22,7 +22,7 @@
     <format property="buildtime.isoformat" pattern="yyyy-MM-dd HH:mm:ss"/>
   </tstamp>
 
-  <loadfile property="Beo.artifact.xml" srcfile="${src}/.idea/artifacts/JEquityFX.xml"/>
+  <loadfile property="Beo.artifact.xml" srcfile="${src}/.idea/artifacts/JEquity.xml"/>
 
   <target depends="extractXMLValues,buildManifest" name="build"/>
 

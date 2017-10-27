@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ J'EquityFX
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.StatusBar?>
+<BorderPane stylesheets="@Main.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.beowurks.jequity.controller.MainFormController">
+  <top>
+    <VBox>
+      <MenuBar fx:id="menuBar">
+        <menus>
+          <Menu text="File">
+            <items>
+              <MenuItem fx:id="menuBackup" text="Backup"/>
+              <MenuItem fx:id="menuRestore" text="Restore"/>
+              <SeparatorMenuItem/>
+              <MenuItem fx:id="menuMasterKey" text="Master Key..."/>
+              <SeparatorMenuItem/>
+              <MenuItem fx:id="menuPrint" text="Print..."/>
+              <SeparatorMenuItem/>
+              <MenuItem fx:id="menuExport" text="Export..."/>
+              <SeparatorMenuItem/>
+              <MenuItem fx:id="menuExit" text="Exit" onAction="#exitApplication"/>
+            </items>
+          </Menu>
+          <Menu text="Edit">
+            <items>
+              <MenuItem text="Copy"/>
+              <MenuItem text="Cut"/>
+              <MenuItem text="Paste"/>
+            </items>
+          </Menu>
+          <Menu text="Data">
+            <items>
+              <MenuItem fx:id="menuGroups" text="Groups"/>
+              <MenuItem fx:id="menuUpdate" text="Update"/>
+              <MenuItem fx:id="menuRefresh" text="Refresh"/>
+            </items>
+          </Menu>
+          <Menu text="Tools">
+            <items>
+              <MenuItem fx:id="menuOptions" text="Options..."/>
+              <SeparatorMenuItem/>
+              <MenuItem fx:id="menuSampleData" text="Sample Data..." onAction="#downloadSampleData"/>
+            </items>
+          </Menu>
+          <Menu text="Help">
+            <items>
+              <MenuItem fx:id="menuCredits" text="Credits" onAction="#showCredits"/>
+              <MenuItem fx:id="menuCheckForUpdates" text="Check for Updates..." onAction="#showUpdates"/>
+              <SeparatorMenuItem/>
+              <MenuItem fx:id="menuAbout" text="About" onAction="#showAbout"/>
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <HBox alignment="CENTER_LEFT" >
+        <ComboBox fx:id="cboGroup" />
+        <ToolBar>
+          <Button fx:id="btnUpdate" text="Update"/>
+          <Button fx:id="btnRefresh" text="Refresh"/>
+        </ToolBar>
+      </HBox>
+    </VBox>
+  </top>
+  <center>
+    <TabPane>
+      <Tab fx:id="tabFinancial" text="Financial" closable="false"/>
+      <Tab fx:id="tabDaily" text="Daily" closable="false"/>
+      <Tab fx:id="tabReports" text="Reports" closable="false"/>
+      <Tab fx:id="tabHistorical" text="Historical" closable="false"/>
+      <Tab fx:id="tabGroup" text="Group" closable="false"/>
+    </TabPane>
+  </center>
+  <bottom>
+    <StatusBar fx:id="statusBar" text="Welcome to J'EquityFX" progress="0.0"></StatusBar>
+  </bottom>
+</BorderPane>

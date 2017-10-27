@@ -1,0 +1,46 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="JEquity">
+    <output-path>$PROJECT_DIR$/out/artifacts/JEquity</output-path>
+    <properties id="ant-preprocessing">
+      <options enabled="true">
+        <file>file://$PROJECT_DIR$/src/ManifestUpdate.xml</file>
+        <target>build</target>
+      </options>
+    </properties>
+    <properties id="javafx-properties">
+      <options>
+        <option name="alias" value="" />
+        <option name="appClass" value="com.beowurks.jequityfx.main.Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="windowsIcon" value="$PROJECT_DIR$/Icons/JEquity.ico" />
+          </JavaFxApplicationIcons>
+        </option>
+        <option name="keystore" value="" />
+        <option name="nativeBundle" value="all" />
+        <option name="selfSigning" value="false" />
+        <option name="title" value="J'EquityFX" />
+        <option name="updateMode" value="always" />
+        <option name="vendor" value="Beowurks" />
+        <option name="version" value="2017.0.2" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="JEquityFX.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="JEquityFX" />
+      </element>
+      <element id="library" level="project" name="commons-io" />
+      <element id="library" level="project" name="drivers" />
+      <element id="library" level="project" name="flyway" />
+      <element id="library" level="project" name="hibernate" />
+      <element id="library" level="project" name="jasper-reports" />
+      <element id="library" level="project" name="jsoup" />
+      <element id="library" level="project" name="controlsfx" />
+    </root>
+  </artifact>
+</component>
