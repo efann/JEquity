@@ -62,18 +62,19 @@ public final class HibernateUtil
   private Integer fnGroupID = Constants.UNINITIALIZED;
   private Integer fnFinancialID = Constants.UNINITIALIZED;
 
+  private boolean flInitializationSuccess = false;
+
   // -----------------------------------------------------------------------------
   private HibernateUtil()
   {
     if (AppProperties.INSTANCE.isSuccessfullyRead())
     {
-      boolean llOkay = false;
       if (FlywayMigration.INSTANCE.migrate())
       {
         if (this.initializeHibernate())
         {
           this.setupVariables();
-          llOkay = true;
+          this.flInitializationSuccess = true;
         }
       }
 
@@ -153,6 +154,11 @@ public final class HibernateUtil
     return (llOkay);
   }
 
+  // -----------------------------------------------------------------------------
+  public boolean initializeSuccess()
+  {
+    return (this.flInitializationSuccess);
+  }
   // -----------------------------------------------------------------------------
   private void setupVariables()
   {

@@ -94,10 +94,12 @@ public class Main extends Application
 
     Platform.runLater(() ->
     {
-      final HibernateUtil loTemp = HibernateUtil.INSTANCE;
-      TimerSymbolInfo.INSTANCE.reSchedule();
+      if (HibernateUtil.INSTANCE.initializeSuccess())
+      {
+        TimerSymbolInfo.INSTANCE.reSchedule();
 
-      Main.getController().refreshAllComponents();
+        Main.getController().refreshAllComponents();
+      }
     });
 
 
