@@ -12,14 +12,18 @@ import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.backuprestore.ThreadRestore;
-import com.beowurks.jequity.dao.hibernate.warehouses.TimerSymbolInfo;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.dialog.AboutDialog;
+import com.beowurks.jequity.view.jasperreports.JRViewerBase;
 import com.beowurks.jequity.view.misc.CheckForUpdates;
-import com.sun.media.jfxmedia.events.PlayerStateEvent;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingNode;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -28,19 +32,30 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
 import javafx.stage.WindowEvent;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.commons.io.FileUtils;
 import org.controlsfx.control.StatusBar;
 import org.hibernate.Session;
+import org.hibernate.jdbc.Work;
 import org.hibernate.query.NativeQuery;
 
+import javax.swing.SwingUtilities;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -58,6 +73,21 @@ public class MainFormController implements EventHandler<WindowEvent>
   private StatusBar statusBar;
 
   @FXML
+  private TabPane tabPane;
+
+  @FXML
+  private Tab tabFinancial;
+
+  @FXML
+  private Tab tabDaily;
+
+  @FXML
+  private Tab tabReports;
+
+  @FXML
+  private Tab tabHistorical;
+
+  @FXML
   private Tab tabGroup;
 
   @FXML
@@ -69,6 +99,12 @@ public class MainFormController implements EventHandler<WindowEvent>
   @FXML
   private ComboBox<IntegerKeyItem> cboGroup;
 
+  @FXML
+  private SwingNode rptSwingNode;
+
+  private JasperPrint foJPSummary;
+  private JRViewerBase foJRViewerSummary;
+
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
   @FXML
@@ -79,6 +115,29 @@ public class MainFormController implements EventHandler<WindowEvent>
     this.btnUpdate.setTooltip(new Tooltip("Update the daily stock information"));
 
     this.cboGroup.setTooltip(new Tooltip("Select the current group to display"));
+
+    this.tabPane.getSelectionModel().selectedItemProperty().addListener(
+        (toObservableValue, toPrevious, toCurrent) -> {
+          if (toCurrent == MainFormController.this.tabReports)
+          {
+            System.err.println("Refreshing reports");
+            MainFormController.this.refreshReport();
+          }
+        }
+    );
+
+    this.cboGroup.getSelectionModel().selectedItemProperty().addListener(
+        (toObservableValue, toPrevious, toCurrent) -> {
+          System.err.println("hello");
+          if (toCurrent != null)
+          {
+            System.err.println(toCurrent.getKey());
+            System.err.println(toCurrent.getDescription());
+            HibernateUtil.INSTANCE.setGroupID(toCurrent.getKey());
+          }
+        }
+    );
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -93,22 +152,88 @@ public class MainFormController implements EventHandler<WindowEvent>
 
     if (Platform.isFxApplicationThread())
     {
-      final Integer loGroupID = this.refreshGroupComboBox();
-      HibernateUtil.INSTANCE.setGroupID(loGroupID);
-
-      Main.getPrimaryStage().getScene().setCursor(Cursor.DEFAULT);
+      this.refreshAllComponentsFunction();
     }
     else
     {
       Platform.runLater(() ->
       {
-        final Integer loGroupID = this.refreshGroupComboBox();
-        HibernateUtil.INSTANCE.setGroupID(loGroupID);
-
-        Misc.setCursor(Cursor.DEFAULT);
+        this.refreshAllComponentsFunction();
       });
     }
 
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // So that code will not be duplicated in refreshAllComponents.
+  private void refreshAllComponentsFunction()
+  {
+    final Integer loGroupID = this.refreshGroupComboBox();
+    HibernateUtil.INSTANCE.setGroupID(loGroupID);
+    if (this.tabPane.getSelectionModel().getSelectedItem() == this.tabReports)
+    {
+      this.refreshReport();
+    }
+
+    Misc.setCursor(Cursor.DEFAULT);
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void refreshReport()
+  {
+    SwingUtilities.invokeLater(() ->
+    {
+      this.generateSummary();
+    });
+
+  }
+
+  // -----------------------------------------------------------------------------
+  private void generateSummary()
+  {
+    final Session loSession = HibernateUtil.INSTANCE.getSession();
+
+    loSession.doWork(new Work()
+    {
+      @Override
+      public void execute(final Connection toConnection) throws SQLException
+      {
+        try
+        {
+          final MainFormController loThis = MainFormController.this;
+
+          final JasperReport loJasperReport = (JasperReport) JRLoader.loadObject(this.getClass().getResource("/com/beowurks/jequity/view/jasperreports/Summary.jasper"));
+
+          final HashMap<String, Object> loHashMap = new HashMap<>();
+
+          final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
+
+          loHashMap.put("parFinancialTable", loHibernate.getTableFinancial());
+          loHashMap.put("parGroupTable", loHibernate.getTableGroup());
+          loHashMap.put("parGroupID", loHibernate.getGroupID());
+
+          loThis.foJPSummary = JasperFillManager.fillReport(loJasperReport, loHashMap, toConnection);
+
+          if (loThis.foJRViewerSummary == null)
+          {
+            loThis.foJRViewerSummary = new JRViewerBase(loThis.foJPSummary);
+            loThis.rptSwingNode.setContent(loThis.foJRViewerSummary);
+          }
+          else
+          {
+            loThis.foJRViewerSummary.loadReport(loThis.foJPSummary);
+          }
+
+        }
+        catch (final JRException loErr)
+        {
+          loErr.printStackTrace();
+        }
+      }
+    });
+
+    loSession.close();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

@@ -8,6 +8,7 @@
   ~
   -->
 
+<?import javafx.embed.swing.SwingNode?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -74,10 +75,12 @@
     </VBox>
   </top>
   <center>
-    <TabPane>
+    <TabPane fx:id="tabPane">
       <Tab fx:id="tabFinancial" text="Financial" closable="false"/>
       <Tab fx:id="tabDaily" text="Daily" closable="false"/>
-      <Tab fx:id="tabReports" text="Reports" closable="false"/>
+      <Tab fx:id="tabReports" text="Reports" closable="false">
+        <SwingNode fx:id="rptSwingNode"></SwingNode>
+      </Tab>
       <Tab fx:id="tabHistorical" text="Historical" closable="false"/>
       <Tab fx:id="tabGroup" text="Group" closable="false"/>
     </TabPane>
