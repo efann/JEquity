@@ -22,32 +22,32 @@
 */
 #menuBackup > .label
 {
-  -fx-graphic: url("./images/down.png");
+  -fx-graphic: url("../images/down.png");
 }
 
 #menuRestore > .label
 {
-  -fx-graphic: url("./images/up.png");
+  -fx-graphic: url("../images/up.png");
 }
 
 #menuMasterKey > .label
 {
-  -fx-graphic: url("./images/kgpg.png");
+  -fx-graphic: url("../images/kgpg.png");
 }
 
 #menuPrint > .label
 {
-  -fx-graphic: url("./images/printer1.png");
+  -fx-graphic: url("../images/printer1.png");
 }
 
 #menuExport > .label
 {
-  -fx-graphic: url("./images/filesaveas.png");
+  -fx-graphic: url("../images/filesaveas.png");
 }
 
 #menuExit > .label
 {
-  -fx-graphic: url("./images/exit16.png");
+  -fx-graphic: url("../images/exit16.png");
 }
 
 /*
@@ -56,17 +56,17 @@
 
 #menuGroups > .label
 {
-  -fx-graphic: url("./images/blockdevice16.png");
+  -fx-graphic: url("../images/blockdevice16.png");
 }
 
 #menuUpdate > .label
 {
-  -fx-graphic: url("./images/date16.png");
+  -fx-graphic: url("../images/date16.png");
 }
 
 #menuRefresh > .label
 {
-  -fx-graphic: url("./images/reload.png");
+  -fx-graphic: url("../images/reload.png");
 }
 
 /*
@@ -75,12 +75,12 @@
 
 #menuOptions > .label
 {
-  -fx-graphic: url("./images/misc.png");
+  -fx-graphic: url("../images/misc.png");
 }
 
 #menuSampleData > .label
 {
-  -fx-graphic: url("./images/colorpicker.png");
+  -fx-graphic: url("../images/colorpicker.png");
 }
 
 /*
@@ -89,17 +89,17 @@
 
 #menuCredits > .label
 {
-  -fx-graphic: url("./images/package_wordprocessing.png");
+  -fx-graphic: url("../images/package_wordprocessing.png");
 }
 
 #menuCheckForUpdates > .label
 {
-  -fx-graphic: url("./images/connect_established16.png");
+  -fx-graphic: url("../images/connect_established16.png");
 }
 
 #menuAbout > .label
 {
-  -fx-graphic: url("./images/hwinfo.png");
+  -fx-graphic: url("../images/hwinfo.png");
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -191,12 +191,12 @@
 
 #btnRefresh
 {
-  -fx-graphic: url("./images/reload.png");
+  -fx-graphic: url("../images/reload.png");
 }
 
 #btnUpdate
 {
-  -fx-graphic: url("./images/date22.png");
+  -fx-graphic: url("../images/date22.png");
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -212,30 +212,30 @@
 
 #tabFinancial > .tab-container > .tab-label
 {
-  -fx-graphic: url("./images/kspread_ksp.png");
+  -fx-graphic: url("../images/kspread_ksp.png");
 }
 
 #tabDaily > .tab-container > .tab-label
 {
-  -fx-graphic: url("./images/date16.png");
+  -fx-graphic: url("../images/date16.png");
 
 }
 
 #tabReports > .tab-container > .tab-label
 {
-  -fx-graphic: url("./images/kword_kwd.png");
+  -fx-graphic: url("../images/kword_kwd.png");
 
 }
 
 #tabHistorical > .tab-container > .tab-label
 {
-  -fx-graphic: url("./images/kchart_chrt.png");
+  -fx-graphic: url("../images/kchart_chrt.png");
 
 }
 
 #tabGroup > .tab-container > .tab-label
 {
-  -fx-graphic: url("./images/blockdevice16.png");
+  -fx-graphic: url("../images/blockdevice16.png");
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/

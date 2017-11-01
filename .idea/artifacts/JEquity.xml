@@ -24,16 +24,10 @@
         <option name="title" value="J'Equity" />
         <option name="updateMode" value="always" />
         <option name="vendor" value="Beowurks" />
-        <option name="version" value="2017.0.2" />
+        <option name="version" value="2017.0.4" />
       </options>
     </properties>
     <root id="root">
-      <element id="archive" name="JEquityFX.jar">
-        <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
-        </element>
-        <element id="module-output" name="JEquityFX" />
-      </element>
       <element id="library" level="project" name="commons-io" />
       <element id="library" level="project" name="drivers" />
       <element id="library" level="project" name="flyway" />
@@ -41,6 +35,9 @@
       <element id="library" level="project" name="jasper-reports" />
       <element id="library" level="project" name="jsoup" />
       <element id="library" level="project" name="controlsfx" />
+      <element id="archive" name="JEquity.jar">
+        <element id="module-output" name="JEquity" />
+      </element>
     </root>
   </artifact>
 </component>

@@ -70,83 +70,79 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+            <state relative-caret-position="246">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HibernateUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/HibernateUtil.java">
+      <file leaf-file-name="MainFormController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="255">
+              <caret line="173" column="22" lean-forward="false" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Misc.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java">
+      <file leaf-file-name="Toolbar.fxml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Toolbar.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8381">
-              <caret line="493" column="30" lean-forward="false" selection-start-line="493" selection-start-column="24" selection-end-line="493" selection-end-column="30" />
+            <state relative-caret-position="391">
+              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ToolbarController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="92">
+              <caret line="55" column="8" lean-forward="false" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
+              <folding>
+                <marker date="1509574480755" expanded="true" signature="2186:2200" ph="SELECT * FRO... missingValue" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Menu.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Menu.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MenuController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MenuController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="25" column="61" lean-forward="false" selection-start-line="25" selection-start-column="61" selection-end-line="25" selection-end-column="61" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="MainForm.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/MainForm.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
-              <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder">
             <state />
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainFormController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="116" column="71" lean-forward="true" selection-start-line="116" selection-start-column="71" selection-end-line="116" selection-end-column="71" />
-              <folding>
-                <marker date="1509406165390" expanded="true" signature="7769:7783" ph="SELECT * FRO... missingValue" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JRViewerBase.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/JRViewerBase.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="42" lean-forward="true" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AppProperties.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1700">
-              <caret line="100" column="8" lean-forward="false" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IDefaultXYChartSeries.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/IDefaultXYChartSeries.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state relative-caret-position="391">
+              <caret line="23" column="48" lean-forward="false" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -165,13 +161,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Main-Class: com.beowurks.jequityfx.main.Main</find>
-      <find>artifact.jequityfx</find>
-      <find>isdev</find>
-      <find>nodeli</find>
-      <find>nodelis</find>
-      <find>node</find>
-      <find>nodelist</find>
       <find>webview</find>
       <find>setupWeb</find>
       <find>setupWebV</find>
@@ -195,6 +184,13 @@
       <find>null);</find>
       <find>jequityfx</find>
       <find>cursor</find>
+      <find>refreshing</find>
+      <find>btnRefresh</find>
+      <find>frefre</find>
+      <find>err.print</find>
+      <find>print</find>
+      <find>misc.setCur</find>
+      <find>handle</find>
     </findStrings>
     <replaceStrings>
       <replace>Misc.includeTrailingBackslash</replace>
@@ -227,15 +223,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/model/migration/MigrationHelper.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/view/ProgressHandle.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/model/hibernate/backuprestore/ThreadRestore.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/model/hibernate/warehouses/ThreadDownloadSymbolInfo.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/view/dialog/CreditsDialog.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/view/Dialog.css" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/view/Menu.css" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/model/migration/FlywayMigration.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/view/CheckForUpdates.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/controller/MenuController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/view/dialog/PasswordDialog.java" />
         <option value="$PROJECT_DIR$/JEquityFX.iml" />
@@ -266,7 +253,6 @@
         <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/view/MainForm.fxml" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/controller/MainFormController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequityfx/dao/hibernate/backuprestore/ThreadRestore.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java" />
         <option value="$PROJECT_DIR$/src/ManifestUpdate.xml" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/AboutDialog.fxml" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/misc/CheckForUpdates.java" />
@@ -275,8 +261,18 @@
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/IDefaultXYChartSeries.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/HibernateUtil.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/JRViewerBase.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/MainForm.fxml" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/EnvironmentProperty.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/GroupTableProperty.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/GroupTableController.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainBaseController.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MenuController.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/Menu.fxml" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/MainForm.fxml" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/Toolbar.fxml" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java" />
       </list>
     </option>
@@ -288,7 +284,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -431,70 +427,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="libraries" type="cbb8eebc:String" user="libraries" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="controller" type="cbb8eebc:String" user="controller" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="main" type="cbb8eebc:String" user="main" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="utility" type="cbb8eebc:String" user="utility" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-              <item name="jasperreports" type="cbb8eebc:String" user="jasperreports" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -581,8 +513,103 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="libraries" type="cbb8eebc:String" user="libraries" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="controller" type="cbb8eebc:String" user="controller" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="dao" type="cbb8eebc:String" user="dao" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="dao" type="cbb8eebc:String" user="dao" />
+              <item name="tableview" type="cbb8eebc:String" user="tableview" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="main" type="cbb8eebc:String" user="main" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="utility" type="cbb8eebc:String" user="utility" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="view" type="cbb8eebc:String" user="view" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="view" type="cbb8eebc:String" user="view" />
+              <item name="combobox" type="cbb8eebc:String" user="combobox" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="view" type="cbb8eebc:String" user="view" />
+              <item name="dialog" type="cbb8eebc:String" user="dialog" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="view" type="cbb8eebc:String" user="view" />
+              <item name="jasperreports" type="cbb8eebc:String" user="jasperreports" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -610,20 +637,24 @@
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\jasperreports" />
-      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view" />
-      <recent name="D:\IntelliJ\JEquityFX\src\com\beowurks\jequityfx\view" />
-      <recent name="D:\IntelliJ\JEquityFX\src\com\beowurks\jequityfx\model\interface" />
-      <recent name="D:\IntelliJ\JEquityFX\src\com\beowurks\jequityfx\model" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.beowurks.jequityfx.view.dialog" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\css" />
+      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\fxml" />
       <recent name="D:\IntelliJ\JEquityFX\src" />
       <recent name="D:\IntelliJ\JEquityFX\src\com\beowurks\jequityfx\view" />
       <recent name="D:\IntelliJ\JEquityFX\src\com\beowurks\jequityfx\utility" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.beowurks.jequity.controller" />
+      <recent name="com.beowurks.jequity.dao.tableview" />
+      <recent name="com.beowurks.jequityfx.view.dialog" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view" />
+      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\jasperreports" />
+      <recent name="D:\IntelliJ\JEquityFX\src\com\beowurks\jequityfx\view" />
+      <recent name="D:\IntelliJ\JEquityFX\src\com\beowurks\jequityfx\model\interface" />
+      <recent name="D:\IntelliJ\JEquityFX\src\com\beowurks\jequityfx\model" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1090,11 +1121,12 @@
       <workItem from="1509134558230" duration="4331000" />
       <workItem from="1509153178595" duration="349000" />
       <workItem from="1509374784972" duration="6868000" />
+      <workItem from="1509458530954" duration="26172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="284191000" />
+    <option name="totallyTimeSpent" value="310363000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -1106,7 +1138,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1122,7 +1154,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32883817" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17110874" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17270789" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32883817" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25266525" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1189,47 +1221,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/artifacts/JEquityFX.xml" />
-    <entry file="file://$PROJECT_DIR$/icons/dmg-background.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/dao/AboutTable.java" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/javafx-src.zip!/javafx/util/Callback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="51" column="13" lean-forward="false" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/dao/tableview/EnvironmentProperty.java" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/org/w3c/dom/Document.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="228" column="14" lean-forward="true" selection-start-line="228" selection-start-column="14" selection-end-line="228" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/org/w3c/dom/NodeList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="41" column="19" lean-forward="true" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/org/w3c/dom/events/EventListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="67" column="16" lean-forward="false" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/view/misc/CheckForUpdates.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/view/misc/WebBrowser.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/view/dialog/AboutDialog.fxml" />
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/view/dialog/AboutDialog.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/view/Main.css" />
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/dao/hibernate/warehouses/ThreadDownloadHistorical.java" />
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/dao/hibernate/warehouses/TimerSymbolInfo.java" />
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequityfx/dao/hibernate/PostgreSQL91DialectPlus.java" />
@@ -1280,35 +1271,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1411">
-          <caret line="83" column="58" lean-forward="false" selection-start-line="83" selection-start-column="58" selection-end-line="83" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/AboutDialog.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="44" lean-forward="false" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/GroupComboBox.java" />
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/IntegerKeyComboBox.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8381">
-          <caret line="493" column="30" lean-forward="false" selection-start-line="493" selection-start-column="24" selection-end-line="493" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1700">
@@ -1333,48 +1297,185 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/HibernateUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/JRViewerBase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="42" lean-forward="true" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+        <state relative-caret-position="561">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/MainForm.fxml">
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+        <state relative-caret-position="280">
+          <caret line="182" column="0" lean-forward="true" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/HibernateUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/combobox/IComponentAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="40" column="95" lean-forward="true" selection-start-line="40" selection-start-column="95" selection-end-line="40" selection-end-column="95" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/AboutDialog.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="40" column="20" lean-forward="true" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/AboutDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/EnvironmentProperty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="134" column="39" lean-forward="true" selection-start-line="134" selection-start-column="39" selection-end-line="134" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/GroupTableController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="5" column="2" lean-forward="true" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/GroupTableProperty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="15" column="105" lean-forward="false" selection-start-line="15" selection-start-column="105" selection-end-line="15" selection-end-column="105" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainBaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="65" column="13" lean-forward="false" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/StringKeyComboBoxFX.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="25" column="61" lean-forward="false" selection-start-line="25" selection-start-column="61" selection-end-line="25" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="2600" column="0" lean-forward="false" selection-start-line="2600" selection-start-column="0" selection-end-line="2600" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="48" lean-forward="false" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+        <state relative-caret-position="246">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Menu.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="55" column="8" lean-forward="false" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
+          <folding>
+            <marker date="1509574480755" expanded="true" signature="2186:2200" ph="SELECT * FRO... missingValue" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="116" column="71" lean-forward="true" selection-start-line="116" selection-start-column="71" selection-end-line="116" selection-end-column="71" />
-          <folding>
-            <marker date="1509406165390" expanded="true" signature="7769:7783" ph="SELECT * FRO... missingValue" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="173" column="22" lean-forward="false" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Toolbar.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -46,11 +46,6 @@ final public class Constants
   public final static String OPTIONS_MISCELLANEOUS_ID = "com.beowurks.jequity.global.action.miscellaneous.MiscellaneousOptionsPanelController";
 
   //************************************************************
-  // Used by IComponentAction
-  public final static int COMPONENT_ACTION_UPDATE = 1;
-  public final static int COMPONENT_ACTION_PRINT = 2;
-
-  //************************************************************
   // Used by Sample Data
   public final static String SAMPLE_DATA_URL = "http://www.beowurks.com/Software/JEquity/SampleData/SampleData.2.0.xml";
   public final static String SAMPLE_DATA_TEMPFILE = Misc.includeTrailingBackslash(Constants.TEMPORARY_PATH) + "SampleData.2.0.xml";

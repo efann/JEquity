@@ -59,7 +59,7 @@ public final class Misc
   static public final String OPERATING_SYSTEM = System.getProperty("os.name");
 
   // Used by the alerts
-  static public final String ALERT_STYLE_SHEET = Thread.currentThread().getContextClassLoader().getResource("com/beowurks/jequity/view/Main.css").toExternalForm();
+  static public final String ALERT_STYLE_SHEET = Thread.currentThread().getContextClassLoader().getResource("com/beowurks/jequity/view/css/Main.css").toExternalForm();
 
   private static final StringBuilder fcExceptionError = new StringBuilder(256);
 
@@ -176,6 +176,11 @@ public final class Misc
   // ---------------------------------------------------------------------------------------------------------------------
   public static void setStatusText(final String tcMessage)
   {
+    if (Main.getController() == null)
+    {
+      return;
+    }
+
     final StatusBar loStatus = Main.getController().getStatusBar();
 
     if (Platform.isFxApplicationThread())

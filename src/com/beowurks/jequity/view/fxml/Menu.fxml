@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ J'Equity
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<?import javafx.scene.control.*?>
+<MenuBar fx:id="menuBar" stylesheets="@../css/Main.css"
+         xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.beowurks.jequity.controller.MenuController">
+  <menus>
+    <Menu text="File">
+      <items>
+        <MenuItem fx:id="menuBackup" text="Backup"/>
+        <MenuItem fx:id="menuRestore" text="Restore"/>
+        <SeparatorMenuItem/>
+        <MenuItem fx:id="menuMasterKey" text="Master Key..."/>
+        <SeparatorMenuItem/>
+        <MenuItem fx:id="menuPrint" text="Print..."/>
+        <SeparatorMenuItem/>
+        <MenuItem fx:id="menuExport" text="Export..."/>
+        <SeparatorMenuItem/>
+        <MenuItem fx:id="menuExit" text="Exit" onAction="#exitApplication"/>
+      </items>
+    </Menu>
+    <Menu text="Edit">
+      <items>
+        <MenuItem text="Copy"/>
+        <MenuItem text="Cut"/>
+        <MenuItem text="Paste"/>
+      </items>
+    </Menu>
+    <Menu text="Data">
+      <items>
+        <MenuItem fx:id="menuUpdate" text="Update"/>
+        <MenuItem fx:id="menuRefresh" text="Refresh" />
+      </items>
+    </Menu>
+    <Menu text="Tools">
+      <items>
+        <MenuItem fx:id="menuOptions" text="Options..."/>
+        <SeparatorMenuItem/>
+        <MenuItem fx:id="menuSampleData" text="Sample Data..." onAction="#downloadSampleData"/>
+      </items>
+    </Menu>
+    <Menu text="Help">
+      <items>
+        <MenuItem fx:id="menuCredits" text="Credits" onAction="#showCredits"/>
+        <MenuItem fx:id="menuCheckForUpdates" text="Check for Updates..." onAction="#showUpdates"/>
+        <SeparatorMenuItem/>
+        <MenuItem fx:id="menuAbout" text="About" onAction="#showAbout"/>
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>

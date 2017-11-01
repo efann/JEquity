@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ J'Equity
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<?import javafx.embed.swing.SwingNode?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.StatusBar?>
+<BorderPane stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.beowurks.jequity.controller.MainFormController">
+  <top>
+    <VBox>
+      <fx:include source="Menu.fxml" fx:id="menuMain"/>
+      <fx:include source="Toolbar.fxml" fx:id="toolbarMain"/>
+    </VBox>
+  </top>
+  <center>
+    <TabPane fx:id="tabPane">
+      <Tab fx:id="tabFinancial" text="Financial" closable="false"/>
+      <Tab fx:id="tabDaily" text="Daily" closable="false"/>
+      <Tab fx:id="tabReports" text="Reports" closable="false">
+        <SwingNode fx:id="rptSwingNode"></SwingNode>
+      </Tab>
+      <Tab fx:id="tabHistorical" text="Historical" closable="false"/>
+      <Tab fx:id="tabGroup" text="Group" closable="false">
+        <TableView fx:id="tblGroup">
+          <columns>
+            <TableColumn fx:id="colID" text="ID #"/>
+            <TableColumn fx:id="colDescription" text="Description"/>
+          </columns>
+        </TableView>
+      </Tab>
+
+    </TabPane>
+  </center>
+  <bottom>
+    <StatusBar fx:id="statusBar" text="Welcome to J'EquityFX" progress="0.0"></StatusBar>
+  </bottom>
+</BorderPane>

@@ -24,6 +24,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -44,24 +46,31 @@ public class Main extends Application
   @Override
   public void start(final Stage toPrimaryStage) throws Exception
   {
-    Main.PRIMARY_STAGE = toPrimaryStage;
-    Main.foHostService = this.getHostServices();
+    try
+    {
+      Main.PRIMARY_STAGE = toPrimaryStage;
+      Main.foHostService = this.getHostServices();
 
-    Main.initializeEnvironment(this);
+      Main.initializeEnvironment(this);
 
-    final FXMLLoader loLoader = new FXMLLoader(this.getClass().getResource("/com/beowurks/jequity/view/MainForm.fxml"));
+      final FXMLLoader loLoader = new FXMLLoader(this.getClass().getResource("/com/beowurks/jequity/view/fxml/MainForm.fxml"));
 
-    // loLoader.load must be run before obtaining the controller, which kind of makes sense.
-    final BorderPane loBorderPane = loLoader.load();
+      // loLoader.load must be run before obtaining the controller, which kind of makes sense.
+      final BorderPane loBorderPane = loLoader.load();
 
-    Main.foMainController = loLoader.getController();
+      Main.foMainController = loLoader.getController();
 
-    toPrimaryStage.setTitle(Main.getApplicationFullName());
+      toPrimaryStage.setTitle(Main.getApplicationFullName());
 
-    final Rectangle2D loScreenBounds = Screen.getPrimary().getVisualBounds();
+      final Rectangle2D loScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    toPrimaryStage.setScene(new Scene(loBorderPane, loScreenBounds.getWidth() * 0.75, loScreenBounds.getHeight() * 0.50));
-    toPrimaryStage.show();
+      toPrimaryStage.setScene(new Scene(loBorderPane, loScreenBounds.getWidth() * 0.75, loScreenBounds.getHeight() * 0.50));
+      toPrimaryStage.show();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -98,7 +107,7 @@ public class Main extends Application
       {
         TimerSymbolInfo.INSTANCE.reSchedule();
 
-        Main.getController().refreshAllComponents();
+        Main.getController().refreshAllComponents(true);
       }
     });
 
