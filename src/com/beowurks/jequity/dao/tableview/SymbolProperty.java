@@ -16,6 +16,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -45,6 +47,8 @@ public class SymbolProperty
   private final StringProperty comments;
   private final StringProperty historicalinfo;
 
+  private final DateFormat foDateFormat = new SimpleDateFormat("M/dd/yyyy h:mm:ss a");
+
   // ---------------------------------------------------------------------------------------------------------------------
   public SymbolProperty(final String tcSymbol, final String tcDescription, final double tnLastTrade, final Timestamp tdTradeTime, final double tnDifferential,
                         final double tnPreviousClose, final double tnOpened, final double tnBidding, final double tnAsking, final double tnTargetEstimate,
@@ -55,7 +59,7 @@ public class SymbolProperty
     this.symbol = new SimpleStringProperty(tcSymbol);
     this.description = new SimpleStringProperty(tcDescription);
     this.lasttrade = new SimpleDoubleProperty(tnLastTrade);
-    this.tradetime = new SimpleStringProperty(tdTradeTime.toString());
+    this.tradetime = new SimpleStringProperty(this.foDateFormat.format(tdTradeTime));
     this.differential = new SimpleDoubleProperty(tnDifferential);
     this.previousclose = new SimpleDoubleProperty(tnPreviousClose);
     this.opened = new SimpleDoubleProperty(tnOpened);

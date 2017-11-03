@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ J'Equity
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<TableView fx:id="tblFinancial" stylesheets="@../css/Main.css"
+           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.beowurks.jequity.controller.TableFinancialController">
+  <columns>
+    <TableColumn fx:id="colID" text="ID #"/>
+    <TableColumn fx:id="colDescription" text="Description"/>
+    <TableColumn fx:id="colAccount" text="Account"/>
+    <TableColumn fx:id="colType" text="Type"/>
+    <TableColumn fx:id="colCategory" text="Category"/>
+    <TableColumn fx:id="colShares" text="Shares"/>
+    <TableColumn fx:id="colPrice" text="Price"/>
+    <TableColumn fx:id="colValuationDate" text="Valuation Date"/>
+    <TableColumn fx:id="colRetirement" text="Retirement (?)"/>
+    <TableColumn fx:id="colSymbol" text="Symbol"/>
+    <TableColumn fx:id="colSharesPrice" text="Total"/>
+  </columns>
+</TableView>

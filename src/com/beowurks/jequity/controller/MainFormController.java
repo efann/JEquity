@@ -64,6 +64,9 @@ public class MainFormController implements EventHandler<WindowEvent>
   @FXML
   private TableSymbolController tableSymbolMainController;
 
+  @FXML
+  private TableFinancialController tableFinancialMainController;
+
   //********************************************************************************
 
   @FXML
@@ -193,7 +196,7 @@ public class MainFormController implements EventHandler<WindowEvent>
     final DateFormat loDateFormat = new SimpleDateFormat("h:mm:ss a");
     final Calendar loCalender = Calendar.getInstance();
     // I don't know of another way for lowercase am/pm.
-    String lcTime = loDateFormat.format(loCalender.getTime()).toLowerCase();
+    final String lcTime = loDateFormat.format(loCalender.getTime()).toLowerCase();
 
     final Integer loGroupID = tlIncludeGroupComboBox ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem().getKey();
     if (tlIncludeGroupComboBox)
@@ -202,10 +205,16 @@ public class MainFormController implements EventHandler<WindowEvent>
     }
 
     HibernateUtil.INSTANCE.setGroupID(loGroupID);
-    Tab loCurrentTab = this.tabPane.getSelectionModel().getSelectedItem();
+    final Tab loCurrentTab = this.tabPane.getSelectionModel().getSelectedItem();
 
     // Do not include the Group tab: it's handled above when obtaining the loGroupID.
-    if (loCurrentTab == this.tabDaily)
+    if (loCurrentTab == this.tabFinancial)
+    {
+      Misc.setStatusText(String.format("Refreshed the Financial grid @ %s. . . .", lcTime));
+
+      this.tableFinancialMainController.refreshData();
+    }
+    else if (loCurrentTab == this.tabDaily)
     {
       Misc.setStatusText(String.format("Refreshed the Daily grid @ %s. . . .", lcTime));
 
