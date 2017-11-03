@@ -8,11 +8,8 @@
 
 package com.beowurks.jequity.controller;
 
-import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
-import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
-import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.jasperreports.JRViewerBase;
 import javafx.application.Platform;
@@ -23,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -38,7 +34,6 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import org.controlsfx.control.StatusBar;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
-import org.hibernate.query.NativeQuery;
 
 import javax.swing.SwingUtilities;
 import java.sql.Connection;
@@ -47,19 +42,29 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 public class MainFormController implements EventHandler<WindowEvent>
 {
+  //********************************************************************************
   // From https://stackoverflow.com/questions/23592148/javafx-nested-controller
   // The name of the controller variable of an included file is always the fx:id value with "Controller" added on to it.
+
   @FXML
   private MenuController menuMainController;
-@FXML
+
+  @FXML
   private ToolbarController toolbarMainController;
+
+  @FXML
+  private TableGroupController tableGroupMainController;
+
+  @FXML
+  private TableSymbolController tableSymbolMainController;
+
+  //********************************************************************************
 
   @FXML
   private StatusBar statusBar;
@@ -97,7 +102,6 @@ public class MainFormController implements EventHandler<WindowEvent>
   @FXML
   private TableColumn colDescription;
 
-
   private JasperPrint foJPSummary;
   private JRViewerBase foJRViewerSummary;
 
@@ -127,7 +131,7 @@ public class MainFormController implements EventHandler<WindowEvent>
     this.menuMainController.getMenuRefresh().setOnAction(new EventHandler<ActionEvent>()
     {
       @Override
-      public void handle(ActionEvent toActionEvent)
+      public void handle(final ActionEvent toActionEvent)
       {
         MainFormController.this.refreshAllComponents(true);
       }
@@ -136,7 +140,7 @@ public class MainFormController implements EventHandler<WindowEvent>
     this.toolbarMainController.getRefreshButton().setOnAction(new EventHandler<ActionEvent>()
     {
       @Override
-      public void handle(ActionEvent toActionEvent)
+      public void handle(final ActionEvent toActionEvent)
       {
         MainFormController.this.refreshAllComponents(true);
       }
@@ -144,10 +148,7 @@ public class MainFormController implements EventHandler<WindowEvent>
 
     this.tabPane.getSelectionModel().selectedItemProperty().addListener(
         (toObservableValue, toPrevious, toCurrent) -> {
-          if (toCurrent == MainFormController.this.tabReports)
-          {
-            MainFormController.this.refreshReport();
-          }
+          this.refreshAllComponents(false);
         }
     );
 
@@ -156,6 +157,9 @@ public class MainFormController implements EventHandler<WindowEvent>
           if (toCurrent != null)
           {
             HibernateUtil.INSTANCE.setGroupID(toCurrent.getKey());
+          }
+          if ((toCurrent != null) && (toPrevious != null))
+          {
             MainFormController.this.refreshAllComponents(false);
           }
         }
@@ -164,13 +168,8 @@ public class MainFormController implements EventHandler<WindowEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void refreshAllComponents(boolean tlIncludeGroupComboBox)
+  public void refreshAllComponents(final boolean tlIncludeGroupComboBox)
   {
-    final DateFormat loDateFormat = new SimpleDateFormat("HH:mm:ss");
-    final Calendar loCalender = Calendar.getInstance();
-
-    Misc.setStatusText(String.format("Refreshing all of the data @ %s. . . .", loDateFormat.format(loCalender.getTime())));
-
     Misc.setCursor(Cursor.WAIT);
 
     if (Platform.isFxApplicationThread())
@@ -189,17 +188,36 @@ public class MainFormController implements EventHandler<WindowEvent>
 
   // ---------------------------------------------------------------------------------------------------------------------
   // So that code will not be duplicated in refreshAllComponents.
-  private void refreshAllComponentsFunction(boolean tlIncludeGroupComboBox)
+  private void refreshAllComponentsFunction(final boolean tlIncludeGroupComboBox)
   {
+    final DateFormat loDateFormat = new SimpleDateFormat("h:mm:ss a");
+    final Calendar loCalender = Calendar.getInstance();
+    // I don't know of another way for lowercase am/pm.
+    String lcTime = loDateFormat.format(loCalender.getTime()).toLowerCase();
+
     final Integer loGroupID = tlIncludeGroupComboBox ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem().getKey();
-    HibernateUtil.INSTANCE.setGroupID(loGroupID);
-    if (this.tabPane.getSelectionModel().getSelectedItem() == this.tabReports)
+    if (tlIncludeGroupComboBox)
     {
+      this.tableGroupMainController.refreshData();
+    }
+
+    HibernateUtil.INSTANCE.setGroupID(loGroupID);
+    Tab loCurrentTab = this.tabPane.getSelectionModel().getSelectedItem();
+
+    // Do not include the Group tab: it's handled above when obtaining the loGroupID.
+    if (loCurrentTab == this.tabDaily)
+    {
+      Misc.setStatusText(String.format("Refreshed the Daily grid @ %s. . . .", lcTime));
+
+      this.tableSymbolMainController.refreshData();
+    }
+    else if (loCurrentTab == this.tabReports)
+    {
+      Misc.setStatusText(String.format("Refreshed the Financial Report @ %s. . . .", lcTime));
       this.refreshReport();
     }
 
     Misc.setCursor(Cursor.DEFAULT);
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

@@ -26,12 +26,12 @@
     <Insets top="10" right="10" bottom="10" left="10"/>
   </padding>
 
-  <VBox alignment="TOP_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
-    <Hyperlink fx:id="lnkLogo" wrapText="false"/>
-    <HyperlinkLabel fx:id="lnkLicense" />
+  <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Hyperlink fx:id="lnkLogo"/>
+    <HyperlinkLabel fx:id="lnkLicense"/>
   </VBox>
 
-  <VBox alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
+  <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
     <Hyperlink fx:id="lnkApplicationName" wrapText="true"/>
     <Label fx:id="lblApplicationVersion"/>
     <HyperlinkLabel fx:id="lnkCopyright"/>

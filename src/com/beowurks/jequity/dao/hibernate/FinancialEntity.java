@@ -262,12 +262,7 @@ public class FinancialEntity implements Serializable
     {
       return (false);
     }
-    if (this.valuationdate != null ? !this.valuationdate.equals(that.valuationdate) : that.valuationdate != null)
-    {
-      return (false);
-    }
-
-    return (true);
+    return this.valuationdate != null ? this.valuationdate.equals(that.valuationdate) : that.valuationdate == null;
   }
 
   @Override

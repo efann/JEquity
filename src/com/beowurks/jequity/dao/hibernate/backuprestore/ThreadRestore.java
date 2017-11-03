@@ -240,7 +240,7 @@ public class ThreadRestore implements Runnable
           }
         }
 
-        Misc.setStatusText("Restoration complete.",0.0);
+        Misc.setStatusText("Restoration complete.", 0.0);
       }
     });
 

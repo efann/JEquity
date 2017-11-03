@@ -1,155 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Summary" pageWidth="612" pageHeight="792" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cc936fdf-3af8-4544-89e8-dcc17b184f5b">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="parFinancialTable" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["`Financial`"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="parGroupTable" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["`Group`"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="parGroupID" class="java.lang.Integer" isForPrompting="false">
-		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="Summary" pageWidth="612" pageHeight="792" whenNoDataType="BlankPage" columnWidth="555"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+              uuid="cc936fdf-3af8-4544-89e8-dcc17b184f5b">
+  <property name="ireport.zoom" value="1.0"/>
+  <property name="ireport.x" value="0"/>
+  <property name="ireport.y" value="0"/>
+  <parameter name="parFinancialTable" class="java.lang.String" isForPrompting="false">
+    <defaultValueExpression><![CDATA["`Financial`"]]></defaultValueExpression>
+  </parameter>
+  <parameter name="parGroupTable" class="java.lang.String" isForPrompting="false">
+    <defaultValueExpression><![CDATA["`Group`"]]></defaultValueExpression>
+  </parameter>
+  <parameter name="parGroupID" class="java.lang.Integer" isForPrompting="false">
+    <defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+  </parameter>
+  <queryString>
+    <![CDATA[SELECT
   g.description AS description_g, f.description AS description_f, f.shares, f.price
 FROM $P!{parGroupTable} g, $P!{parFinancialTable} f
 WHERE (f.groupid = g.groupid) AND (g.groupid = $P{parGroupID})
 ORDER BY UPPER(f.description)]]>
-	</queryString>
-	<field name="description_g" class="java.lang.String"/>
-	<field name="description_f" class="java.lang.String"/>
-	<field name="shares" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="price" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<variable name="varSumTotal" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{shares} * $F{price}]]></variableExpression>
-	</variable>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<pageHeader>
-		<band height="91" splitType="Stretch">
-			<textField>
-				<reportElement uuid="319da0bf-707e-4ac3-b4bc-cd9d0353518e" x="115" y="43" width="342" height="20"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{description_g}.trim()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="2584c4c1-b971-423b-b5a6-7e6a0ba5e569" x="236" y="23" width="100" height="20"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Summary]]></text>
-			</staticText>
-			<elementGroup/>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="28" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="5b28f15d-0885-4344-b20c-3ba6f20897cb" x="16" y="2" width="100" height="20"/>
-				<textElement>
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Description]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="1530aa73-817d-44e3-8313-287fa4c146f5" x="228" y="2" width="100" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Shares]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="f7730271-c3f7-44dd-8588-d3778fcbd5e1" x="346" y="2" width="100" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Price]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="f7730271-c3f7-44dd-8588-d3778fcbd5e1" x="466" y="2" width="100" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Value]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="24" splitType="Stretch">
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="7f256ad1-8cf5-47c6-b3a5-85f949e42700" x="16" y="0" width="194" height="20"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{description_f}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.0000">
-				<reportElement uuid="a4e4f156-a386-4613-a028-850343a79790" x="228" y="0" width="100" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{shares}]]></textFieldExpression>
-			</textField>
-			<textField pattern="¤ #,##0.0000">
-				<reportElement uuid="950d5972-4b4e-4d24-abb8-e76a7bc0404b" x="346" y="0" width="100" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
-			</textField>
-			<textField pattern="¤ #,##0.0000">
-				<reportElement uuid="950d5972-4b4e-4d24-abb8-e76a7bc0404b" x="466" y="0" width="100" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{price} * $F{shares}]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
-	<pageFooter>
-		<band height="50">
-			<textField evaluationTime="Report">
-				<reportElement uuid="80d15de3-822d-4102-bbe6-674747a610bf" x="305" y="15" width="60" height="20"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="ec1a4a94-2ae0-40c7-9687-7c02af9289dc" x="209" y="15" width="60" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="89acbcdc-79b5-4506-92d2-255b0f542814" x="269" y="15" width="36" height="20"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[out of]]></text>
-			</staticText>
-		</band>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch">
-			<textField isStretchWithOverflow="true" evaluationTime="Report" pattern="¤ #,##0.0000" isBlankWhenNull="true">
-				<reportElement uuid="950d5972-4b4e-4d24-abb8-e76a7bc0404b" x="466" y="11" width="100" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{varSumTotal}]]></textFieldExpression>
-			</textField>
-		</band>
-	</summary>
+  </queryString>
+  <field name="description_g" class="java.lang.String"/>
+  <field name="description_f" class="java.lang.String"/>
+  <field name="shares" class="java.lang.Double">
+    <fieldDescription><![CDATA[]]></fieldDescription>
+  </field>
+  <field name="price" class="java.lang.Double">
+    <fieldDescription><![CDATA[]]></fieldDescription>
+  </field>
+  <variable name="varSumTotal" class="java.lang.Double" calculation="Sum">
+    <variableExpression><![CDATA[$F{shares} * $F{price}]]></variableExpression>
+  </variable>
+  <background>
+    <band splitType="Stretch"/>
+  </background>
+  <pageHeader>
+    <band height="91" splitType="Stretch">
+      <textField>
+        <reportElement uuid="319da0bf-707e-4ac3-b4bc-cd9d0353518e" x="115" y="43" width="342" height="20"/>
+        <textElement textAlignment="Center">
+          <font fontName="Arial" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{description_g}.trim()]]></textFieldExpression>
+      </textField>
+      <staticText>
+        <reportElement uuid="2584c4c1-b971-423b-b5a6-7e6a0ba5e569" x="236" y="23" width="100" height="20"/>
+        <textElement textAlignment="Center">
+          <font fontName="Arial" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Summary]]></text>
+      </staticText>
+      <elementGroup/>
+    </band>
+  </pageHeader>
+  <columnHeader>
+    <band height="28" splitType="Stretch">
+      <staticText>
+        <reportElement uuid="5b28f15d-0885-4344-b20c-3ba6f20897cb" x="16" y="2" width="100" height="20"/>
+        <textElement>
+          <font fontName="Arial" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Description]]></text>
+      </staticText>
+      <staticText>
+        <reportElement uuid="1530aa73-817d-44e3-8313-287fa4c146f5" x="228" y="2" width="100" height="20"/>
+        <textElement textAlignment="Right">
+          <font fontName="Arial" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Shares]]></text>
+      </staticText>
+      <staticText>
+        <reportElement uuid="f7730271-c3f7-44dd-8588-d3778fcbd5e1" x="346" y="2" width="100" height="20"/>
+        <textElement textAlignment="Right">
+          <font fontName="Arial" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Price]]></text>
+      </staticText>
+      <staticText>
+        <reportElement uuid="f7730271-c3f7-44dd-8588-d3778fcbd5e1" x="466" y="2" width="100" height="20"/>
+        <textElement textAlignment="Right">
+          <font fontName="Arial" isBold="true"/>
+        </textElement>
+        <text><![CDATA[Value]]></text>
+      </staticText>
+    </band>
+  </columnHeader>
+  <detail>
+    <band height="24" splitType="Stretch">
+      <textField isStretchWithOverflow="true">
+        <reportElement uuid="7f256ad1-8cf5-47c6-b3a5-85f949e42700" x="16" y="0" width="194" height="20"/>
+        <textElement>
+          <font fontName="Arial"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{description_f}]]></textFieldExpression>
+      </textField>
+      <textField pattern="#,##0.0000">
+        <reportElement uuid="a4e4f156-a386-4613-a028-850343a79790" x="228" y="0" width="100" height="20"/>
+        <textElement textAlignment="Right">
+          <font fontName="Arial"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{shares}]]></textFieldExpression>
+      </textField>
+      <textField pattern="¤ #,##0.0000">
+        <reportElement uuid="950d5972-4b4e-4d24-abb8-e76a7bc0404b" x="346" y="0" width="100" height="20"/>
+        <textElement textAlignment="Right">
+          <font fontName="Arial"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+      </textField>
+      <textField pattern="¤ #,##0.0000">
+        <reportElement uuid="950d5972-4b4e-4d24-abb8-e76a7bc0404b" x="466" y="0" width="100" height="20"/>
+        <textElement textAlignment="Right">
+          <font fontName="Arial"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{price} * $F{shares}]]></textFieldExpression>
+      </textField>
+    </band>
+  </detail>
+  <pageFooter>
+    <band height="50">
+      <textField evaluationTime="Report">
+        <reportElement uuid="80d15de3-822d-4102-bbe6-674747a610bf" x="305" y="15" width="60" height="20"/>
+        <textElement>
+          <font fontName="Arial"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+      </textField>
+      <textField isBlankWhenNull="true">
+        <reportElement uuid="ec1a4a94-2ae0-40c7-9687-7c02af9289dc" x="209" y="15" width="60" height="20"/>
+        <textElement textAlignment="Right">
+          <font fontName="Arial"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+      </textField>
+      <staticText>
+        <reportElement uuid="89acbcdc-79b5-4506-92d2-255b0f542814" x="269" y="15" width="36" height="20"/>
+        <textElement textAlignment="Center">
+          <font fontName="Arial"/>
+        </textElement>
+        <text><![CDATA[out of]]></text>
+      </staticText>
+    </band>
+  </pageFooter>
+  <summary>
+    <band height="42" splitType="Stretch">
+      <textField isStretchWithOverflow="true" evaluationTime="Report" pattern="¤ #,##0.0000" isBlankWhenNull="true">
+        <reportElement uuid="950d5972-4b4e-4d24-abb8-e76a7bc0404b" x="466" y="11" width="100" height="20"/>
+        <textElement textAlignment="Right">
+          <font fontName="Arial" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$V{varSumTotal}]]></textFieldExpression>
+      </textField>
+    </band>
+  </summary>
 </jasperReport>

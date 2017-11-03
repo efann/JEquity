@@ -80,12 +80,7 @@ public class GroupEntity implements Serializable
     {
       return (false);
     }
-    if (this.groupid != null ? !this.groupid.equals(that.groupid) : that.groupid != null)
-    {
-      return (false);
-    }
-
-    return (true);
+    return this.groupid != null ? this.groupid.equals(that.groupid) : that.groupid == null;
   }
 
   @Override

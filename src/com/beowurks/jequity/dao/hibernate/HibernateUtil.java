@@ -159,6 +159,7 @@ public final class HibernateUtil
   {
     return (this.flInitializationSuccess);
   }
+
   // -----------------------------------------------------------------------------
   private void setupVariables()
   {

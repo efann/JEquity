@@ -268,9 +268,9 @@ public class ThreadDownloadHistorical implements Runnable
       // If you don't use the multiple parameters of the URL constructor, then an unknown protocol
       // error will be thrown because of the c parameter.
       final URL loURL = new URL(Constants.YAHOO_HISTORICAL_PROTOCOL,
-              Constants.YAHOO_HISTORICAL_HOST,
-              Constants.YAHOO_HISTORICAL_PORT,
-              this.buildSymbolHistoricalHTMLFile(lcSymbol, this.fdStartDate, this.fdEndDate));
+          Constants.YAHOO_HISTORICAL_HOST,
+          Constants.YAHOO_HISTORICAL_PORT,
+          this.buildSymbolHistoricalHTMLFile(lcSymbol, this.fdStartDate, this.fdEndDate));
 
       final File loFile = new File(this.fcHistoricalFile);
 
@@ -318,7 +318,7 @@ public class ThreadDownloadHistorical implements Runnable
     loCalendar.setTime(tdEndDate);
 
     Misc.replaceAll(loString, Constants.YAHOO_ENDDAY,
-            String.valueOf(loCalendar.get(Calendar.DAY_OF_MONTH)));
+        String.valueOf(loCalendar.get(Calendar.DAY_OF_MONTH)));
     // By the way, Calendar always reports its months from 0 to 11 but days go
     // from 1 to 31,
     // just the way Yahoo expects.

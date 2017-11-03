@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ J'Equity
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<?import javafx.scene.control.*?>
+<TableView fx:id="tblSymbol" stylesheets="@../css/Main.css"
+           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.beowurks.jequity.controller.TableSymbolController">
+  <columns>
+    <TableColumn fx:id="colSymbol" text="Symbol"/>
+    <TableColumn fx:id="colDescription" text="Description"/>
+    <TableColumn fx:id="colAsking" text="Asking"/>
+    <TableColumn fx:id="colAverageVolume" text="Avg Volume"/>
+    <TableColumn fx:id="colBidding" text="Bidding"/>
+    <TableColumn fx:id="colDifferential" text="Differential"/>
+    <TableColumn fx:id="colDayRange" text="Day Range"/>
+    <TableColumn fx:id="colDividendYield" text="Dividend Yield"/>
+    <TableColumn fx:id="colEarningsPerShare" text="Earnings / Share"/>
+    <TableColumn fx:id="colLastTrade" text="Last Trade"/>
+    <TableColumn fx:id="colMarketCap" text="Market Cap"/>
+    <TableColumn fx:id="colOpened" text="Opened"/>
+    <TableColumn fx:id="colPreviousClose" text="Prev Close"/>
+    <TableColumn fx:id="colPriceEarnings" text="Price Earnings"/>
+    <TableColumn fx:id="colTargetEstimate" text="Target Estimate"/>
+    <TableColumn fx:id="colTradeTime" text="Trade Time"/>
+    <TableColumn fx:id="colVolume" text="Volume"/>
+    <TableColumn fx:id="colYearRange" text="Year Range"/>
+    <TableColumn fx:id="colComments" text="Comments"/>
+    <TableColumn fx:id="colHistoricalInfo" text="Historical Info"/>
+  </columns>
+</TableView>

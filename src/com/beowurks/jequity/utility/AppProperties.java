@@ -98,12 +98,8 @@ public final class AppProperties extends BaseProperties
     loDialog.setTitle("Enter Master Password");
 
     final Optional<String> loResults = loDialog.showAndWait();
-    if (loResults.isPresent())
-    {
-      return (loResults.get());
-    }
 
-    return (null);
+    return (loResults.orElse((null)));
   }
 
   // -----------------------------------------------------------------------------
@@ -172,9 +168,8 @@ public final class AppProperties extends BaseProperties
 
         final String lcFolder = this.getConnectionDatabase();
 
-        lcURL.append("jdbc:derby:" + lcFolder)
-            .append(";upgrade=true")
-            .append(";bootPassword=" + this.getDerbyBootPassword());
+        lcURL.append("jdbc:derby:").append(lcFolder)
+            .append(";upgrade=true").append(";bootPassword=").append(this.getDerbyBootPassword());
 
         final boolean llBrandNew = (!Files.isDirectory(Paths.get(lcFolder), LinkOption.NOFOLLOW_LINKS));
         if (!llBrandNew)
@@ -198,11 +193,11 @@ public final class AppProperties extends BaseProperties
         break;
 
       case Constants.DRIVER_KEY_MYSQL5:
-        lcURL.append("jdbc:mysql://" + this.getConnectionHost() + "/" + this.getConnectionDatabase());
+        lcURL.append("jdbc:mysql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase());
         break;
 
       case Constants.DRIVER_KEY_POSTGRESQL91:
-        lcURL.append("jdbc:postgresql://" + this.getConnectionHost() + "/" + this.getConnectionDatabase());
+        lcURL.append("jdbc:postgresql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase());
         break;
     }
 

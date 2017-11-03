@@ -67,9 +67,9 @@ public class Main extends Application
       toPrimaryStage.setScene(new Scene(loBorderPane, loScreenBounds.getWidth() * 0.75, loScreenBounds.getHeight() * 0.50));
       toPrimaryStage.show();
     }
-    catch (IOException e)
+    catch (final IOException loErr)
     {
-      e.printStackTrace();
+      loErr.printStackTrace();
     }
   }
 

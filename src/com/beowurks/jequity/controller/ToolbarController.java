@@ -35,7 +35,7 @@ public class ToolbarController
   private Button btnRefresh;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public ComboBox<IntegerKeyItem>  getGroupComboBox()
+  public ComboBox<IntegerKeyItem> getGroupComboBox()
   {
     return (this.cboGroup);
   }

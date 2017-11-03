@@ -35,9 +35,9 @@ public class V3_3__Drop_Warehouse_Data extends MigrationHelper
     }
 
     final String[] laTypeNames =
-    {
-      "TABLE"
-    };
+        {
+            "TABLE"
+        };
 
     ResultSet loResults = null;
     final String lcSchema = "JEquityStocks";

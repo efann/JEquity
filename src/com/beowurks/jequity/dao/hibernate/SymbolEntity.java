@@ -307,7 +307,7 @@ public class SymbolEntity implements Serializable
   {
     this.historicalinfo = historicalinfo;
   }
-  
+
   @Override
   public boolean equals(final Object o)
   {
@@ -398,12 +398,7 @@ public class SymbolEntity implements Serializable
     {
       return (false);
     }
-    if (this.historicalinfo != null ? !this.historicalinfo.equals(that.historicalinfo) : that.historicalinfo != null)
-    {
-      return (false);
-    }
-    
-    return (true);
+    return this.historicalinfo != null ? this.historicalinfo.equals(that.historicalinfo) : that.historicalinfo == null;
   }
 
   @Override

@@ -8,32 +8,35 @@
 
 package com.beowurks.jequity.controller;
 
-import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
-import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.dao.hibernate.GroupEntity;
+import com.beowurks.jequity.dao.hibernate.HibernateUtil;
+import com.beowurks.jequity.dao.tableview.GroupProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 
-import java.util.Enumeration;
+import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class GroupTableController
+public class TableGroupController extends TableBaseController
 {
-  private final ObservableList<EnvironmentProperty> foDataList = FXCollections.observableArrayList();
+  private final ObservableList<GroupProperty> foDataList = FXCollections.observableArrayList();
 
   @FXML
   private TableView tblGroup;
 
   @FXML
-  private TableColumn colKey;
+  private TableColumn colID;
 
   @FXML
-  private TableColumn colValue;
+  private TableColumn colDescription;
 
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -43,41 +46,47 @@ public class GroupTableController
   {
     this.setupTable();
   }
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void setupTable()
+
+  // -----------------------------------------------------------------------------
+  public void refreshData()
   {
-    this.tblGroup.setEditable(false);
+    this.foDataList.clear();
 
-    // "key" relates to EnvironmentProperty.keyProperty and "value" relates to EnvironmentProperty.valueProperty
-    this.colKey.setCellValueFactory(new PropertyValueFactory<EnvironmentProperty, String>("key"));
-    this.colValue.setCellValueFactory(new PropertyValueFactory<EnvironmentProperty, String>("value"));
+    final Session loSession = HibernateUtil.INSTANCE.getSession();
 
-    final Enumeration<?> loEnum = System.getProperties().propertyNames();
-    final StringBuilder lcValue = new StringBuilder();
+    final List<GroupEntity> loList = this.getQuery(loSession).list();
 
-    while (loEnum.hasMoreElements())
+    for (final GroupEntity loRow : loList)
     {
-      final String lcKey = loEnum.nextElement().toString();
-
-      Misc.clearStringBuilder(lcValue);
-      lcValue.append(System.getProperty(lcKey));
-      int lnPos;
-
-      if ((lnPos = lcValue.toString().indexOf(0x0A)) != -1)
-      {
-        lcValue.replace(lnPos, lnPos + 1, "\\n");
-      }
-
-      if ((lnPos = lcValue.toString().indexOf(0x0D)) != -1)
-      {
-        lcValue.replace(lnPos, lnPos + 1, "\\r");
-      }
-
-      this.foDataList.add(new EnvironmentProperty(lcKey, lcValue.toString()));
+      this.foDataList.add(new GroupProperty(loRow.getGroupID(), loRow.getDescription()));
     }
 
     this.tblGroup.setItems(this.foDataList);
+
+    loSession.close();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected void setupTable()
+  {
+    this.tblGroup.setEditable(false);
+
+    this.colID.setCellValueFactory(new PropertyValueFactory<GroupProperty, Integer>("id"));
+    this.colDescription.setCellValueFactory(new PropertyValueFactory<GroupProperty, String>("description"));
+
+    this.tblGroup.getItems().clear();
     this.tblGroup.setColumnResizePolicy((param -> true));
+  }
+
+  // -----------------------------------------------------------------------------
+  protected NativeQuery getQuery(final Session toSession)
+  {
+    final String lcSQL = String.format("SELECT * FROM %s", HibernateUtil.INSTANCE.getTableGroup());
+
+    final NativeQuery loQuery = toSession.createNativeQuery(lcSQL)
+        .addEntity(GroupEntity.class);
+
+    return (loQuery);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

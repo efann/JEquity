@@ -10,8 +10,6 @@
 
 <?import javafx.embed.swing.SwingNode?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -28,23 +26,20 @@
   <center>
     <TabPane fx:id="tabPane">
       <Tab fx:id="tabFinancial" text="Financial" closable="false"/>
-      <Tab fx:id="tabDaily" text="Daily" closable="false"/>
+      <Tab fx:id="tabDaily" text="Daily" closable="false">
+        <fx:include source="TableSymbol.fxml" fx:id="tableSymbolMain"/>
+      </Tab>
       <Tab fx:id="tabReports" text="Reports" closable="false">
-        <SwingNode fx:id="rptSwingNode"></SwingNode>
+        <SwingNode fx:id="rptSwingNode"/>
       </Tab>
       <Tab fx:id="tabHistorical" text="Historical" closable="false"/>
       <Tab fx:id="tabGroup" text="Group" closable="false">
-        <TableView fx:id="tblGroup">
-          <columns>
-            <TableColumn fx:id="colID" text="ID #"/>
-            <TableColumn fx:id="colDescription" text="Description"/>
-          </columns>
-        </TableView>
+        <fx:include source="TableGroup.fxml" fx:id="tableGroupMain"/>
       </Tab>
 
     </TabPane>
   </center>
   <bottom>
-    <StatusBar fx:id="statusBar" text="Welcome to J'EquityFX" progress="0.0"></StatusBar>
+    <StatusBar fx:id="statusBar" text="Welcome to J'EquityFX" progress="0.0"/>
   </bottom>
 </BorderPane>
