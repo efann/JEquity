@@ -10,8 +10,10 @@ package com.beowurks.jequity.dao.tableview;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -29,7 +31,7 @@ public class SymbolProperty
   private final StringProperty symbol;
   private final StringProperty description;
   private final DoubleProperty lasttrade;
-  private final StringProperty tradetime;
+  private final ObjectProperty<Timestamp> tradetime;
   private final DoubleProperty differential;
   private final DoubleProperty previousclose;
   private final DoubleProperty opened;
@@ -50,7 +52,7 @@ public class SymbolProperty
   private final DateFormat foDateFormat = new SimpleDateFormat("M/dd/yyyy h:mm:ss a");
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public SymbolProperty(final String tcSymbol, final String tcDescription, final double tnLastTrade, final Timestamp tdTradeTime, final double tnDifferential,
+  public SymbolProperty(final String tcSymbol, final String tcDescription, final double tnLastTrade, final Timestamp ttTradeTime, final double tnDifferential,
                         final double tnPreviousClose, final double tnOpened, final double tnBidding, final double tnAsking, final double tnTargetEstimate,
                         final String tcDayRange, final String tcYearRange, final int tnVolume, final int tnAverageVolume, final String tcMarketCap,
                         final double tnPriceEarnings, final double tnEarningsPerShare, final String tcDividendYield, final String tcComments,
@@ -59,7 +61,7 @@ public class SymbolProperty
     this.symbol = new SimpleStringProperty(tcSymbol);
     this.description = new SimpleStringProperty(tcDescription);
     this.lasttrade = new SimpleDoubleProperty(tnLastTrade);
-    this.tradetime = new SimpleStringProperty(this.foDateFormat.format(tdTradeTime));
+    this.tradetime = new SimpleObjectProperty<Timestamp>(ttTradeTime);
     this.differential = new SimpleDoubleProperty(tnDifferential);
     this.previousclose = new SimpleDoubleProperty(tnPreviousClose);
     this.opened = new SimpleDoubleProperty(tnOpened);
@@ -133,21 +135,21 @@ public class SymbolProperty
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public String getTradetime()
+  public Timestamp getTradetime()
   {
     return (this.tradetime.get());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public StringProperty tradetimeProperty()
+  public ObjectProperty<Timestamp> tradetimeProperty()
   {
     return (this.tradetime);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void setTradetime(final String tcTradeTime)
+  public void setTradetime(final Timestamp ttTradeTime)
   {
-    this.tradetime.set(tcTradeTime);
+    this.tradetime.set(ttTradeTime);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

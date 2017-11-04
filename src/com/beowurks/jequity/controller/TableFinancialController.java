@@ -9,7 +9,6 @@
 package com.beowurks.jequity.controller;
 
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
-import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import javafx.collections.FXCollections;
@@ -107,7 +106,7 @@ public class TableFinancialController extends TableBaseController
     this.colSharesPrice.setCellValueFactory(new PropertyValueFactory<FinancialProperty, Double>("total"));
 
     // Add check box to the grid.
-    this.colRetirement.setCellFactory(tc -> new CheckBoxTableCell<>());
+    this.colRetirement.setCellFactory(tc -> new CheckBoxTableCell<FinancialProperty, Boolean>());
 
 
     this.tblFinancial.getItems().clear();
