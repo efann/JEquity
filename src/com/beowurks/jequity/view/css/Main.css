@@ -206,8 +206,17 @@
 
 .tab-pane .tab
 {
-  -fx-pref-width: 95px;
+  /*
+  From modena.css, modified .tab-pane > .tab-header-area > .headers-region > .tab which had
+  -fx-padding: 0.083333em 0.5em 0.0769em 0.5em;
+  */
+  -fx-padding: 0.083333em 2.0em 0.0769em 2.0em;
   -fx-cursor: hand;
+}
+
+.tab-pane .tab-content-area
+{
+  -fx-padding: 20px;
 }
 
 #tabFinancial > .tab-container > .tab-label
@@ -236,6 +245,17 @@
 #tabGroup > .tab-container > .tab-label
 {
   -fx-graphic: url("../images/blockdevice16.png");
+}
+
+.date-picker .arrow-button
+{
+  -fx-cursor: hand;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+.check-box
+{
+  -fx-cursor: hand;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/

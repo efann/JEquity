@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequity.controller;
+package com.beowurks.jequity.controller.table;
 
 import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;

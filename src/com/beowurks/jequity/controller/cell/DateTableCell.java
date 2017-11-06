@@ -6,25 +6,37 @@
  *
  */
 
-package com.beowurks.jequity.controller;
+package com.beowurks.jequity.controller.cell;
 
-import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
+import com.beowurks.jequity.dao.tableview.FinancialProperty;
+import javafx.scene.control.TableCell;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-abstract public class TableBaseController
+// From http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
+public class DateTableCell extends TableCell<FinancialProperty, Date>
 {
-  // -----------------------------------------------------------------------------
-  abstract public void refreshData();
+  static private SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy");
 
   // ---------------------------------------------------------------------------------------------------------------------
-  abstract protected void setupTable();
 
-  // -----------------------------------------------------------------------------
-  abstract protected NativeQuery getQuery(final Session toSession);
+  @Override
+  protected void updateItem(Date tdItem, boolean tlEmpty)
+  {
+    super.updateItem(tdItem, tlEmpty);
 
+    if ((tdItem == null) || tlEmpty)
+    {
+      return;
+    }
+
+    // Format date.
+    setText(DATE_FORMAT.format(tdItem));
+  }
   // ---------------------------------------------------------------------------------------------------------------------
 
 }

@@ -34,7 +34,7 @@
     <MenuItem fx:id="menuRefresh" text="Refresh"/>
   </Menu>
   <Menu text="Tools">
-    <MenuItem fx:id="menuOptions" text="Options..."/>
+    <MenuItem fx:id="menuOptions" text="Options..." onAction="#showOptions"/>
     <SeparatorMenuItem/>
     <MenuItem fx:id="menuSampleData" text="Sample Data..." onAction="#downloadSampleData"/>
   </Menu>

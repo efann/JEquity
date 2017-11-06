@@ -12,7 +12,7 @@
 <?import javafx.scene.control.TableView?>
 <TableView fx:id="tblGroup" stylesheets="@../css/Main.css"
            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.beowurks.jequity.controller.TableGroupController">
+           fx:controller="com.beowurks.jequity.controller.table.TableGroupController">
   <columns>
     <TableColumn fx:id="colID" text="ID #"/>
     <TableColumn fx:id="colDescription" text="Description"/>

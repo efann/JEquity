@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <TableView fx:id="tblSymbol" stylesheets="@../css/Main.css"
            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.beowurks.jequity.controller.TableSymbolController">
+           fx:controller="com.beowurks.jequity.controller.table.TableSymbolController">
   <columns>
     <TableColumn fx:id="colSymbol" text="Symbol"/>
     <TableColumn fx:id="colDescription" text="Description"/>

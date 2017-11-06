@@ -13,6 +13,7 @@ import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.dialog.AboutDialog;
+import com.beowurks.jequity.view.dialog.OptionsDialog;
 import com.beowurks.jequity.view.misc.CheckForUpdates;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -66,6 +67,13 @@ public class MenuController
     loDialog.showAndWait();
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
+  private void showOptions()
+  {
+    final OptionsDialog loDialog = new OptionsDialog();
+    loDialog.showAndWait();
+  }
 
   // ---------------------------------------------------------------------------------------------------------------------
   @FXML

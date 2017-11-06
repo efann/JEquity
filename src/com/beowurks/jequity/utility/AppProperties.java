@@ -18,7 +18,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Paths;
-import java.util.Calendar;
+import java.sql.Date;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -262,18 +262,15 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------
-  public java.util.Date getHistoricalStartDefault()
+  public Date getHistoricalStartDefault()
   {
-    final Calendar loCalendar = Calendar.getInstance();
-
-    loCalendar.set(2014, 0, 1);
-    final java.util.Date ldHistoricalStartDateDefault = loCalendar.getTime();
+    final Date ldHistoricalStartDateDefault = Date.valueOf("2014-01-01");
 
     return (this.getProperty(Constants.HISTORICAL_START_DEFAULT, ldHistoricalStartDateDefault));
   }
 
   // -----------------------------------------------------------------------------
-  public java.util.Date getHistoricalStart(final String tcSymbol)
+  public Date getHistoricalStart(final String tcSymbol)
   {
     return (this.getProperty(Constants.HISTORICAL_START + tcSymbol, this.getHistoricalStartDefault()));
   }
@@ -376,13 +373,13 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------
-  public void setHistoricalStartDefault(final java.util.Date tdValue)
+  public void setHistoricalStartDefault(final Date tdValue)
   {
     this.setProperty(Constants.HISTORICAL_START_DEFAULT, tdValue);
   }
 
   // -----------------------------------------------------------------------------
-  public void setHistoricalStart(final String tcSymbol, final java.util.Date tdValue)
+  public void setHistoricalStart(final String tcSymbol, final Date tdValue)
   {
     this.setProperty(Constants.HISTORICAL_START + tcSymbol, tdValue);
   }

@@ -21,24 +21,24 @@ import java.io.IOException;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 
-public class AboutDialog extends Dialog
+public class OptionsDialog extends Dialog
 {
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public AboutDialog()
+  public OptionsDialog()
   {
     final DialogPane loDialogPane = this.getDialogPane();
     loDialogPane.getStylesheets().add(Misc.ALERT_STYLE_SHEET);
 
-    this.setTitle(String.format("About %s", Main.getApplicationFullName()));
+    this.setTitle(String.format("Options for %s", Main.getApplicationFullName()));
 
     loDialogPane.setHeaderText(null);
-    loDialogPane.getButtonTypes().addAll(ButtonType.OK);
+    loDialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
     this.initOwner(Main.getPrimaryStage());
 
     // From https://stackoverflow.com/questions/40031632/custom-javafx-dialog
-    final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/AboutDialog.fxml"));
+    final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/OptionsDialog.fxml"));
     try
     {
       loDialogPane.setContent(loader.load());

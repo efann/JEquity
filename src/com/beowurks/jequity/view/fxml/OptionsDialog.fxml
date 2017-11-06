@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ J'Equity
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.beowurks.jequity.controller.OptionsController">
+  <center>
+    <TabPane fx:id="tabPaneOptions">
+      <Tab fx:id="tabConnectionsOption" text="Connections" closable="false">
+        <GridPane hgap="10" vgap="10">
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Driver"/>
+          <ComboBox fx:id="cboDriver" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Host"/>
+          <TextField fx:id="txtHost" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Database"/>
+          <TextField fx:id="txtDatabase" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="User"/>
+          <TextField fx:id="txtUser" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="Password"/>
+          <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+          <Button fx:id="btnDefault" GridPane.columnIndex="1" GridPane.rowIndex="5" text="Default"/>
+        </GridPane>
+      </Tab>
+      <Tab fx:id="tabHistoricalOption" text="Historical" closable="false">
+
+        <GridPane hgap="10" vgap="10">
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Default Historical Start Date"/>
+          <DatePicker fx:id="txtHistoricalStart" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Daily Download Start"/>
+          <ComboBox fx:id="cboDailyDownloadStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Daily Download Interval"/>
+          <ComboBox fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        </GridPane>
+
+      </Tab>
+      <Tab fx:id="tabMisc" text="Miscellaneous" closable="false">
+        <CheckBox fx:id="chkMigrationStatus" text="Always Check Migration Status"/>
+      </Tab>
+
+    </TabPane>
+  </center>
+</BorderPane>

@@ -22,6 +22,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Properties;
@@ -398,18 +399,18 @@ public class BaseProperties
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public java.util.Date getProperty(final String tcKey, final java.util.Date tdDefault)
+  public Date getProperty(final String tcKey, final java.sql.Date tdDefault)
   {
-    java.util.Date ldValue = tdDefault;
+    java.sql.Date ldValue = tdDefault;
 
     final String lcValue = this.foProperties.getProperty(tcKey);
     if (lcValue != null)
     {
       try
       {
-        ldValue = this.foDateFormat.parse(lcValue);
+        ldValue = Date.valueOf(lcValue);
       }
-      catch (final ParseException loErr)
+      catch (Exception loErr)
       {
         ldValue = tdDefault;
       }
@@ -476,7 +477,7 @@ public class BaseProperties
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void setProperty(final String tcKey, final java.util.Date tdValue)
+  public void setProperty(final String tcKey, final Date tdValue)
   {
     this.foProperties.put(tcKey, this.foDateFormat.format(tdValue));
   }
