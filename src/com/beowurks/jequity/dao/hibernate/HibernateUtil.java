@@ -20,13 +20,10 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.jdbc.Work;
 import org.hibernate.query.NativeQuery;
 import org.w3c.dom.Node;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -168,15 +165,10 @@ public final class HibernateUtil
     this.foTableList.put(HibernateUtil.TABLES_SYMBOL, "Symbol");
 
     final Session loSession = this.getSession();
-    loSession.doWork(new Work()
-    {
-      @Override
-      public void execute(final Connection toConnection) throws SQLException
-      {
-        HibernateUtil.this.flCaseSensitive = toConnection.getMetaData().supportsMixedCaseQuotedIdentifiers();
+    loSession.doWork(toConnection -> {
+      HibernateUtil.this.flCaseSensitive = toConnection.getMetaData().supportsMixedCaseQuotedIdentifiers();
 
-        HibernateUtil.this.foWhichDatabase = new WhichDatabase(toConnection);
-      }
+      HibernateUtil.this.foWhichDatabase = new WhichDatabase(toConnection);
     });
 
     loSession.close();

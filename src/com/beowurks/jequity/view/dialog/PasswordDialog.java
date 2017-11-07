@@ -121,7 +121,7 @@ public class PasswordDialog extends Dialog<String>
 
     this.getDialogPane().setContent(this.foGrid);
 
-    Platform.runLater(() -> this.foTextField.requestFocus());
+    Platform.runLater(this.foTextField::requestFocus);
   }
   // ---------------------------------------------------------------------------------------------------------------------
 }

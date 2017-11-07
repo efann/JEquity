@@ -70,7 +70,7 @@ abstract public class MigrationHelper implements JdbcMigration
       final String lcSQL = this.convertSQL(tcSQL);
       laStatements = lcSQL.split(";");
     }
-    catch (final Exception loErr)
+    catch (final Exception ignored)
     {
     }
 

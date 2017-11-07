@@ -14,7 +14,6 @@ import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import org.hibernate.Session;
-import org.hibernate.jdbc.Work;
 import org.hibernate.query.NativeQuery;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -23,7 +22,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -110,138 +108,133 @@ public class ThreadRestore implements Runnable
     // Even with StatelessSession and using inserts with SQL rather than saving
     // an entity, Hibernate would plod along at about 0.75 seconds per insert.
     // So From http://viralpatel.net/blogs/batch-insert-in-java-jdbc/ . . . .
-    loSession.doWork(new Work()
-    {
-      @Override
-      public void execute(final Connection toConnection) throws SQLException
+    loSession.doWork(toConnection -> {
+      toConnection.setAutoCommit(true);
+
+      final NodeList loRecordsList = loDocument.getElementsByTagName(Constants.XML_RECORDS_LABEL);
+      final int lnRows = loRecordsList.getLength();
+
+      // Must be initialized each time.
+      Misc.setStatusText("Restoring. . . .", 0.0);
+
+      PreparedStatement loPreparedStatement = null;
+      try
       {
-        toConnection.setAutoCommit(true);
-
-        final NodeList loRecordsList = loDocument.getElementsByTagName(Constants.XML_RECORDS_LABEL);
-        final int lnRows = loRecordsList.getLength();
-
-        // Must be initialized each time.
-        Misc.setStatusText("Restoring. . . .", 0.0);
-
-        PreparedStatement loPreparedStatement = null;
-        try
+        final String lcInsertSQL = String.format("INSERT INTO %s (groupid, description, symbol, account, type, category, shares, price, valuationdate, retirement, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", loHibernate.getTableFinancial());
+        loPreparedStatement = toConnection.prepareStatement(lcInsertSQL);
+        for (int lnRow = 0; lnRow < lnRows; ++lnRow)
         {
-          final String lcInsertSQL = String.format("INSERT INTO %s (groupid, description, symbol, account, type, category, shares, price, valuationdate, retirement, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", loHibernate.getTableFinancial());
-          loPreparedStatement = toConnection.prepareStatement(lcInsertSQL);
-          for (int lnRow = 0; lnRow < lnRows; ++lnRow)
+          final FinancialEntity loEntity = new FinancialEntity();
+
+          final Element loElement = (Element) loRecordsList.item(lnRow);
+          final NodeList loColList = loElement.getChildNodes();
+          final int lnCols = loColList.getLength();
+
+          String lcGroupDescription = "";
+
+          for (int lnCol = 0; lnCol < lnCols; ++lnCol)
           {
-            final FinancialEntity loEntity = new FinancialEntity();
+            final Node loField = loColList.item(lnCol);
 
-            final Element loElement = (Element) loRecordsList.item(lnRow);
-            final NodeList loColList = loElement.getChildNodes();
-            final int lnCols = loColList.getLength();
-
-            String lcGroupDescription = "";
-
-            for (int lnCol = 0; lnCol < lnCols; ++lnCol)
+            if (loField.getNodeType() != Node.ELEMENT_NODE)
             {
-              final Node loField = loColList.item(lnCol);
-
-              if (loField.getNodeType() != Node.ELEMENT_NODE)
-              {
-                continue;
-              }
-
-              // Empty values get skipped.
-              if (!loField.hasChildNodes())
-              {
-                continue;
-              }
-
-              final String lcField = loField.getNodeName();
-              final String lcValue = loField.getFirstChild().getNodeValue();
-
-              if (lcField.compareTo(Constants.XML_GROUP_DESCRIPTION) == 0)
-              {
-                lcGroupDescription = lcValue;
-                loEntity.setGroupID(ThreadRestore.this.foGroupMap.get(lcValue).getGroupID());
-              }
-              else if (lcField.compareTo(Constants.XML_ACCOUNT) == 0)
-              {
-                loEntity.setAccount(lcValue);
-              }
-              else if (lcField.compareTo(Constants.XML_CATEGORY) == 0)
-              {
-                loEntity.setCategory(lcValue);
-              }
-              else if (lcField.compareTo(Constants.XML_COMMENTS) == 0)
-              {
-                loEntity.setComments(lcValue);
-              }
-              else if (lcField.compareTo(Constants.XML_DESCRIPTION) == 0)
-              {
-                loEntity.setDescription(lcValue);
-              }
-              else if (lcField.compareTo(Constants.XML_PRICE) == 0)
-              {
-                loEntity.setPrice(Double.parseDouble(lcValue));
-              }
-              else if (lcField.compareTo(Constants.XML_RETIREMENT) == 0)
-              {
-                loEntity.setRetirement(Boolean.parseBoolean(lcValue));
-              }
-              else if (lcField.compareTo(Constants.XML_SHARES) == 0)
-              {
-                loEntity.setShares(Double.parseDouble(lcValue));
-              }
-              else if (lcField.compareTo(Constants.XML_SYMBOL) == 0)
-              {
-                loEntity.setSymbol(lcValue);
-              }
-              else if (lcField.compareTo(Constants.XML_TYPE) == 0)
-              {
-                loEntity.setType(lcValue);
-              }
-              else if (lcField.compareTo(Constants.XML_VALUATIONDATE) == 0)
-              {
-                loEntity.setValuationDate(java.sql.Date.valueOf(lcValue));
-              }
+              continue;
             }
 
-            Misc.setStatusText(String.format("Restoring %s: %s. . . .", lcGroupDescription, loEntity.getDescription()), lnRow / lnRows);
-
-            loPreparedStatement.setInt(1, loEntity.getGroupID());
-            loPreparedStatement.setString(2, loEntity.getDescription());
-            loPreparedStatement.setString(3, loEntity.getSymbol());
-            loPreparedStatement.setString(4, loEntity.getAccount());
-            loPreparedStatement.setString(5, loEntity.getType());
-            loPreparedStatement.setString(6, loEntity.getCategory());
-            loPreparedStatement.setDouble(7, loEntity.getShares());
-            loPreparedStatement.setDouble(8, loEntity.getPrice());
-            loPreparedStatement.setDate(9, loEntity.getValuationDate());
-            loPreparedStatement.setBoolean(10, loEntity.getRetirement());
-            loPreparedStatement.setString(11, loEntity.getComments());
-
-            loPreparedStatement.addBatch();
-
-            if ((lnRow % 30) == 0)
+            // Empty values get skipped.
+            if (!loField.hasChildNodes())
             {
-              loPreparedStatement.executeBatch();
+              continue;
+            }
+
+            final String lcField = loField.getNodeName();
+            final String lcValue = loField.getFirstChild().getNodeValue();
+
+            if (lcField.compareTo(Constants.XML_GROUP_DESCRIPTION) == 0)
+            {
+              lcGroupDescription = lcValue;
+              loEntity.setGroupID(ThreadRestore.this.foGroupMap.get(lcValue).getGroupID());
+            }
+            else if (lcField.compareTo(Constants.XML_ACCOUNT) == 0)
+            {
+              loEntity.setAccount(lcValue);
+            }
+            else if (lcField.compareTo(Constants.XML_CATEGORY) == 0)
+            {
+              loEntity.setCategory(lcValue);
+            }
+            else if (lcField.compareTo(Constants.XML_COMMENTS) == 0)
+            {
+              loEntity.setComments(lcValue);
+            }
+            else if (lcField.compareTo(Constants.XML_DESCRIPTION) == 0)
+            {
+              loEntity.setDescription(lcValue);
+            }
+            else if (lcField.compareTo(Constants.XML_PRICE) == 0)
+            {
+              loEntity.setPrice(Double.parseDouble(lcValue));
+            }
+            else if (lcField.compareTo(Constants.XML_RETIREMENT) == 0)
+            {
+              loEntity.setRetirement(Boolean.parseBoolean(lcValue));
+            }
+            else if (lcField.compareTo(Constants.XML_SHARES) == 0)
+            {
+              loEntity.setShares(Double.parseDouble(lcValue));
+            }
+            else if (lcField.compareTo(Constants.XML_SYMBOL) == 0)
+            {
+              loEntity.setSymbol(lcValue);
+            }
+            else if (lcField.compareTo(Constants.XML_TYPE) == 0)
+            {
+              loEntity.setType(lcValue);
+            }
+            else if (lcField.compareTo(Constants.XML_VALUATIONDATE) == 0)
+            {
+              loEntity.setValuationDate(java.sql.Date.valueOf(lcValue));
             }
           }
 
-          loPreparedStatement.executeBatch();
+          Misc.setStatusText(String.format("Restoring %s: %s. . . .", lcGroupDescription, loEntity.getDescription()), lnRow / lnRows);
+
+          loPreparedStatement.setInt(1, loEntity.getGroupID());
+          loPreparedStatement.setString(2, loEntity.getDescription());
+          loPreparedStatement.setString(3, loEntity.getSymbol());
+          loPreparedStatement.setString(4, loEntity.getAccount());
+          loPreparedStatement.setString(5, loEntity.getType());
+          loPreparedStatement.setString(6, loEntity.getCategory());
+          loPreparedStatement.setDouble(7, loEntity.getShares());
+          loPreparedStatement.setDouble(8, loEntity.getPrice());
+          loPreparedStatement.setDate(9, loEntity.getValuationDate());
+          loPreparedStatement.setBoolean(10, loEntity.getRetirement());
+          loPreparedStatement.setString(11, loEntity.getComments());
+
+          loPreparedStatement.addBatch();
+
+          if ((lnRow % 30) == 0)
+          {
+            loPreparedStatement.executeBatch();
+          }
+        }
+
+        loPreparedStatement.executeBatch();
+        loPreparedStatement.close();
+      }
+      catch (final SQLException | DOMException | NumberFormatException loErr)
+      {
+        loMessage.append(loErr.getMessage());
+      }
+      finally
+      {
+        if (loPreparedStatement != null)
+        {
           loPreparedStatement.close();
         }
-        catch (final SQLException | DOMException | NumberFormatException loErr)
-        {
-          loMessage.append(loErr.getMessage());
-        }
-        finally
-        {
-          if (loPreparedStatement != null)
-          {
-            loPreparedStatement.close();
-          }
-        }
-
-        Misc.setStatusText("Restoration complete.", 0.0);
       }
+
+      Misc.setStatusText("Restoration complete.", 0.0);
     });
 
     loSession.close();

@@ -161,16 +161,12 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   private void customResize(final TableView<?> toTableView)
   {
     final AtomicLong loWidth = new AtomicLong();
-    toTableView.getColumns().forEach(loColumn -> {
-      loWidth.addAndGet((long) loColumn.getWidth());
-    });
+    toTableView.getColumns().forEach(loColumn -> loWidth.addAndGet((long) loColumn.getWidth()));
     final double lnTableWidth = toTableView.getWidth();
 
     if (lnTableWidth > loWidth.get())
     {
-      toTableView.getColumns().forEach(col -> {
-        col.setPrefWidth(col.getWidth() + ((lnTableWidth - loWidth.get()) / toTableView.getColumns().size()));
-      });
+      toTableView.getColumns().forEach(col -> col.setPrefWidth(col.getWidth() + ((lnTableWidth - loWidth.get()) / toTableView.getColumns().size())));
     }
   }
   // ---------------------------------------------------------------------------------------------------------------------

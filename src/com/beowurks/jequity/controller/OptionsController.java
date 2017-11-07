@@ -9,6 +9,7 @@
 package com.beowurks.jequity.controller;
 
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
+import com.beowurks.jequity.dao.hibernate.warehouses.TimerSymbolInfo;
 import com.beowurks.jequity.utility.AppProperties;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +20,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+
+import java.sql.Date;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -42,9 +46,9 @@ public class OptionsController implements EventHandler<ActionEvent>
   @FXML
   private DatePicker txtHistoricalStart;
   @FXML
-  private ComboBox cboDailyDownloadStart;
+  private ComboBox<IntegerKeyItem> cboDailyDownloadStart;
   @FXML
-  private ComboBox cboDailyDownloadInterval;
+  private ComboBox<IntegerKeyItem> cboDailyDownloadInterval;
 
   @FXML
   private CheckBox chkMigrationStatus;
@@ -59,6 +63,38 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.setupComboBoxes(loApp);
     this.setupTextBoxes(loApp);
     this.setupCheckBoxes(loApp);
+
+    this.setupButtons();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void updateAppProperties()
+  {
+    final AppProperties loApp = AppProperties.INSTANCE;
+
+    //***************************************
+    // Connections tab
+    final int lnKey = loApp.convertIndexToKey(loApp.getRDBMS_Types(), this.cboDriver.getSelectionModel().getSelectedIndex());
+
+    loApp.setConnectionRDBMS_Key(lnKey);
+    loApp.setConnectionHost(this.txtHost.getText().trim());
+    loApp.setConnectionDatabase(this.txtDatabase.getText().trim());
+    loApp.setConnectionUser(this.txtUser.getText().trim());
+    // Don't trim the password as it could contain special characters or spaces at the end-points.
+    loApp.setConnectionPassword(new String(this.txtPassword.getText()));
+
+    //***************************************
+    // Historical tab
+    loApp.setDailyStartKey(loApp.convertIndexToKey(loApp.getDailyStarts(), this.cboDailyDownloadStart.getSelectionModel().getSelectedIndex()));
+    loApp.setDailyIntervalKey(loApp.convertIndexToKey(loApp.getDailyIntervals(), this.cboDailyDownloadInterval.getSelectionModel().getSelectedIndex()));
+    loApp.setHistoricalStartDefault(Date.valueOf(this.txtHistoricalStart.getValue()));
+
+    // TimerSymbolInfo uses loApp.getDailyIntervalKey and loApp.getDailyStartKey
+    TimerSymbolInfo.INSTANCE.reSchedule();
+
+    //***************************************
+    // Miscellaneous tab
+    loApp.setFlywayAlwaysCheck(this.chkMigrationStatus.isSelected());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -112,8 +148,28 @@ public class OptionsController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  private void setupButtons()
+  {
+    this.btnDefault.setTooltip(new Tooltip("Reset all of the above settings to the default"));
+
+    this.btnDefault.setOnAction(this);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public void handle(final ActionEvent toEvent)
   {
+    final Object loObject = toEvent.getSource();
+    if (loObject == this.btnDefault)
+    {
+      final AppProperties loApp = AppProperties.INSTANCE;
+
+      this.cboDriver.getSelectionModel().select(loApp.convertKeyToIndex(loApp.getRDBMS_Types(), loApp.getDefaultDriverKey()));
+
+      this.txtHost.setText(loApp.getDefaultHost());
+      this.txtDatabase.setText(loApp.getDefaultDatabase());
+      this.txtUser.setText(loApp.getDefaultDerbyUser());
+      this.txtPassword.setText(loApp.getDefaultDerbyPassword());
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

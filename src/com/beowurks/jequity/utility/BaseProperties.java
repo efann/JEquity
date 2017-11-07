@@ -24,7 +24,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Properties;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -399,9 +398,9 @@ public class BaseProperties
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Date getProperty(final String tcKey, final java.sql.Date tdDefault)
+  public Date getProperty(final String tcKey, final Date tdDefault)
   {
-    java.sql.Date ldValue = tdDefault;
+    Date ldValue = tdDefault;
 
     final String lcValue = this.foProperties.getProperty(tcKey);
     if (lcValue != null)
@@ -410,7 +409,7 @@ public class BaseProperties
       {
         ldValue = Date.valueOf(lcValue);
       }
-      catch (Exception loErr)
+      catch (final Exception loErr)
       {
         ldValue = tdDefault;
       }

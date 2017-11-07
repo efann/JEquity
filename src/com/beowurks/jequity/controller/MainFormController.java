@@ -19,7 +19,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -134,28 +133,12 @@ public class MainFormController implements EventHandler<WindowEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupListeners()
   {
-    this.menuMainController.getMenuRefresh().setOnAction(new EventHandler<ActionEvent>()
-    {
-      @Override
-      public void handle(final ActionEvent toActionEvent)
-      {
-        MainFormController.this.refreshAllComponents(true);
-      }
-    });
+    this.menuMainController.getMenuRefresh().setOnAction(toActionEvent -> MainFormController.this.refreshAllComponents(true));
 
-    this.toolbarMainController.getRefreshButton().setOnAction(new EventHandler<ActionEvent>()
-    {
-      @Override
-      public void handle(final ActionEvent toActionEvent)
-      {
-        MainFormController.this.refreshAllComponents(true);
-      }
-    });
+    this.toolbarMainController.getRefreshButton().setOnAction(toActionEvent -> MainFormController.this.refreshAllComponents(true));
 
     this.tabPane.getSelectionModel().selectedItemProperty().addListener(
-        (toObservableValue, toPrevious, toCurrent) -> {
-          this.refreshAllComponents(false);
-        }
+        (toObservableValue, toPrevious, toCurrent) -> this.refreshAllComponents(false)
     );
 
     this.toolbarMainController.getGroupComboBox().getSelectionModel().selectedItemProperty().addListener(
@@ -185,9 +168,7 @@ public class MainFormController implements EventHandler<WindowEvent>
     else
     {
       Platform.runLater(() ->
-      {
-        this.refreshAllComponentsFunction(tlIncludeGroupComboBox);
-      });
+          this.refreshAllComponentsFunction(tlIncludeGroupComboBox));
     }
 
   }
@@ -235,10 +216,7 @@ public class MainFormController implements EventHandler<WindowEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void refreshReport()
   {
-    SwingUtilities.invokeLater(() ->
-    {
-      this.generateSummary();
-    });
+    SwingUtilities.invokeLater(this::generateSummary);
 
   }
 

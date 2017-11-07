@@ -16,12 +16,14 @@ import com.beowurks.jequity.view.dialog.AboutDialog;
 import com.beowurks.jequity.view.dialog.OptionsDialog;
 import com.beowurks.jequity.view.misc.CheckForUpdates;
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -72,7 +74,15 @@ public class MenuController
   private void showOptions()
   {
     final OptionsDialog loDialog = new OptionsDialog();
-    loDialog.showAndWait();
+
+    final Optional<ButtonType> loResult = loDialog.showAndWait();
+
+    final ButtonType loButton = loResult.orElse(ButtonType.CANCEL);
+
+    if (loButton == ButtonType.OK)
+    {
+      loDialog.getController().updateAppProperties();
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

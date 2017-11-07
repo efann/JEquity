@@ -15,14 +15,11 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.jdbc.Work;
 import org.hibernate.query.NativeQuery;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.List;
@@ -95,44 +92,38 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
     // I had to use this method rather than using loSession.createNativeQuery.
     // Otherwise I was getting an invalid char '"' in statement error.
-    loSession.doWork(new Work()
-    {
-      @Override
-      public void execute(final Connection toConnection) throws SQLException
+    loSession.doWork(toConnection -> {
+      Statement loStatement = null;
+      try
       {
-        Statement loStatement = null;
-        try
+        final String lcDelete = String.format("DELETE FROM %s WHERE symbol NOT IN (SELECT DISTINCT symbol FROM %s WHERE symbol <> ' ')",
+            lcSymbolTable, lcFinancialTable);
+        final String lcInsert = String.format("INSERT INTO %s (Symbol) SELECT DISTINCT f.symbol FROM %s "
+                + "f LEFT JOIN %s "
+                + "s ON f.symbol = s.symbol WHERE (s.symbol IS NULL) AND (f.symbol <> ' ')",
+            lcSymbolTable, lcFinancialTable, lcSymbolTable);
+
+        loStatement = toConnection.createStatement();
+
+        loStatement.addBatch(lcDelete);
+        loStatement.addBatch(lcInsert);
+
+        loStatement.executeBatch();
+
+        toConnection.commit();
+
+      }
+      catch (final Exception loError)
+      {
+        lcMessage.append(String.format("There was an error in updating symbols with doWork:\n\n%s", loError.getMessage()));
+      }
+      finally
+      {
+        if (null != loStatement)
         {
-          final String lcDelete = String.format("DELETE FROM %s WHERE symbol NOT IN (SELECT DISTINCT symbol FROM %s WHERE symbol <> ' ')",
-              lcSymbolTable, lcFinancialTable);
-          final String lcInsert = String.format("INSERT INTO %s (Symbol) SELECT DISTINCT f.symbol FROM %s "
-                  + "f LEFT JOIN %s "
-                  + "s ON f.symbol = s.symbol WHERE (s.symbol IS NULL) AND (f.symbol <> ' ')",
-              lcSymbolTable, lcFinancialTable, lcSymbolTable);
-
-          loStatement = toConnection.createStatement();
-
-          loStatement.addBatch(lcDelete);
-          loStatement.addBatch(lcInsert);
-
-          loStatement.executeBatch();
-
-          toConnection.commit();
-
-        }
-        catch (final Exception loError)
-        {
-          lcMessage.append(String.format("There was an error in updating symbols with doWork:\n\n%s", loError.getMessage()));
-        }
-        finally
-        {
-          if (null != loStatement)
-          {
-            loStatement.close();
-          }
+          loStatement.close();
         }
       }
-
     });
 
     loSession.close();
@@ -227,38 +218,33 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
       // I had to use this method rather than using loSession.createNativeQuery.
       // Otherwise I was getting an invalid char '"' in statement error.
-      loSession.doWork(new Work()
-      {
-        @Override
-        public void execute(final Connection toConnection) throws SQLException
+      loSession.doWork(toConnection -> {
+        // Yea, complicated SQL statements. . . .
+        final String lcPrice = String.format("UPDATE %s f SET Price = (SELECT s.LastTrade FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);
+        final String lcTradeTime = String.format("UPDATE %s f SET ValuationDate = (SELECT CAST(s.TradeTime AS date) FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);
+        final String lcDescription = String.format("UPDATE %s f SET Description = (SELECT s.Description FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);
+
+        Statement loStatement = null;
+        try
         {
-          // Yea, complicated SQL statements. . . .
-          final String lcPrice = String.format("UPDATE %s f SET Price = (SELECT s.LastTrade FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);
-          final String lcTradeTime = String.format("UPDATE %s f SET ValuationDate = (SELECT CAST(s.TradeTime AS date) FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);
-          final String lcDescription = String.format("UPDATE %s f SET Description = (SELECT s.Description FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);
+          loStatement = toConnection.createStatement();
 
-          Statement loStatement = null;
-          try
-          {
-            loStatement = toConnection.createStatement();
+          loStatement.addBatch(lcPrice);
+          loStatement.addBatch(lcTradeTime);
+          loStatement.addBatch(lcDescription);
 
-            loStatement.addBatch(lcPrice);
-            loStatement.addBatch(lcTradeTime);
-            loStatement.addBatch(lcDescription);
-
-            loStatement.executeBatch();
-          }
-          catch (final Exception loError)
+          loStatement.executeBatch();
+        }
+        catch (final Exception loError)
+        {
+          final String lcMessage = String.format("There was an error in updating the Financial table with doWork: %s", loError.getMessage());
+          Misc.setStatusText(lcMessage);
+        }
+        finally
+        {
+          if (null != loStatement)
           {
-            final String lcMessage = String.format("There was an error in updating the Financial table with doWork: %s", loError.getMessage());
-            Misc.setStatusText(lcMessage);
-          }
-          finally
-          {
-            if (null != loStatement)
-            {
-              loStatement.close();
-            }
+            loStatement.close();
           }
         }
       });

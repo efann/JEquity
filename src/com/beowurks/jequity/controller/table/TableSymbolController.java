@@ -8,6 +8,9 @@
 
 package com.beowurks.jequity.controller.table;
 
+import com.beowurks.jequity.controller.cell.CurrencyTableCell;
+import com.beowurks.jequity.controller.cell.DoubleTableCell;
+import com.beowurks.jequity.controller.cell.IntegerTableCell;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.dao.tableview.SymbolProperty;
@@ -128,6 +131,20 @@ public class TableSymbolController extends TableBaseController
     this.colYearRange.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("yearrange"));
     this.colComments.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("comments"));
     this.colHistoricalInfo.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("historicalinfo"));
+
+    this.colAverageVolume.setCellFactory(tc -> new IntegerTableCell());
+    this.colVolume.setCellFactory(tc -> new IntegerTableCell());
+
+    this.colDifferential.setCellFactory(tc -> new DoubleTableCell());
+
+    this.colAsking.setCellFactory(tc -> new CurrencyTableCell());
+    this.colBidding.setCellFactory(tc -> new CurrencyTableCell());
+    this.colEarningsPerShare.setCellFactory(tc -> new CurrencyTableCell());
+    this.colLastTrade.setCellFactory(tc -> new CurrencyTableCell());
+    this.colOpened.setCellFactory(tc -> new CurrencyTableCell());
+    this.colPreviousClose.setCellFactory(tc -> new CurrencyTableCell());
+    this.colPriceEarnings.setCellFactory(tc -> new CurrencyTableCell());
+    this.colTargetEstimate.setCellFactory(tc -> new CurrencyTableCell());
 
     this.tblSymbol.getItems().clear();
     this.tblSymbol.setColumnResizePolicy((param -> true));

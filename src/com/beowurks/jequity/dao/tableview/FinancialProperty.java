@@ -56,7 +56,7 @@ public class FinancialProperty
     this.category = new SimpleStringProperty(tcCategory);
     this.shares = new SimpleDoubleProperty(tnShares);
     this.price = new SimpleDoubleProperty(tnPrice);
-    this.valuationdate = new SimpleObjectProperty<Date>(tdDate);
+    this.valuationdate = new SimpleObjectProperty<>(tdDate);
     this.retirement = new SimpleBooleanProperty(tlRetirement);
     this.symbol = new SimpleStringProperty(tcSymbol);
     this.total = new SimpleDoubleProperty(tnShares * tnPrice);

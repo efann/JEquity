@@ -8,7 +8,9 @@
 
 package com.beowurks.jequity.controller.table;
 
+import com.beowurks.jequity.controller.cell.CurrencyTableCell;
 import com.beowurks.jequity.controller.cell.DateTableCell;
+import com.beowurks.jequity.controller.cell.DoubleTableCell;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
@@ -108,8 +110,13 @@ public class TableFinancialController extends TableBaseController
 
     // Add check box to the grid.
     this.colRetirement.setCellFactory(tc -> new CheckBoxTableCell<FinancialProperty, Boolean>());
+
     this.colValuationDate.setCellFactory(tc -> new DateTableCell());
 
+    this.colPrice.setCellFactory(tc -> new CurrencyTableCell());
+    this.colSharesPrice.setCellFactory(tc -> new CurrencyTableCell());
+
+    this.colShares.setCellFactory(tc -> new DoubleTableCell());
 
     this.tblFinancial.getItems().clear();
     this.tblFinancial.setColumnResizePolicy((param -> true));

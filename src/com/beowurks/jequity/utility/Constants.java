@@ -124,7 +124,6 @@ final public class Constants
 
   public final static IntegerKeyItem[] DAILY_START =
       {
-          new IntegerKeyItem((int) (0.25 * 60 * 1000), "After 15 seconds"),
           new IntegerKeyItem((int) (0.5 * 60 * 1000), "After 30 seconds"),
           new IntegerKeyItem(1 * 60 * 1000, "After 1 minutes"),
           new IntegerKeyItem(5 * 60 * 1000, "After 5 Minutes"),
@@ -134,8 +133,6 @@ final public class Constants
 
   public final static IntegerKeyItem[] DAILY_INTERVAL =
       {
-          new IntegerKeyItem(5 * 60 * 1000, "Every 5 minutes (not recommended)"),
-          new IntegerKeyItem(10 * 60 * 1000, "Every 10 minutes"),
           new IntegerKeyItem(15 * 60 * 1000, "Every 15 Minutes"),
           new IntegerKeyItem(30 * 60 * 1000, "Every 30 Minutes"),
           new IntegerKeyItem(60 * 60 * 1000, "Every Hour"),

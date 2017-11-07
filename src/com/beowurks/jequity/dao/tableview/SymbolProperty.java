@@ -61,7 +61,7 @@ public class SymbolProperty
     this.symbol = new SimpleStringProperty(tcSymbol);
     this.description = new SimpleStringProperty(tcDescription);
     this.lasttrade = new SimpleDoubleProperty(tnLastTrade);
-    this.tradetime = new SimpleObjectProperty<Timestamp>(ttTradeTime);
+    this.tradetime = new SimpleObjectProperty<>(ttTradeTime);
     this.differential = new SimpleDoubleProperty(tnDifferential);
     this.previousclose = new SimpleDoubleProperty(tnPreviousClose);
     this.opened = new SimpleDoubleProperty(tnOpened);

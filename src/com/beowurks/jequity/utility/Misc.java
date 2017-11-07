@@ -28,8 +28,6 @@ import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
 import org.controlsfx.control.StatusBar;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.events.Event;
-import org.w3c.dom.events.EventListener;
 
 import javax.swing.SwingUtilities;
 import java.awt.Graphics2D;
@@ -189,9 +187,7 @@ public final class Misc
     }
     else
     {
-      Platform.runLater(() -> {
-        loStatus.setText(tcMessage);
-      });
+      Platform.runLater(() -> loStatus.setText(tcMessage));
     }
   }
 
@@ -225,9 +221,7 @@ public final class Misc
     }
     else
     {
-      Platform.runLater(() -> {
-        loStatus.setProgress(tnProgress);
-      });
+      Platform.runLater(() -> loStatus.setProgress(tnProgress));
     }
   }
 
@@ -363,9 +357,7 @@ public final class Misc
     }
     else
     {
-      Platform.runLater(() -> {
-        Misc.baseAlert(loGridPane, tcTitle, lnAlertType);
-      });
+      Platform.runLater(() -> Misc.baseAlert(loGridPane, tcTitle, lnAlertType));
     }
 
   }
@@ -394,9 +386,7 @@ public final class Misc
     }
     else
     {
-      Platform.runLater(() -> {
-        Misc.baseAlert(loWebView, tcTitle, lnAlertType);
-      });
+      Platform.runLater(() -> Misc.baseAlert(loWebView, tcTitle, lnAlertType));
     }
 
   }
@@ -413,9 +403,7 @@ public final class Misc
     }
     else
     {
-      Platform.runLater(() -> {
-        Misc.baseAlert(tcMessage, lcTitle, lnAlertType);
-      });
+      Platform.runLater(() -> Misc.baseAlert(tcMessage, lcTitle, lnAlertType));
     }
   }
 
@@ -431,9 +419,7 @@ public final class Misc
     }
     else
     {
-      Platform.runLater(() -> {
-        Misc.baseAlert(tcMessage, lcTitle, lnAlertType);
-      });
+      Platform.runLater(() -> Misc.baseAlert(tcMessage, lcTitle, lnAlertType));
     }
   }
 
@@ -504,9 +490,7 @@ public final class Misc
     }
     else
     {
-      Platform.runLater(() -> {
-        Main.getPrimaryStage().getScene().setCursor(toCursor);
-      });
+      Platform.runLater(() -> Main.getPrimaryStage().getScene().setCursor(toCursor));
     }
 
   }
@@ -743,18 +727,13 @@ public final class Misc
           {
             final org.w3c.dom.Node loNode = loNodeList.item(i);
             final org.w3c.dom.events.EventTarget loEventTarget = (org.w3c.dom.events.EventTarget) loNode;
-            loEventTarget.addEventListener("click", new EventListener()
-            {
-              @Override
-              public void handleEvent(final Event toEvent)
-              {
-                final org.w3c.dom.events.EventTarget loCurrentTarget = toEvent.getCurrentTarget();
-                final org.w3c.dom.html.HTMLAnchorElement loAnchorElement = (org.w3c.dom.html.HTMLAnchorElement) loCurrentTarget;
-                final String lcHref = loAnchorElement.getHref();
+            loEventTarget.addEventListener("click", toEvent -> {
+              final org.w3c.dom.events.EventTarget loCurrentTarget = toEvent.getCurrentTarget();
+              final org.w3c.dom.html.HTMLAnchorElement loAnchorElement = (org.w3c.dom.html.HTMLAnchorElement) loCurrentTarget;
+              final String lcHref = loAnchorElement.getHref();
 
-                toEvent.preventDefault();
-                Main.getMainHostServices().showDocument(lcHref);
-              }
+              toEvent.preventDefault();
+              Main.getMainHostServices().showDocument(lcHref);
             }, false);
           }
         });

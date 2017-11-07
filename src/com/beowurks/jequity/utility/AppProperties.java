@@ -19,6 +19,8 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -35,6 +37,9 @@ public final class AppProperties extends BaseProperties
   // Always have to start with the default password as the real one is never
   // saved to disk.
   private String fcPassword = AppProperties.getDefaultMasterKey();
+
+  private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
 
   // -----------------------------------------------------------------------------
   private AppProperties()
@@ -375,13 +380,13 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------
   public void setHistoricalStartDefault(final Date tdValue)
   {
-    this.setProperty(Constants.HISTORICAL_START_DEFAULT, tdValue);
+    this.setProperty(Constants.HISTORICAL_START_DEFAULT, DATE_FORMAT.format(tdValue));
   }
 
   // -----------------------------------------------------------------------------
   public void setHistoricalStart(final String tcSymbol, final Date tdValue)
   {
-    this.setProperty(Constants.HISTORICAL_START + tcSymbol, tdValue);
+    this.setProperty(Constants.HISTORICAL_START + tcSymbol, DATE_FORMAT.format(tdValue));
   }
 
   // -----------------------------------------------------------------------------
