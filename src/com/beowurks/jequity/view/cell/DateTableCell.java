@@ -6,36 +6,34 @@
  *
  */
 
-package com.beowurks.jequity.controller.cell;
+package com.beowurks.jequity.view.cell;
 
 import javafx.scene.control.TableCell;
-import javafx.scene.paint.Color;
 
-import java.text.NumberFormat;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // From http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
-public class IntegerTableCell extends TableCell<Object, Integer>
+public class DateTableCell extends TableCell<Object, Date>
 {
-  static private final NumberFormat NUMBER_FORMAT = NumberFormat.getNumberInstance();
+  static private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy");
 
   // ---------------------------------------------------------------------------------------------------------------------
 
   @Override
-  protected void updateItem(final Integer tnItem, final boolean tlEmpty)
+  protected void updateItem(final Date tdItem, final boolean tlEmpty)
   {
-    super.updateItem(tnItem, tlEmpty);
+    super.updateItem(tdItem, tlEmpty);
 
-
-    if ((tnItem == null) || tlEmpty)
+    if ((tdItem == null) || tlEmpty)
     {
       return;
     }
 
-    this.setText(IntegerTableCell.NUMBER_FORMAT.format(tnItem));
-    this.setTextFill((tnItem >= 0) ? Color.BLACK : Color.RED);
+    this.setText(DateTableCell.DATE_FORMAT.format(tdItem));
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

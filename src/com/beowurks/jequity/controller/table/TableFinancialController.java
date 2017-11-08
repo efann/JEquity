@@ -8,17 +8,17 @@
 
 package com.beowurks.jequity.controller.table;
 
-import com.beowurks.jequity.controller.cell.CurrencyTableCell;
-import com.beowurks.jequity.controller.cell.DateTableCell;
-import com.beowurks.jequity.controller.cell.DoubleTableCell;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
+import com.beowurks.jequity.view.cell.CurrencyTableCell;
+import com.beowurks.jequity.view.cell.DateTableCell;
+import com.beowurks.jequity.view.cell.DoubleTableCell;
+import com.beowurks.jequity.view.table.TableViewPlus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
@@ -34,7 +34,7 @@ public class TableFinancialController extends TableBaseController
   private final ObservableList<FinancialProperty> foDataList = FXCollections.observableArrayList();
 
   @FXML
-  private TableView tblFinancial;
+  private TableViewPlus tblFinancial;
 
   @FXML
   private TableColumn colID;
@@ -87,6 +87,7 @@ public class TableFinancialController extends TableBaseController
     }
 
     this.tblFinancial.setItems(this.foDataList);
+    this.tblFinancial.resizeColumns();
 
     loSession.close();
   }
@@ -94,8 +95,6 @@ public class TableFinancialController extends TableBaseController
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupTable()
   {
-    this.tblFinancial.setEditable(false);
-
     this.colID.setCellValueFactory(new PropertyValueFactory<FinancialProperty, Integer>("id"));
     this.colDescription.setCellValueFactory(new PropertyValueFactory<FinancialProperty, String>("description"));
     this.colAccount.setCellValueFactory(new PropertyValueFactory<FinancialProperty, String>("account"));
@@ -119,7 +118,6 @@ public class TableFinancialController extends TableBaseController
     this.colShares.setCellFactory(tc -> new DoubleTableCell());
 
     this.tblFinancial.getItems().clear();
-    this.tblFinancial.setColumnResizePolicy((param -> true));
   }
 
   // -----------------------------------------------------------------------------

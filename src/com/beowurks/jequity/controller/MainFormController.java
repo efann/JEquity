@@ -19,6 +19,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -27,7 +28,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
-import javafx.stage.WindowEvent;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -48,7 +48,7 @@ import java.util.HashMap;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class MainFormController implements EventHandler<WindowEvent>
+public class MainFormController implements EventHandler<ActionEvent>
 {
   //********************************************************************************
   // From https://stackoverflow.com/questions/23592148/javafx-nested-controller
@@ -141,19 +141,7 @@ public class MainFormController implements EventHandler<WindowEvent>
         (toObservableValue, toPrevious, toCurrent) -> this.refreshAllComponents(false)
     );
 
-    this.toolbarMainController.getGroupComboBox().getSelectionModel().selectedItemProperty().addListener(
-        (toObservableValue, toPrevious, toCurrent) -> {
-          if (toCurrent != null)
-          {
-            HibernateUtil.INSTANCE.setGroupID(toCurrent.getKey());
-          }
-          if ((toCurrent != null) && (toPrevious != null))
-          {
-            MainFormController.this.refreshAllComponents(false);
-          }
-        }
-    );
-
+    this.toolbarMainController.getGroupComboBox().setOnAction(this);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -275,13 +263,12 @@ public class MainFormController implements EventHandler<WindowEvent>
 
   // ---------------------------------------------------------------------------------------------------------------------
   @Override
-  public void handle(final WindowEvent toEvent)
+  public void handle(final ActionEvent toEvent)
   {
-    final Object loSource = toEvent.getSource();
-    if (loSource instanceof Tooltip)
+    final Object loObject = toEvent.getSource();
+    if (loObject == this.toolbarMainController.getGroupComboBox())
     {
-      final String lcText = ((Tooltip) loSource).getText();
-      this.statusBar.setText(lcText);
+      MainFormController.this.refreshAllComponents(false);
     }
 
   }

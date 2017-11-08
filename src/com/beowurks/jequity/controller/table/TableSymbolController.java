@@ -8,17 +8,17 @@
 
 package com.beowurks.jequity.controller.table;
 
-import com.beowurks.jequity.controller.cell.CurrencyTableCell;
-import com.beowurks.jequity.controller.cell.DoubleTableCell;
-import com.beowurks.jequity.controller.cell.IntegerTableCell;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.dao.tableview.SymbolProperty;
+import com.beowurks.jequity.view.cell.CurrencyTableCell;
+import com.beowurks.jequity.view.cell.DoubleTableCell;
+import com.beowurks.jequity.view.cell.IntegerTableCell;
+import com.beowurks.jequity.view.table.TableViewPlus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -33,7 +33,7 @@ public class TableSymbolController extends TableBaseController
   private final ObservableList<SymbolProperty> foDataList = FXCollections.observableArrayList();
 
   @FXML
-  private TableView tblSymbol;
+  private TableViewPlus tblSymbol;
   @FXML
   private TableColumn colSymbol;
   @FXML
@@ -102,6 +102,7 @@ public class TableSymbolController extends TableBaseController
     }
 
     this.tblSymbol.setItems(this.foDataList);
+    this.tblSymbol.resizeColumns();
 
     loSession.close();
   }
@@ -109,8 +110,6 @@ public class TableSymbolController extends TableBaseController
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupTable()
   {
-    this.tblSymbol.setEditable(false);
-
     this.colSymbol.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("symbol"));
     this.colDescription.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("description"));
     this.colAsking.setCellValueFactory(new PropertyValueFactory<SymbolProperty, Double>("asking"));

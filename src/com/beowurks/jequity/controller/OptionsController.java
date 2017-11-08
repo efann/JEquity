@@ -8,6 +8,7 @@
 
 package com.beowurks.jequity.controller;
 
+
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.dao.hibernate.warehouses.TimerSymbolInfo;
 import com.beowurks.jequity.utility.AppProperties;
@@ -145,6 +146,9 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.cboDriver.getSelectionModel().select(toApp.convertKeyToIndex(toApp.getRDBMS_Types(), toApp.getConnectionRDBMS_Key()));
     this.cboDailyDownloadStart.getSelectionModel().select(toApp.convertKeyToIndex(laDailyStarts, toApp.getDailyStartKey()));
     this.cboDailyDownloadInterval.getSelectionModel().select(toApp.convertKeyToIndex(laDailyIntervals, toApp.getDailyIntervalKey()));
+
+    this.cboDriver.setOnAction(this);
+    this.resetTextFields();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -153,6 +157,26 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.btnDefault.setTooltip(new Tooltip("Reset all of the above settings to the default"));
 
     this.btnDefault.setOnAction(this);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void resetTextFields()
+  {
+    final boolean llEditable = (this.cboDriver.getSelectionModel().getSelectedIndex() != 0);
+
+    this.setEditable(this.txtHost, llEditable);
+    this.setEditable(this.txtUser, llEditable);
+    this.setEditable(this.txtPassword, llEditable);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // Unfortunately, I can't create an inherited class from TextField and override setEditable: it's a final method.
+  // Oh well. . . .
+  private void setEditable(final TextField toField, final boolean tlEditable)
+  {
+    toField.setEditable(tlEditable);
+
+    toField.setStyle(tlEditable ? "" : "-fx-background-color: lightgrey;");
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -170,8 +194,11 @@ public class OptionsController implements EventHandler<ActionEvent>
       this.txtUser.setText(loApp.getDefaultDerbyUser());
       this.txtPassword.setText(loApp.getDefaultDerbyPassword());
     }
+    else if (loObject == this.cboDriver)
+    {
+      this.resetTextFields();
+    }
   }
-
   // ---------------------------------------------------------------------------------------------------------------------
 
 }

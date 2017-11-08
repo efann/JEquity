@@ -8,11 +8,11 @@
   ~
   -->
 
+<?import com.beowurks.jequity.view.table.TableViewPlus?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.HyperlinkLabel?>
@@ -36,11 +36,11 @@
     <Label fx:id="lblApplicationVersion"/>
     <HyperlinkLabel fx:id="lnkCopyright"/>
 
-    <TableView fx:id="tblEnvironment">
+    <TableViewPlus fx:id="tblEnvironment">
       <columns>
         <TableColumn fx:id="colKey" prefWidth="200.0" text="Key"/>
         <TableColumn fx:id="colValue" prefWidth="400.0" text="Value"/>
       </columns>
-    </TableView>
+    </TableViewPlus>
   </VBox>
 </GridPane>

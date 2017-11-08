@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequity.controller.cell;
+package com.beowurks.jequity.view.cell;
 
 import javafx.scene.control.TableCell;
 import javafx.scene.paint.Color;

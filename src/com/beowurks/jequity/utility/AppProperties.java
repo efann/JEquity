@@ -380,13 +380,13 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------
   public void setHistoricalStartDefault(final Date tdValue)
   {
-    this.setProperty(Constants.HISTORICAL_START_DEFAULT, DATE_FORMAT.format(tdValue));
+    this.setProperty(Constants.HISTORICAL_START_DEFAULT, AppProperties.DATE_FORMAT.format(tdValue));
   }
 
   // -----------------------------------------------------------------------------
   public void setHistoricalStart(final String tcSymbol, final Date tdValue)
   {
-    this.setProperty(Constants.HISTORICAL_START + tcSymbol, DATE_FORMAT.format(tdValue));
+    this.setProperty(Constants.HISTORICAL_START + tcSymbol, AppProperties.DATE_FORMAT.format(tdValue));
   }
 
   // -----------------------------------------------------------------------------
