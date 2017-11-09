@@ -24,6 +24,8 @@ import java.lang.reflect.Method;
 // ---------------------------------------------------------------------------------------------------------------------
 public class TableViewPlus extends TableView
 {
+  private boolean flSkinPropertyListenerAdded = false;
+
   // ---------------------------------------------------------------------------------------------------------------------
   public TableViewPlus()
   {
@@ -41,7 +43,25 @@ public class TableViewPlus extends TableView
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void resizeColumns()
+  public void resizeColumnsToFit()
+  {
+    if (this.getSkin() != null)
+    {
+      this.resizeColumnsPlatformCheck();
+    }
+    else if (!this.flSkinPropertyListenerAdded)
+    {
+      this.flSkinPropertyListenerAdded = true;
+
+      // From https://stackoverflow.com/questions/38718926/how-to-get-tableheaderrow-from-tableview-nowadays-in-javafx
+      // Add listener to detect when the skin has been initialized and therefore this.getSkin() != null.
+      this.skinProperty().addListener((a, b, newSkin) -> this.resizeColumnsPlatformCheck());
+    }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void resizeColumnsPlatformCheck()
   {
     if (Platform.isFxApplicationThread())
     {
@@ -56,7 +76,7 @@ public class TableViewPlus extends TableView
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/38090353/javafx-how-automatically-width-of-tableview-column-depending-on-the-content
   // Geesh. . . .
-  protected void resizeAllColumnsUsingReflection()
+  private void resizeAllColumnsUsingReflection()
   {
     final TableViewSkin<?> loSkin = (TableViewSkin<?>) this.getSkin();
     // The skin is not applied till after being rendered. Which is happening with the About dialog.

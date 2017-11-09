@@ -16,9 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -57,7 +55,7 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   private HyperlinkLabel lnkCopyright;
 
   @FXML
-  private TableViewPlus tblEnvironment;
+  public TableViewPlus tblEnvironment;
 
   @FXML
   private TableColumn colKey;
@@ -84,11 +82,12 @@ public class AboutBoxController implements EventHandler<ActionEvent>
     final Image loImage = new Image("/com/beowurks/jequity/view/images/JEquity.jpg");
     this.lnkLogo.setGraphic(new ImageView(loImage));
     this.lnkLogo.setOnAction(this);
+
+    this.setupTable();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  // This function is being called by the AboutDialog in the onShown Event.
-  public void setupTable()
+  private void setupTable()
   {
     // "key" relates to EnvironmentProperty.keyProperty and "value" relates to EnvironmentProperty.valueProperty
     this.colKey.setCellValueFactory(new PropertyValueFactory<EnvironmentProperty, String>("key"));
@@ -119,7 +118,7 @@ public class AboutBoxController implements EventHandler<ActionEvent>
     }
 
     this.tblEnvironment.setItems(this.foDataList);
-    this.tblEnvironment.resizeColumns();
+    this.tblEnvironment.resizeColumnsToFit();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

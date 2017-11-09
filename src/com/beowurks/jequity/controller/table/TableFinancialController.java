@@ -87,7 +87,7 @@ public class TableFinancialController extends TableBaseController
     }
 
     this.tblFinancial.setItems(this.foDataList);
-    this.tblFinancial.resizeColumns();
+    this.tblFinancial.resizeColumnsToFit();
 
     loSession.close();
   }

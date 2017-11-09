@@ -102,7 +102,7 @@ public class TableSymbolController extends TableBaseController
     }
 
     this.tblSymbol.setItems(this.foDataList);
-    this.tblSymbol.resizeColumns();
+    this.tblSymbol.resizeColumnsToFit();
 
     loSession.close();
   }

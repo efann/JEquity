@@ -62,7 +62,7 @@ public class TableGroupController extends TableBaseController
     }
 
     this.tblGroup.setItems(this.foDataList);
-    this.tblGroup.resizeColumns();
+    this.tblGroup.resizeColumnsToFit();
 
     loSession.close();
   }

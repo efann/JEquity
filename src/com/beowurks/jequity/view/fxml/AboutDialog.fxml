@@ -36,10 +36,10 @@
     <Label fx:id="lblApplicationVersion"/>
     <HyperlinkLabel fx:id="lnkCopyright"/>
 
-    <TableViewPlus fx:id="tblEnvironment">
+    <TableViewPlus fx:id="tblEnvironment" prefWidth="600.0">
       <columns>
-        <TableColumn fx:id="colKey" prefWidth="200.0" text="Key"/>
-        <TableColumn fx:id="colValue" prefWidth="400.0" text="Value"/>
+        <TableColumn fx:id="colKey" text="Key"/>
+        <TableColumn fx:id="colValue" text="Value"/>
       </columns>
     </TableViewPlus>
   </VBox>
