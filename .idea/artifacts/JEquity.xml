@@ -15,6 +15,7 @@
         <option name="htmlPlaceholderId" value="" />
         <option name="icons">
           <JavaFxApplicationIcons>
+            <option name="macIcon" value="$PROJECT_DIR$/icons/JEquity.icns" />
             <option name="windowsIcon" value="$PROJECT_DIR$/Icons/JEquity.ico" />
           </JavaFxApplicationIcons>
         </option>

@@ -13,8 +13,8 @@
          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="com.beowurks.jequity.controller.MenuController">
   <Menu text="File">
-    <MenuItem fx:id="menuBackup" text="Backup"/>
-    <MenuItem fx:id="menuRestore" text="Restore"/>
+    <MenuItem fx:id="menuBackup" text="Backup" onAction="#backupData"/>
+    <MenuItem fx:id="menuRestore" text="Restore" onAction="#restoreData"/>
     <SeparatorMenuItem/>
     <MenuItem fx:id="menuMasterKey" text="Master Key..."/>
     <SeparatorMenuItem/>

@@ -8,8 +8,10 @@
 
 package com.beowurks.jequity.controller;
 
+import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.backuprestore.ThreadRestore;
 import com.beowurks.jequity.main.Main;
+import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.dialog.AboutDialog;
@@ -18,6 +20,7 @@ import com.beowurks.jequity.view.misc.CheckForUpdates;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
+import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -106,6 +109,54 @@ public class MenuController
             Constants.SAMPLE_DATA_URL,
             loErr.getMessage()));
       }
+    }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
+  private void restoreData()
+  {
+    final AppProperties loApp = AppProperties.INSTANCE;
+
+    final FileChooser loFileChooser = new FileChooser();
+    loFileChooser.setTitle("Restore from Backup File");
+    loFileChooser.setInitialDirectory(new File(loApp.getBackupRestoreFolder()));
+    loFileChooser.setInitialFileName("backup.xml");
+    loFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+
+    final File loBackupFile = loFileChooser.showOpenDialog(Main.getPrimaryStage());
+
+    if (loBackupFile != null)
+    {
+      loApp.setBackupRestoreFolder(loBackupFile.getParent());
+
+      ThreadRestore.INSTANCE.start(loBackupFile);
+    }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
+  private void backupData()
+  {
+    final AppProperties loApp = AppProperties.INSTANCE;
+
+    final FileChooser loFileChooser = new FileChooser();
+    loFileChooser.setTitle("Save to Backup File");
+    loFileChooser.setInitialDirectory(new File(loApp.getBackupRestoreFolder()));
+    loFileChooser.setInitialFileName("backup.xml");
+    loFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+
+    final File loBackupFile = loFileChooser.showSaveDialog(Main.getPrimaryStage());
+
+    if (loBackupFile != null)
+    {
+      loApp.setBackupRestoreFolder(loBackupFile.getParent());
+
+      HibernateUtil.INSTANCE.backupToXML(loBackupFile);
+
+      Misc.infoMessage(String.format("J'Equity has been saved to %s.", loBackupFile.getPath()));
     }
 
   }

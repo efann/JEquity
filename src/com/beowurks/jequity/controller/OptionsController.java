@@ -82,7 +82,7 @@ public class OptionsController implements EventHandler<ActionEvent>
     loApp.setConnectionDatabase(this.txtDatabase.getText().trim());
     loApp.setConnectionUser(this.txtUser.getText().trim());
     // Don't trim the password as it could contain special characters or spaces at the end-points.
-    loApp.setConnectionPassword(new String(this.txtPassword.getText()));
+    loApp.setConnectionPassword(this.txtPassword.getText());
 
     //***************************************
     // Historical tab

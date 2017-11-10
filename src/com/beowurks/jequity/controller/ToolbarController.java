@@ -12,6 +12,8 @@ import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.utility.Constants;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -55,9 +57,13 @@ public class ToolbarController
   // ---------------------------------------------------------------------------------------------------------------------
   public Integer refreshGroupComboBox()
   {
+
     Integer loInit = Constants.UNINITIALIZED;
 
     final ComboBox<IntegerKeyItem> loCombo = this.cboGroup;
+
+    final EventHandler<ActionEvent> loActionHandler = loCombo.getOnAction();
+    loCombo.setOnAction(null);
 
     loCombo.getItems().clear();
 
@@ -74,13 +80,16 @@ public class ToolbarController
       final IntegerKeyItem loKeyItem = new IntegerKeyItem(loID, loRow.getDescription());
       loCombo.getItems().add(loKeyItem);
 
-      if (loInit.compareTo(Constants.UNINITIALIZED) == 0)
+      if (loInit.intValue() == Constants.UNINITIALIZED)
       {
         loInit = loID;
         loCombo.setValue(loKeyItem);
+        loCombo.getSelectionModel().select(loKeyItem);
       }
     }
     loSession.close();
+
+    loCombo.setOnAction(loActionHandler);
 
     return (loInit);
   }

@@ -170,13 +170,15 @@ public class MainFormController implements EventHandler<ActionEvent>
     // I don't know of another way for lowercase am/pm.
     final String lcTime = loDateFormat.format(loCalender.getTime()).toLowerCase();
 
-    final Integer loGroupID = tlIncludeGroupComboBox ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem().getKey();
+    // Refresh the Group Table also
     if (tlIncludeGroupComboBox)
     {
       this.tableGroupMainController.refreshData();
     }
 
+    final Integer loGroupID = (tlIncludeGroupComboBox) ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem().getKey();
     HibernateUtil.INSTANCE.setGroupID(loGroupID);
+
     final Tab loCurrentTab = this.tabPane.getSelectionModel().getSelectedItem();
 
     // Do not include the Group tab: it's handled above when obtaining the loGroupID.
@@ -187,12 +189,14 @@ public class MainFormController implements EventHandler<ActionEvent>
       this.tableFinancialMainController.refreshData();
     }
     else if (loCurrentTab == this.tabDaily)
+
     {
       Misc.setStatusText(String.format("Refreshed the Daily grid @ %s. . . .", lcTime));
 
       this.tableSymbolMainController.refreshData();
     }
     else if (loCurrentTab == this.tabReports)
+
     {
       Misc.setStatusText(String.format("Refreshed the Financial Report @ %s. . . .", lcTime));
       this.refreshReport();
