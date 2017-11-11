@@ -9,9 +9,10 @@ package com.beowurks.jequity.utility;
 
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.main.Main;
+import javafx.scene.paint.Color;
 
 import javax.swing.UIManager;
-import java.awt.Color;
+
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
@@ -152,19 +153,7 @@ final public class Constants
 
   public static final String CATEGORY_TYPE_DELIMITER = ":";
 
-  public final static Color COLOR_BACKGROUND_SELECT = new Color(0, 127, 0);
-  public final static Color COLOR_FOREGROUND_SELECT = new Color(255, 255, 255);
-
-  public final static Color COLOR_FOREGROUND = UIManager.getColor("TextField.foreground");
-  public final static Color COLOR_BACKGROUND_EVEN_ROW = UIManager.getColor("TableHeader.background");
-  public final static Color COLOR_BACKGROUND_ODD_ROW = UIManager.getColor("Table.background");
-
-  public final static Color COLOR_TEXTAREA_BACKGROUND = UIManager.getColor("TextArea.background");
-  public final static Color COLOR_TEXTAREA_INACTIVE_BACKGROUND = UIManager.getColor("TextField.inactiveBackground");
-
   public static final String EXPORT_FILECHOOSER_FILENAME = "export.filechooser.filename";
-  public static final String EXPORT_FILECHOOSER_INCLUDE_COMMENTS = "export.filechooser.include.comments";
-  public static final String EXPORT_FILECHOOSER_FILTER = "export.filechooser.filter";
 
   //************************************************************
   // The following is used by the downloads in global.warehouse

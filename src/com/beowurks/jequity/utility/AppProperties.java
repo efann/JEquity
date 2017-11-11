@@ -300,19 +300,7 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------
   public String getExportFileChooserFilename()
   {
-    return (this.getProperty(Constants.EXPORT_FILECHOOSER_FILENAME, "export.xls"));
-  }
-
-  // -----------------------------------------------------------------------------
-  public boolean getExportFileChooserIncludeComments()
-  {
-    return (this.getProperty(Constants.EXPORT_FILECHOOSER_INCLUDE_COMMENTS, false));
-  }
-
-  // -----------------------------------------------------------------------------
-  public int getExportFileChooserFilter()
-  {
-    return (this.getProperty(Constants.EXPORT_FILECHOOSER_FILTER, 0));
+    return (this.getProperty(Constants.EXPORT_FILECHOOSER_FILENAME, "export.csv "));
   }
 
   // -----------------------------------------------------------------------------
@@ -406,18 +394,6 @@ public final class AppProperties extends BaseProperties
   public void setExportFileChooserFilename(final String tcValue)
   {
     this.setProperty(Constants.EXPORT_FILECHOOSER_FILENAME, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------
-  public void setExportFileChooserIncludeComments(final boolean tlValue)
-  {
-    this.setProperty(Constants.EXPORT_FILECHOOSER_INCLUDE_COMMENTS, tlValue);
-  }
-
-  // -----------------------------------------------------------------------------
-  public void setExportFileChooserFilter(final int tnValue)
-  {
-    this.setProperty(Constants.EXPORT_FILECHOOSER_FILTER, tnValue);
   }
 
   // -----------------------------------------------------------------------------

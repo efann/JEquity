@@ -12,11 +12,13 @@ import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.utility.Constants;
+import com.beowurks.jequity.utility.Misc;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -65,29 +67,38 @@ public class ToolbarController
     final EventHandler<ActionEvent> loActionHandler = loCombo.getOnAction();
     loCombo.setOnAction(null);
 
-    loCombo.getItems().clear();
 
-    final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
-    final Session loSession = loHibernate.getSession();
-
-    final NativeQuery loQuery = loSession.createNativeQuery("SELECT * FROM " + loHibernate.getTableGroup())
-        .addEntity(GroupEntity.class);
-
-    final List<GroupEntity> loList = loQuery.list();
-    for (final GroupEntity loRow : loList)
+    // An error should not occur here; however, I always want the ComboBox action reset afterwards
+    // just in case.
+    try
     {
-      final Integer loID = loRow.getGroupID();
-      final IntegerKeyItem loKeyItem = new IntegerKeyItem(loID, loRow.getDescription());
-      loCombo.getItems().add(loKeyItem);
+      loCombo.getItems().clear();
 
-      if (loInit.intValue() == Constants.UNINITIALIZED)
+      final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
+      final Session loSession = loHibernate.getSession();
+
+      final NativeQuery loQuery = loSession.createNativeQuery("SELECT * FROM " + loHibernate.getTableGroup())
+          .addEntity(GroupEntity.class);
+
+      final List<GroupEntity> loList = loQuery.list();
+      for (final GroupEntity loRow : loList)
       {
-        loInit = loID;
-        loCombo.setValue(loKeyItem);
-        loCombo.getSelectionModel().select(loKeyItem);
+        final Integer loID = loRow.getGroupID();
+        final IntegerKeyItem loKeyItem = new IntegerKeyItem(loID, loRow.getDescription());
+        loCombo.getItems().add(loKeyItem);
+
+        if (loInit.intValue() == Constants.UNINITIALIZED)
+        {
+          loInit = loID;
+          loCombo.setValue(loKeyItem);
+        }
       }
+      loSession.close();
     }
-    loSession.close();
+    catch (final HibernateException loErr)
+    {
+      Misc.showStackTraceInMessage(loErr, "From ToolbarController.refreshGroupComboBox");
+    }
 
     loCombo.setOnAction(loActionHandler);
 

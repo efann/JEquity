@@ -161,6 +161,30 @@ public class MenuController
 
   }
   // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
+  private void exportData()
+  {
+    final AppProperties loApp = AppProperties.INSTANCE;
+
+    final FileChooser loFileChooser = new FileChooser();
+    loFileChooser.setTitle("Export to File");
+    loFileChooser.setInitialFileName(loApp.getExportFileChooserFilename());
+    loFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+    final File loExportFile = loFileChooser.showSaveDialog(Main.getPrimaryStage());
+
+    if (loExportFile != null)
+    {
+      loApp.setExportFileChooserFilename(loExportFile.getPath());
+
+      HibernateUtil.INSTANCE.backupToXML(loExportFile);
+
+      Misc.infoMessage(String.format("J'Equity has been saved to %s.", loExportFile.getPath()));
+    }
+
+
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
 
 }
 // ---------------------------------------------------------------------------------------------------------------------

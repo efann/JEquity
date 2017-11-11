@@ -20,7 +20,7 @@
     <SeparatorMenuItem/>
     <MenuItem fx:id="menuPrint" text="Print..."/>
     <SeparatorMenuItem/>
-    <MenuItem fx:id="menuExport" text="Export..."/>
+    <MenuItem fx:id="menuExport" text="Export..." onAction="#exportData"/>
     <SeparatorMenuItem/>
     <MenuItem fx:id="menuExit" text="Exit" onAction="#exitApplication"/>
   </Menu>
