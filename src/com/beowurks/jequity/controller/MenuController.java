@@ -8,6 +8,8 @@
 
 package com.beowurks.jequity.controller;
 
+import com.beowurks.jequity.dao.hibernate.FinancialEntity;
+import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.backuprestore.ThreadRestore;
 import com.beowurks.jequity.main.Main;
@@ -22,9 +24,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Optional;
 
@@ -160,15 +166,18 @@ public class MenuController
     }
 
   }
+
   // ---------------------------------------------------------------------------------------------------------------------
   @FXML
   private void exportData()
   {
     final AppProperties loApp = AppProperties.INSTANCE;
 
+    final File loInitFile = new File(loApp.getExportFileChooserFilename());
     final FileChooser loFileChooser = new FileChooser();
     loFileChooser.setTitle("Export to File");
-    loFileChooser.setInitialFileName(loApp.getExportFileChooserFilename());
+    loFileChooser.setInitialDirectory(loInitFile.getParentFile());
+    loFileChooser.setInitialFileName(loInitFile.getName());
     loFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
 
     final File loExportFile = loFileChooser.showSaveDialog(Main.getPrimaryStage());
@@ -177,13 +186,115 @@ public class MenuController
     {
       loApp.setExportFileChooserFilename(loExportFile.getPath());
 
-      HibernateUtil.INSTANCE.backupToXML(loExportFile);
-
-      Misc.infoMessage(String.format("J'Equity has been saved to %s.", loExportFile.getPath()));
+      this.generateCSV(loExportFile);
     }
 
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
+  private void generateCSV(final File toCSVFile)
+  {
+    final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
+
+    final Session loSession = loHibernate.getSession();
+
+    final String lcSQL = String.format("SELECT {g.*}, {f.*} FROM %s g, %s f WHERE g.GROUPID = f.GROUPID ORDER BY g.GROUPID, f.DESCRIPTION ",
+        loHibernate.getTableGroup(), loHibernate.getTableFinancial());
+
+    final NativeQuery loQuery = loSession.createNativeQuery(lcSQL)
+        .addEntity("g", GroupEntity.class)
+        .addEntity("f", FinancialEntity.class);
+
+    this.generateFile(loQuery, toCSVFile);
+
+    loSession.close();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void generateFile(final NativeQuery toQuery, final File toFileName)
+  {
+    PrintWriter loPrintWriter = null;
+    try
+    {
+      loPrintWriter = new PrintWriter(toFileName);
+    }
+    catch (final FileNotFoundException loErr)
+    {
+      Misc.showStackTraceInMessage(loErr, "Error in Creating File");
+      return;
+    }
+
+    final String lcSeparator = "\t";
+    final String lcEOL = System.getProperty("line.separator");
+
+    final StringBuilder loContent = new StringBuilder();
+
+    loContent.append(Constants.XML_GROUP_DESCRIPTION);
+    loContent.append(lcSeparator);
+    loContent.append(Constants.XML_DESCRIPTION);
+    loContent.append(lcSeparator);
+    loContent.append(Constants.XML_ACCOUNT);
+    loContent.append(lcSeparator);
+    loContent.append(Constants.XML_CATEGORY);
+    loContent.append(lcSeparator);
+
+    loContent.append(Constants.XML_PRICE);
+    loContent.append(lcSeparator);
+    loContent.append(Constants.XML_SHARES);
+    loContent.append(lcSeparator);
+    loContent.append(Constants.XML_SYMBOL);
+    loContent.append(lcSeparator);
+    loContent.append(Constants.XML_TYPE);
+    loContent.append(lcSeparator);
+    loContent.append(Constants.XML_RETIREMENT);
+    loContent.append(lcSeparator);
+    loContent.append(Constants.XML_VALUATIONDATE);
+    loContent.append(lcSeparator);
+
+    loContent.append(Constants.XML_COMMENTS);
+    loContent.append(lcEOL);
+
+    for (final Object loRow : toQuery.list())
+    {
+      final Object[] laEntities = (Object[]) loRow;
+      final GroupEntity loGroupEntity = (GroupEntity) laEntities[0];
+      final FinancialEntity loFinancialEntity = (FinancialEntity) laEntities[1];
+
+      loContent.append(loGroupEntity.getDescription());
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getDescription());
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getAccount());
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getCategory());
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getPrice());
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getShares());
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getSymbol());
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getType());
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getRetirement() ? Constants.XML_TRUE : Constants.XML_FALSE);
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getValuationDate().toString());
+      loContent.append(lcSeparator);
+
+      // Replace tabs with 2 space characters.
+      loContent.append(loFinancialEntity.getComments().replace("\t", "  "));
+
+      loContent.append(lcEOL);
+    }
+
+    loPrintWriter.write(loContent.toString());
+    loPrintWriter.close();
+
+    Misc.infoMessage(String.format("%s has been saved.", toFileName.getPath()));
 
   }
+
   // ---------------------------------------------------------------------------------------------------------------------
 
 }

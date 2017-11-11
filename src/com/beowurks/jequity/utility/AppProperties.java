@@ -300,7 +300,7 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------
   public String getExportFileChooserFilename()
   {
-    return (this.getProperty(Constants.EXPORT_FILECHOOSER_FILENAME, "export.csv "));
+    return (this.getProperty(Constants.EXPORT_FILECHOOSER_FILENAME, "export.csv"));
   }
 
   // -----------------------------------------------------------------------------

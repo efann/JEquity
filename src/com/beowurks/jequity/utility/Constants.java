@@ -9,9 +9,6 @@ package com.beowurks.jequity.utility;
 
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.main.Main;
-import javafx.scene.paint.Color;
-
-import javax.swing.UIManager;
 
 
 // -----------------------------------------------------------------------------
