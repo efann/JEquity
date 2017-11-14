@@ -12,6 +12,7 @@ import com.beowurks.jequity.controller.table.TableFinancialController;
 import com.beowurks.jequity.controller.table.TableGroupController;
 import com.beowurks.jequity.controller.table.TableSymbolController;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
+import com.beowurks.jequity.dao.hibernate.warehouses.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.jasperreports.JRViewerBase;
@@ -134,14 +135,22 @@ public class MainFormController implements EventHandler<ActionEvent>
   private void setupListeners()
   {
     this.menuMainController.getMenuRefresh().setOnAction(toActionEvent -> MainFormController.this.refreshAllComponents(true));
-
     this.toolbarMainController.getRefreshButton().setOnAction(toActionEvent -> MainFormController.this.refreshAllComponents(true));
+
+    this.menuMainController.getMenuUpdate().setOnAction(toActionEvent -> MainFormController.this.updateSymbolData());
+    this.toolbarMainController.getUpdateButton().setOnAction(toActionEvent -> MainFormController.this.updateSymbolData());
 
     this.tabPane.getSelectionModel().selectedItemProperty().addListener(
         (toObservableValue, toPrevious, toCurrent) -> this.refreshAllComponents(false)
     );
 
     this.toolbarMainController.getGroupComboBox().setOnAction(this);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void updateSymbolData()
+  {
+    ThreadDownloadSymbolInfo.INSTANCE.start(true);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

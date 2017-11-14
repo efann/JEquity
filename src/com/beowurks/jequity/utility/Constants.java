@@ -88,8 +88,11 @@ final public class Constants
   public final static String CONNECTION_PASSWORD = "connection.password";
 
   public final static String BACKUP_RESTORE_FOLDER = "backup.restore.folder";
-  public final static String DAILY_INTERVAL_KEY = "daily.interval.key";
-  public final static String DAILY_START_KEY = "daily.start.key";
+
+  // Needed to redo the interval and start arrays. So I had to channge
+  // DAILY_INTERVAL_KEY & DAILY_START_KEY by adding javafx to both.
+  public final static String DAILY_INTERVAL_KEY = "daily.interval.key.javafx";
+  public final static String DAILY_START_KEY = "daily.start.key.javafx";
 
   // And yes, HISTORICAL_START should end with a '.'.
   public final static String HISTORICAL_START = "historical.start.";
@@ -122,8 +125,6 @@ final public class Constants
 
   public final static IntegerKeyItem[] DAILY_START =
       {
-          new IntegerKeyItem((int) (0.5 * 60 * 1000), "After 30 seconds"),
-          new IntegerKeyItem(1 * 60 * 1000, "After 1 minutes"),
           new IntegerKeyItem(5 * 60 * 1000, "After 5 Minutes"),
           new IntegerKeyItem(10 * 60 * 1000, "After 10 Minutes"),
           new IntegerKeyItem(Constants.DAILY_INTERVAL_MATCH, "Same as Daily Interval")
@@ -131,9 +132,9 @@ final public class Constants
 
   public final static IntegerKeyItem[] DAILY_INTERVAL =
       {
-          new IntegerKeyItem(15 * 60 * 1000, "Every 15 Minutes"),
           new IntegerKeyItem(30 * 60 * 1000, "Every 30 Minutes"),
           new IntegerKeyItem(60 * 60 * 1000, "Every Hour"),
+          new IntegerKeyItem(120 * 60 * 1000, "Every 2 Hours"),
           new IntegerKeyItem(Constants.DAILY_INTERVAL_NEVER, "Never")
       };
 
@@ -156,8 +157,8 @@ final public class Constants
   // The following is used by the downloads in global.warehouse
   public final static int WEB_TIME_OUT = 7500;
 
-  // Just Google 'whats my user agent'
-  public final static String USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36";
+  // Just Google 'what is my user agent'
+  public final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36";
   public final static String UNKNOWN_STOCK_SYMBOL = "Unknown Stock Symbol";
 
   public final static String YAHOO_SYMBOL = "[Symbol]";
@@ -242,13 +243,27 @@ final public class Constants
 
       };
 
-  public final static String YAHOO_DAILY_HTML = "http://finance.yahoo.com/q?s=";
+  public final static String YAHOO_DAILY_HTML = "https://finance.yahoo.com/quote/%s?ltr=1";
 
   public final static long BAD_DOWNLOAD = -1;
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
 
-  public final static String LAST_TRADE_HTML_CODE = "#yfi_investing_content div.yfi_rt_quote_summary_rt_top span span";
+  public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";
+  public final static String YAHOO_DAILY_OPEN = "Open";
+  public final static String YAHOO_DAILY_BID = "Bid";
+  public final static String YAHOO_DAILY_ASK = "Ask";
+  public final static String YAHOO_DAILY_DAYRANGE = "Day's Range";
+  public final static String YAHOO_DAILY_YEARRANGE = "52 Week Range";
+  public final static String YAHOO_DAILY_VOLUME = "Volume";
+  public final static String YAHOO_DAILY_AVGVOLUME = "Avg. Volume";
+  public final static String YAHOO_DAILY_MARKETCAP = "Market Cap";
+  public final static String YAHOO_DAILY_PE = "PE Ratio (TTM)";
+  public final static String YAHOO_DAILY_EPS = "EPS (TTM)";
+  public final static String YAHOO_DAILY_DIVIDENDYIELD = "Forward Dividend & Yield";
+  public final static String YAHOO_DAILY_TARGETEST = "1y Target Est";
+
+
   //************************************************************
   // The following is used by the Sorting Tables
   public final static String FINANCIAL_ID = "ID #";

@@ -11,22 +11,19 @@ import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.LineIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.List;
 
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 public class ThreadDownloadSymbolInfo implements Runnable
 {
 
@@ -34,12 +31,14 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
   private Thread foThread = null;
 
-  // -----------------------------------------------------------------------------
+  private String [] faCurrentDoc;
+
+  // ---------------------------------------------------------------------------------------------------------------------
   private ThreadDownloadSymbolInfo()
   {
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public boolean start(final boolean tlDisplayMessage)
   {
     if ((this.foThread != null) && (this.foThread.isAlive()))
@@ -58,7 +57,7 @@ public class ThreadDownloadSymbolInfo implements Runnable
     return (true);
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   @Override
   public void run()
   {
@@ -75,7 +74,7 @@ public class ThreadDownloadSymbolInfo implements Runnable
     Misc.errorMessage(lcErrorMessage);
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   // The basic idea behind this routine is to add any symbols that are in
   // the Financial table and remove any symbols that no longer exist.
   private String updateSymbolTable()
@@ -131,7 +130,7 @@ public class ThreadDownloadSymbolInfo implements Runnable
     return (lcMessage.toString());
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   private void updateAllSymbolInformation()
   {
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
@@ -152,44 +151,48 @@ public class ThreadDownloadSymbolInfo implements Runnable
     {
       final String lcSymbol = loSymbol.getSymbol().trim();
 
+      final String lcDailyURL = ThreadDownloadSymbolInfo.getSymbolDailyURL(lcSymbol);
+
       Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
-      final String lcSymbolFile = this.buildSymbolLocalFile(lcSymbol);
-      IOException loIOException = null;
-      try
+      // Daily Information
+      Document loDoc = null;
+      for (int lnTries = 0; (lnTries < 5) && (loDoc == null); ++lnTries)
       {
-        // If you don't use the multiple parameters of the URL constructor, then an unknown protocol
-        // error will be thrown because of the c parameter.
-        final URL loURL = new URL(Constants.YAHOO_SYMBOL_PROTOCOL,
-            Constants.YAHOO_SYMBOL_HOST,
-            Constants.YAHOO_SYMBOL_PORT,
-            this.buildSymbolHTMLFile(lcSymbol));
-
-        final File loFile = new File(lcSymbolFile);
-
-        FileUtils.copyURLToFile(loURL, loFile, 3000, 3000);
-      }
-      catch (final IOException loErr)
-      {
-        loIOException = loErr;
-      }
-
-      if (loIOException != null)
-      {
-        final String lcMessage = String.format("Unable to read the CSV for %s. %s", lcSymbolFile, loIOException.getMessage());
-        Misc.setStatusText(lcMessage);
-      }
-      else
-      {
-        Misc.setStatusText(String.format("Successfully read %s daily information", lcSymbol));
+        try
+        {
+          // Highly recommended to set the userAgent.
+          loDoc = Jsoup.connect(lcDailyURL)
+              .followRedirects(false)
+              .userAgent(Constants.USER_AGENT)
+              .data("name", "jsoup")
+              .maxBodySize(0)
+              .timeout(Constants.WEB_TIME_OUT)
+              .get();
+        }
+        catch (final Exception loErr)
+        {
+          loDoc = null;
+        }
       }
 
-      if (this.importDailyInformation(loSession, loSymbol, lcSymbolFile))
+      if (loDoc == null)
       {
-        Misc.setStatusText(String.format("Successfully imported %s's daily information", lcSymbol));
+        final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcDailyURL, lcSymbol);
+        Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+
+        continue;
       }
 
-      Misc.setStatusText(loList.indexOf(loSymbol) / lnTotal);
+      Misc.setStatusText("Successfully read " + lcSymbol + " daily information");
+
+
+      if (this.importDailyInformation(loSession, loSymbol, loDoc))
+      {
+        Misc.setStatusText("Successfully imported " + lcSymbol + "'s daily information");
+      }
+
+      Misc.setStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
     }
 
     loSession.close();
@@ -198,7 +201,229 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
   }
 
-  // -----------------------------------------------------------------------------
+  private boolean refreshCurrentDoc(final Document toDoc)
+  {
+    String lcText = toDoc.text();
+    lcText = lcText.replaceAll("Previous Close", "Previous Close")
+
+  }
+  // ---------------------------------------------------------------------------------------------------------------------
+  // Bye bye, Yahoo Financial CSV downloads. . . .
+  // Discovered a new way to import daily information rather than scrape the screen. From the following:
+  // http://stackoverflow.com/questions/6308950/capture-yahoo-finance-stock-data-symbols-for-daily-break-out-leaders-etc
+  // http://www.gummy-stuff.org/Yahoo-data.htm
+  // http://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
+  private boolean importDailyInformation(final Session toSession, final SymbolEntity toSymbol, final Document toDoc)
+  {
+    boolean llOkay = false;
+
+
+    String lcDescription = this.getHTML(toDoc, "#quote-header-info h1");
+    if (lcDescription.isEmpty())
+    {
+      lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;
+    }
+
+    lcDescription = lcDescription.replaceAll("\\(.*\\)", "").trim();
+    lcDescription = lcDescription.replaceAll("&amp;", "&").trim();
+
+    toSymbol.setDescription(lcDescription);
+
+    double lnLastTrade = this.parseDouble(toDoc, Constants.LAST_TRADE_HTML_CODE);
+
+    if (lnLastTrade == 0.0)
+    {
+      // Some symbols, like FDRXX, don't have a last trade field. So in that case,
+      // default to 1.0.
+      final String lcLastTrade = this.getHTML(toDoc, Constants.LAST_TRADE_HTML_CODE);
+      if (lcLastTrade.isEmpty())
+      {
+        lnLastTrade = 1.0;
+      }
+    }
+
+    toSymbol.setLastTrade(lnLastTrade);
+
+    final java.util.Date loDate = new java.util.Date();
+    final Timestamp loTimestamp = new Timestamp(loDate.getTime());
+    toSymbol.setTradeTime(loTimestamp);
+
+    final double lnPrevClose = this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=41]");
+    toSymbol.setPreviousClose(lnPrevClose);
+
+    toSymbol.setDifferential((lnPrevClose != 0.0) ? ((lnLastTrade - lnPrevClose) / lnPrevClose) * 100.0 : 0.0);
+
+    toSymbol.setOpened(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=47]"));
+
+    toSymbol.setTargetEstimate(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=129]"));
+
+    toSymbol.setBidding(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=53]"));
+    toSymbol.setAsking(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=59]"));
+
+    toSymbol.setVolume(this.parseInt(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=73]"));
+
+    toSymbol.setAverageVolume(this.parseInt(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=79]"));
+
+    toSymbol.setMarketCap(this.getHTML(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=88]"));
+
+    toSymbol.setPriceEarnings(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=100]"));
+
+    toSymbol.setEarningsPerShare(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=106]"));
+
+    toSymbol.setDayRange(this.getHTML(toDoc, "#quote-summary td[data-reactid^=58] td"));
+    toSymbol.setYearRange(this.getHTML(toDoc, "#quote-summary td[data-reactid^=62] td"));
+    toSymbol.setDividendYield(this.getHTML(toDoc, "#quote-summary td[data-reactid^=109] td"));
+
+    System.err.println(lcDescription);
+    System.err.println(this.getHTML(toDoc, "#quote-summary span:contains(s Range)", "td", 1));
+    System.err.println(this.getHTML(toDoc, "#quote-summary td[data-reactid^=62] td"));
+    System.err.println(this.getHTML(toDoc, "#quote-summary td[data-reactid^=109] td"));
+
+    toSymbol.setComments("From https://finance.yahoo.com/");
+
+    Transaction loTransaction = null;
+    try
+    {
+      loTransaction = toSession.beginTransaction();
+      toSession.update(toSymbol);
+      loTransaction.commit();
+
+      llOkay = true;
+    }
+    catch (final Exception loErr)
+    {
+      final String lcMessage = String.format("There was an error with %s: %s %s", toSymbol.getSymbol(), loErr.getMessage(), loErr.getCause().toString());
+
+      Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+
+      try
+      {
+        if (loTransaction != null)
+        {
+          loTransaction.rollback();
+
+          // If you don't clear, then on subsequent commits, you will get the following error:
+          //  HHH000010: On release of batch it still contained JDBC statements.
+          toSession.clear();
+        }
+      }
+      catch (final RuntimeException loRTErr)
+      {
+        final String lcRTMessage = String.format("There was a rollback error with %s: %s", toSymbol.getSymbol(), loRTErr.getMessage());
+
+        Misc.setStatusText(lcRTMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+      }
+
+    }
+
+    return (llOkay);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private int parseInt(final Document toDoc, final String tcFirst)
+  {
+    int lnInteger;
+
+    final String lcHTML = this.cleanForNumber(this.getHTML(toDoc, tcFirst));
+
+    try
+    {
+      lnInteger = Integer.parseInt(lcHTML);
+    }
+    catch (final NumberFormatException loErr)
+    {
+      lnInteger = 0;
+    }
+
+    return (lnInteger);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private double parseDouble(final Document toDoc, final String tcFirst)
+  {
+    double lnDouble;
+
+    final String lcHTML = this.cleanForNumber(this.getHTML(toDoc, tcFirst));
+
+    try
+    {
+      lnDouble = Double.parseDouble(lcHTML);
+    }
+    catch (final NumberFormatException loErr)
+    {
+      lnDouble = 0;
+    }
+
+    return (lnDouble);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String cleanForNumber(final String tcNumber)
+  {
+    String lcNumber = tcNumber.replaceAll(",", "");
+    int lnPos = lcNumber.indexOf("x");
+    if (lnPos >= 0)
+    {
+      lcNumber = lcNumber.substring(0, lnPos).trim();
+    }
+
+    return (lcNumber);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String getHTML(final Document toDoc, final String tcFirst, final String tcSecond, final int tnSecond)
+  {
+    String lcHTML;
+
+    try
+    {
+      if (tnSecond == 0)
+      {
+        lcHTML = toDoc.select(tcFirst).first().parent().select(tcSecond).first().html();
+      }
+      else
+      {
+        lcHTML = toDoc.select(tcFirst).first().parent().select(tcSecond).get(tnSecond).html();
+      }
+
+      // Get rid of all tags and any quotes.
+      lcHTML = lcHTML.replaceAll("<[^>]*>", "").replaceAll("\"", "");
+
+    }
+    catch (final Exception loErr)
+    {
+      lcHTML = "";
+    }
+
+    return (lcHTML.trim());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String getHTML(final Document toDoc, final String tcFirst)
+  {
+    String lcHTML;
+
+    try
+    {
+      // Get rid of all tags and any quotes.
+      lcHTML = toDoc.select(tcFirst).first().html().replaceAll("<[^>]*>", "").replaceAll("\"", "");
+    }
+    catch (final Exception loErr)
+    {
+      lcHTML = "";
+    }
+
+    return (lcHTML.trim());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // Also used by the data entry screen to display the URL for the stock symbol.
+  public static String getSymbolDailyURL(final String tcSymbol)
+  {
+    return (String.format(Constants.YAHOO_DAILY_HTML, tcSymbol.trim()));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   // Update the price, date and description.
   private boolean updateFinancialTable()
   {
@@ -273,205 +498,8 @@ public class ThreadDownloadSymbolInfo implements Runnable
     return (llOkay);
   }
 
-  // ---------------------------------------------------------------------------
-  // Discovered a new way to import daily information rather than scrape the screen. From the following:
-  // http://stackoverflow.com/questions/6308950/capture-yahoo-finance-stock-data-symbols-for-daily-break-out-leaders-etc
-  // http://www.jarloo.com/yahoo_finance/
-  // http://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
-  private boolean importDailyInformation(final Session toSession, final SymbolEntity toSymbol, final String tcFilename)
-  {
-    LineIterator loLines = null;
-    final String lcLine;
-    String[] laElements = null;
-    Exception loException = null;
-
-    try
-    {
-      loLines = FileUtils.lineIterator(new File(tcFilename), "UTF-8");
-
-      if (!loLines.hasNext())
-      {
-        loException = new Exception(String.format("No lines in %s", tcFilename));
-      }
-      lcLine = loLines.nextLine();
-      // From http://stackoverflow.com/questions/1757065/java-splitting-a-comma-separated-string-but-ignoring-commas-in-quotes
-      laElements = lcLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-    }
-    catch (final IOException loErr)
-    {
-      loException = loErr;
-    }
-    finally
-    {
-      if (loLines != null)
-      {
-        LineIterator.closeQuietly(loLines);
-      }
-    }
-
-    if (loException != null)
-    {
-      return (false);
-    }
-
-    boolean llOkay = false;
-
-    String lcDescription = this.stripQuotes(laElements[1]);
-    if (lcDescription.isEmpty())
-    {
-      lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;
-    }
-
-    lcDescription = lcDescription.replaceAll("&amp;", "&").trim();
-    toSymbol.setDescription(lcDescription);
-
-    double lnLastTrade = this.parseDouble(laElements[2]);
-
-    if (lnLastTrade == 0.0)
-    {
-      // Some symbols, like FDRXX, don't have a last trade field. So in that case,
-      // default to 1.0.
-      lnLastTrade = 1.0;
-    }
-
-    toSymbol.setLastTrade(lnLastTrade);
-
-    final java.util.Date loDate = new java.util.Date();
-    final Timestamp loTimestamp = new Timestamp(loDate.getTime());
-    toSymbol.setTradeTime(loTimestamp);
-
-    final double lnPrevClose = this.parseDouble(laElements[3]);
-    toSymbol.setPreviousClose(lnPrevClose);
-
-    toSymbol.setDifferential((lnPrevClose != 0.0) ? ((lnLastTrade - lnPrevClose) / lnPrevClose) * 100.0 : 0.0);
-
-    toSymbol.setOpened(this.parseDouble(laElements[4]));
-    toSymbol.setTargetEstimate(this.parseDouble(laElements[5]));
-    toSymbol.setBidding(this.parseDouble(laElements[6]));
-    toSymbol.setAsking(this.parseDouble(laElements[7]));
-    toSymbol.setDayRange(this.stripQuotes(laElements[8]));
-    toSymbol.setYearRange(this.stripQuotes(laElements[9]));
-    toSymbol.setVolume(this.parseInt(laElements[10]));
-
-    toSymbol.setAverageVolume(this.parseInt(laElements[11]));
-
-    toSymbol.setMarketCap(this.stripQuotes(laElements[12]));
-
-    toSymbol.setPriceEarnings(this.parseDouble(laElements[13]));
-
-    toSymbol.setEarningsPerShare(this.parseDouble(laElements[14]));
-
-    toSymbol.setDividendYield(this.stripQuotes(laElements[12]));
-
-    Transaction loTransaction = null;
-    try
-    {
-      loTransaction = toSession.beginTransaction();
-      toSession.update(toSymbol);
-      loTransaction.commit();
-
-      llOkay = true;
-    }
-    catch (final Exception loErr)
-    {
-      final String lcMessage = String.format("There was an error with %s: %s %s", toSymbol.getSymbol(), loErr.getMessage(), loErr.getCause().toString());
-
-      Misc.setStatusText(lcMessage);
-
-      try
-      {
-        if (loTransaction != null)
-        {
-          loTransaction.rollback();
-
-          // If you don't clear, then on subsequent commits, you will get the following error:
-          //  HHH000010: On release of batch it still contained JDBC statements.
-          toSession.clear();
-        }
-      }
-      catch (final RuntimeException loRTErr)
-      {
-        final String lcRTMessage = String.format("There was a rollback error with %s: %s", toSymbol.getSymbol(), loRTErr.getMessage());
-
-        Misc.setStatusText(lcRTMessage);
-      }
-
-    }
-
-    return (llOkay);
-  }
-
-  // ---------------------------------------------------------------------------
-  private int parseInt(final String tcValue)
-  {
-    int lnInteger;
-    final String lcValue = this.stripQuotes(tcValue);
-
-    try
-    {
-      lnInteger = Integer.parseInt(lcValue);
-    }
-    catch (final NumberFormatException loErr)
-    {
-      lnInteger = 0;
-    }
-
-    return (lnInteger);
-  }
-
-  // ---------------------------------------------------------------------------
-  private double parseDouble(final String tcValue)
-  {
-    double lnDouble;
-    final String lcValue = this.stripQuotes(tcValue);
-
-    try
-    {
-      lnDouble = Double.parseDouble(lcValue);
-    }
-    catch (final NumberFormatException loErr)
-    {
-      lnDouble = 0;
-    }
-
-    return (lnDouble);
-  }
-
-  // ---------------------------------------------------------------------------
-  private String stripQuotes(final String tcValue)
-  {
-    return (tcValue.replaceAll("\"", ""));
-  }
-
-  // ---------------------------------------------------------------------------
-  public static String getSymbolDailyURL(final String tcSymbol)
-  {
-    return (Constants.YAHOO_DAILY_HTML + tcSymbol);
-  }
-
-  // -----------------------------------------------------------------------------
-  private String buildSymbolHTMLFile(final String tcSymbol)
-  {
-    final StringBuilder loString = new StringBuilder(Constants.YAHOO_SYMBOL_FILE);
-
-    Misc.replaceAll(loString, Constants.YAHOO_SYMBOL, tcSymbol);
-
-    final int lnCount = Constants.YAHOO_CODES.length;
-    for (int i = 0; i < lnCount; ++i)
-    {
-      loString.append(Constants.YAHOO_CODES[i][0]);
-    }
-    return (loString.toString());
-  }
-
-  // -----------------------------------------------------------------------------
-  private String buildSymbolLocalFile(final String tcSymbol)
-  {
-    return (Misc.includeTrailingBackslash(Constants.TEMPORARY_STOCK_PATH) + tcSymbol + "SymbolQuote.csv");
-  }
-
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------

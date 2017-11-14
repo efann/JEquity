@@ -40,7 +40,16 @@ import java.util.Optional;
 public class MenuController
 {
   @FXML
+  private MenuItem menuUpdate;
+
+  @FXML
   private MenuItem menuRefresh;
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public MenuItem getMenuUpdate()
+  {
+    return (this.menuUpdate);
+  }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public MenuItem getMenuRefresh()
