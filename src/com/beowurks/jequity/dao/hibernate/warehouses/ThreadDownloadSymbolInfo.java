@@ -17,8 +17,10 @@ import org.hibernate.query.NativeQuery;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.sql.Date;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -31,7 +33,7 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
   private Thread foThread = null;
 
-  private String [] faCurrentDoc;
+  private String[] faCurrentTextList;
 
   // ---------------------------------------------------------------------------------------------------------------------
   private ThreadDownloadSymbolInfo()
@@ -186,13 +188,13 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
       Misc.setStatusText("Successfully read " + lcSymbol + " daily information");
 
-
       if (this.importDailyInformation(loSession, loSymbol, loDoc))
       {
         Misc.setStatusText("Successfully imported " + lcSymbol + "'s daily information");
       }
 
       Misc.setStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
+
     }
 
     loSession.close();
@@ -201,12 +203,6 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
   }
 
-  private boolean refreshCurrentDoc(final Document toDoc)
-  {
-    String lcText = toDoc.text();
-    lcText = lcText.replaceAll("Previous Close", "Previous Close")
-
-  }
   // ---------------------------------------------------------------------------------------------------------------------
   // Bye bye, Yahoo Financial CSV downloads. . . .
   // Discovered a new way to import daily information rather than scrape the screen. From the following:
@@ -217,6 +213,7 @@ public class ThreadDownloadSymbolInfo implements Runnable
   {
     boolean llOkay = false;
 
+    this.refreshCurrentTextList(toDoc, toSymbol.getSymbol());
 
     String lcDescription = this.getHTML(toDoc, "#quote-header-info h1");
     if (lcDescription.isEmpty())
@@ -224,18 +221,19 @@ public class ThreadDownloadSymbolInfo implements Runnable
       lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;
     }
 
+    // Get rid of anything between parentheses including the parentheses
     lcDescription = lcDescription.replaceAll("\\(.*\\)", "").trim();
     lcDescription = lcDescription.replaceAll("&amp;", "&").trim();
 
     toSymbol.setDescription(lcDescription);
 
-    double lnLastTrade = this.parseDouble(toDoc, Constants.LAST_TRADE_HTML_CODE);
+    double lnLastTrade = this.parseDouble(toDoc, Constants.YAHOO_DAILY_LAST_TRADE_HTML_CODE);
 
     if (lnLastTrade == 0.0)
     {
       // Some symbols, like FDRXX, don't have a last trade field. So in that case,
       // default to 1.0.
-      final String lcLastTrade = this.getHTML(toDoc, Constants.LAST_TRADE_HTML_CODE);
+      final String lcLastTrade = this.getHTML(toDoc, Constants.YAHOO_DAILY_LAST_TRADE_HTML_CODE);
       if (lcLastTrade.isEmpty())
       {
         lnLastTrade = 1.0;
@@ -244,42 +242,37 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
     toSymbol.setLastTrade(lnLastTrade);
 
-    final java.util.Date loDate = new java.util.Date();
+    final Date loDate = new Date(Calendar.getInstance().getTimeInMillis());
     final Timestamp loTimestamp = new Timestamp(loDate.getTime());
     toSymbol.setTradeTime(loTimestamp);
 
-    final double lnPrevClose = this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=41]");
+    final double lnPrevClose = this.parseDouble(Constants.YAHOO_DAILY_PREVCLOSE, 1);
     toSymbol.setPreviousClose(lnPrevClose);
 
     toSymbol.setDifferential((lnPrevClose != 0.0) ? ((lnLastTrade - lnPrevClose) / lnPrevClose) * 100.0 : 0.0);
 
-    toSymbol.setOpened(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=47]"));
+    toSymbol.setOpened(this.parseDouble(Constants.YAHOO_DAILY_OPEN, 1));
 
-    toSymbol.setTargetEstimate(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=129]"));
+    toSymbol.setTargetEstimate(this.parseDouble(Constants.YAHOO_DAILY_TARGETEST, 1));
 
-    toSymbol.setBidding(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=53]"));
-    toSymbol.setAsking(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=59]"));
+    toSymbol.setBidding(this.parseDouble(Constants.YAHOO_DAILY_BID, 1));
+    toSymbol.setAsking(this.parseDouble(Constants.YAHOO_DAILY_ASK, 1));
 
-    toSymbol.setVolume(this.parseInt(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=73]"));
+    toSymbol.setVolume(this.parseInt(Constants.YAHOO_DAILY_VOLUME, 1));
 
-    toSymbol.setAverageVolume(this.parseInt(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=79]"));
+    toSymbol.setAverageVolume(this.parseInt(Constants.YAHOO_DAILY_AVGVOLUME, 1));
 
-    toSymbol.setMarketCap(this.getHTML(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=88]"));
+    toSymbol.setMarketCap(this.getHTML(Constants.YAHOO_DAILY_MARKETCAP, 1));
 
-    toSymbol.setPriceEarnings(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=100]"));
+    toSymbol.setPriceEarnings(this.parseDouble(Constants.YAHOO_DAILY_PE, 1));
 
-    toSymbol.setEarningsPerShare(this.parseDouble(toDoc, "#quote-summary td[class^=Ta] span[data-reactid^=106]"));
+    toSymbol.setEarningsPerShare(this.parseDouble(Constants.YAHOO_DAILY_EPS, 1));
 
-    toSymbol.setDayRange(this.getHTML(toDoc, "#quote-summary td[data-reactid^=58] td"));
-    toSymbol.setYearRange(this.getHTML(toDoc, "#quote-summary td[data-reactid^=62] td"));
-    toSymbol.setDividendYield(this.getHTML(toDoc, "#quote-summary td[data-reactid^=109] td"));
+    toSymbol.setDayRange(this.getHTML(Constants.YAHOO_DAILY_DAYRANGE, 3));
+    toSymbol.setYearRange(this.getHTML(Constants.YAHOO_DAILY_YEARRANGE, 3));
+    toSymbol.setDividendYield(this.getHTML(Constants.YAHOO_DAILY_DIVIDENDYIELD, 2));
 
-    System.err.println(lcDescription);
-    System.err.println(this.getHTML(toDoc, "#quote-summary span:contains(s Range)", "td", 1));
-    System.err.println(this.getHTML(toDoc, "#quote-summary td[data-reactid^=62] td"));
-    System.err.println(this.getHTML(toDoc, "#quote-summary td[data-reactid^=109] td"));
-
-    toSymbol.setComments("From https://finance.yahoo.com/");
+    toSymbol.setComments("Scraped from https://finance.yahoo.com/");
 
     Transaction loTransaction = null;
     try
@@ -320,11 +313,57 @@ public class ThreadDownloadSymbolInfo implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private int parseInt(final Document toDoc, final String tcFirst)
+  private void refreshCurrentTextList(final Document toDoc, final String tcSymbol)
+  {
+    String lcText = toDoc.text();
+
+    // Trying to trim as much extraneous text as possible.
+    final String lcStartPhrase = String.format("(%s)", tcSymbol.trim());
+    final int lnPos = lcText.indexOf(lcStartPhrase);
+    if (lnPos != -1)
+    {
+      lcText = lcText.substring(lnPos + lcStartPhrase.length());
+    }
+
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_PREVCLOSE);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_OPEN);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_BID);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_ASK);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_DAYRANGE);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_YEARRANGE);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_VOLUME);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_AVGVOLUME);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_MARKETCAP);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_PE);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_EPS);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_DIVIDENDYIELD);
+    lcText = this.replaceSpacing(lcText, Constants.YAHOO_DAILY_TARGETEST);
+
+    this.faCurrentTextList = lcText.split(" ");
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String replaceSpacing(final String tcText, final String tcReplace)
+  {
+    // Parentheses are special characters for regex.
+    final String lcReplace = tcReplace.replace("(", "\\(").replace(")", "\\)");
+    final String lcText = tcText.replaceAll(lcReplace, this.getStringWithMarker(tcReplace));
+
+    return (lcText);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String getStringWithMarker(final String tcReplace)
+  {
+    return (tcReplace.replaceAll(" ", Constants.YAHOO_DAILY_MARKER));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private int parseInt(final String tcMarker, final int tnLines)
   {
     int lnInteger;
 
-    final String lcHTML = this.cleanForNumber(this.getHTML(toDoc, tcFirst));
+    final String lcHTML = this.cleanForNumber(this.getHTML(tcMarker, tnLines));
 
     try
     {
@@ -339,11 +378,30 @@ public class ThreadDownloadSymbolInfo implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private double parseDouble(final Document toDoc, final String tcFirst)
+  private double parseDouble(final String tcMarker, final int tnLines)
   {
     double lnDouble;
 
-    final String lcHTML = this.cleanForNumber(this.getHTML(toDoc, tcFirst));
+    final String lcHTML = this.cleanForNumber(this.getHTML(tcMarker, tnLines));
+
+    try
+    {
+      lnDouble = Double.parseDouble(lcHTML);
+    }
+    catch (final NumberFormatException loErr)
+    {
+      lnDouble = 0;
+    }
+
+    return (lnDouble);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private double parseDouble(final Document toDoc, final String tcSelect)
+  {
+    double lnDouble;
+
+    final String lcHTML = this.cleanForNumber(this.getHTML(toDoc, tcSelect));
 
     try
     {
@@ -360,8 +418,9 @@ public class ThreadDownloadSymbolInfo implements Runnable
   // ---------------------------------------------------------------------------------------------------------------------
   private String cleanForNumber(final String tcNumber)
   {
+
     String lcNumber = tcNumber.replaceAll(",", "");
-    int lnPos = lcNumber.indexOf("x");
+    final int lnPos = lcNumber.indexOf("x");
     if (lnPos >= 0)
     {
       lcNumber = lcNumber.substring(0, lnPos).trim();
@@ -370,48 +429,48 @@ public class ThreadDownloadSymbolInfo implements Runnable
     return (lcNumber);
   }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  private String getHTML(final Document toDoc, final String tcFirst, final String tcSecond, final int tnSecond)
+  // ---------------------------------------------------------------------------
+  private String getHTML(final Document toDoc, final String tcSelect)
   {
     String lcHTML;
 
     try
     {
-      if (tnSecond == 0)
-      {
-        lcHTML = toDoc.select(tcFirst).first().parent().select(tcSecond).first().html();
-      }
-      else
-      {
-        lcHTML = toDoc.select(tcFirst).first().parent().select(tcSecond).get(tnSecond).html();
-      }
-
-      // Get rid of all tags and any quotes.
-      lcHTML = lcHTML.replaceAll("<[^>]*>", "").replaceAll("\"", "");
-
+      lcHTML = toDoc.select(tcSelect).first().html();
     }
     catch (final Exception loErr)
     {
       lcHTML = "";
     }
 
-    return (lcHTML.trim());
+    // Get rid of all tags and any quotes.
+    lcHTML = lcHTML.replaceAll("<[^>]*>", "").replaceAll("\"", "");
+
+    lcHTML = lcHTML.replaceAll("undefined", "Unk");
+
+    return (lcHTML);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private String getHTML(final Document toDoc, final String tcFirst)
+  private String getHTML(final String tcMarker, final int tnLines)
   {
-    String lcHTML;
+    String lcHTML = "";
+    final String lcMarker = this.getStringWithMarker(tcMarker);
 
-    try
+    final int lnLength = this.faCurrentTextList.length;
+    for (int i = 0; i < lnLength; ++i)
     {
-      // Get rid of all tags and any quotes.
-      lcHTML = toDoc.select(tcFirst).first().html().replaceAll("<[^>]*>", "").replaceAll("\"", "");
+      if (this.faCurrentTextList[i].indexOf(lcMarker) != -1)
+      {
+        for (int x = 1; (x <= tnLines) && ((i + x) < lnLength); ++x)
+        {
+          lcHTML += this.faCurrentTextList[i + x] + " ";
+        }
+        break;
+      }
     }
-    catch (final Exception loErr)
-    {
-      lcHTML = "";
-    }
+
+    lcHTML = lcHTML.replaceAll("undefined", "Unk");
 
     return (lcHTML.trim());
   }

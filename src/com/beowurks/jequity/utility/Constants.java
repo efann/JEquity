@@ -249,6 +249,9 @@ final public class Constants
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
 
+  public final static String YAHOO_DAILY_LAST_TRADE_HTML_CODE = "#quote-header-info div[class^=Mt] span[class^=Trsdu]";
+
+  public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";
   public final static String YAHOO_DAILY_OPEN = "Open";
   public final static String YAHOO_DAILY_BID = "Bid";
@@ -260,9 +263,8 @@ final public class Constants
   public final static String YAHOO_DAILY_MARKETCAP = "Market Cap";
   public final static String YAHOO_DAILY_PE = "PE Ratio (TTM)";
   public final static String YAHOO_DAILY_EPS = "EPS (TTM)";
-  public final static String YAHOO_DAILY_DIVIDENDYIELD = "Forward Dividend & Yield";
+  public final static String YAHOO_DAILY_DIVIDENDYIELD = "Dividend & Yield";
   public final static String YAHOO_DAILY_TARGETEST = "1y Target Est";
-
 
   //************************************************************
   // The following is used by the Sorting Tables
