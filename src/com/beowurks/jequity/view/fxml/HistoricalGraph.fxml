@@ -36,8 +36,8 @@
 
     </GridPane>
 
-    <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="170.0" AnchorPane.bottomAnchor="10.0"
-               AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" createSymbols="false">
+    <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="180.0" AnchorPane.bottomAnchor="10.0"
+               AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" createSymbols="false">
       <effect>
         <DropShadow color="GRAY" offsetX="0.0" offsetY="0.0" height="70" width="70"/>
       </effect>

@@ -35,10 +35,8 @@
         <GridPane hgap="10" vgap="10">
           <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Default Historical Start Date"/>
           <DatePicker fx:id="txtHistoricalStart" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Daily Download Start"/>
-          <ComboBox fx:id="cboDailyDownloadStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Daily Download Interval"/>
-          <ComboBox fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Daily Download Interval"/>
+          <ComboBox fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         </GridPane>
 
       </Tab>

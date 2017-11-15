@@ -18,6 +18,7 @@ import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.dialog.AboutDialog;
 import com.beowurks.jequity.view.dialog.OptionsDialog;
+import com.beowurks.jequity.view.dialog.PasswordConfirmDialog;
 import com.beowurks.jequity.view.misc.CheckForUpdates;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
@@ -45,6 +46,9 @@ public class MenuController
   @FXML
   private MenuItem menuRefresh;
 
+  @FXML
+  private MenuItem menuPrint;
+
   // ---------------------------------------------------------------------------------------------------------------------
   public MenuItem getMenuUpdate()
   {
@@ -55,6 +59,12 @@ public class MenuController
   public MenuItem getMenuRefresh()
   {
     return (this.menuRefresh);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public MenuItem getMenuPrint()
+  {
+    return (this.menuPrint);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -205,6 +215,42 @@ public class MenuController
 
       this.generateCSV(loExportFile);
     }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
+  private void changeMasterPassword()
+  {
+    final PasswordConfirmDialog loDialog = new PasswordConfirmDialog();
+    loDialog.setTitle("Change Master Password");
+
+    final Optional<String> loResults = loDialog.showAndWait();
+
+    final String lcMasterKey = loResults.orElse((null));
+    if (lcMasterKey == null)
+    {
+      Misc.infoMessage("The Master Password was not reset due to one of the following:\n\tOK button not pressed\n\tThe passwords did not match");
+      return;
+    }
+
+    if (lcMasterKey.isEmpty())
+    {
+      AppProperties.INSTANCE.setKey(AppProperties.getDefaultMasterKey());
+      Misc.infoMessage("The Master Password has been reset to the default.\n\nThis application will no longer require a password at launch:\nNot recommended.");
+    }
+    else
+    {
+      AppProperties.INSTANCE.setKey(lcMasterKey);
+      Misc.infoMessage("The new Master Password has been successfully applied.");
+    }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
+  private void printJasperReport()
+  {
 
   }
 

@@ -8,7 +8,6 @@
   ~
   -->
 
-<?import javafx.embed.swing.SwingNode?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -32,7 +31,7 @@
         <fx:include source="TableSymbol.fxml" fx:id="tableSymbolMain"/>
       </Tab>
       <Tab fx:id="tabReports" text="Reports" closable="false">
-        <SwingNode fx:id="rptSwingNode"/>
+        <fx:include source="Report.fxml" fx:id="reportMain"/>
       </Tab>
       <Tab fx:id="tabHistorical" text="Historical" closable="false">
         <fx:include source="HistoricalGraph.fxml" fx:id="historicalGraphMain"/>

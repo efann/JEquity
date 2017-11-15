@@ -46,8 +46,7 @@ public class OptionsController implements EventHandler<ActionEvent>
 
   @FXML
   private DatePicker txtHistoricalStart;
-  @FXML
-  private ComboBox<IntegerKeyItem> cboDailyDownloadStart;
+
   @FXML
   private ComboBox<IntegerKeyItem> cboDailyDownloadInterval;
 
@@ -86,7 +85,6 @@ public class OptionsController implements EventHandler<ActionEvent>
 
     //***************************************
     // Historical tab
-    loApp.setDailyStartKey(loApp.convertIndexToKey(loApp.getDailyStarts(), this.cboDailyDownloadStart.getSelectionModel().getSelectedIndex()));
     loApp.setDailyIntervalKey(loApp.convertIndexToKey(loApp.getDailyIntervals(), this.cboDailyDownloadInterval.getSelectionModel().getSelectedIndex()));
     loApp.setHistoricalStartDefault(Date.valueOf(this.txtHistoricalStart.getValue()));
 
@@ -119,7 +117,6 @@ public class OptionsController implements EventHandler<ActionEvent>
   private void setupComboBoxes(final AppProperties toApp)
   {
     final IntegerKeyItem[] laDrivers = toApp.getRDBMS_Types();
-    final IntegerKeyItem[] laDailyStarts = toApp.getDailyStarts();
     final IntegerKeyItem[] laDailyIntervals = toApp.getDailyIntervals();
 
     int lnLength = laDrivers.length;
@@ -127,13 +124,6 @@ public class OptionsController implements EventHandler<ActionEvent>
     for (int i = 0; i < lnLength; ++i)
     {
       this.cboDriver.getItems().add(laDrivers[i]);
-    }
-
-    lnLength = laDailyStarts.length;
-    this.cboDailyDownloadStart.getItems().clear();
-    for (int i = 0; i < lnLength; ++i)
-    {
-      this.cboDailyDownloadStart.getItems().add(laDailyStarts[i]);
     }
 
     lnLength = laDailyIntervals.length;
@@ -144,7 +134,6 @@ public class OptionsController implements EventHandler<ActionEvent>
     }
 
     this.cboDriver.getSelectionModel().select(toApp.convertKeyToIndex(toApp.getRDBMS_Types(), toApp.getConnectionRDBMS_Key()));
-    this.cboDailyDownloadStart.getSelectionModel().select(toApp.convertKeyToIndex(laDailyStarts, toApp.getDailyStartKey()));
     this.cboDailyDownloadInterval.getSelectionModel().select(toApp.convertKeyToIndex(laDailyIntervals, toApp.getDailyIntervalKey()));
 
     this.cboDriver.setOnAction(this);

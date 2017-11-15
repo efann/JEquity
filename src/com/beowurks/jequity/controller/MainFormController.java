@@ -11,16 +11,13 @@ package com.beowurks.jequity.controller;
 import com.beowurks.jequity.controller.table.TableFinancialController;
 import com.beowurks.jequity.controller.table.TableGroupController;
 import com.beowurks.jequity.controller.table.TableSymbolController;
-import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.warehouses.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
 import com.beowurks.jequity.utility.Misc;
-import com.beowurks.jequity.view.jasperreports.JRViewerBase;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,21 +28,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import org.controlsfx.control.StatusBar;
-import org.hibernate.Session;
-import org.hibernate.jdbc.Work;
 
-import javax.swing.SwingUtilities;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -74,6 +63,8 @@ public class MainFormController implements EventHandler<ActionEvent>
   @FXML
   private HistoricalGraphController historicalGraphMainController;
 
+  @FXML
+  private ReportController reportMainController;
   //********************************************************************************
 
   @FXML
@@ -97,10 +88,6 @@ public class MainFormController implements EventHandler<ActionEvent>
   @FXML
   private Tab tabGroup;
 
-  @FXML
-  private SwingNode rptSwingNode;
-
-
   private final ObservableList<EnvironmentProperty> foDataList = FXCollections.observableArrayList();
 
   @FXML
@@ -112,8 +99,6 @@ public class MainFormController implements EventHandler<ActionEvent>
   @FXML
   private TableColumn colDescription;
 
-  private JasperPrint foJPSummary;
-  private JRViewerBase foJRViewerSummary;
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
@@ -144,6 +129,8 @@ public class MainFormController implements EventHandler<ActionEvent>
     this.menuMainController.getMenuUpdate().setOnAction(toActionEvent -> MainFormController.this.updateSymbolData());
     this.toolbarMainController.getUpdateButton().setOnAction(toActionEvent -> MainFormController.this.updateSymbolData());
 
+    this.menuMainController.getMenuPrint().setOnAction(toActionEvent -> MainFormController.this.printReport());
+
     this.tabPane.getSelectionModel().selectedItemProperty().addListener(
         (toObservableValue, toPrevious, toCurrent) -> this.refreshAllComponents(false)
     );
@@ -155,6 +142,29 @@ public class MainFormController implements EventHandler<ActionEvent>
   public void updateSymbolData()
   {
     ThreadDownloadSymbolInfo.INSTANCE.start(true);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void printReport()
+  {
+    final JasperPrint loJasperPrint = this.reportMainController.getJasperPrint();
+
+    if (loJasperPrint != null)
+    {
+      try
+      {
+        JasperPrintManager.printReport(loJasperPrint, true);
+      }
+      catch (final JRException loErr)
+      {
+        Misc.errorMessage("Unable to print this report:\n\n" + loErr.getMessage());
+      }
+    }
+    else
+    {
+      Misc.errorMessage("A report has not yet been generated.\n\nTry clicking on Reports tab and re-select \"Print...\"");
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -210,70 +220,15 @@ public class MainFormController implements EventHandler<ActionEvent>
     else if (loCurrentTab == this.tabReports)
     {
       Misc.setStatusText(String.format("Refreshed the Financial Report @ %s. . . .", lcTime));
-      this.refreshReport();
+      this.reportMainController.refreshReport();
     }
     else if (loCurrentTab == this.tabHistorical)
     {
       Misc.setStatusText(String.format("Refreshed the Historical data @ %s. . . .", lcTime));
-      final StringKeyItem loItem = this.historicalGraphMainController.refreshData();
-      this.historicalGraphMainController.getComboBox().getSelectionModel().select(loItem);
+      this.historicalGraphMainController.refreshData();
     }
 
     Misc.setCursor(Cursor.DEFAULT);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void refreshReport()
-  {
-    SwingUtilities.invokeLater(this::generateSummary);
-
-  }
-
-  // -----------------------------------------------------------------------------
-  private void generateSummary()
-  {
-    final Session loSession = HibernateUtil.INSTANCE.getSession();
-
-    loSession.doWork(new Work()
-    {
-      @Override
-      public void execute(final Connection toConnection) throws SQLException
-      {
-        try
-        {
-          final MainFormController loThis = MainFormController.this;
-
-          final JasperReport loJasperReport = (JasperReport) JRLoader.loadObject(this.getClass().getResource("/com/beowurks/jequity/view/jasperreports/Summary.jasper"));
-
-          final HashMap<String, Object> loHashMap = new HashMap<>();
-
-          final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
-
-          loHashMap.put("parFinancialTable", loHibernate.getTableFinancial());
-          loHashMap.put("parGroupTable", loHibernate.getTableGroup());
-          loHashMap.put("parGroupID", loHibernate.getGroupID());
-
-          loThis.foJPSummary = JasperFillManager.fillReport(loJasperReport, loHashMap, toConnection);
-
-          if (loThis.foJRViewerSummary == null)
-          {
-            loThis.foJRViewerSummary = new JRViewerBase(loThis.foJPSummary);
-            loThis.rptSwingNode.setContent(loThis.foJRViewerSummary);
-          }
-          else
-          {
-            loThis.foJRViewerSummary.loadReport(loThis.foJPSummary);
-          }
-
-        }
-        catch (final JRException loErr)
-        {
-          loErr.printStackTrace();
-        }
-      }
-    });
-
-    loSession.close();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

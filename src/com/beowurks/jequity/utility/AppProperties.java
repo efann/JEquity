@@ -120,12 +120,6 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------
-  public IntegerKeyItem[] getDailyStarts()
-  {
-    return (Constants.DAILY_START);
-  }
-
-  // -----------------------------------------------------------------------------
   public String getDefaultDerbyUser()
   {
     return (Constants.DERBY_USERNAME);
@@ -247,12 +241,6 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------
-  public int getDailyStartKey()
-  {
-    return (this.getProperty(Constants.DAILY_START_KEY, Constants.DAILY_START[0].getKey()));
-  }
-
-  // -----------------------------------------------------------------------------
   public String getConnectionRDBMS_Description()
   {
     final int lnIndex = this.convertKeyToIndex(this.getRDBMS_Types(), this.getConnectionRDBMS_Key());
@@ -351,12 +339,6 @@ public final class AppProperties extends BaseProperties
   public void setDailyIntervalKey(final int tnValue)
   {
     this.setProperty(Constants.DAILY_INTERVAL_KEY, tnValue);
-  }
-
-  // -----------------------------------------------------------------------------
-  public void setDailyStartKey(final int tnValue)
-  {
-    this.setProperty(Constants.DAILY_START_KEY, tnValue);
   }
 
   // -----------------------------------------------------------------------------

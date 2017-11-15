@@ -23,35 +23,48 @@ import javafx.scene.layout.Region;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class PasswordDialog extends PasswordBaseDialog
+public class PasswordConfirmDialog extends PasswordBaseDialog
 {
   private final GridPane foGrid;
-  private final Label foLabel;
-  private final PasswordField foTextField;
+
+  private final Label foLabel1;
+  private final PasswordField foTextField1;
+
+  private final Label foLabel2;
+  private final PasswordField foTextField2;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public PasswordDialog()
+  public PasswordConfirmDialog()
   {
     this("");
   }
   // ---------------------------------------------------------------------------------------------------------------------
 
-  public PasswordDialog(@NamedArg("defaultValue") final String tcDefaultValue)
+  public PasswordConfirmDialog(@NamedArg("defaultValue") final String tcDefaultValue)
   {
     super(tcDefaultValue);
 
     final DialogPane loDialogPane = this.getDialogPane();
 
     // -- TextField
-    this.foTextField = new PasswordField();
-    this.foTextField.setText(tcDefaultValue);
-    this.foTextField.setMaxWidth(Double.MAX_VALUE);
-    GridPane.setHgrow(this.foTextField, Priority.ALWAYS);
-    GridPane.setFillWidth(this.foTextField, true);
+    this.foTextField1 = new PasswordField();
+    this.foTextField1.setText(tcDefaultValue);
+    this.foTextField1.setMaxWidth(Double.MAX_VALUE);
+    GridPane.setHgrow(this.foTextField1, Priority.ALWAYS);
+    GridPane.setFillWidth(this.foTextField1, true);
+
+    this.foTextField2 = new PasswordField();
+    this.foTextField2.setText(tcDefaultValue);
+    this.foTextField2.setMaxWidth(Double.MAX_VALUE);
+    GridPane.setHgrow(this.foTextField2, Priority.ALWAYS);
+    GridPane.setFillWidth(this.foTextField2, true);
 
     // -- Label
-    this.foLabel = PasswordDialog.createContentLabel("Password");
-    this.foLabel.setPrefWidth(Region.USE_COMPUTED_SIZE);
+    this.foLabel1 = PasswordConfirmDialog.createContentLabel("Password");
+    this.foLabel1.setPrefWidth(Region.USE_COMPUTED_SIZE);
+
+    this.foLabel2 = PasswordConfirmDialog.createContentLabel("Confirm Password");
+    this.foLabel2.setPrefWidth(Region.USE_COMPUTED_SIZE);
 
     // -- Grid
     this.foGrid = new GridPane();
@@ -65,15 +78,22 @@ public class PasswordDialog extends PasswordBaseDialog
 
     this.setResultConverter((dialogButton) -> {
       final ButtonData loButtonData = (dialogButton == null) ? null : dialogButton.getButtonData();
-      return ((loButtonData == ButtonData.OK_DONE) ? this.foTextField.getText() : null);
+      return ((loButtonData == ButtonData.OK_DONE) ? this.getPasswordResults() : null);
     });
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  private String getPasswordResults()
+  {
+    final String lcResults = (this.foTextField1.getText().compareTo(this.foTextField2.getText()) == 0) ? this.foTextField1.getText() : null;
 
+    return (lcResults);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public final TextField getEditor()
   {
-    return (this.foTextField);
+    return (this.foTextField1);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -81,12 +101,15 @@ public class PasswordDialog extends PasswordBaseDialog
   {
     this.foGrid.getChildren().clear();
 
-    this.foGrid.add(this.foLabel, 0, 0);
-    this.foGrid.add(this.foTextField, 0, 1);
+    this.foGrid.add(this.foLabel1, 0, 0);
+    this.foGrid.add(this.foTextField1, 0, 1);
+
+    this.foGrid.add(this.foLabel2, 0, 2);
+    this.foGrid.add(this.foTextField2, 0, 3);
 
     this.getDialogPane().setContent(this.foGrid);
 
-    Platform.runLater(this.foTextField::requestFocus);
+    Platform.runLater(this.foTextField1::requestFocus);
   }
   // ---------------------------------------------------------------------------------------------------------------------
 }

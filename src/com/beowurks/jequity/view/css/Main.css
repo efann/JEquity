@@ -30,7 +30,7 @@
   -fx-graphic: url("../images/up.png");
 }
 
-#menuMasterKey > .label
+#menuMasterPassword > .label
 {
   -fx-graphic: url("../images/kgpg.png");
 }

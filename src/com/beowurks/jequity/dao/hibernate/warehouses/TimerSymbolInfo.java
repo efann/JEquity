@@ -37,16 +37,12 @@ public class TimerSymbolInfo
       this.foTimer.cancel();
     }
 
+    // The delay value is used for both the delay and the start of the download. So, if the delay is 15 minutes,
+    // then the download will start in 15 minutes.
     final int lnDelay = AppProperties.INSTANCE.getDailyIntervalKey();
     if (lnDelay == Constants.DAILY_INTERVAL_NEVER)
     {
       return;
-    }
-
-    int lnStart = AppProperties.INSTANCE.getDailyStartKey();
-    if (lnStart == Constants.DAILY_INTERVAL_MATCH)
-    {
-      lnStart = lnDelay;
     }
 
     // From
@@ -62,7 +58,7 @@ public class TimerSymbolInfo
           {
             ThreadDownloadSymbolInfo.INSTANCE.start(false);
           }
-        }, lnStart, lnDelay);
+        }, lnDelay, lnDelay);
   }
 
   // -----------------------------------------------------------------------------

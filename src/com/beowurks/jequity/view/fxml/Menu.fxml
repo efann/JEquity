@@ -16,8 +16,11 @@
     <MenuItem fx:id="menuBackup" text="Backup" onAction="#backupData"/>
     <MenuItem fx:id="menuRestore" text="Restore" onAction="#restoreData"/>
     <SeparatorMenuItem/>
-    <MenuItem fx:id="menuMasterKey" text="Master Key..."/>
+    <MenuItem fx:id="menuMasterPassword" text="Master Password..." onAction="#changeMasterPassword"/>
     <SeparatorMenuItem/>
+    <!--
+        MainFormController takes care of their actions
+    -->
     <MenuItem fx:id="menuPrint" text="Print..."/>
     <SeparatorMenuItem/>
     <MenuItem fx:id="menuExport" text="Export..." onAction="#exportData"/>
@@ -30,6 +33,9 @@
     <MenuItem text="Paste"/>
   </Menu>
   <Menu text="Data">
+    <!--
+        MainFormController takes care of their actions
+    -->
     <MenuItem fx:id="menuUpdate" text="Update"/>
     <MenuItem fx:id="menuRefresh" text="Refresh"/>
   </Menu>

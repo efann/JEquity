@@ -79,7 +79,6 @@ final public class Constants
   public static final int DRIVER_KEY_POSTGRESQL91 = 300;
 
   public static final int DAILY_INTERVAL_NEVER = -1;
-  public static final int DAILY_INTERVAL_MATCH = -1;
 
   public final static String CONNECTION_RDBMS_KEY = "connection.rdbms.key";
   public final static String CONNECTION_DATABASE = "connection.database";
@@ -92,7 +91,6 @@ final public class Constants
   // Needed to redo the interval and start arrays. So I had to channge
   // DAILY_INTERVAL_KEY & DAILY_START_KEY by adding javafx to both.
   public final static String DAILY_INTERVAL_KEY = "daily.interval.key.javafx";
-  public final static String DAILY_START_KEY = "daily.start.key.javafx";
 
   // And yes, HISTORICAL_START should end with a '.'.
   public final static String HISTORICAL_START = "historical.start.";
@@ -121,13 +119,6 @@ final public class Constants
           new IntegerKeyItem(Constants.DRIVER_KEY_DERBY, "Apache Derby (default)"),
           new IntegerKeyItem(Constants.DRIVER_KEY_MYSQL5, "MySQL 5.0+"),
           new IntegerKeyItem(Constants.DRIVER_KEY_POSTGRESQL91, "PostgreSQL 9.1+")
-      };
-
-  public final static IntegerKeyItem[] DAILY_START =
-      {
-          new IntegerKeyItem(5 * 60 * 1000, "After 5 Minutes"),
-          new IntegerKeyItem(10 * 60 * 1000, "After 10 Minutes"),
-          new IntegerKeyItem(Constants.DAILY_INTERVAL_MATCH, "Same as Daily Interval")
       };
 
   public final static IntegerKeyItem[] DAILY_INTERVAL =

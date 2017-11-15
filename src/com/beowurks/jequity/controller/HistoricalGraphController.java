@@ -86,6 +86,8 @@ public class HistoricalGraphController
   // ---------------------------------------------------------------------------------------------------------------------
   synchronized public StringKeyItem refreshData()
   {
+    final StringKeyItem loSelectItem = this.cboStocks.getSelectionModel().getSelectedItem();
+
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = loHibernate.getSession();
 
@@ -111,6 +113,17 @@ public class HistoricalGraphController
 
     this.cboStocks.getItems().clear();
     this.cboStocks.setItems(loStringKeys);
+
+    if (loSelectItem != null)
+    {
+      this.cboStocks.setValue(loSelectItem);
+      this.cboStocks.getSelectionModel().select(loSelectItem);
+    }
+    else
+    {
+      this.cboStocks.setValue(loInitKeyItem);
+      this.cboStocks.getSelectionModel().select(loInitKeyItem);
+    }
 
     return (loInitKeyItem);
 
