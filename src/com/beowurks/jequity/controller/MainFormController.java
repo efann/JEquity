@@ -11,6 +11,7 @@ package com.beowurks.jequity.controller;
 import com.beowurks.jequity.controller.table.TableFinancialController;
 import com.beowurks.jequity.controller.table.TableGroupController;
 import com.beowurks.jequity.controller.table.TableSymbolController;
+import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.warehouses.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
@@ -69,6 +70,9 @@ public class MainFormController implements EventHandler<ActionEvent>
 
   @FXML
   private TableFinancialController tableFinancialMainController;
+
+  @FXML
+  private HistoricalGraphController historicalGraphMainController;
 
   //********************************************************************************
 
@@ -198,17 +202,21 @@ public class MainFormController implements EventHandler<ActionEvent>
       this.tableFinancialMainController.refreshData();
     }
     else if (loCurrentTab == this.tabDaily)
-
     {
       Misc.setStatusText(String.format("Refreshed the Daily grid @ %s. . . .", lcTime));
 
       this.tableSymbolMainController.refreshData();
     }
     else if (loCurrentTab == this.tabReports)
-
     {
       Misc.setStatusText(String.format("Refreshed the Financial Report @ %s. . . .", lcTime));
       this.refreshReport();
+    }
+    else if (loCurrentTab == this.tabHistorical)
+    {
+      Misc.setStatusText(String.format("Refreshed the Historical data @ %s. . . .", lcTime));
+      final StringKeyItem loItem = this.historicalGraphMainController.refreshData();
+      this.historicalGraphMainController.getComboBox().getSelectionModel().select(loItem);
     }
 
     Misc.setCursor(Cursor.DEFAULT);

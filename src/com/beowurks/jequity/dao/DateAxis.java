@@ -20,12 +20,12 @@ import javafx.scene.chart.Axis;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -209,7 +209,7 @@ public final class DateAxis extends Axis<Date>
     Collections.sort(list);
     if (list.isEmpty())
     {
-      this.minDate = this.maxDate = new Date();
+      this.minDate = this.maxDate = new Date(Calendar.getInstance().getTimeInMillis());
     }
     else if (list.size() == 1)
     {
@@ -414,7 +414,7 @@ public final class DateAxis extends Axis<Date>
       // Loop as long we exceeded the upper bound.
       while (calendar.getTime().getTime() <= upper.getTime())
       {
-        dateList.add(calendar.getTime());
+        dateList.add(new Date(calendar.getTimeInMillis()));
         calendar.add(interval.interval, interval.amount);
       }
       // Then check the size of the list. If it is greater than the amount of ticks, take that list.
@@ -424,7 +424,7 @@ public final class DateAxis extends Axis<Date>
         // Recheck if the previous interval is better suited.
         while (calendar.getTime().getTime() <= upper.getTime())
         {
-          previousDateList.add(calendar.getTime());
+          previousDateList.add(new Date(calendar.getTimeInMillis()));
           calendar.add(previousInterval.interval, previousInterval.amount);
         }
         break;
@@ -605,7 +605,7 @@ public final class DateAxis extends Axis<Date>
             break;
 
         }
-        evenDates.add(calendar.getTime());
+        evenDates.add(new Date(calendar.getTimeInMillis()));
       }
 
       return evenDates;

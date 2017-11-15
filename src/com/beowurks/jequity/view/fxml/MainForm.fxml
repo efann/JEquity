@@ -34,7 +34,9 @@
       <Tab fx:id="tabReports" text="Reports" closable="false">
         <SwingNode fx:id="rptSwingNode"/>
       </Tab>
-      <Tab fx:id="tabHistorical" text="Historical" closable="false"/>
+      <Tab fx:id="tabHistorical" text="Historical" closable="false">
+        <fx:include source="HistoricalGraph.fxml" fx:id="historicalGraphMain"/>
+      </Tab>
       <Tab fx:id="tabGroup" text="Group" closable="false">
         <fx:include source="TableGroup.fxml" fx:id="tableGroupMain"/>
       </Tab>

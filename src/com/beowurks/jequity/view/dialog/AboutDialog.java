@@ -38,7 +38,7 @@ public class AboutDialog extends Dialog
     this.initOwner(Main.getPrimaryStage());
 
     // From https://stackoverflow.com/questions/40031632/custom-javafx-dialog
-    final FXMLLoader loLoader = new FXMLLoader(this.getClass().getResource("../fxml/AboutDialog.fxml"));
+    final FXMLLoader loLoader = new FXMLLoader(this.getClass().getResource("/com/beowurks/jequity/view/fxml/AboutDialog.fxml"));
     try
     {
       loDialogPane.setContent(loLoader.load());

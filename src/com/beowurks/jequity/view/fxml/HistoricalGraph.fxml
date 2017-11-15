@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ J'Equity
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+<?import com.beowurks.jequity.dao.DateAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<AnchorPane stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.beowurks.jequity.controller.HistoricalGraphController">
+  <children>
+    <GridPane hgap="10" vgap="10" fx:id="grdPaneHistorical" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
+      <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Stocks"/>
+      <ComboBox fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+      <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Start Date"/>
+      <DatePicker fx:id="txtStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+      <Label GridPane.columnIndex="1" GridPane.rowIndex="2" text="End Date"/>
+      <DatePicker fx:id="txtEnd" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+      <CheckBox fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+      <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+
+    </GridPane>
+
+    <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="170.0" AnchorPane.bottomAnchor="10.0"
+               AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" createSymbols="false">
+      <effect>
+        <DropShadow color="GRAY" offsetX="0.0" offsetY="0.0" height="70" width="70"/>
+      </effect>
+      <xAxis>
+        <DateAxis side="BOTTOM" label="Date"/>
+      </xAxis>
+      <yAxis>
+        <NumberAxis side="LEFT" label="Dollars, $" autoRanging="true" forceZeroInRange="false"/>
+      </yAxis>
+    </LineChart>
+
+  </children>
+</AnchorPane>

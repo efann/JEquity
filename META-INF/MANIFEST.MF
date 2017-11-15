@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.9.4
 Created-By: 1.8.0_144-b01 (Oracle Corporation)
-Main-Class: com.beowurks.jequityfx.main.Main
+Main-Class: com.beowurks.jequity.main.Main
 Implementation-Vendor: Beowurks
 Implementation-Version: 2017.0.4
 Implementation-Title: J'Equity
-Built-On: 2017-11-09 17:06:49
+Built-On: 2017-11-14 13:13:15
 

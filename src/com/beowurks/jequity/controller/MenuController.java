@@ -61,6 +61,8 @@ public class MenuController
   @FXML
   private void exitApplication()
   {
+    Misc.setStatusText("Exiting " + Main.getApplicationName());
+
     Misc.startShutdown();
   }
 
@@ -68,6 +70,8 @@ public class MenuController
   @FXML
   private void showCredits()
   {
+    Misc.setStatusText("Showing the credits for " + Main.getApplicationName());
+
     final String lcTitle = String.format("Credits for %s", Main.getApplicationFullName());
     Misc.displayWebContent(lcTitle, "http://www.beowurks.com/ajax/node/32");
   }
@@ -83,6 +87,8 @@ public class MenuController
   @FXML
   private void showAbout()
   {
+    Misc.setStatusText("Showing the About dialog for " + Main.getApplicationName());
+
     final AboutDialog loDialog = new AboutDialog();
     loDialog.showAndWait();
   }
@@ -91,6 +97,8 @@ public class MenuController
   @FXML
   private void showOptions()
   {
+    Misc.setStatusText("Showing the Options dialog for " + Main.getApplicationName());
+
     final OptionsDialog loDialog = new OptionsDialog();
 
     final Optional<ButtonType> loResult = loDialog.showAndWait();

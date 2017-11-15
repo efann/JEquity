@@ -47,7 +47,7 @@ public class TableGroupController extends TableBaseController
     this.setupTable();
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public void refreshData()
   {
     this.foDataList.clear();
@@ -77,7 +77,7 @@ public class TableGroupController extends TableBaseController
     this.tblGroup.setColumnResizePolicy((param -> true));
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   protected NativeQuery getQuery(final Session toSession)
   {
     final String lcSQL = String.format("SELECT * FROM %s", HibernateUtil.INSTANCE.getTableGroup());

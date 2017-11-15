@@ -41,7 +41,7 @@ public class OptionsDialog extends Dialog
     this.initOwner(Main.getPrimaryStage());
 
     // From https://stackoverflow.com/questions/40031632/custom-javafx-dialog
-    final FXMLLoader loLoader = new FXMLLoader(this.getClass().getResource("../fxml/OptionsDialog.fxml"));
+    final FXMLLoader loLoader = new FXMLLoader(this.getClass().getResource("/com/beowurks/jequity/view/fxml/OptionsDialog.fxml"));
     try
     {
       loDialogPane.setContent(loLoader.load());

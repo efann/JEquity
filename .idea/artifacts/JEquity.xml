@@ -10,7 +10,7 @@
     <properties id="javafx-properties">
       <options>
         <option name="alias" value="" />
-        <option name="appClass" value="com.beowurks.jequityfx.main.Main" />
+        <option name="appClass" value="com.beowurks.jequity.main.Main" />
         <option name="description" value="" />
         <option name="htmlPlaceholderId" value="" />
         <option name="icons">
