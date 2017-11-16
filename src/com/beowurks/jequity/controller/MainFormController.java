@@ -196,7 +196,6 @@ public class MainFormController implements EventHandler<ActionEvent>
 
     final Tab loCurrentTab = this.tabPane.getSelectionModel().getSelectedItem();
 
-    // Do not include the Group tab: it's handled above when obtaining the loGroupID.
     if (loCurrentTab == this.tabFinancial)
     {
       Misc.setStatusText(String.format("Refreshed the Financial grid @ %s. . . .", lcTime));
@@ -220,6 +219,14 @@ public class MainFormController implements EventHandler<ActionEvent>
     {
       Misc.setStatusText(String.format("Refreshed the Historical data @ %s. . . .", lcTime));
       this.historicalGraphMainController.refreshData();
+    }
+    else if (loCurrentTab == this.tabGroup)
+    {
+      // The refreshData is handled above when obtaining the loGroupID.
+      if (tlIncludeGroupComboBox)
+      {
+        Misc.setStatusText(String.format("Refreshed the Group data @ %s. . . .", lcTime));
+      }
     }
 
     Misc.setCursor(Cursor.DEFAULT);

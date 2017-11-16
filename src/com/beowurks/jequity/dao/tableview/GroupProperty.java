@@ -8,6 +8,7 @@
 
 package com.beowurks.jequity.dao.tableview;
 
+import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -66,6 +67,16 @@ public class GroupProperty
     this.description.set(toDescription);
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  public GroupEntity toEntity()
+  {
+    final GroupEntity loEntity = new GroupEntity();
+
+    loEntity.setGroupID(this.getID());
+    loEntity.setDescription(this.getDescription());
+
+    return (loEntity);
+  }
   // ---------------------------------------------------------------------------------------------------------------------
 
 }

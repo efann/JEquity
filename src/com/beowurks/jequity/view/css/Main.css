@@ -247,6 +247,44 @@
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  Form edit buttons
+*/
+#btnCreate
+{
+  -fx-graphic: url("../images/edit_add.png");
+}
+
+#btnRemove
+{
+  -fx-graphic: url("../images/edit_remove.png");
+}
+
+#btnModify
+{
+  -fx-graphic: url("../images/edit16.png");
+}
+
+#btnSave
+{
+  -fx-graphic: url("../images/ok16.png");
+}
+
+#btnCancel
+{
+  -fx-graphic: url("../images/cancel16.png");
+}
+
+#btnCreate,
+#btnRemove,
+#btnModify,
+#btnSave,
+#btnCancel
+{
+  -fx-pref-width: 90px;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
 .button,
 .check-box
 {
