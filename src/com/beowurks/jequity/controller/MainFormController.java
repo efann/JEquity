@@ -22,14 +22,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import org.controlsfx.control.StatusBar;
 
 import java.text.DateFormat;
@@ -99,6 +97,7 @@ public class MainFormController implements EventHandler<ActionEvent>
   @FXML
   private TableColumn colDescription;
 
+  private boolean flShowPrintDialog = false;
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
@@ -147,24 +146,17 @@ public class MainFormController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   public void printReport()
   {
-    final JasperPrint loJasperPrint = this.reportMainController.getJasperPrint();
+    this.flShowPrintDialog = true;
 
-    if (loJasperPrint != null)
+    final SingleSelectionModel<Tab> loSelection = this.tabPane.getSelectionModel();
+    if (loSelection.getSelectedItem() == this.tabReports)
     {
-      try
-      {
-        JasperPrintManager.printReport(loJasperPrint, true);
-      }
-      catch (final JRException loErr)
-      {
-        Misc.errorMessage("Unable to print this report:\n\n" + loErr.getMessage());
-      }
+      this.refreshAllComponentsFunction(false);
     }
     else
     {
-      Misc.errorMessage("A report has not yet been generated.\n\nTry clicking on Reports tab and re-select \"Print...\"");
+      loSelection.select(this.tabReports);
     }
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -220,7 +212,9 @@ public class MainFormController implements EventHandler<ActionEvent>
     else if (loCurrentTab == this.tabReports)
     {
       Misc.setStatusText(String.format("Refreshed the Financial Report @ %s. . . .", lcTime));
-      this.reportMainController.refreshReport();
+
+      this.reportMainController.refreshReport(this.flShowPrintDialog);
+      this.flShowPrintDialog = false;
     }
     else if (loCurrentTab == this.tabHistorical)
     {

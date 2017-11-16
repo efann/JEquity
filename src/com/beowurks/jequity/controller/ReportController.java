@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.hibernate.Session;
@@ -37,19 +38,13 @@ public class ReportController
   private JRViewerBase foJRViewerSummary;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public JasperPrint getJasperPrint()
+  public void refreshReport(final boolean tlShowPrintDialog)
   {
-    return (this.foJPSummary);
+    SwingUtilities.invokeLater(() -> ReportController.this.generateSummary(tlShowPrintDialog));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void refreshReport()
-  {
-    SwingUtilities.invokeLater(this::generateSummary);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void generateSummary()
+  private void generateSummary(final boolean tlShowPrintDialog)
   {
     final Session loSession = HibernateUtil.INSTANCE.getSession();
 
@@ -84,6 +79,10 @@ public class ReportController
             loThis.foJRViewerSummary.loadReport(loThis.foJPSummary);
           }
 
+          if (tlShowPrintDialog)
+          {
+            JasperPrintManager.printReport(loThis.foJPSummary, true);
+          }
         }
         catch (final JRException loErr)
         {

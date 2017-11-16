@@ -79,7 +79,7 @@ public class AboutBoxController implements EventHandler<ActionEvent>
     this.lnkCopyright.setText(String.format("Copyright© 2008-%d [Beowurks]. All rights reserved.", Calendar.getInstance().get(Calendar.YEAR)));
     this.lnkCopyright.setOnAction(this);
 
-    final Image loImage = new Image("/com/beowurks/jequity/view/images/JEquity.jpg");
+    final Image loImage = new Image("/com/beowurks/jequity/view/images/JEquity.png");
     this.lnkLogo.setGraphic(new ImageView(loImage));
     this.lnkLogo.setOnAction(this);
 
