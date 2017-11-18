@@ -17,10 +17,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -33,7 +31,7 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class TableGroupController extends TableBaseController
+public class TableGroupController extends TableModifyController
 {
   private final ObservableList<GroupProperty> foDataList = FXCollections.observableArrayList();
 
@@ -49,23 +47,7 @@ public class TableGroupController extends TableBaseController
   @FXML
   private TextField txtDescription;
 
-  @FXML
-  private Button btnModify;
-
-  @FXML
-  private Button btnSave;
-
-  @FXML
-  private Button btnCancel;
-
-  @FXML
-  private Button btnCreate;
-
-  @FXML
-  private Button btnRemove;
-
   private GroupProperty foCurrentGroupProperty = null;
-
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
@@ -80,16 +62,9 @@ public class TableGroupController extends TableBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void setupTooltips()
+  protected void setupListeners()
   {
-    this.btnCreate.setTooltip(new Tooltip("Create a new group"));
-    this.btnRemove.setTooltip(new Tooltip("Remove the currently selected group"));
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void setupListeners()
-  {
-    this.btnModify.setOnAction(toActionEvent -> TableGroupController.this.modifyRow());
+    this.btnModify.setOnAction(toActionEvent -> TableGroupController.this.modifyRow(this.foCurrentGroupProperty));
     this.btnSave.setOnAction(toActionEvent -> TableGroupController.this.saveRow());
     this.btnCancel.setOnAction(toActionEvent -> TableGroupController.this.cancelRow());
 
@@ -100,7 +75,7 @@ public class TableGroupController extends TableBaseController
       if (toNewRow != null)
       {
         this.foCurrentGroupProperty = toNewRow;
-        TableGroupController.this.txtDescription.setText(toNewRow.getDescription());
+        TableGroupController.this.updateComponentsContent();
       }
     });
 
@@ -133,7 +108,6 @@ public class TableGroupController extends TableBaseController
     this.colDescription.setCellValueFactory(new PropertyValueFactory<GroupProperty, String>("description"));
 
     this.tblGroup.getItems().clear();
-    this.tblGroup.setColumnResizePolicy((param -> true));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -148,40 +122,7 @@ public class TableGroupController extends TableBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void modifyRow()
-  {
-    if (this.tblGroup.getSelectionModel().getSelectedItem() == null)
-    {
-      Misc.errorMessage("You need to select a record before modifying it.");
-      return;
-    }
-
-    this.resetComponentsOnModify(true);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void saveRow()
-  {
-    final GroupProperty loProp = this.foCurrentGroupProperty;
-    loProp.setDescription(this.txtDescription.getText().trim());
-
-    this.resetComponentsOnModify(false);
-    if (HibernateUtil.INSTANCE.updateRow(loProp.toEntity()))
-    {
-      Misc.setStatusText("The data has been saved.");
-    }
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void cancelRow()
-  {
-    this.resetComponentsOnModify(false);
-
-    Misc.setStatusText("Your modifications have been cancelled.");
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void insertRow()
+  protected void insertRow()
   {
     final GroupEntity loNewEntity = new GroupEntity();
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
@@ -198,6 +139,7 @@ public class TableGroupController extends TableBaseController
 
       this.foDataList.add(loRecord);
       this.tblGroup.getSelectionModel().select(loRecord);
+      this.tblGroup.scrollTo(loRecord);
 
       this.foCurrentGroupProperty = loRecord;
     }
@@ -205,7 +147,7 @@ public class TableGroupController extends TableBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void removeRow()
+  protected void removeRow()
   {
     if (this.foCurrentGroupProperty == null)
     {
@@ -229,70 +171,43 @@ public class TableGroupController extends TableBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void resetComponentsOnModify(final boolean tlModify)
+  protected void saveRow()
   {
-    this.resetButtons(tlModify);
-    this.resetTextFields(tlModify);
+    final GroupProperty loProp = this.foCurrentGroupProperty;
+    loProp.setDescription(this.txtDescription.getText().trim());
+
+    this.resetComponentsOnModify(false);
+    if (HibernateUtil.INSTANCE.updateRow(loProp.toEntity()))
+    {
+      Misc.setStatusText("The data has been saved.");
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected void updateComponentsContent()
+  {
+    final GroupProperty loProp = this.foCurrentGroupProperty;
+    this.txtDescription.setText(loProp.getDescription());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected void resetComponentsOnModify(final boolean tlModify)
+  {
+    super.resetComponentsOnModify(tlModify);
 
     this.tblGroup.setDisable(tlModify);
+
+    // Signifies editing is enabled so move cursor to the first component.
+    if (tlModify)
+    {
+      this.txtDescription.requestFocus();
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void resetButtons(final boolean tlModify)
-  {
-    this.btnModify.setDisable(tlModify);
-    this.btnCreate.setDisable(tlModify);
-    this.btnRemove.setDisable(tlModify);
-
-    this.btnSave.setVisible(tlModify);
-    this.btnCancel.setVisible(tlModify);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void resetTextFields(final boolean tlModify)
+  protected void resetTextFields(final boolean tlModify)
   {
     this.setEditable(this.txtDescription, tlModify);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  // Unfortunately, I can't create an inherited class from TextField and override setEditable: it's a final method.
-  // Oh well. . . .
-  private void setEditable(final TextField toField, final boolean tlEditable)
-  {
-    toField.setEditable(tlEditable);
-
-    toField.setStyle(tlEditable ? "" : "-fx-background-color: lightgrey;");
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void updateJTableRow(final GroupEntity toEntity)
-  {
-    /*
-    final GroupTable loTable = this.grdGroupTable;
-    final SortingTableModel loSortingModel = loTable.getSortModel();
-    final int lnIDCol = loTable.getModelColumnID();
-    final int lnID = toEntity.getGroupID();
-
-    final int lnCount = loSortingModel.getRowCount();
-    int lnRow = Constants.ROW_UNKNOWN;
-    for (int i = 0; i < lnCount; ++i)
-    {
-      // SortingTableModel acts differently than the regular TableModel,
-      // so lnRow will match the Sorting Table.
-      if (Integer.parseInt(loSortingModel.getValueAt(i, lnIDCol).toString()) == lnID)
-      {
-        lnRow = i;
-        break;
-      }
-    }
-
-    if (lnRow != Constants.ROW_UNKNOWN)
-    {
-      loTable.setColumnValue(toEntity.getDescription(), lnRow, Constants.GROUP_DESCRIPTION);
-
-      loSortingModel.fireTableRowsUpdated(lnRow, lnRow);
-    }
-    */
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

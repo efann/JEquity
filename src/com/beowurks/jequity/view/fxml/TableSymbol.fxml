@@ -16,6 +16,7 @@
   <columns>
     <TableColumn fx:id="colSymbol" text="Symbol"/>
     <TableColumn fx:id="colDescription" text="Description"/>
+    <TableColumn fx:id="colLastTrade" text="Last Trade"/>
     <TableColumn fx:id="colAsking" text="Asking"/>
     <TableColumn fx:id="colAverageVolume" text="Avg Volume"/>
     <TableColumn fx:id="colBidding" text="Bidding"/>
@@ -23,7 +24,6 @@
     <TableColumn fx:id="colDayRange" text="Day Range"/>
     <TableColumn fx:id="colDividendYield" text="Dividend Yield"/>
     <TableColumn fx:id="colEarningsPerShare" text="Earnings / Share"/>
-    <TableColumn fx:id="colLastTrade" text="Last Trade"/>
     <TableColumn fx:id="colMarketCap" text="Market Cap"/>
     <TableColumn fx:id="colOpened" text="Opened"/>
     <TableColumn fx:id="colPreviousClose" text="Prev Close"/>

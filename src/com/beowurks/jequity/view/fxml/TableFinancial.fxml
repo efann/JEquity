@@ -9,21 +9,69 @@
   -->
 
 <?import com.beowurks.jequity.view.table.TableViewPlus?>
-<?import javafx.scene.control.TableColumn?>
-<TableViewPlus fx:id="tblFinancial" stylesheets="@../css/Main.css"
-               xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-               fx:controller="com.beowurks.jequity.controller.table.TableFinancialController">
-  <columns>
-    <TableColumn fx:id="colID" text="ID #"/>
-    <TableColumn fx:id="colDescription" text="Description"/>
-    <TableColumn fx:id="colAccount" text="Account"/>
-    <TableColumn fx:id="colType" text="Type"/>
-    <TableColumn fx:id="colCategory" text="Category"/>
-    <TableColumn fx:id="colShares" text="Shares"/>
-    <TableColumn fx:id="colPrice" text="Price"/>
-    <TableColumn fx:id="colValuationDate" text="Valuation Date"/>
-    <TableColumn fx:id="colRetirement" text="Retirement (?)"/>
-    <TableColumn fx:id="colSymbol" text="Symbol"/>
-    <TableColumn fx:id="colSharesPrice" text="Total"/>
-  </columns>
-</TableViewPlus>
+<?import com.beowurks.jequity.view.textfield.NumberTextField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox stylesheets="@../css/Main.css"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.beowurks.jequity.controller.table.TableFinancialController">
+
+  <TableViewPlus fx:id="tblFinancial">
+    <columns>
+      <TableColumn fx:id="colID" text="ID #"/>
+      <TableColumn fx:id="colDescription" text="Description"/>
+      <TableColumn fx:id="colAccount" text="Account"/>
+      <TableColumn fx:id="colType" text="Type"/>
+      <TableColumn fx:id="colCategory" text="Category"/>
+      <TableColumn fx:id="colShares" text="Shares"/>
+      <TableColumn fx:id="colPrice" text="Price"/>
+      <TableColumn fx:id="colValuationDate" text="Valuation Date"/>
+      <TableColumn fx:id="colRetirement" text="Retirement (?)"/>
+      <TableColumn fx:id="colSymbol" text="Symbol"/>
+      <TableColumn fx:id="colSharesPrice" text="Total"/>
+    </columns>
+  </TableViewPlus>
+
+  <HBox fx:id="boxComponents">
+    <GridPane hgap="5">
+
+      <Label text="Description" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="450" maxWidth="450"/>
+      <Label text="Account" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtAccount" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="150" maxWidth="150"/>
+      <Label text="Type" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtType" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="450" maxWidth="450"/>
+      <Label text="Category" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtCategory" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="450" maxWidth="450"/>
+
+      <Label text="Shares" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="RIGHT"/>
+      <NumberTextField fx:id="txtShares" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="100" maxWidth="100"/>
+
+      <Label text="Price, $" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="RIGHT"/>
+      <NumberTextField fx:id="txtPrice" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="100" maxWidth="100"/>
+
+      <Label text="Valuation Date" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="RIGHT"/>
+      <DatePicker fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+      <Label text="Symbol" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtSymbol" GridPane.columnIndex="1" GridPane.rowIndex="7" prefWidth="100" maxWidth="100"/>
+      <Label fx:id="lblSymbolURL" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+
+      <CheckBox fx:id="chkRetirement" text="Retirement Fund" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+      <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.halignment="RIGHT"/>
+      <TextArea fx:id="txtComments" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
+      <HBox fx:id="boxSaveCancel" GridPane.columnIndex="1" GridPane.rowIndex="10">
+        <Button fx:id="btnSave" text="Save"/>
+        <Button fx:id="btnCancel" text="Cancel"/>
+      </HBox>
+    </GridPane>
+
+    <GridPane hgap="10">
+      <Button fx:id="btnModify" text="Modify" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+      <Button fx:id="btnCreate" text="Create" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+      <Button fx:id="btnRemove" text="Remove" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+    </GridPane>
+  </HBox>
+</VBox>

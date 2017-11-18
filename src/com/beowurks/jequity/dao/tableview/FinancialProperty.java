@@ -8,6 +8,7 @@
 
 package com.beowurks.jequity.dao.tableview;
 
+import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -30,9 +31,9 @@ import java.text.SimpleDateFormat;
 // https://stackoverflow.com/questions/13381067/simplestringproperty-and-simpleintegerproperty-tableview-javafx
 public class FinancialProperty
 {
-  private final IntegerProperty id;
+  private final IntegerProperty financialid;
+  private final IntegerProperty groupid;
   private final StringProperty description;
-
   private final StringProperty account;
   private final StringProperty type;
   private final StringProperty category;
@@ -43,13 +44,17 @@ public class FinancialProperty
   private final StringProperty symbol;
   private final DoubleProperty total;
 
+  private final StringProperty comments;
+
   private final DateFormat foDateFormat = new SimpleDateFormat("M/dd/yyyy");
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public FinancialProperty(final int tnID, final String tcDescription, final String tcAccount, final String tcType, final String tcCategory,
-                           final double tnShares, final double tnPrice, final java.sql.Date tdDate, final boolean tlRetirement, final String tcSymbol)
+  public FinancialProperty(final int tnGroupID, final int tnFinancialID, final String tcDescription, final String tcAccount, final String tcType, final String tcCategory,
+                           final double tnShares, final double tnPrice, final java.sql.Date tdDate, final boolean tlRetirement,
+                           final String tcSymbol, final String tcComments)
   {
-    this.id = new SimpleIntegerProperty(tnID);
+    this.groupid = new SimpleIntegerProperty(tnGroupID);
+    this.financialid = new SimpleIntegerProperty(tnFinancialID);
     this.description = new SimpleStringProperty(tcDescription);
     this.account = new SimpleStringProperty(tcAccount);
     this.type = new SimpleStringProperty(tcType);
@@ -59,25 +64,44 @@ public class FinancialProperty
     this.valuationdate = new SimpleObjectProperty<>(tdDate);
     this.retirement = new SimpleBooleanProperty(tlRetirement);
     this.symbol = new SimpleStringProperty(tcSymbol);
+    this.comments = new SimpleStringProperty(tcComments);
     this.total = new SimpleDoubleProperty(tnShares * tnPrice);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public int getId()
+  public int getGroupID()
   {
-    return (this.id.get());
+    return (this.groupid.get());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public IntegerProperty idProperty()
+  public IntegerProperty groupidProperty()
   {
-    return (this.id);
+    return (this.groupid);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void setId(final int tnID)
+  public void setGroupID(final int tnGroupID)
   {
-    this.id.set(tnID);
+    this.groupid.set(tnGroupID);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public int getFinancialID()
+  {
+    return (this.financialid.get());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public IntegerProperty financialidProperty()
+  {
+    return (this.financialid);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void setFinancialID(final int tnID)
+  {
+    this.financialid.set(tnID);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -207,7 +231,7 @@ public class FinancialProperty
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public boolean isRetirement()
+  public boolean getRetirement()
   {
     return (this.retirement.get());
   }
@@ -260,6 +284,44 @@ public class FinancialProperty
     this.total.set(tnTotal);
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  public String getComments()
+  {
+    return (this.comments.get());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public StringProperty commentsProperty()
+  {
+    return (this.comments);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void setComments(final String comments)
+  {
+    this.comments.set(comments);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public FinancialEntity toEntity()
+  {
+    final FinancialEntity loEntity = new FinancialEntity();
+
+    loEntity.setGroupID(loEntity.getGroupID());
+    loEntity.setFinancialID(this.getFinancialID());
+    loEntity.setDescription(this.getDescription());
+    loEntity.setAccount(this.getAccount());
+    loEntity.setType(this.getType());
+    loEntity.setCategory(this.getCategory());
+    loEntity.setShares(this.getShares());
+    loEntity.setPrice(this.getPrice());
+    loEntity.setValuationDate(this.getValuationDate());
+    loEntity.setSymbol(this.getSymbol());
+    loEntity.setRetirement(this.getRetirement());
+    loEntity.setComments(this.getComments());
+
+    return (loEntity);
+  }
   // ---------------------------------------------------------------------------------------------------------------------
 
 }

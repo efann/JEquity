@@ -284,11 +284,24 @@
   -fx-pref-width: 90px;
 }
 
+#boxComponents,
+#boxSaveCancel
+{
+  -fx-padding: 10px 0 0 0;
+}
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 .button,
 .check-box
 {
   -fx-cursor: hand;
+}
+
+.date-picker > .date-picker-display-node:disabled,
+.check-box:disabled,
+.date-picker:disabled
+{
+  -fx-opacity: 1.0;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
