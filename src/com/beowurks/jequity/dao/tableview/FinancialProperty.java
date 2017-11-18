@@ -307,7 +307,7 @@ public class FinancialProperty
   {
     final FinancialEntity loEntity = new FinancialEntity();
 
-    loEntity.setGroupID(loEntity.getGroupID());
+    loEntity.setGroupID(this.getGroupID());
     loEntity.setFinancialID(this.getFinancialID());
     loEntity.setDescription(this.getDescription());
     loEntity.setAccount(this.getAccount());
