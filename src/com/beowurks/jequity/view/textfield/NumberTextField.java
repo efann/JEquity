@@ -37,7 +37,7 @@ public class NumberTextField extends TextField
   protected void setupListeners()
   {
     this.textProperty().addListener((observable, oldValue, newValue) -> {
-      if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?"))
+      if (!newValue.matches("\\d{0,8}([\\.]\\d{0,6})?"))
       {
         NumberTextField.this.setText(oldValue);
       }

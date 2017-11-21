@@ -18,11 +18,9 @@ import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -63,10 +61,8 @@ public class Main extends Application
 
       toPrimaryStage.setTitle(Main.getApplicationFullName());
 
-      final Rectangle2D loScreenBounds = Screen.getPrimary().getVisualBounds();
-
       toPrimaryStage.getIcons().add(new Image("/com/beowurks/jequity/view/images/JEquity.png"));
-      toPrimaryStage.setScene(new Scene(loBorderPane, loScreenBounds.getWidth() * 0.75, loScreenBounds.getHeight() * 0.50));
+      toPrimaryStage.setScene(new Scene(loBorderPane));
       toPrimaryStage.show();
     }
     catch (final IOException loErr)

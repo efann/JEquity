@@ -16,7 +16,7 @@
       xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.beowurks.jequity.controller.table.TableFinancialController">
 
-  <TableViewPlus fx:id="tblFinancial">
+  <TableViewPlus fx:id="tblFinancial" prefHeight="300" VBox.vgrow="ALWAYS">
     <columns>
       <TableColumn fx:id="colID" text="ID #"/>
       <TableColumn fx:id="colDescription" text="Description"/>
@@ -32,7 +32,7 @@
     </columns>
   </TableViewPlus>
 
-  <HBox fx:id="boxComponents">
+  <HBox fx:id="boxComponents" spacing="10">
     <GridPane hgap="5">
 
       <Label text="Description" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="RIGHT"/>
@@ -59,8 +59,9 @@
 
       <CheckBox fx:id="chkRetirement" text="Retirement Fund" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
 
-      <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.halignment="RIGHT"/>
-      <TextArea fx:id="txtComments" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.halignment="RIGHT"
+             GridPane.valignment="TOP"/>
+      <TextArea fx:id="txtComments" GridPane.columnIndex="1" GridPane.rowIndex="9" prefHeight="75"/>
 
       <HBox fx:id="boxSaveCancel" GridPane.columnIndex="1" GridPane.rowIndex="10">
         <Button fx:id="btnSave" text="Save"/>
@@ -68,10 +69,18 @@
       </HBox>
     </GridPane>
 
-    <GridPane hgap="10">
+    <GridPane hgap="5">
       <Button fx:id="btnModify" text="Modify" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
       <Button fx:id="btnCreate" text="Create" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
       <Button fx:id="btnRemove" text="Remove" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
     </GridPane>
+
+    <TableViewPlus fx:id="tblSummary" prefHeight="300" HBox.hgrow="ALWAYS">
+      <columns>
+        <TableColumn fx:id="colSummaryDescription" text="Description"/>
+        <TableColumn fx:id="colSummaryAmount" text="Amount, $"/>
+      </columns>
+    </TableViewPlus>
+
   </HBox>
 </VBox>

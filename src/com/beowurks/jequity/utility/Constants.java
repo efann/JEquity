@@ -129,6 +129,10 @@ final public class Constants
           new IntegerKeyItem(Constants.DAILY_INTERVAL_NEVER, "Never")
       };
 
+
+  // 1 second delay as it's in milliseconds.
+  public final static int TIMER_SUMMARY_UPDATE_DELAY = 1000;
+
   public final static int UNINITIALIZED = -1;
 
   public final static int TOP_COMPONENT_EDITOR_ALWAYS_OPEN_COUNT = 4;

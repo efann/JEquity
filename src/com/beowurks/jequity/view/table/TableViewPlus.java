@@ -78,6 +78,9 @@ public class TableViewPlus extends TableView
   // Geesh. . . .
   private void resizeAllColumnsUsingReflection()
   {
+    // Otherwise, you can have ghost values in rows that are not overwritten with data.
+    this.refresh();
+
     final TableViewSkin<?> loSkin = (TableViewSkin<?>) this.getSkin();
     // The skin is not applied till after being rendered. Which is happening with the About dialog.
     if (loSkin == null)

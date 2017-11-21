@@ -95,7 +95,10 @@ public class TableGroupController extends TableModifyController
       this.foDataList.add(new GroupProperty(loRow.getGroupID(), loRow.getDescription()));
     }
 
-    this.tblGroup.setItems(this.foDataList);
+    if (this.tblGroup.getItems() != this.foDataList)
+    {
+      this.tblGroup.setItems(this.foDataList);
+    }
     this.tblGroup.resizeColumnsToFit();
 
     loSession.close();

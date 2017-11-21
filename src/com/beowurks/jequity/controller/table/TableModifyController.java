@@ -114,7 +114,7 @@ abstract public class TableModifyController extends TableBaseController
   // Oh well. . . .
   protected void setEditable(final Control toField, final boolean tlEditable)
   {
-    final String lcStyle = tlEditable ? "" : "-fx-background-color: lightgrey;";
+    final String lcStyle = tlEditable ? "" : "-fx-control-inner-background: #EEEEEE";
 
     if (toField instanceof TextField)
     {
@@ -122,7 +122,8 @@ abstract public class TableModifyController extends TableBaseController
     }
     else if (toField instanceof TextArea)
     {
-      ((TextArea) toField).setEditable(tlEditable);
+      final TextArea loTextArea = (TextArea) toField;
+      loTextArea.setEditable(tlEditable);
     }
     else if (toField instanceof DatePicker)
     {

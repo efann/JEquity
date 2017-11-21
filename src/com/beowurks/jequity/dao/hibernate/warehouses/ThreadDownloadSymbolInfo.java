@@ -454,7 +454,7 @@ public class ThreadDownloadSymbolInfo implements Runnable
   // ---------------------------------------------------------------------------------------------------------------------
   private String getHTML(final String tcMarker, final int tnLines)
   {
-    String lcHTML = "";
+    StringBuilder loHTML = new StringBuilder();
     final String lcMarker = this.getStringWithMarker(tcMarker);
 
     final int lnLength = this.faCurrentTextList.length;
@@ -464,13 +464,13 @@ public class ThreadDownloadSymbolInfo implements Runnable
       {
         for (int x = 1; (x <= tnLines) && ((i + x) < lnLength); ++x)
         {
-          lcHTML += this.faCurrentTextList[i + x] + " ";
+          loHTML.append(this.faCurrentTextList[i + x]).append(" ");
         }
         break;
       }
     }
 
-    lcHTML = lcHTML.replaceAll("undefined", "Unk");
+    final String lcHTML = loHTML.toString().replaceAll("undefined", "Unk");
 
     return (lcHTML.trim());
   }

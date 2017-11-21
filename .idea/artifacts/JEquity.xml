@@ -12,6 +12,7 @@
         <option name="alias" value="" />
         <option name="appClass" value="com.beowurks.jequity.main.Main" />
         <option name="description" value="" />
+        <option name="height" value="" />
         <option name="htmlPlaceholderId" value="" />
         <option name="icons">
           <JavaFxApplicationIcons>
@@ -25,7 +26,8 @@
         <option name="title" value="J'Equity" />
         <option name="updateMode" value="always" />
         <option name="vendor" value="Beowurks" />
-        <option name="version" value="2017.0.4" />
+        <option name="version" value="2017.0.0.4" />
+        <option name="width" value="" />
       </options>
     </properties>
     <root id="root">

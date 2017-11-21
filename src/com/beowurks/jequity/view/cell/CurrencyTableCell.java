@@ -19,7 +19,16 @@ import java.text.NumberFormat;
 // From http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
 public class CurrencyTableCell extends TableCell<Object, Double>
 {
-  static private final NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance();
+  static private final NumberFormat foCurrencyFormat = NumberFormat.getCurrencyInstance();
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public CurrencyTableCell()
+  {
+    super();
+
+    CurrencyTableCell.foCurrencyFormat.setMinimumFractionDigits(4);
+    CurrencyTableCell.foCurrencyFormat.setMaximumFractionDigits(4);
+  }
 
   // ---------------------------------------------------------------------------------------------------------------------
 
@@ -28,13 +37,12 @@ public class CurrencyTableCell extends TableCell<Object, Double>
   {
     super.updateItem(tnItem, tlEmpty);
 
-
     if ((tnItem == null) || tlEmpty)
     {
       return;
     }
 
-    this.setText(CurrencyTableCell.CURRENCY_FORMAT.format(tnItem));
+    this.setText(CurrencyTableCell.foCurrencyFormat.format(tnItem));
     this.setTextFill((tnItem >= 0) ? Color.BLACK : Color.RED);
   }
   // ---------------------------------------------------------------------------------------------------------------------

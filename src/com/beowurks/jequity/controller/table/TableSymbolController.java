@@ -101,7 +101,11 @@ public class TableSymbolController extends TableBaseController
           loRow.getPriceEarnings(), loRow.getEarningsPerShare(), loRow.getDividendYield(), loRow.getComments(), loRow.getHistoricalInfo()));
     }
 
-    this.tblSymbol.setItems(this.foDataList);
+    if (this.tblSymbol.getItems() != this.foDataList)
+    {
+      this.tblSymbol.setItems(this.foDataList);
+    }
+
     this.tblSymbol.resizeColumnsToFit();
 
     loSession.close();

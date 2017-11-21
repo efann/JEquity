@@ -138,15 +138,31 @@
   -fx-cursor: hand;
 }
 
-.table-view .arrow
+/* Sorting is turned off for tblSummary so use default cursor. */
+#tblSummary .column-header
 {
-  /* Doesn't work */
-  -fx-alignment: baseline-left;
+  -fx-cursor: default;
 }
 
 .table-view .column-header .label
 {
   -fx-alignment: baseline-left;
+}
+
+/* About dialog doesn't look good with center labels. */
+#tblSymbol .column-header .label,
+#tblFinancial .column-header .label,
+#tblSummary .column-header .label
+{
+  -fx-alignment: center;
+}
+
+#colPrice,
+#colSharesPrice,
+#colShares,
+#colSummaryAmount
+{
+  -fx-alignment: center-right;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -291,6 +307,9 @@
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  Miscellaneous
+*/
 .button,
 .check-box
 {

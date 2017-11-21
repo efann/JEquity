@@ -117,7 +117,10 @@ public class AboutBoxController implements EventHandler<ActionEvent>
       this.foDataList.add(new EnvironmentProperty(lcKey, lcValue.toString()));
     }
 
-    this.tblEnvironment.setItems(this.foDataList);
+    if (this.tblEnvironment.getItems() != this.foDataList)
+    {
+      this.tblEnvironment.setItems(this.foDataList);
+    }
     this.tblEnvironment.resizeColumnsToFit();
   }
 

@@ -10,7 +10,9 @@ package com.beowurks.jequity.controller.table;
 
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
+import com.beowurks.jequity.dao.hibernate.warehouses.TimerSummaryTable;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
+import com.beowurks.jequity.dao.tableview.SummaryProperty;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
@@ -42,15 +44,15 @@ public class TableFinancialController extends TableModifyController
 {
   private final ObservableList<FinancialProperty> foDataList = FXCollections.observableArrayList();
 
+  //------------------------
+  // tblFinancial
   @FXML
   private TableViewPlus tblFinancial;
 
   @FXML
   private TableColumn colID;
-
   @FXML
   private TableColumn colDescription;
-
   @FXML
   private TableColumn colAccount;
   @FXML
@@ -69,6 +71,19 @@ public class TableFinancialController extends TableModifyController
   private TableColumn colSymbol;
   @FXML
   private TableColumn colSharesPrice;
+
+  //------------------------
+
+  // tblSummary
+  @FXML
+  private TableViewPlus tblSummary;
+  @FXML
+  private TableColumn colSummaryDescription;
+
+  @FXML
+  private TableColumn colSummaryAmount;
+
+  //------------------------
 
   @FXML
   private TextField txtDescription;
@@ -111,6 +126,7 @@ public class TableFinancialController extends TableModifyController
 
     this.resetComponentsOnModify(false);
 
+    TimerSummaryTable.INSTANCE.setTable(this.tblSummary);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -124,16 +140,24 @@ public class TableFinancialController extends TableModifyController
     this.btnRemove.setOnAction(toActionEvent -> TableFinancialController.this.removeRow());
 
     this.tblFinancial.getSelectionModel().selectedItemProperty().addListener((ChangeListener<FinancialProperty>) (observable, toOldRow, toNewRow) -> {
+
+      String lcCategory = null;
+      String lcType = null;
       if (toNewRow != null)
       {
         this.foCurrentFinancialProperty = toNewRow;
         TableFinancialController.this.updateComponentsContent();
+
+        lcCategory = toNewRow.getCategory();
+        lcType = toNewRow.getType();
       }
+
+      TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcType, lcCategory);
     });
 
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public void refreshData()
   {
     this.foDataList.clear();
@@ -149,15 +173,22 @@ public class TableFinancialController extends TableModifyController
           loRow.getSymbol(), loRow.getComments()));
     }
 
-    this.tblFinancial.setItems(this.foDataList);
+    if (this.tblFinancial.getItems() != this.foDataList)
+    {
+      this.tblFinancial.setItems(this.foDataList);
+    }
     this.tblFinancial.resizeColumnsToFit();
 
     loSession.close();
+
+    TimerSummaryTable.INSTANCE.scheduleDataRefresh(null, null);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupTable()
   {
+    //------------------
+    // tblFinancial
     this.colID.setCellValueFactory(new PropertyValueFactory<FinancialProperty, Integer>("financialid"));
     this.colDescription.setCellValueFactory(new PropertyValueFactory<FinancialProperty, String>("description"));
     this.colAccount.setCellValueFactory(new PropertyValueFactory<FinancialProperty, String>("account"));
@@ -181,6 +212,18 @@ public class TableFinancialController extends TableModifyController
     this.colShares.setCellFactory(tc -> new DoubleTableCell());
 
     this.tblFinancial.getItems().clear();
+
+    //------------------
+    // tblSummary
+    this.colSummaryDescription.setCellValueFactory(new PropertyValueFactory<SummaryProperty, String>("summarydescription"));
+    this.colSummaryAmount.setCellValueFactory(new PropertyValueFactory<SummaryProperty, Double>("summaryamount"));
+
+    this.colSummaryAmount.setCellFactory(tc -> new CurrencyTableCell());
+
+    this.colSummaryDescription.setSortable(false);
+    this.colSummaryAmount.setSortable(false);
+
+    this.tblSummary.getItems().clear();
   }
 
   // -----------------------------------------------------------------------------
