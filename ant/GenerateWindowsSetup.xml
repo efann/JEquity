@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+  ~ J'Equity
+  ~ Copyright(c) 2008-2017
+  ~ Original Author: Eddie Fann
+  ~ License: Eclipse Public License
+  ~
+  -->
+
+
+<!--
+  By the way, this won't work when added to the Post-Processing of Artifact building:
+  Post-Processing occurs after jar files have been generated and BEFORE the complete
+  application with runtime is generated. Oh well, it's now a 2-step process rather than one.
+  Which might work better when dealing with the Mac anyway.
+-->
+
+<project name="GenerateWindowsSetup" default="build" basedir="..//">
+
+  <property name="dirs.base" value="${basedir}"/>
+  <property name="src" value="${dirs.base}"/>
+  <property name="apppath" value="${src}/out/artifacts/JEquity/bundles/JEquity"/>
+  <property name="jarpath" value="${apppath}/app"/>
+  <property name="inno" value="C:/Program Files (x86)/Inno Setup 5"/>
+  <property name="artifact" value="${src}/out/artifacts"/>
+
+  <target depends="signProjectJar,signProjectExe,genInstaller" name="build"/>
+
+  <!--
+    Sign the Jar file of this project
+    I've decided against signing third party library files as I didn't write them.
+  -->
+  <target name="signProjectJar">
+    <!--
+        http://ant.apache.org/manual/CoreTasks/ant.html
+        If you use location rather than value, the absolute file path is used
+        which is needed by the GenerateKey build.xml.
+    -->
+    <ant inheritAll="false" antfile="d:/Eclipse/WorkSpace/Stamp/build.xml" inheritrefs="false">
+      <property name="sign.project.jars" value="JEquity.jar"/>
+      <property name="sign.project.dir" location="${jarpath}"/>
+    </ant>
+  </target>
+
+  <!-- Sign the Exe program of this project -->
+  <target name="signProjectExe">
+    <exec dir="" executable="cmd">
+      <arg line="/c D:\Eclipse\WorkSpace\Stamp\codesign.cmd"/>
+      <arg line="${apppath}/JEquity.exe"/>
+    </exec>
+  </target>
+
+  <target name="genInstaller">
+    <exec executable="${inno}/ISCC.exe">
+      <arg line="${src}/setup/jequity.iss"/>
+    </exec>
+    <exec dir="" executable="cmd">
+      <arg line="/c D:\Eclipse\WorkSpace\Stamp\codesign.cmd"/>
+      <arg line="${artifact}/*.exe"/>
+    </exec>
+
+  </target>
+</project>

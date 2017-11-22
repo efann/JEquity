@@ -121,6 +121,7 @@ public class TableFinancialController extends TableModifyController
 
     this.setupListeners();
     this.setupTooltips();
+    this.setupTextComponents();
 
     this.resetComponentsOnModify(false);
 
@@ -184,6 +185,11 @@ public class TableFinancialController extends TableModifyController
     TimerSummaryTable.INSTANCE.scheduleDataRefresh(null, null);
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void setupTextComponents()
+  {
+    this.txtComments.setWrapText(true);
+  }
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupTable()
   {

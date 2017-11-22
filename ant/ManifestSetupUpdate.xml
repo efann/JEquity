@@ -7,7 +7,7 @@
   ~
   -->
 
-<project name="ManifestUpdate" default="build" basedir="../">
+<project name="ManifestSetupUpdate" default="build" basedir="..//">
 
   <property name="dirs.base" value="${basedir}"/>
   <property name="src" value="${dirs.base}"/>
@@ -17,14 +17,13 @@
   <property name="Beo.Vendor" value="unknown"/>
   <property name="Beo.AppClass" value="unknown"/>
 
-
   <tstamp>
     <format property="buildtime.isoformat" pattern="yyyy-MM-dd HH:mm:ss"/>
   </tstamp>
 
   <loadfile property="Beo.artifact.xml" srcfile="${src}/.idea/artifacts/JEquity.xml"/>
 
-  <target depends="extractXMLValues,buildManifest" name="build"/>
+  <target depends="extractXMLValues,buildManifest,updateInnoSetup" name="build"/>
 
   <target name="extractXMLValues">
     <!--
@@ -51,7 +50,7 @@
         var loDBFactory = DocumentBuilderFactory.newInstance();
 	      var loDocBuilder = loDBFactory.newDocumentBuilder();
 
-		    var loDoc = loDocBuilder.parse(new InputSource(new StringReader(ManifestUpdate.getProperty("Beo.artifact.xml"))));
+		    var loDoc = loDocBuilder.parse(new InputSource(new StringReader(ManifestSetupUpdate.getProperty("Beo.artifact.xml"))));
 
         var lcAppClass = 'unknown';
         var lcTitle = 'unknown';
@@ -85,10 +84,10 @@
           }
         }
 
-        ManifestUpdate.setProperty("Beo.Title", lcTitle);
-        ManifestUpdate.setProperty("Beo.Version", lcVersion);
-        ManifestUpdate.setProperty("Beo.Vendor", lcVendor);
-        ManifestUpdate.setProperty("Beo.AppClass", lcAppClass);
+        ManifestSetupUpdate.setProperty("Beo.Title", lcTitle);
+        ManifestSetupUpdate.setProperty("Beo.Version", lcVersion);
+        ManifestSetupUpdate.setProperty("Beo.Vendor", lcVendor);
+        ManifestSetupUpdate.setProperty("Beo.AppClass", lcAppClass);
       ]]>
     </script>
 
@@ -104,6 +103,13 @@
       <attribute name="Implementation-Title" value="${Beo.Title}"/>
       <attribute name="Built-On" value="${buildtime.isoformat}"/>
     </manifest>
+  </target>
+
+  <!-- Recreate the manifest for the project -->
+  <target name="updateInnoSetup">
+    <replaceregexp match="#define MyAppVersion &quot;(.*?)&quot;" replace="#define MyAppVersion &quot;${Beo.Version}&quot;" flags="g" byline="true">
+      <fileset dir="${src}/setup" includes="jequity.iss"/>
+    </replaceregexp>
   </target>
 
 </project>
