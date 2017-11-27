@@ -1,5 +1,5 @@
 /*
- * J'Equity
+ * JEquity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -11,6 +11,7 @@ import com.beowurks.jequity.dao.XMLTextReader;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
+import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import org.hibernate.Session;
@@ -53,7 +54,7 @@ public class ThreadRestore implements Runnable
 
     if (lcErrorMessage.isEmpty())
     {
-      Misc.infoMessage(String.format("%s has been imported into J'Equity", this.foXMLFile.getPath()));
+      Misc.infoMessage(String.format("%s has been imported into %s", this.foXMLFile.getPath(), Main.getApplicationName()));
     }
     else
     {

@@ -1,5 +1,5 @@
 /*
- * J'Equity
+ * JEquity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -44,7 +44,7 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------
   private AppProperties()
   {
-    super(Constants.LOCAL_PATH, Constants.USER_FILENAME, "J'Equity\u00a9 Parameters - DO NOT EDIT . . . please", AppProperties.getDefaultMasterKey(), false, false);
+    super(Constants.LOCAL_PATH, Constants.USER_FILENAME, "JEquity\u00a9 Parameters - DO NOT EDIT . . . please", AppProperties.getDefaultMasterKey(), false, false);
 
     // I'm not sure if this is the best strategy, a JDialog box inside of a constructor. However, in order to read
     // this particular property file, a password must be used. So, we'll try this for now.
@@ -279,7 +279,7 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------
-  // This represents the version of J'Equity where Flyway was successful.
+  // This represents the version of JEquity where Flyway was successful.
   public String getFlywaySuccessfulJEquityVersion()
   {
     return (this.getProperty(Constants.FLYWAY_SUCCESSFUL_JEQUITY, "0.0.0.0.0"));
@@ -366,7 +366,7 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------
-  // This represents the version of J'Equity where Flyway was successful.
+  // This represents the version of JEquity where Flyway was successful.
   public void setFlywaySuccessfulJEquityVersion(final String tcValue)
   {
     this.setProperty(Constants.FLYWAY_SUCCESSFUL_JEQUITY, tcValue);

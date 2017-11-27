@@ -1,5 +1,5 @@
 /*
- * J'Equity
+ * JEquity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -8,6 +8,7 @@
 package com.beowurks.jequity.dao.hibernate.warehouses;
 
 import com.beowurks.jequity.dao.IDefaultXYChartSeries;
+import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
@@ -162,7 +163,7 @@ public class ThreadDownloadHistorical implements Runnable
           final int lnLength = laElements.length;
           if (lnLength != lnElements)
           {
-            throw new IOException(String.format("J'Equity read error: line on has %d elements.", lnLength));
+            throw new IOException(String.format("%s read error: line on has %d elements.", Main.getApplicationName(), lnLength));
           }
 
           final double[] laDouble = new double[lnLength];

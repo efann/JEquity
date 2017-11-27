@@ -1,5 +1,5 @@
 /*
- * J'Equity
+ * JEquity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -22,13 +22,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
-import org.controlsfx.control.StatusBar;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -64,9 +65,16 @@ public class MainFormController implements EventHandler<ActionEvent>
   @FXML
   private ReportController reportMainController;
   //********************************************************************************
+  // Status Bar
 
   @FXML
-  private StatusBar statusBar;
+  private Label statusMessage;
+  @FXML
+  private ProgressBar progressBar;
+  @FXML
+  private Label progressLabel;
+
+  //********************************************************************************
 
   @FXML
   private TabPane tabPane;
@@ -233,9 +241,21 @@ public class MainFormController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public StatusBar getStatusBar()
+  public Label getStatusMessage()
   {
-    return (this.statusBar);
+    return (this.statusMessage);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public ProgressBar getProgressBar()
+  {
+    return (this.progressBar);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public Label getProgressLabel()
+  {
+    return (this.progressLabel);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

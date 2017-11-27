@@ -1,5 +1,5 @@
 /*
- * J'Equity
+ * JEquity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -190,6 +190,7 @@ public class TableFinancialController extends TableModifyController
   {
     this.txtComments.setWrapText(true);
   }
+
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupTable()
   {

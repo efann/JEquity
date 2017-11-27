@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ J'Equity
+  ~ JEquity
   ~ Copyright(c) 2008-2017
   ~ Original Author: Eddie Fann
   ~ License: Eclipse Public License
   ~
   -->
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import org.controlsfx.control.StatusBar?>
 <BorderPane stylesheets="@../css/Main.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.beowurks.jequity.controller.MainFormController">
@@ -43,6 +46,17 @@
     </TabPane>
   </center>
   <bottom>
-    <StatusBar fx:id="statusBar" text="Welcome to J'EquityFX" progress="0.0"/>
+    <BorderPane fx:id="statusBar">
+      <left>
+        <Label fx:id="statusMessage" text="Welcome to JEquity" GridPane.columnIndex="0" GridPane.rowIndex="0"
+               GridPane.halignment="LEFT"/>
+      </left>
+      <right>
+        <HBox>
+          <Label fx:id="progressLabel" text=""/>
+          <ProgressBar fx:id="progressBar" progress="0.0"/>
+        </HBox>
+      </right>
+    </BorderPane>
   </bottom>
 </BorderPane>

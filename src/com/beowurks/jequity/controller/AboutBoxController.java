@@ -1,5 +1,5 @@
 /*
- * J'Equity
+ * JEquity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -34,7 +34,7 @@ import java.util.Enumeration;
 public class AboutBoxController implements EventHandler<ActionEvent>
 {
   private final static String JEQUITY_COMPANY = "http://www.beowurks.com/";
-  private final static String JEQUITY_HOME = "http://www.beowurks.com/applications/single/J'Equity";
+  private final static String JEQUITY_HOME = "http://www.beowurks.com/applications/single/JEquity";
   private final static String JEQUITY_LICENSE = "https://opensource.org/licenses/EPL-1.0";
 
   private final ObservableList<EnvironmentProperty> foDataList = FXCollections.observableArrayList();

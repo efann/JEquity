@@ -2,10 +2,7 @@
   <artifact type="javafx" name="JEquity">
     <output-path>$PROJECT_DIR$/out/artifacts/JEquity</output-path>
     <properties id="ant-preprocessing">
-      <options enabled="true">
-        <file>file://$PROJECT_DIR$/ant/ManifestSetupUpdate.xml</file>
-        <target>build</target>
-      </options>
+      <options enabled="true" />
     </properties>
     <properties id="javafx-properties">
       <options>
@@ -22,10 +19,10 @@
         <option name="keystore" value="" />
         <option name="nativeBundle" value="all" />
         <option name="selfSigning" value="false" />
-        <option name="title" value="J'Equity" />
+        <option name="title" value="JEquity" />
         <option name="updateMode" value="always" />
         <option name="vendor" value="Beowurks" />
-        <option name="version" value="2017.0.0.14" />
+        <option name="version" value="2017.0.0.1455" />
       </options>
     </properties>
     <root id="root">

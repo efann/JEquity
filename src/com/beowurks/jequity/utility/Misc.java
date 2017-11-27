@@ -1,5 +1,5 @@
 /*
- * J'Equity
+ * JEquity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -7,6 +7,7 @@
  */
 package com.beowurks.jequity.utility;
 
+import com.beowurks.jequity.controller.MainFormController;
 import com.beowurks.jequity.main.Main;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +20,8 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -26,7 +29,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
-import org.controlsfx.control.StatusBar;
 import org.w3c.dom.NodeList;
 
 import javax.swing.SwingUtilities;
@@ -179,33 +181,41 @@ public final class Misc
       return;
     }
 
-    final StatusBar loStatus = Main.getController().getStatusBar();
+    final Label loStatusMessage = Main.getController().getStatusMessage();
 
     if (Platform.isFxApplicationThread())
     {
-      loStatus.setText(tcMessage);
+      loStatusMessage.setText(tcMessage);
     }
     else
     {
-      Platform.runLater(() -> loStatus.setText(tcMessage));
+      Platform.runLater(() -> loStatusMessage.setText(tcMessage));
     }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public static void setStatusText(final String tcMessage, final double tnProgress)
   {
-    final StatusBar loStatus = Main.getController().getStatusBar();
+    final MainFormController loController = Main.getController();
+
+    final Label loStatusMessage = loController.getStatusMessage();
+    final ProgressBar loProgressBar = loController.getProgressBar();
+    final Label loProgressLabel = loController.getProgressLabel();
+
+    final String lcPercentage = Misc.getPercentage(tnProgress);
 
     if (Platform.isFxApplicationThread())
     {
-      loStatus.setText(tcMessage);
-      loStatus.setProgress(tnProgress);
+      loStatusMessage.setText(tcMessage);
+      loProgressBar.setProgress(tnProgress);
+      loProgressLabel.setText(lcPercentage);
     }
     else
     {
       Platform.runLater(() -> {
-        loStatus.setText(tcMessage);
-        loStatus.setProgress(tnProgress);
+        loStatusMessage.setText(tcMessage);
+        loProgressBar.setProgress(tnProgress);
+        loProgressLabel.setText(lcPercentage);
       });
     }
   }
@@ -213,18 +223,34 @@ public final class Misc
   // ---------------------------------------------------------------------------------------------------------------------
   public static void setStatusText(final double tnProgress)
   {
-    final StatusBar loStatus = Main.getController().getStatusBar();
+    final MainFormController loController = Main.getController();
+
+    final ProgressBar loProgressBar = loController.getProgressBar();
+    final Label loProgressLabel = loController.getProgressLabel();
+
+    final String lcPercentage = Misc.getPercentage(tnProgress);
 
     if (Platform.isFxApplicationThread())
     {
-      loStatus.setProgress(tnProgress);
+      loProgressBar.setProgress(tnProgress);
+      loProgressLabel.setText(lcPercentage);
     }
     else
     {
-      Platform.runLater(() -> loStatus.setProgress(tnProgress));
+      Platform.runLater(() -> {
+        loProgressBar.setProgress(tnProgress);
+        loProgressLabel.setText(lcPercentage);
+      });
+
     }
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  private static String getPercentage(final double tnProgress)
+  {
+    final double lnProgress = 100.0 * tnProgress;
+    return ((lnProgress <= 0.5) ? "" : String.format("%.0f %%", lnProgress));
+  }
   // ---------------------------------------------------------------------------------------------------------------------
   public static void currentThreadSleep(final int tnMillisecondsDelay)
   {

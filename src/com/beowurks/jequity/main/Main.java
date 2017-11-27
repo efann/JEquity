@@ -1,5 +1,5 @@
 /*
- * J'Equity
+ * JEquity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -34,7 +34,7 @@ public class Main extends Application
   private static Stage PRIMARY_STAGE = null;
 
   private static boolean APPLICATION_DEVELOPMENT = true;
-  private static String APPLICATION_TITLE = "J'Equity";
+  private static String APPLICATION_TITLE = "JEquity";
   private static String APPLICATION_VERSION = "(Development Version)";
 
   private static HostServices foHostService;

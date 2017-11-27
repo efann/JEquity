@@ -1,5 +1,5 @@
 /*
- * J'Equity
+ * JEquity
  * Copyright(c) 2008-2017
  * Original Author: Eddie Fann
  * License: Eclipse Public License
@@ -189,7 +189,7 @@ public class MenuController
 
       HibernateUtil.INSTANCE.backupToXML(loBackupFile);
 
-      Misc.infoMessage(String.format("J'Equity has been saved to %s.", loBackupFile.getPath()));
+      Misc.infoMessage(String.format("%s has been saved to %s.", Main.getApplicationName(), loBackupFile.getPath()));
     }
 
   }
