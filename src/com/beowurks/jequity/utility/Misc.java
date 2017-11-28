@@ -257,6 +257,11 @@ public final class Misc
   // ---------------------------------------------------------------------------------------------------------------------
   private static String getPercentage(final double tnProgress)
   {
+    if (tnProgress == ProgressBar.INDETERMINATE_PROGRESS)
+    {
+      return ("Working. . . .");
+    }
+
     final double lnProgress = 100.0 * tnProgress;
     return ((lnProgress <= 0.5) ? "" : String.format("%.0f %%", lnProgress));
   }

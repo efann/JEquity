@@ -157,6 +157,17 @@
   -fx-alignment: center;
 }
 
+#colLastTrade,
+#colAsking,
+#colAverageVolume,
+#colBidding,
+#colDifferential,
+#colEarningsPerShare,
+#colOpened,
+#colPreviousClose,
+#colPriceEarnings,
+#colTargetEstimate,
+#colVolume,
 #colPrice,
 #colSharesPrice,
 #colShares,

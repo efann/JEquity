@@ -11,10 +11,12 @@ import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.tableview.SummaryProperty;
 import com.beowurks.jequity.utility.Constants;
+import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.table.TableViewPlus;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ProgressBar;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -74,6 +76,7 @@ public class TimerSummaryTable
   // ---------------------------------------------------------------------------------------------------------------------
   public void scheduleDataRefresh(final String tcType, final String tcCategory)
   {
+    Misc.setStatusText(ProgressBar.INDETERMINATE_PROGRESS);
     Platform.runLater(() ->
         this.foSummaryTable.setStyle("-fx-opacity: 0.25;"));
 
@@ -107,6 +110,8 @@ public class TimerSummaryTable
 
     Platform.runLater(() ->
         this.foSummaryTable.setStyle("-fx-opacity: 1.0;"));
+
+    Misc.setStatusText(0.0);
   }
 
   // -----------------------------------------------------------------------------
