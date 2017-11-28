@@ -46,7 +46,7 @@ public class TimerSummaryTable
 
   public static TimerSummaryTable INSTANCE = new TimerSummaryTable();
 
-  private final Vector<SummarySubAmount> foSummaryList = new Vector<SummarySubAmount>();
+  private final Vector<SummarySubAmount> foSummaryList = new Vector<>();
 
   private Timer foTimer = null;
 
@@ -164,10 +164,8 @@ public class TimerSummaryTable
     double lnNonRetirement = 0;
 
     final int lnCount = this.foSummaryList.size();
-    for (int i = 0; i < lnCount; ++i)
+    for (final SummarySubAmount loSumAmount : this.foSummaryList)
     {
-      final SummarySubAmount loSumAmount = this.foSummaryList.get(i);
-
       lnTotal += loSumAmount.fnSubTotal;
       if (loSumAmount.flRetirement)
       {
@@ -181,10 +179,9 @@ public class TimerSummaryTable
       if (loType != null)
       {
         final int lnSize = loType.size();
-        for (int lnSub = 0; lnSub < lnSize; ++lnSub)
+        for (final SummarySubList loSubList : loType)
         {
-          final SummarySubList loSubList = loType.get(lnSub);
-          if (loSumAmount.fcType.indexOf(loSubList.fcConverted) != -1)
+          if (loSumAmount.fcType.contains(loSubList.fcConverted))
           {
             loSubList.fnSubTotal += loSumAmount.fnSubTotal;
           }
@@ -194,9 +191,8 @@ public class TimerSummaryTable
       if (loCategory != null)
       {
         final int lnSize = loCategory.size();
-        for (int lnSub = 0; lnSub < lnSize; ++lnSub)
+        for (final SummarySubList loSubList : loCategory)
         {
-          final SummarySubList loSubList = loCategory.get(lnSub);
           if (loSumAmount.fcCategory.contains(loSubList.fcConverted))
           {
             loSubList.fnSubTotal += loSumAmount.fnSubTotal;
@@ -222,10 +218,8 @@ public class TimerSummaryTable
     if (toSubList != null)
     {
       final int lnSize = toSubList.size();
-      for (int lnSub = 0; lnSub < lnSize; ++lnSub)
+      for (final SummarySubList loSubList : toSubList)
       {
-        final SummarySubList loSubList = toSubList.get(lnSub);
-
         this.foDataList.add(new SummaryProperty(loSubList.fcLabel, loSubList.fnSubTotal));
       }
     }
@@ -283,11 +277,11 @@ public class TimerSummaryTable
     String lcValue = tcValue.trim();
 
     // Get rid of any spaces next to the delimiters.
-    while (lcValue.indexOf(Constants.CATEGORY_TYPE_DELIMITER + " ") >= 0)
+    while (lcValue.contains(Constants.CATEGORY_TYPE_DELIMITER + " "))
     {
       lcValue = lcValue.replace(Constants.CATEGORY_TYPE_DELIMITER + " ", Constants.CATEGORY_TYPE_DELIMITER);
     }
-    while (lcValue.indexOf(" " + Constants.CATEGORY_TYPE_DELIMITER) >= 0)
+    while (lcValue.contains(" " + Constants.CATEGORY_TYPE_DELIMITER))
     {
       lcValue = lcValue.replace(Constants.CATEGORY_TYPE_DELIMITER + " ", Constants.CATEGORY_TYPE_DELIMITER);
     }

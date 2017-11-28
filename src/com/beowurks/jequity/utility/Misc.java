@@ -48,6 +48,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -55,6 +57,13 @@ import java.util.Optional;
 // ---------------------------------------------------------------------------------------------------------------------
 public final class Misc
 {
+
+  static private NumberFormat foCurrencyFormat = null;
+  static private NumberFormat foIntegerFormat = null;
+  static private NumberFormat foDoubleFormat = null;
+
+  static private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy");
+
   // Used by the isWindows routine
   static public final String OPERATING_SYSTEM = System.getProperty("os.name");
 
@@ -251,6 +260,7 @@ public final class Misc
     final double lnProgress = 100.0 * tnProgress;
     return ((lnProgress <= 0.5) ? "" : String.format("%.0f %%", lnProgress));
   }
+
   // ---------------------------------------------------------------------------------------------------------------------
   public static void currentThreadSleep(final int tnMillisecondsDelay)
   {
@@ -766,6 +776,48 @@ public final class Misc
   }
 
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  static public NumberFormat getCurrencyFormat()
+  {
+    if (Misc.foCurrencyFormat == null)
+    {
+      Misc.foCurrencyFormat = NumberFormat.getCurrencyInstance();
+      Misc.foCurrencyFormat.setMinimumFractionDigits(4);
+      Misc.foCurrencyFormat.setMaximumFractionDigits(4);
+    }
+
+    return (Misc.foCurrencyFormat);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  static public NumberFormat getDoubleFormat()
+  {
+    if (Misc.foDoubleFormat == null)
+    {
+      Misc.foDoubleFormat = NumberFormat.getNumberInstance();
+      Misc.foDoubleFormat.setMinimumFractionDigits(4);
+      Misc.foDoubleFormat.setMaximumFractionDigits(4);
+    }
+
+    return (Misc.foDoubleFormat);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  static public NumberFormat getIntegerFormat()
+  {
+    if (Misc.foIntegerFormat == null)
+    {
+      Misc.foIntegerFormat = NumberFormat.getNumberInstance();
+    }
+
+    return (Misc.foIntegerFormat);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  static public SimpleDateFormat getDateFormat()
+  {
+    return (Misc.DATE_FORMAT);
+  }
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------

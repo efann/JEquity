@@ -6,38 +6,37 @@
  *
  */
 
-package com.beowurks.jequity.view.cell;
+package com.beowurks.jequity.view.textfield;
 
-import com.beowurks.jequity.utility.Misc;
-import javafx.scene.control.TableCell;
-import javafx.scene.paint.Color;
+import javafx.scene.control.TextField;
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-// From http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
-public class CurrencyTableCell extends TableCell<Object, Double>
+public class UpperCaseTextField extends TextField
 {
+
   // ---------------------------------------------------------------------------------------------------------------------
-  public CurrencyTableCell()
+  public UpperCaseTextField()
   {
     super();
+
+    this.setupListeners();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-
-  @Override
-  protected void updateItem(final Double tnItem, final boolean tlEmpty)
+  public UpperCaseTextField(final String tcText)
   {
-    super.updateItem(tnItem, tlEmpty);
+    super(tcText);
 
-    if ((tnItem == null) || tlEmpty)
-    {
-      return;
-    }
+    this.setupListeners();
+  }
 
-    this.setText(Misc.getCurrencyFormat().format(tnItem));
-    this.setTextFill((tnItem >= 0) ? Color.BLACK : Color.RED);
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected void setupListeners()
+  {
+    this.textProperty().addListener((observable, oldValue, newValue) -> UpperCaseTextField.this.setText(newValue.toUpperCase()));
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

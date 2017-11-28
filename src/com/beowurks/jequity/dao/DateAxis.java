@@ -390,14 +390,14 @@ public final class DateAxis extends Axis<Date>
     final Date lower = (Date) r[0];
     final Date upper = (Date) r[1];
 
-    List<Date> dateList = new ArrayList<Date>();
+    List<Date> dateList = new ArrayList<>();
     final Calendar calendar = Calendar.getInstance();
 
     // The preferred gap which should be between two tick marks.
     final double averageTickGap = 100;
     final double averageTicks = v / averageTickGap;
 
-    final List<Date> previousDateList = new ArrayList<Date>();
+    final List<Date> previousDateList = new ArrayList<>();
 
     Interval previousInterval = Interval.values()[0];
 
@@ -539,7 +539,7 @@ public final class DateAxis extends Axis<Date>
     // If the dates contain more dates than just the lower and upper bounds, make the dates in between even.
     if (dates.size() > 2)
     {
-      final List<Date> evenDates = new ArrayList<Date>();
+      final List<Date> evenDates = new ArrayList<>();
 
       // For each interval, modify the date slightly by a few millis, to make sure they are different days.
       // This is because Axis stores each value and won't update the tick labels, if the value is already known.

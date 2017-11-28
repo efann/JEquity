@@ -66,6 +66,16 @@ public class FinancialProperty
     this.symbol = new SimpleStringProperty(tcSymbol);
     this.comments = new SimpleStringProperty(tcComments);
     this.total = new SimpleDoubleProperty(tnShares * tnPrice);
+
+    this.setupListeners();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void setupListeners()
+  {
+    this.shares.addListener((observable, oldValue, newValue) -> this.setTotal(this.getShares() * this.getPrice()));
+
+    this.price.addListener((observable, oldValue, newValue) -> this.setTotal(this.getShares() * this.getPrice()));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

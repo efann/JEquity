@@ -59,10 +59,9 @@ public class HistoricalGraphController
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupChart()
   {
-    final int lnCount = this.faXYDataSeries.length;
-    for (int i = 0; i < lnCount; ++i)
+    for (final XYChart.Series loSeries : this.faXYDataSeries)
     {
-      this.chtLineChart.getData().add(this.faXYDataSeries[i]);
+      this.chtLineChart.getData().add(loSeries);
     }
   }
 

@@ -38,10 +38,9 @@ abstract public class MigrationHelper implements JdbcMigration
 
     final String[] laSQL = this.getSQLStatements(Misc.getURIFileContents(lcPath + tcResource));
 
-    final int lnCount = laSQL.length;
-    for (int i = 0; i < lnCount; ++i)
+    for (final String lcSQL : laSQL)
     {
-      this.executeStatement(laSQL[i]);
+      this.executeStatement(lcSQL);
     }
   }
 

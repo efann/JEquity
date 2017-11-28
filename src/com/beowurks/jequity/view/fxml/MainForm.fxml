@@ -53,7 +53,7 @@
       </left>
       <right>
         <HBox>
-          <Label fx:id="progressLabel" text=""/>
+          <Label fx:id="progressLabel"/>
           <ProgressBar fx:id="progressBar" progress="0.0"/>
         </HBox>
       </right>

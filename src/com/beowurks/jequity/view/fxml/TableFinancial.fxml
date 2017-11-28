@@ -10,6 +10,7 @@
 
 <?import com.beowurks.jequity.view.table.TableViewPlus?>
 <?import com.beowurks.jequity.view.textfield.NumberTextField?>
+<?import com.beowurks.jequity.view.textfield.UpperCaseTextField?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox stylesheets="@../css/Main.css"
@@ -46,17 +47,20 @@
 
       <Label text="Shares" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="RIGHT"/>
       <NumberTextField fx:id="txtShares" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="100" maxWidth="100"/>
-
       <Label text="Price, $" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="RIGHT"/>
-      <NumberTextField fx:id="txtPrice" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="100" maxWidth="100"/>
+      <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <NumberTextField fx:id="txtPrice" prefWidth="100" maxWidth="100"/>
+        <Label fx:id="lblTotal"/>
+      </HBox>
 
       <Label text="Valuation Date" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="RIGHT"/>
       <DatePicker fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 
       <Label text="Symbol" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.halignment="RIGHT"/>
-      <TextField fx:id="txtSymbol" GridPane.columnIndex="1" GridPane.rowIndex="7" prefWidth="100" maxWidth="100"/>
-      <Label fx:id="lblSymbolURL" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
-
+      <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7">
+        <UpperCaseTextField fx:id="txtSymbol" prefWidth="100" maxWidth="100"/>
+        <Hyperlink fx:id="lnkSymbolURL"/>
+      </HBox>
       <CheckBox fx:id="chkRetirement" text="Retirement Fund" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
 
       <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.halignment="RIGHT"

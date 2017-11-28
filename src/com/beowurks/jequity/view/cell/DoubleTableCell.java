@@ -8,10 +8,9 @@
 
 package com.beowurks.jequity.view.cell;
 
+import com.beowurks.jequity.utility.Misc;
 import javafx.scene.control.TableCell;
 import javafx.scene.paint.Color;
-
-import java.text.NumberFormat;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -19,15 +18,10 @@ import java.text.NumberFormat;
 // From http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
 public class DoubleTableCell extends TableCell<Object, Double>
 {
-  static private final NumberFormat foNumberFormat = NumberFormat.getNumberInstance();
-
   // ---------------------------------------------------------------------------------------------------------------------
   public DoubleTableCell()
   {
     super();
-
-    DoubleTableCell.foNumberFormat.setMinimumFractionDigits(4);
-    DoubleTableCell.foNumberFormat.setMaximumFractionDigits(4);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -43,7 +37,7 @@ public class DoubleTableCell extends TableCell<Object, Double>
       return;
     }
 
-    this.setText(DoubleTableCell.foNumberFormat.format(tnItem));
+    this.setText(Misc.getDoubleFormat().format(tnItem));
     this.setTextFill((tnItem >= 0) ? Color.BLACK : Color.RED);
   }
   // ---------------------------------------------------------------------------------------------------------------------

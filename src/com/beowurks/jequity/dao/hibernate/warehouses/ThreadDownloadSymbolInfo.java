@@ -454,13 +454,13 @@ public class ThreadDownloadSymbolInfo implements Runnable
   // ---------------------------------------------------------------------------------------------------------------------
   private String getHTML(final String tcMarker, final int tnLines)
   {
-    StringBuilder loHTML = new StringBuilder();
+    final StringBuilder loHTML = new StringBuilder();
     final String lcMarker = this.getStringWithMarker(tcMarker);
 
     final int lnLength = this.faCurrentTextList.length;
     for (int i = 0; i < lnLength; ++i)
     {
-      if (this.faCurrentTextList[i].indexOf(lcMarker) != -1)
+      if (this.faCurrentTextList[i].contains(lcMarker))
       {
         for (int x = 1; (x <= tnLines) && ((i + x) < lnLength); ++x)
         {

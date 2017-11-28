@@ -32,7 +32,7 @@
   </VBox>
 
   <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
-    <Hyperlink fx:id="lnkApplicationName" wrapText="true"/>
+    <Hyperlink fx:id="lnkApplicationName"/>
     <Label fx:id="lblApplicationVersion"/>
     <HyperlinkLabel fx:id="lnkCopyright"/>
 

@@ -10,27 +10,34 @@ package com.beowurks.jequity.controller.table;
 
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
+import com.beowurks.jequity.dao.hibernate.warehouses.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.hibernate.warehouses.TimerSummaryTable;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import com.beowurks.jequity.dao.tableview.SummaryProperty;
+import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
 import com.beowurks.jequity.view.cell.DoubleTableCell;
 import com.beowurks.jequity.view.table.TableViewPlus;
 import com.beowurks.jequity.view.textfield.NumberTextField;
+import com.beowurks.jequity.view.textfield.UpperCaseTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -40,7 +47,7 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class TableFinancialController extends TableModifyController
+public class TableFinancialController extends TableModifyController implements EventHandler<ActionEvent>
 {
   private final ObservableList<FinancialProperty> foDataList = FXCollections.observableArrayList();
 
@@ -98,11 +105,13 @@ public class TableFinancialController extends TableModifyController
   @FXML
   private NumberTextField txtPrice;
   @FXML
+  private Label lblTotal;
+  @FXML
   private DatePicker txtDate;
   @FXML
-  private TextField txtSymbol;
+  private UpperCaseTextField txtSymbol;
   @FXML
-  private Label lblSymbolURL;
+  private Hyperlink lnkSymbolURL;
 
   @FXML
   private CheckBox chkRetirement;
@@ -140,6 +149,13 @@ public class TableFinancialController extends TableModifyController
     this.btnCreate.setOnAction(toActionEvent -> TableFinancialController.this.insertRow());
     this.btnRemove.setOnAction(toActionEvent -> TableFinancialController.this.removeRow());
 
+    this.txtShares.textProperty().addListener((observable, oldValue, newValue) -> this.updateTotalLabel());
+
+    this.txtPrice.textProperty().addListener((observable, oldValue, newValue) -> this.updateTotalLabel());
+
+    this.lnkSymbolURL.setOnAction(this);
+
+    // Setup the summary table update on scroll.
     this.tblFinancial.getSelectionModel().selectedItemProperty().addListener((ChangeListener<FinancialProperty>) (observable, toOldRow, toNewRow) -> {
 
       String lcCategory = null;
@@ -273,16 +289,21 @@ public class TableFinancialController extends TableModifyController
   {
     final FinancialProperty loProp = this.foCurrentFinancialProperty;
 
+    final double lnShares = this.getDoubleFromTextFieldl(this.txtShares);
+    final double lnPrice = this.getDoubleFromTextFieldl(this.txtPrice);
+
     loProp.setDescription(this.txtDescription.getText().trim());
     loProp.setAccount(this.txtAccount.getText().trim());
     loProp.setType(this.txtType.getText().trim());
     loProp.setCategory(this.txtCategory.getText().trim());
-    loProp.setShares(Double.parseDouble(this.txtShares.getText().trim()));
-    loProp.setPrice(Double.parseDouble(this.txtPrice.getText().trim()));
+    loProp.setShares(lnShares);
+    loProp.setPrice(lnPrice);
     loProp.setValuationDate(Date.valueOf(this.txtDate.getValue()));
     loProp.setSymbol(this.txtSymbol.getText().trim());
     loProp.setRetirement(this.chkRetirement.isSelected());
     loProp.setComments(this.txtComments.getText().trim());
+
+    // Realize that the total is tied to the listeners for share and price.
 
     this.resetComponentsOnModify(false);
     if (HibernateUtil.INSTANCE.updateRow(loProp.toEntity()))
@@ -320,6 +341,9 @@ public class TableFinancialController extends TableModifyController
   {
     final FinancialProperty loProp = this.foCurrentFinancialProperty;
 
+    final String lcSymbol = loProp.getSymbol().trim();
+    final double lnTotal = loProp.getShares() * loProp.getPrice();
+
     this.txtDescription.setText(loProp.getDescription());
     this.txtAccount.setText(loProp.getAccount());
     this.txtType.setText(loProp.getType());
@@ -327,9 +351,11 @@ public class TableFinancialController extends TableModifyController
     this.txtShares.setText(Double.toString(loProp.getShares()));
     this.txtPrice.setText(Double.toString(loProp.getPrice()));
     this.txtDate.setValue(loProp.getValuationDate().toLocalDate());
-    this.txtSymbol.setText(loProp.getSymbol());
+    this.txtSymbol.setText(lcSymbol);
     this.chkRetirement.setSelected(loProp.getRetirement());
     this.txtComments.setText(loProp.getComments());
+
+    this.lnkSymbolURL.setText(lcSymbol.isEmpty() ? "" : ThreadDownloadSymbolInfo.getSymbolDailyURL(lcSymbol));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -359,6 +385,52 @@ public class TableFinancialController extends TableModifyController
     this.setEditable(this.txtSymbol, tlModify);
     this.setEditable(this.chkRetirement, tlModify);
     this.setEditable(this.txtComments, tlModify);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateTotalLabel()
+  {
+    final double lnShares = this.getDoubleFromTextFieldl(this.txtShares);
+    final double lnPrice = this.getDoubleFromTextFieldl(this.txtPrice);
+
+    final double lnTotal = lnShares * lnPrice;
+
+    this.lblTotal.setText(Misc.getCurrencyFormat().format(lnTotal));
+    this.lblTotal.setTextFill((lnTotal >= 0) ? Color.BLACK : Color.RED);
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private double getDoubleFromTextFieldl(final TextField toField)
+  {
+    double lnValue = 0.0;
+    try
+    {
+      lnValue = Double.parseDouble(toField.getText().trim());
+    }
+    catch (final NumberFormatException ignored)
+    {
+    }
+
+    return (lnValue);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @Override
+  public void handle(final ActionEvent toEvent)
+  {
+    final Object loSource = toEvent.getSource();
+    if (loSource instanceof Hyperlink)
+    {
+      final Hyperlink loHyperLink = (Hyperlink) loSource;
+      final String lcURL = loHyperLink.getText().trim();
+
+      if (!lcURL.isEmpty())
+      {
+        Main.getMainHostServices().showDocument(lcURL);
+      }
+
+    }
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

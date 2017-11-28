@@ -137,11 +137,11 @@ public class AboutBoxController implements EventHandler<ActionEvent>
       {
         final String lcText = loHyperLink.getText();
 
-        if (lcText.toLowerCase().indexOf("license") != -1)
+        if (lcText.toLowerCase().contains("license"))
         {
           lcURL = AboutBoxController.JEQUITY_LICENSE;
         }
-        else if (lcText.toLowerCase().indexOf("beowurks") != -1)
+        else if (lcText.toLowerCase().contains("beowurks"))
         {
           lcURL = AboutBoxController.JEQUITY_COMPANY;
         }
