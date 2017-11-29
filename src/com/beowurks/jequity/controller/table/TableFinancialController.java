@@ -400,7 +400,7 @@ public class TableFinancialController extends TableModifyController implements E
     this.setEditable(this.txtCategory, tlModify);
     this.setEditable(this.txtShares, tlModify);
     this.setEditable(this.txtPrice, tlModify && llEmpty);
-    this.setEditable(this.txtDate, tlModify);
+    this.setEditable(this.txtDate, tlModify && llEmpty);
     this.setEditable(this.txtSymbol, tlModify);
     this.setEditable(this.chkRetirement, tlModify);
     this.setEditable(this.txtComments, tlModify);

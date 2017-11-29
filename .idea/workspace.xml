@@ -80,8 +80,8 @@
       <file leaf-file-name="TableFinancialController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/table/TableFinancialController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="311" column="0" lean-forward="false" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="402" column="56" lean-forward="false" selection-start-line="402" selection-start-column="56" selection-end-line="402" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -123,7 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>colPrice</find>
       <find>lblTotal</find>
       <find>addListener</find>
       <find>new Fin</find>
@@ -153,6 +152,7 @@
       <find>cloneRow</find>
       <find>saveRow</find>
       <find>saveRo</find>
+      <find>lcSymbol.is</find>
     </findStrings>
     <replaceStrings>
       <replace>Main.getPrimaryStage()</replace>
@@ -256,8 +256,8 @@
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TableFinancial.fxml" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TableGroup.fxml" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/table/TableModifyController.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/table/TableFinancialController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/table/TableGroupController.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/table/TableFinancialController.java" />
       </list>
     </option>
   </component>
@@ -1113,12 +1113,12 @@
       <workItem from="1511879358937" duration="14000" />
       <workItem from="1511879426459" duration="10654000" />
       <workItem from="1511969022722" duration="461000" />
-      <workItem from="1511971702112" duration="14860000" />
+      <workItem from="1511971702112" duration="16417000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="657712000" />
+    <option name="totallyTimeSpent" value="659269000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -1617,8 +1617,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/table/TableFinancialController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="311" column="0" lean-forward="false" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+        <state relative-caret-position="300">
+          <caret line="402" column="56" lean-forward="false" selection-start-line="402" selection-start-column="56" selection-end-line="402" selection-end-column="56" />
           <folding />
         </state>
       </provider>
