@@ -25,6 +25,13 @@ public class GroupProperty
   private final StringProperty description;
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public GroupProperty()
+  {
+    this.id = new SimpleIntegerProperty();
+    this.description = new SimpleStringProperty();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public GroupProperty(final int tnID, final String tcDescription)
   {
     this.id = new SimpleIntegerProperty(tnID);

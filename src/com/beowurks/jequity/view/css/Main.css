@@ -282,6 +282,11 @@
   -fx-graphic: url("../images/edit_add.png");
 }
 
+#btnClone
+{
+  -fx-graphic: url("../images/editcopy.png");
+}
+
 #btnRemove
 {
   -fx-graphic: url("../images/edit_remove.png");
@@ -303,6 +308,7 @@
 }
 
 #btnCreate,
+#btnClone,
 #btnRemove,
 #btnModify,
 #btnSave,

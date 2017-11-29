@@ -9,6 +9,7 @@
 package com.beowurks.jequity.controller.table;
 
 
+import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,6 +25,8 @@ import javafx.scene.control.Tooltip;
 // ---------------------------------------------------------------------------------------------------------------------
 abstract public class TableModifyController extends TableBaseController
 {
+  protected boolean flCreatingRow = false;
+
   @FXML
   protected Button btnModify;
 
@@ -37,10 +40,10 @@ abstract public class TableModifyController extends TableBaseController
   protected Button btnCreate;
 
   @FXML
-  protected Button btnRemove;
+  protected Button btnClone;
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  abstract protected void insertRow();
+  @FXML
+  protected Button btnRemove;
 
   // ---------------------------------------------------------------------------------------------------------------------
   abstract protected void removeRow();
@@ -49,7 +52,7 @@ abstract public class TableModifyController extends TableBaseController
   abstract protected void saveRow();
 
   // ---------------------------------------------------------------------------------------------------------------------
-  abstract protected void updateComponentsContent();
+  abstract protected void updateComponentsContent(final boolean tlUseEmptyFields);
 
   // ---------------------------------------------------------------------------------------------------------------------
   abstract protected void resetTextFields(final boolean tlModify);
@@ -65,27 +68,62 @@ abstract public class TableModifyController extends TableBaseController
     this.btnCancel.setTooltip(new Tooltip("Discard any modifications to the contents of the currently selected record"));
 
     this.btnCreate.setTooltip(new Tooltip("Create a new record"));
+    this.btnClone.setTooltip(new Tooltip("Clone a new record from the currently selected record"));
     this.btnRemove.setTooltip(new Tooltip("Remove the currently selected record"));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void modifyRow(final Object toCurrentProperty)
+  protected void createRow()
   {
-    if (toCurrentProperty == null)
-    {
-      Misc.errorMessage("You need to select a record before modifying it.");
-      return;
-    }
+    this.flCreatingRow = true;
+
+    this.updateComponentsContent(true);
 
     this.resetComponentsOnModify(true);
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected boolean cloneRow(final Object toCurrentProperty)
+  {
+    if (toCurrentProperty == null)
+    {
+      Misc.errorMessage("You need to select a record before cloning it.");
+      return (false);
+    }
+
+    this.flCreatingRow = true;
+
+    this.updateComponentsContent(false);
+    this.resetComponentsOnModify(true);
+
+    return (true);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected boolean modifyRow(final Object toCurrentProperty)
+  {
+    if (toCurrentProperty == null)
+    {
+      Misc.errorMessage("You need to select a record before modifying it.");
+      return (false);
+    }
+
+    this.resetComponentsOnModify(true);
+
+    return (true);
+  }
 
   // ---------------------------------------------------------------------------------------------------------------------
   protected void resetComponentsOnModify(final boolean tlModify)
   {
     this.resetButtons(tlModify);
     this.resetTextFields(tlModify);
+
+    if (Main.getController() != null)
+    {
+      Main.getController().getToolbarController().getGroupComboBox().setDisable(tlModify);
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -93,7 +131,7 @@ abstract public class TableModifyController extends TableBaseController
   {
     this.resetComponentsOnModify(false);
 
-    this.updateComponentsContent();
+    this.updateComponentsContent(false);
 
     Misc.setStatusText("Your modifications have been cancelled.");
   }
@@ -103,6 +141,7 @@ abstract public class TableModifyController extends TableBaseController
   {
     this.btnModify.setDisable(tlModify);
     this.btnCreate.setDisable(tlModify);
+    this.btnClone.setDisable(tlModify);
     this.btnRemove.setDisable(tlModify);
 
     this.btnSave.setDisable(!tlModify);

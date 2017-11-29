@@ -8,8 +8,10 @@
 
 package com.beowurks.jequity.controller.table;
 
+import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
+import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import com.beowurks.jequity.dao.tableview.GroupProperty;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.table.TableViewPlus;
@@ -68,14 +70,15 @@ public class TableGroupController extends TableModifyController
     this.btnSave.setOnAction(toActionEvent -> TableGroupController.this.saveRow());
     this.btnCancel.setOnAction(toActionEvent -> TableGroupController.this.cancelRow());
 
-    this.btnCreate.setOnAction(toActionEvent -> TableGroupController.this.insertRow());
+    this.btnCreate.setOnAction(toActionEvent -> TableGroupController.this.createRow());
+    this.btnClone.setOnAction(toActionEvent -> TableGroupController.this.cloneRow(this.foCurrentGroupProperty));
     this.btnRemove.setOnAction(toActionEvent -> TableGroupController.this.removeRow());
 
     this.tblGroup.getSelectionModel().selectedItemProperty().addListener((ChangeListener<GroupProperty>) (observable, toOldRow, toNewRow) -> {
       if (toNewRow != null)
       {
         this.foCurrentGroupProperty = toNewRow;
-        TableGroupController.this.updateComponentsContent();
+        TableGroupController.this.updateComponentsContent(false);
       }
     });
 
@@ -125,31 +128,6 @@ public class TableGroupController extends TableModifyController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void insertRow()
-  {
-    final GroupEntity loNewEntity = new GroupEntity();
-    final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
-
-    final Date loDate = new Date(Calendar.getInstance().getTimeInMillis());
-    final Timestamp loTimestamp = new Timestamp(loDate.getTime());
-
-    // The description field for GroupEntity cannot be duplicated.
-    loNewEntity.setDescription(String.format("<new record on %s>", loTimestamp.toString()));
-
-    if (loHibernate.insertRow(loNewEntity))
-    {
-      final GroupProperty loRecord = new GroupProperty(loNewEntity.getGroupID(), loNewEntity.getDescription());
-
-      this.foDataList.add(loRecord);
-      this.tblGroup.getSelectionModel().select(loRecord);
-      this.tblGroup.scrollTo(loRecord);
-
-      this.foCurrentGroupProperty = loRecord;
-    }
-
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
   protected void removeRow()
   {
     if (this.foCurrentGroupProperty == null)
@@ -176,21 +154,55 @@ public class TableGroupController extends TableModifyController
   // ---------------------------------------------------------------------------------------------------------------------
   protected void saveRow()
   {
-    final GroupProperty loProp = this.foCurrentGroupProperty;
+    final boolean llCreatingRow = this.flCreatingRow;
+    this.flCreatingRow = false;
+
+    final GroupProperty loProp = llCreatingRow ? new GroupProperty() : this.foCurrentGroupProperty;
+
     loProp.setDescription(this.txtDescription.getText().trim());
 
-    this.resetComponentsOnModify(false);
-    if (HibernateUtil.INSTANCE.updateRow(loProp.toEntity()))
+    boolean llSaved = false;
+    if (!llCreatingRow)
     {
-      Misc.setStatusText("The data has been saved.");
+      llSaved = HibernateUtil.INSTANCE.updateRow(loProp.toEntity());
     }
+    else
+    {
+      final GroupEntity loNewEntity = loProp.toEntity();
+      final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
+      loNewEntity.setGroupID(loHibernate.getGroupID());
+
+      llSaved = loHibernate.insertRow(loNewEntity);
+      if (llSaved)
+      {
+        final GroupProperty loNewRecord = new GroupProperty(loNewEntity.getGroupID(), loNewEntity.getDescription());
+
+        this.foDataList.add(loNewRecord);
+        this.tblGroup.getSelectionModel().select(loNewRecord);
+        this.tblGroup.scrollTo(loNewRecord);
+
+        this.foCurrentGroupProperty = loNewRecord;
+      }
+    }
+
+    if (llSaved)
+    {
+      Misc.setStatusText(llCreatingRow ? "Record has been added" : "Information has been saved");
+    }
+    else
+    {
+      Misc.errorMessage("The information was unable to be saved. By the way, the description cannot be a duplicate.");
+    }
+
+    this.resetComponentsOnModify(false);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void updateComponentsContent()
+  protected void updateComponentsContent(final boolean tlUseEmptyFields)
   {
     final GroupProperty loProp = this.foCurrentGroupProperty;
-    this.txtDescription.setText(loProp.getDescription());
+
+    this.txtDescription.setText(tlUseEmptyFields ? "" : loProp.getDescription());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -200,11 +212,13 @@ public class TableGroupController extends TableModifyController
 
     this.tblGroup.setDisable(tlModify);
 
-    // Signifies editing is enabled so move cursor to the first component.
-    if (tlModify)
+    if (!tlModify)
     {
-      this.txtDescription.requestFocus();
+      return;
     }
+
+    // Signifies editing is enabled so move cursor to the first component.
+    this.txtDescription.requestFocus();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

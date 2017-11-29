@@ -49,6 +49,26 @@ public class FinancialProperty
   private final DateFormat foDateFormat = new SimpleDateFormat("M/dd/yyyy");
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public FinancialProperty()
+  {
+    this.groupid = new SimpleIntegerProperty();
+    this.financialid = new SimpleIntegerProperty();
+    this.description = new SimpleStringProperty();
+    this.account = new SimpleStringProperty();
+    this.type = new SimpleStringProperty();
+    this.category = new SimpleStringProperty();
+    this.shares = new SimpleDoubleProperty();
+    this.price = new SimpleDoubleProperty();
+    this.valuationdate = new SimpleObjectProperty<>();
+    this.retirement = new SimpleBooleanProperty(false);
+    this.symbol = new SimpleStringProperty();
+    this.comments = new SimpleStringProperty();
+    this.total = new SimpleDoubleProperty();
+
+    this.setupListeners();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public FinancialProperty(final int tnGroupID, final int tnFinancialID, final String tcDescription, final String tcAccount, final String tcType, final String tcCategory,
                            final double tnShares, final double tnPrice, final java.sql.Date tdDate, final boolean tlRetirement,
                            final String tcSymbol, final String tcComments)

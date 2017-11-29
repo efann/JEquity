@@ -259,6 +259,12 @@ public class MainFormController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public ToolbarController getToolbarController()
+  {
+    return (this.toolbarMainController);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   @Override
   public void handle(final ActionEvent toEvent)
   {

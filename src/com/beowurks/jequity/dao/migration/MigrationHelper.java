@@ -47,15 +47,13 @@ abstract public class MigrationHelper implements JdbcMigration
   // -----------------------------------------------------------------------------
   protected void executeStatement(final String tcSQL) throws SQLException
   {
-    final PreparedStatement loStatement = this.foConnection.prepareStatement(tcSQL);
-
-    try
+    // Uses automatic resource management as recommended by IntelliJ.
+    // Because the PreparedStatement instance is declared in a try-with-resource statement,
+    // it will be closed regardless of whether the try statement completes normally or abruptly.
+    // From https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
+    try (PreparedStatement loStatement = this.foConnection.prepareStatement(tcSQL))
     {
       loStatement.execute();
-    }
-    finally
-    {
-      loStatement.close();
     }
   }
 

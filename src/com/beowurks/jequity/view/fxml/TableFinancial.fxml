@@ -76,7 +76,8 @@
     <GridPane hgap="5">
       <Button fx:id="btnModify" text="Modify" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
       <Button fx:id="btnCreate" text="Create" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-      <Button fx:id="btnRemove" text="Remove" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+      <Button fx:id="btnClone" text="Clone" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+      <Button fx:id="btnRemove" text="Remove" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
     </GridPane>
 
     <TableViewPlus fx:id="tblSummary" prefHeight="300" HBox.hgrow="ALWAYS">

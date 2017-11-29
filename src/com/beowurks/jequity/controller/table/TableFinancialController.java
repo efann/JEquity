@@ -42,6 +42,7 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -146,12 +147,13 @@ public class TableFinancialController extends TableModifyController implements E
     this.btnSave.setOnAction(toActionEvent -> TableFinancialController.this.saveRow());
     this.btnCancel.setOnAction(toActionEvent -> TableFinancialController.this.cancelRow());
 
-    this.btnCreate.setOnAction(toActionEvent -> TableFinancialController.this.insertRow());
+    this.btnCreate.setOnAction(toActionEvent -> TableFinancialController.this.createRow());
+    this.btnClone.setOnAction(toActionEvent -> TableFinancialController.this.cloneRow(this.foCurrentFinancialProperty));
     this.btnRemove.setOnAction(toActionEvent -> TableFinancialController.this.removeRow());
 
     this.txtShares.textProperty().addListener((observable, oldValue, newValue) -> this.updateTotalLabel());
-
     this.txtPrice.textProperty().addListener((observable, oldValue, newValue) -> this.updateTotalLabel());
+    this.txtSymbol.textProperty().addListener((observable, oldValue, newValue) -> this.updateSymbolHyperlink());
 
     this.lnkSymbolURL.setOnAction(this);
 
@@ -163,7 +165,7 @@ public class TableFinancialController extends TableModifyController implements E
       if (toNewRow != null)
       {
         this.foCurrentFinancialProperty = toNewRow;
-        TableFinancialController.this.updateComponentsContent();
+        TableFinancialController.this.updateComponentsContent(false);
 
         lcCategory = toNewRow.getCategory();
         lcType = toNewRow.getType();
@@ -263,31 +265,12 @@ public class TableFinancialController extends TableModifyController implements E
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void insertRow()
-  {
-    final FinancialEntity loNewEntity = new FinancialEntity();
-    final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
-    loNewEntity.setGroupID(loHibernate.getGroupID());
-
-    if (loHibernate.insertRow(loNewEntity))
-    {
-      final FinancialProperty loRecord = new FinancialProperty(loNewEntity.getGroupID(), loNewEntity.getFinancialID(), loNewEntity.getDescription(), loNewEntity.getAccount(),
-          loNewEntity.getType(), loNewEntity.getCategory(), loNewEntity.getShares(), loNewEntity.getPrice(), loNewEntity.getValuationDate(), loNewEntity.getRetirement(),
-          loNewEntity.getSymbol(), loNewEntity.getComments());
-
-      this.foDataList.add(loRecord);
-      this.tblFinancial.getSelectionModel().select(loRecord);
-      this.tblFinancial.scrollTo(loRecord);
-
-      this.foCurrentFinancialProperty = loRecord;
-    }
-
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
   protected void saveRow()
   {
-    final FinancialProperty loProp = this.foCurrentFinancialProperty;
+    final boolean llCreatingRow = this.flCreatingRow;
+    this.flCreatingRow = false;
+
+    final FinancialProperty loProp = llCreatingRow ? new FinancialProperty() : this.foCurrentFinancialProperty;
 
     final double lnShares = this.getDoubleFromTextFieldl(this.txtShares);
     final double lnPrice = this.getDoubleFromTextFieldl(this.txtPrice);
@@ -303,13 +286,42 @@ public class TableFinancialController extends TableModifyController implements E
     loProp.setRetirement(this.chkRetirement.isSelected());
     loProp.setComments(this.txtComments.getText().trim());
 
-    // Realize that the total is tied to the listeners for share and price.
+    boolean llSaved = false;
+    if (!llCreatingRow)
+    {
+      llSaved = HibernateUtil.INSTANCE.updateRow(loProp.toEntity());
+    }
+    else
+    {
+      final FinancialEntity loNewEntity = loProp.toEntity();
+      final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
+      loNewEntity.setGroupID(loHibernate.getGroupID());
+
+      llSaved = loHibernate.insertRow(loNewEntity);
+      if (llSaved)
+      {
+        final FinancialProperty loNewRecord = new FinancialProperty(loNewEntity.getGroupID(), loNewEntity.getFinancialID(), loNewEntity.getDescription(), loNewEntity.getAccount(),
+            loNewEntity.getType(), loNewEntity.getCategory(), loNewEntity.getShares(), loNewEntity.getPrice(), loNewEntity.getValuationDate(), loNewEntity.getRetirement(),
+            loNewEntity.getSymbol(), loNewEntity.getComments());
+
+        this.foDataList.add(loNewRecord);
+        this.tblFinancial.getSelectionModel().select(loNewRecord);
+        this.tblFinancial.scrollTo(loNewRecord);
+
+        this.foCurrentFinancialProperty = loNewRecord;
+      }
+    }
+
+    if (llSaved)
+    {
+      Misc.setStatusText(llCreatingRow ? "Record has been added" : "Information has been saved");
+    }
+    else
+    {
+      Misc.errorMessage("The information was unable to be saved.");
+    }
 
     this.resetComponentsOnModify(false);
-    if (HibernateUtil.INSTANCE.updateRow(loProp.toEntity()))
-    {
-      Misc.setStatusText("The data has been saved.");
-    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -337,25 +349,21 @@ public class TableFinancialController extends TableModifyController implements E
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void updateComponentsContent()
+  // Realize that the Total label and the Symbol URL is updated through change listeners.
+  protected void updateComponentsContent(final boolean tlUseEmptyFields)
   {
     final FinancialProperty loProp = this.foCurrentFinancialProperty;
 
-    final String lcSymbol = loProp.getSymbol().trim();
-    final double lnTotal = loProp.getShares() * loProp.getPrice();
-
-    this.txtDescription.setText(loProp.getDescription());
-    this.txtAccount.setText(loProp.getAccount());
-    this.txtType.setText(loProp.getType());
-    this.txtCategory.setText(loProp.getCategory());
-    this.txtShares.setText(Double.toString(loProp.getShares()));
-    this.txtPrice.setText(Double.toString(loProp.getPrice()));
-    this.txtDate.setValue(loProp.getValuationDate().toLocalDate());
-    this.txtSymbol.setText(lcSymbol);
-    this.chkRetirement.setSelected(loProp.getRetirement());
-    this.txtComments.setText(loProp.getComments());
-
-    this.lnkSymbolURL.setText(lcSymbol.isEmpty() ? "" : ThreadDownloadSymbolInfo.getSymbolDailyURL(lcSymbol));
+    this.txtDescription.setText(tlUseEmptyFields ? "" : loProp.getDescription());
+    this.txtAccount.setText(tlUseEmptyFields ? "" : loProp.getAccount());
+    this.txtType.setText(tlUseEmptyFields ? "" : loProp.getType());
+    this.txtCategory.setText(tlUseEmptyFields ? "" : loProp.getCategory());
+    this.txtShares.setText(tlUseEmptyFields ? "0.0" : Double.toString(loProp.getShares()));
+    this.txtPrice.setText(tlUseEmptyFields ? "0.0" : Double.toString(loProp.getPrice()));
+    this.txtDate.setValue(tlUseEmptyFields ? LocalDate.now() : loProp.getValuationDate().toLocalDate());
+    this.txtSymbol.setText(tlUseEmptyFields ? "" : loProp.getSymbol().trim());
+    this.chkRetirement.setSelected(tlUseEmptyFields ? false : loProp.getRetirement());
+    this.txtComments.setText(tlUseEmptyFields ? "" : loProp.getComments());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -365,26 +373,45 @@ public class TableFinancialController extends TableModifyController implements E
 
     this.tblFinancial.setDisable(tlModify);
 
-    // Signifies editing is enabled so move cursor to the first component.
-    if (tlModify)
+    if (!tlModify)
+    {
+      return;
+    }
+
+    // Signifies editing is enabled so move cursor to the first enabled component.
+    if (this.txtDescription.isEditable())
     {
       this.txtDescription.requestFocus();
+    }
+    else
+    {
+      this.txtAccount.requestFocus();
     }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   protected void resetTextFields(final boolean tlModify)
   {
-    this.setEditable(this.txtDescription, tlModify);
+    final boolean llEmpty = this.txtSymbol.getText().isEmpty();
+
+    this.setEditable(this.txtDescription, tlModify && llEmpty);
     this.setEditable(this.txtAccount, tlModify);
     this.setEditable(this.txtType, tlModify);
     this.setEditable(this.txtCategory, tlModify);
     this.setEditable(this.txtShares, tlModify);
-    this.setEditable(this.txtPrice, tlModify);
+    this.setEditable(this.txtPrice, tlModify && llEmpty);
     this.setEditable(this.txtDate, tlModify);
     this.setEditable(this.txtSymbol, tlModify);
     this.setEditable(this.chkRetirement, tlModify);
     this.setEditable(this.txtComments, tlModify);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateSymbolHyperlink()
+  {
+    final String lcSymbol = this.txtSymbol.getText().trim();
+
+    this.lnkSymbolURL.setText(lcSymbol.isEmpty() ? "" : ThreadDownloadSymbolInfo.getSymbolDailyURL(lcSymbol));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -397,7 +424,6 @@ public class TableFinancialController extends TableModifyController implements E
 
     this.lblTotal.setText(Misc.getCurrencyFormat().format(lnTotal));
     this.lblTotal.setTextFill((lnTotal >= 0) ? Color.BLACK : Color.RED);
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
