@@ -80,6 +80,8 @@ public class TableViewPlus extends TableView
   {
     // Otherwise, you can have ghost values in rows that are not overwritten with data.
     this.refresh();
+    // Otherwise the column will not resort after refreshing.
+    this.sort();
 
     final TableViewSkin<?> loSkin = (TableViewSkin<?>) this.getSkin();
     // The skin is not applied till after being rendered. Which is happening with the About dialog.

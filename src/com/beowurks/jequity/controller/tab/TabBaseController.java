@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequity.controller.table;
+package com.beowurks.jequity.controller.tab;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -14,7 +14,7 @@ import org.hibernate.query.NativeQuery;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-abstract public class TableBaseController
+abstract public class TabBaseController
 {
   // -----------------------------------------------------------------------------
   abstract public void refreshData();

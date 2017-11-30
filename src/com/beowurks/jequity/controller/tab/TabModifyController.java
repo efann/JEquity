@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequity.controller.table;
+package com.beowurks.jequity.controller.tab;
 
 
 import com.beowurks.jequity.main.Main;
@@ -23,7 +23,7 @@ import javafx.scene.control.Tooltip;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-abstract public class TableModifyController extends TableBaseController
+abstract public class TabModifyController extends TabBaseController
 {
   protected boolean flCreatingRow = false;
 
@@ -176,7 +176,7 @@ abstract public class TableModifyController extends TableBaseController
     }
     else
     {
-      System.err.println("Unknown class in TableModifyController.setEditable");
+      System.err.println("Unknown class in TabModifyController.setEditable");
     }
 
     toField.setStyle(lcStyle);

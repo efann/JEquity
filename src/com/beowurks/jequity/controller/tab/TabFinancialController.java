@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequity.controller.table;
+package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
@@ -48,7 +48,7 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class TableFinancialController extends TableModifyController implements EventHandler<ActionEvent>
+public class TabFinancialController extends TabModifyController implements EventHandler<ActionEvent>
 {
   private final ObservableList<FinancialProperty> foDataList = FXCollections.observableArrayList();
 
@@ -143,13 +143,13 @@ public class TableFinancialController extends TableModifyController implements E
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupListeners()
   {
-    this.btnModify.setOnAction(toActionEvent -> TableFinancialController.this.modifyRow(this.foCurrentFinancialProperty));
-    this.btnSave.setOnAction(toActionEvent -> TableFinancialController.this.saveRow());
-    this.btnCancel.setOnAction(toActionEvent -> TableFinancialController.this.cancelRow());
+    this.btnModify.setOnAction(toActionEvent -> TabFinancialController.this.modifyRow(this.foCurrentFinancialProperty));
+    this.btnSave.setOnAction(toActionEvent -> TabFinancialController.this.saveRow());
+    this.btnCancel.setOnAction(toActionEvent -> TabFinancialController.this.cancelRow());
 
-    this.btnCreate.setOnAction(toActionEvent -> TableFinancialController.this.createRow());
-    this.btnClone.setOnAction(toActionEvent -> TableFinancialController.this.cloneRow(this.foCurrentFinancialProperty));
-    this.btnRemove.setOnAction(toActionEvent -> TableFinancialController.this.removeRow());
+    this.btnCreate.setOnAction(toActionEvent -> TabFinancialController.this.createRow());
+    this.btnClone.setOnAction(toActionEvent -> TabFinancialController.this.cloneRow(this.foCurrentFinancialProperty));
+    this.btnRemove.setOnAction(toActionEvent -> TabFinancialController.this.removeRow());
 
     this.txtShares.textProperty().addListener((observable, oldValue, newValue) -> this.updateTotalLabel());
     this.txtPrice.textProperty().addListener((observable, oldValue, newValue) -> this.updateTotalLabel());
@@ -165,7 +165,7 @@ public class TableFinancialController extends TableModifyController implements E
       if (toNewRow != null)
       {
         this.foCurrentFinancialProperty = toNewRow;
-        TableFinancialController.this.updateComponentsContent(false);
+        TabFinancialController.this.updateComponentsContent(false);
 
         lcCategory = toNewRow.getCategory();
         lcType = toNewRow.getType();

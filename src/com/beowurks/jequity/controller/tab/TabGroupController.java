@@ -6,12 +6,10 @@
  *
  */
 
-package com.beowurks.jequity.controller.table;
+package com.beowurks.jequity.controller.tab;
 
-import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
-import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import com.beowurks.jequity.dao.tableview.GroupProperty;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.table.TableViewPlus;
@@ -25,15 +23,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class TableGroupController extends TableModifyController
+public class TabGroupController extends TabModifyController
 {
   private final ObservableList<GroupProperty> foDataList = FXCollections.observableArrayList();
 
@@ -66,19 +61,19 @@ public class TableGroupController extends TableModifyController
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupListeners()
   {
-    this.btnModify.setOnAction(toActionEvent -> TableGroupController.this.modifyRow(this.foCurrentGroupProperty));
-    this.btnSave.setOnAction(toActionEvent -> TableGroupController.this.saveRow());
-    this.btnCancel.setOnAction(toActionEvent -> TableGroupController.this.cancelRow());
+    this.btnModify.setOnAction(toActionEvent -> TabGroupController.this.modifyRow(this.foCurrentGroupProperty));
+    this.btnSave.setOnAction(toActionEvent -> TabGroupController.this.saveRow());
+    this.btnCancel.setOnAction(toActionEvent -> TabGroupController.this.cancelRow());
 
-    this.btnCreate.setOnAction(toActionEvent -> TableGroupController.this.createRow());
-    this.btnClone.setOnAction(toActionEvent -> TableGroupController.this.cloneRow(this.foCurrentGroupProperty));
-    this.btnRemove.setOnAction(toActionEvent -> TableGroupController.this.removeRow());
+    this.btnCreate.setOnAction(toActionEvent -> TabGroupController.this.createRow());
+    this.btnClone.setOnAction(toActionEvent -> TabGroupController.this.cloneRow(this.foCurrentGroupProperty));
+    this.btnRemove.setOnAction(toActionEvent -> TabGroupController.this.removeRow());
 
     this.tblGroup.getSelectionModel().selectedItemProperty().addListener((ChangeListener<GroupProperty>) (observable, toOldRow, toNewRow) -> {
       if (toNewRow != null)
       {
         this.foCurrentGroupProperty = toNewRow;
-        TableGroupController.this.updateComponentsContent(false);
+        TabGroupController.this.updateComponentsContent(false);
       }
     });
 

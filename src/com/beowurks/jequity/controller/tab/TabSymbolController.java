@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequity.controller.table;
+package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
@@ -28,7 +28,7 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class TableSymbolController extends TableBaseController
+public class TabSymbolController extends TabBaseController
 {
   private final ObservableList<SymbolProperty> foDataList = FXCollections.observableArrayList();
 

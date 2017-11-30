@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequity.controller;
+package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.view.jasperreports.JRViewerBase;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class ReportController
+public class TabReportController
 {
   @FXML
   private SwingNode rptSwingNode;
@@ -40,7 +40,7 @@ public class ReportController
   // ---------------------------------------------------------------------------------------------------------------------
   public void refreshReport(final boolean tlShowPrintDialog)
   {
-    SwingUtilities.invokeLater(() -> ReportController.this.generateSummary(tlShowPrintDialog));
+    SwingUtilities.invokeLater(() -> TabReportController.this.generateSummary(tlShowPrintDialog));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ public class ReportController
       {
         try
         {
-          final ReportController loThis = ReportController.this;
+          final TabReportController loThis = TabReportController.this;
 
           final JasperReport loJasperReport = (JasperReport) JRLoader.loadObject(this.getClass().getResource("/com/beowurks/jequity/view/jasperreports/Summary.jasper"));
 

@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane stylesheets="@../css/Main.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.beowurks.jequity.controller.HistoricalGraphController">
+            fx:controller="com.beowurks.jequity.controller.tab.TabHistoricalGraphController">
   <GridPane hgap="10" vgap="10" fx:id="grdPaneHistorical" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
     <Label GridPane.columnIndex="0" GridPane.rowIndex="0"
            text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>

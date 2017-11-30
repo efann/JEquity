@@ -8,9 +8,11 @@
 
 package com.beowurks.jequity.controller;
 
-import com.beowurks.jequity.controller.table.TableFinancialController;
-import com.beowurks.jequity.controller.table.TableGroupController;
-import com.beowurks.jequity.controller.table.TableSymbolController;
+import com.beowurks.jequity.controller.tab.TabFinancialController;
+import com.beowurks.jequity.controller.tab.TabGroupController;
+import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
+import com.beowurks.jequity.controller.tab.TabReportController;
+import com.beowurks.jequity.controller.tab.TabSymbolController;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.warehouses.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
@@ -51,19 +53,19 @@ public class MainFormController implements EventHandler<ActionEvent>
   private ToolbarController toolbarMainController;
 
   @FXML
-  private TableGroupController tableGroupMainController;
+  private TabGroupController tableGroupMainController;
 
   @FXML
-  private TableSymbolController tableSymbolMainController;
+  private TabSymbolController tableSymbolMainController;
 
   @FXML
-  private TableFinancialController tableFinancialMainController;
+  private TabFinancialController tableFinancialMainController;
 
   @FXML
-  private HistoricalGraphController historicalGraphMainController;
+  private TabHistoricalGraphController historicalGraphMainController;
 
   @FXML
-  private ReportController reportMainController;
+  private TabReportController reportMainController;
   //********************************************************************************
   // Status Bar
 

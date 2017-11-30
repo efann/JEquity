@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequity.controller;
+package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
@@ -28,7 +28,7 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class HistoricalGraphController
+public class TabHistoricalGraphController
 {
   @FXML
   private ComboBox<StringKeyItem> cboStocks;
