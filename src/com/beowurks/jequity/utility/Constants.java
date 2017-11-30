@@ -16,11 +16,6 @@ import com.beowurks.jequity.main.Main;
 // -----------------------------------------------------------------------------
 final public class Constants
 {
-
-  public final static String SPLASH_SCREEN = "org/netbeans/core/startup/splash_jequity.gif";
-  public final static int SPLASH_SCREEN_WIDTH = 256;
-  public final static int SPLASH_SCREEN_HEIGHT = 256;
-
   public final static String TEMPORARY_PATH = Misc.includeTrailingBackslash(Misc.includeTrailingBackslash(Misc
       .includeTrailingBackslash(System.getProperty("java.io.tmpdir"))
       + "Beowurks") + "JEquity");
@@ -38,10 +33,6 @@ final public class Constants
   public final static String LOG_DOWNLOAD_STOCK_INFO = Constants.LOCAL_PATH + "DownloadStockInfo.log";
   public final static String LOG_COMPRESS_TABLES = Constants.LOCAL_PATH + "CompressTables.log";
   public final static String LOG_REGENERATE_VERIFY = Constants.LOCAL_PATH + "RegenerateVerify.log";
-
-  public final static String OPTIONS_CONNECTION_ID = "com.beowurks.jequity.global.action.connections.ServerOptionsPanelController";
-  public final static String OPTIONS_WAREHOUSE_ID = "com.beowurks.jequity.global.action.warehouses.WarehouseOptionsPanelController";
-  public final static String OPTIONS_MISCELLANEOUS_ID = "com.beowurks.jequity.global.action.miscellaneous.MiscellaneousOptionsPanelController";
 
   //************************************************************
   // Used by Sample Data
@@ -129,20 +120,10 @@ final public class Constants
           new IntegerKeyItem(Constants.DAILY_INTERVAL_NEVER, "Never")
       };
 
-
   // 1 second delay as it's in milliseconds.
   public final static int TIMER_SUMMARY_UPDATE_DELAY = 1000;
 
   public final static int UNINITIALIZED = -1;
-
-  public final static int TOP_COMPONENT_EDITOR_ALWAYS_OPEN_COUNT = 4;
-
-  public final static int ROW_UNKNOWN = Integer.MIN_VALUE;
-  public final static int KEY_UNDETERMINED = Integer.MIN_VALUE;
-  public final static int COLUMN_UNKNOWN = Integer.MIN_VALUE;
-
-  public final static String EDITOR_TC_GROUP = "EditorWindowGroupTopComponent";
-  public final static String EDITOR_TC_PRINT = "EditorWindowReportsTopComponent";
 
   public static final String CATEGORY_TYPE_DELIMITER = ":";
 
@@ -262,48 +243,6 @@ final public class Constants
   public final static String YAHOO_DAILY_TARGETEST = "1y Target Est";
 
   //************************************************************
-  // The following is used by the Sorting Tables
-  public final static String FINANCIAL_ID = "ID #";
-  public final static String FINANCIAL_DESCRIPTION = "Description";
-  public final static String FINANCIAL_ACCOUNT = "Account";
-  public final static String FINANCIAL_TYPE = "Type";
-  public final static String FINANCIAL_CATEGORY = "Category";
-  public final static String FINANCIAL_SHARES = "Shares";
-  public final static String FINANCIAL_PRICE = "Price / Shares ($)";
-  public final static String FINANCIAL_VALUATION = "Valuation Date";
-  public final static String FINANCIAL_RETIREMENT = "Retirement (?)";
-  public final static String FINANCIAL_SYMBOL = "Stock Symbol";
-  public final static String FINANCIAL_VALUE = "Value ($)";
-  public final static String FINANCIAL_COMMENTS = "Comments";
-
-  public final static String GROUP_ID = "ID #";
-  public final static String GROUP_DESCRIPTION = "Description";
-
-  public final static String SYMBOL_ID = "Symbol";
-  public final static String SYMBOL_DESCRIPTION = "Description";
-  public final static String SYMBOL_ASKING = "Asking ($)";
-  public final static String SYMBOL_AVG_VOL = "Average Volumne";
-  public final static String SYMBOL_BIDDING = "Bidding ($)";
-  public final static String SYMBOL_CHANGE = "Change";
-  public final static String SYMBOL_DAY_RANGE = "Day Range";
-  public final static String SYMBOL_DIV_YLD = "Dividend Yield";
-  public final static String SYMBOL_EARNINGS = "Earnings / Share ($)";
-  public final static String SYMBOL_LASTTRADE = "Last Trade ($)";
-  public final static String SYMBOL_MARKET_CAP = "Market Cap";
-  public final static String SYMBOL_OPENED = "Opened ($)";
-  public final static String SYMBOL_PREV_CLOSE = "Previous Close ($)";
-  public final static String SYMBOL_PRICE_EARN = "Price Earnings ($)";
-  public final static String SYMBOL_TARGET_EST = "Target Estimates ($)";
-  public final static String SYMBOL_TRADE_TIME = "Trade Time";
-  public final static String SYMBOL_VOLUME = "Volume";
-  public final static String SYMBOL_YEAR_RANGE = "Year Range";
-
-  //************************************************************
-  // The following is used by Export.
-  public final static int FILEEXPORT_XLS_21 = 1;
-  public final static int FILEEXPORT_TABTEXT = 2;
-
-  //************************************************************
   // The following is used by Flyway.
   public final static String FLYWAY_MYSQL = "MySQL";
   public final static String FLYWAY_DERBY = "Apache Derby";
@@ -312,6 +251,16 @@ final public class Constants
   public final static String FLYWAY_JEQUITY_SCHEMA = "JEquityRCP";
 
   public final static String FLYWAY_DERBY_DEFAULT_SCHEMA = Constants.DERBY_USERNAME.toUpperCase();
+
+
+  //************************************************************
+  // The following is used by the Summary Table
+  public final static String SUMMARY_TABLE_TOTAL = "Total";
+  public final static String SUMMARY_TABLE_RETIREMENT = "Retirement (Total)";
+  public final static String SUMMARY_TABLE_NON_RETIREMENT = "Non-Retirement (Total)";
+
+  public final static String SUMMARY_TABLE_TYPE = "Type Summaries:";
+  public final static String SUMMARY_TABLE_CATEGORY = "Category Summaries:";
 
   // -----------------------------------------------------------------------------
   private Constants()

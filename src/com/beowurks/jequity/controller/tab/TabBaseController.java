@@ -20,7 +20,7 @@ abstract public class TabBaseController
   abstract public void refreshData();
 
   // ---------------------------------------------------------------------------------------------------------------------
-  abstract protected void setupTable();
+  abstract protected void setupTables();
 
   // -----------------------------------------------------------------------------
   abstract protected NativeQuery getQuery(final Session toSession);

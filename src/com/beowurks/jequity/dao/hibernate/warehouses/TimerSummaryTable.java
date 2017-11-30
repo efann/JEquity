@@ -17,6 +17,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableRow;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -34,6 +35,7 @@ public class TimerSummaryTable
   class SummarySubAmount
   {
     protected Boolean flRetirement;
+    protected String fcAccount;
     protected String fcType;
     protected String fcCategory;
     protected Double fnSubTotal;
@@ -56,6 +58,9 @@ public class TimerSummaryTable
 
   private TableViewPlus foSummaryTable;
 
+  private String fcCurrentAccountLabel = "";
+  private String fcCurrentStyle = "";
+
   // ---------------------------------------------------------------------------------------------------------------------
   private TimerSummaryTable()
   {
@@ -71,10 +76,60 @@ public class TimerSummaryTable
       this.foSummaryTable.setItems(this.foDataList);
     }
 
+    if (this.foSummaryTable.getRowFactory() != null)
+    {
+      return;
+    }
+
+    this.foSummaryTable.setRowFactory(loTable -> new TableRow<SummaryProperty>()
+    {
+      @Override
+      public void updateItem(final SummaryProperty toItem, final boolean tlEmpty)
+      {
+        super.updateItem(toItem, tlEmpty);
+        if (toItem == null)
+        {
+          this.setStyle("");
+          return;
+        }
+
+        final TimerSummaryTable loThis = TimerSummaryTable.this;
+        final String lcDescription = toItem.getSummaryDescription();
+
+        if (lcDescription.equals(Constants.SUMMARY_TABLE_TOTAL))
+        {
+          this.setStyle("-fx-background-color: wheat;");
+        }
+        else if ((lcDescription.equals(Constants.SUMMARY_TABLE_RETIREMENT)) || (lcDescription.equals(Constants.SUMMARY_TABLE_NON_RETIREMENT)))
+        {
+          this.setStyle("-fx-background-color: white;");
+        }
+        else if (lcDescription.equals(loThis.fcCurrentAccountLabel))
+        {
+          this.setStyle("-fx-background-color: lightcoral;");
+        }
+        else if (lcDescription.equals(Constants.SUMMARY_TABLE_TYPE))
+        {
+          loThis.fcCurrentStyle = "-fx-background-color: lightgray;";
+          this.setStyle(loThis.fcCurrentStyle + " -fx-font-weight: bold;");
+
+        }
+        else if (lcDescription.equals(Constants.SUMMARY_TABLE_CATEGORY))
+        {
+          loThis.fcCurrentStyle = "-fx-background-color: white;";
+          this.setStyle(loThis.fcCurrentStyle + " -fx-font-weight: bold;");
+        }
+        else
+        {
+          this.setStyle(loThis.fcCurrentStyle);
+        }
+      }
+    });
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void scheduleDataRefresh(final String tcType, final String tcCategory)
+  public void scheduleDataRefresh(final String tcAccount, final String tcType, final String tcCategory)
   {
     Misc.setStatusText(ProgressBar.INDETERMINATE_PROGRESS);
     Platform.runLater(() ->
@@ -96,17 +151,19 @@ public class TimerSummaryTable
           @Override
           public void run()
           {
-            TimerSummaryTable.this.refreshSummaryTable(tcType, tcCategory);
+            TimerSummaryTable.this.refreshSummaryTable(tcAccount, tcType, tcCategory);
           }
         }, Constants.TIMER_SUMMARY_UPDATE_DELAY);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void refreshSummaryTable(final String tcType, final String tcCategory)
+  private void refreshSummaryTable(final String tcAccount, final String tcType, final String tcCategory)
   {
+    this.fcCurrentAccountLabel = String.format("%s (Account)", tcAccount);
+
     this.refreshSummaryList();
 
-    this.updateDataList(tcType, tcCategory);
+    this.updateDataList(tcAccount, tcType, tcCategory);
 
     Platform.runLater(() ->
         this.foSummaryTable.setStyle("-fx-opacity: 1.0;"));
@@ -125,6 +182,7 @@ public class TimerSummaryTable
 
     for (final FinancialEntity loRow : loList)
     {
+      final String lcAccount = loRow.getAccount().trim();
       final String lcType = loRow.getType();
       final String lcCategory = loRow.getCategory();
       final double lnPrice = loRow.getPrice();
@@ -133,6 +191,7 @@ public class TimerSummaryTable
 
       final SummarySubAmount loSumAmount = new SummarySubAmount();
 
+      loSumAmount.fcAccount = lcAccount;
       loSumAmount.fcType = this.standardizeDelimitedString(lcType, true);
       loSumAmount.fcCategory = this.standardizeDelimitedString(lcCategory, true);
       loSumAmount.fnSubTotal = lnPrice * lnShares;
@@ -158,7 +217,7 @@ public class TimerSummaryTable
   }
 
   // -----------------------------------------------------------------------------
-  private void updateDataList(final String tcType, final String tcCategory)
+  private void updateDataList(final String tcAccount, final String tcType, final String tcCategory)
   {
     final Vector<SummarySubList> loType = this.setSubListVector(tcType);
     final Vector<SummarySubList> loCategory = this.setSubListVector(tcCategory);
@@ -167,8 +226,8 @@ public class TimerSummaryTable
     double lnTotal = 0;
     double lnRetirement = 0;
     double lnNonRetirement = 0;
+    double lnAccount = 0;
 
-    final int lnCount = this.foSummaryList.size();
     for (final SummarySubAmount loSumAmount : this.foSummaryList)
     {
       lnTotal += loSumAmount.fnSubTotal;
@@ -181,9 +240,13 @@ public class TimerSummaryTable
         lnNonRetirement += loSumAmount.fnSubTotal;
       }
 
+      if ((tcAccount != null) && (!tcAccount.isEmpty()) && (tcAccount.compareTo(loSumAmount.fcAccount) == 0))
+      {
+        lnAccount += loSumAmount.fnSubTotal;
+      }
+
       if (loType != null)
       {
-        final int lnSize = loType.size();
         for (final SummarySubList loSubList : loType)
         {
           if (loSumAmount.fcType.contains(loSubList.fcConverted))
@@ -195,7 +258,6 @@ public class TimerSummaryTable
 
       if (loCategory != null)
       {
-        final int lnSize = loCategory.size();
         for (final SummarySubList loSubList : loCategory)
         {
           if (loSumAmount.fcCategory.contains(loSubList.fcConverted))
@@ -207,12 +269,25 @@ public class TimerSummaryTable
     }
 
     this.foDataList.clear();
-    this.foDataList.add(new SummaryProperty("Total", lnTotal));
-    this.foDataList.add(new SummaryProperty("Retirement (Total)", lnRetirement));
-    this.foDataList.add(new SummaryProperty("Non-Retirement (Total)", lnNonRetirement));
+    this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_TOTAL, lnTotal));
+    this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_RETIREMENT, lnRetirement));
+    this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_NON_RETIREMENT, lnNonRetirement));
 
-    this.addSummaryToList(loType);
-    this.addSummaryToList(loCategory);
+    if ((tcAccount != null) && (!tcAccount.isEmpty()))
+    {
+      this.foDataList.add(new SummaryProperty(this.fcCurrentAccountLabel, lnAccount));
+    }
+
+    if (loType != null)
+    {
+      this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_TYPE));
+      this.addSummaryToList(loType);
+    }
+    if (loCategory != null)
+    {
+      this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_CATEGORY));
+      this.addSummaryToList(loCategory);
+    }
 
     this.foSummaryTable.resizeColumnsToFit();
   }

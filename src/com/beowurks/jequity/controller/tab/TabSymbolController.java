@@ -81,7 +81,7 @@ public class TabSymbolController extends TabBaseController
   @FXML
   public void initialize()
   {
-    this.setupTable();
+    this.setupTables();
   }
 
   // -----------------------------------------------------------------------------
@@ -112,7 +112,7 @@ public class TabSymbolController extends TabBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void setupTable()
+  protected void setupTables()
   {
     this.colSymbol.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("symbol"));
     this.colDescription.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("description"));

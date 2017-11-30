@@ -24,7 +24,6 @@ import org.hibernate.query.NativeQuery;
 import java.sql.Date;
 import java.util.List;
 
-
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -35,7 +34,6 @@ public class TabHistoricalGraphController
 
   @FXML
   private LineChart<Date, Number> chtLineChart;
-
 
   private final ObservableList<GroupProperty> foDataList = FXCollections.observableArrayList();
 

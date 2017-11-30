@@ -51,7 +51,7 @@ public class TabGroupController extends TabModifyController
   @FXML
   public void initialize()
   {
-    this.setupTable();
+    this.setupTables();
     this.setupListeners();
     this.setupTooltips();
 
@@ -103,7 +103,7 @@ public class TabGroupController extends TabModifyController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void setupTable()
+  protected void setupTables()
   {
     this.colID.setCellValueFactory(new PropertyValueFactory<GroupProperty, Integer>("id"));
     this.colDescription.setCellValueFactory(new PropertyValueFactory<GroupProperty, String>("description"));

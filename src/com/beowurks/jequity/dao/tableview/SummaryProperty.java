@@ -8,8 +8,7 @@
 
 package com.beowurks.jequity.dao.tableview;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import com.beowurks.jequity.utility.Misc;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -21,13 +20,20 @@ import javafx.beans.property.StringProperty;
 public class SummaryProperty
 {
   private final StringProperty summarydescription;
-  private final DoubleProperty summaryamount;
+  private final StringProperty summaryamount;
 
   // ---------------------------------------------------------------------------------------------------------------------
   public SummaryProperty(final String tcSummaryDescription, final Double tnSummaryAmount)
   {
     this.summarydescription = new SimpleStringProperty(tcSummaryDescription);
-    this.summaryamount = new SimpleDoubleProperty(tnSummaryAmount);
+    this.summaryamount = new SimpleStringProperty(this.formatDouble(tnSummaryAmount));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public SummaryProperty(final String tcSummaryDescription)
+  {
+    this.summarydescription = new SimpleStringProperty(tcSummaryDescription);
+    this.summaryamount = new SimpleStringProperty("");
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -49,24 +55,28 @@ public class SummaryProperty
   }
   // ---------------------------------------------------------------------------------------------------------------------
 
-  public double getSummaryAmount()
+  public String getSummaryAmount()
   {
     return (this.summaryamount.get());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public DoubleProperty summaryamountProperty()
+  public StringProperty summaryamountProperty()
   {
     return (this.summaryamount);
   }
-  // ---------------------------------------------------------------------------------------------------------------------
 
+  // ---------------------------------------------------------------------------------------------------------------------
   public void setSummaryAmount(final double tnSummaryAmount)
   {
-    this.summaryamount.set(tnSummaryAmount);
+    this.summaryamount.set(this.formatDouble(tnSummaryAmount));
   }
 
-
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String formatDouble(final double tnSummaryAmount)
+  {
+    return (Misc.getCurrencyFormat().format(tnSummaryAmount));
+  }
   // ---------------------------------------------------------------------------------------------------------------------
 
 }

@@ -176,6 +176,12 @@
   -fx-alignment: center-right;
 }
 
+/* For the empty rows in tblSummary */
+#tblSummary .table-row-cell
+{
+  -fx-background-color: #EEEEEE;
+}
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
   About Dialog

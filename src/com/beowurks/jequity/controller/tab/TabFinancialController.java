@@ -127,7 +127,7 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   public void initialize()
   {
-    this.setupTable();
+    this.setupTables();
 
     this.setupListeners();
     this.setupTooltips();
@@ -160,6 +160,7 @@ public class TabFinancialController extends TabModifyController implements Event
     // Setup the summary table update on scroll.
     this.tblFinancial.getSelectionModel().selectedItemProperty().addListener((ChangeListener<FinancialProperty>) (observable, toOldRow, toNewRow) -> {
 
+      String lcAccount = null;
       String lcCategory = null;
       String lcType = null;
       if (toNewRow != null)
@@ -167,11 +168,12 @@ public class TabFinancialController extends TabModifyController implements Event
         this.foCurrentFinancialProperty = toNewRow;
         TabFinancialController.this.updateComponentsContent(false);
 
+        lcAccount = toNewRow.getAccount();
         lcCategory = toNewRow.getCategory();
         lcType = toNewRow.getType();
       }
 
-      TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcType, lcCategory);
+      TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcAccount, lcType, lcCategory);
     });
 
   }
@@ -200,7 +202,7 @@ public class TabFinancialController extends TabModifyController implements Event
 
     loSession.close();
 
-    TimerSummaryTable.INSTANCE.scheduleDataRefresh(null, null);
+    TimerSummaryTable.INSTANCE.scheduleDataRefresh(null, null, null);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -210,7 +212,7 @@ public class TabFinancialController extends TabModifyController implements Event
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void setupTable()
+  protected void setupTables()
   {
     //------------------
     // tblFinancial
@@ -241,9 +243,7 @@ public class TabFinancialController extends TabModifyController implements Event
     //------------------
     // tblSummary
     this.colSummaryDescription.setCellValueFactory(new PropertyValueFactory<SummaryProperty, String>("summarydescription"));
-    this.colSummaryAmount.setCellValueFactory(new PropertyValueFactory<SummaryProperty, Double>("summaryamount"));
-
-    this.colSummaryAmount.setCellFactory(tc -> new CurrencyTableCell());
+    this.colSummaryAmount.setCellValueFactory(new PropertyValueFactory<SummaryProperty, String>("summaryamount"));
 
     this.colSummaryDescription.setSortable(false);
     this.colSummaryAmount.setSortable(false);
