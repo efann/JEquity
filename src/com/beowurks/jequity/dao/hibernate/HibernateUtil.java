@@ -103,11 +103,11 @@ public final class HibernateUtil
             lcCfgFile = "apachederby";
             break;
 
-          case Constants.DRIVER_KEY_MYSQL5:
+          case Constants.DRIVER_KEY_MYSQL5_PLUS:
             lcCfgFile = "mysql5";
             break;
 
-          case Constants.DRIVER_KEY_POSTGRESQL91:
+          case Constants.DRIVER_KEY_POSTGRESQL9_PLUS:
             lcCfgFile = "postgresql91";
             break;
         }

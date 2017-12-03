@@ -191,11 +191,12 @@ public final class AppProperties extends BaseProperties
         }
         break;
 
-      case Constants.DRIVER_KEY_MYSQL5:
-        lcURL.append("jdbc:mysql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase());
+      // From https://stackoverflow.com/questions/34189756/warning-about-ssl-connection-when-connecting-to-mysql-database
+      case Constants.DRIVER_KEY_MYSQL5_PLUS:
+        lcURL.append("jdbc:mysql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase()).append("?autoReconnect=true&useSSL=false");
         break;
 
-      case Constants.DRIVER_KEY_POSTGRESQL91:
+      case Constants.DRIVER_KEY_POSTGRESQL9_PLUS:
         lcURL.append("jdbc:postgresql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase());
         break;
     }

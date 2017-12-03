@@ -58,7 +58,6 @@ public class TimerSummaryTable
 
   private TableViewPlus foSummaryTable;
 
-  private String fcCurrentAccountLabel = "";
   private String fcCurrentStyle = "";
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -104,15 +103,15 @@ public class TimerSummaryTable
         {
           this.setStyle("-fx-background-color: white;");
         }
-        else if (lcDescription.equals(loThis.fcCurrentAccountLabel))
+        else if (lcDescription.equals(Constants.SUMMARY_TABLE_ACCOUNT))
         {
-          this.setStyle("-fx-background-color: lightcoral;");
+          loThis.fcCurrentStyle = "-fx-background-color: lightcyan;";
+          this.setStyle(loThis.fcCurrentStyle + " -fx-font-weight: bold;");
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_TYPE))
         {
           loThis.fcCurrentStyle = "-fx-background-color: lightgray;";
           this.setStyle(loThis.fcCurrentStyle + " -fx-font-weight: bold;");
-
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_CATEGORY))
         {
@@ -159,8 +158,6 @@ public class TimerSummaryTable
   // ---------------------------------------------------------------------------------------------------------------------
   private void refreshSummaryTable(final String tcAccount, final String tcType, final String tcCategory)
   {
-    this.fcCurrentAccountLabel = String.format("%s (Account)", tcAccount);
-
     this.refreshSummaryList();
 
     this.updateDataList(tcAccount, tcType, tcCategory);
@@ -275,7 +272,8 @@ public class TimerSummaryTable
 
     if ((tcAccount != null) && (!tcAccount.isEmpty()))
     {
-      this.foDataList.add(new SummaryProperty(this.fcCurrentAccountLabel, lnAccount));
+      this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_ACCOUNT));
+      this.foDataList.add(new SummaryProperty(tcAccount, lnAccount));
     }
 
     if (loType != null)

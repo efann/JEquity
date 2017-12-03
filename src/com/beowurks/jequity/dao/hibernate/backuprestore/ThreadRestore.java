@@ -52,6 +52,9 @@ public class ThreadRestore implements Runnable
   {
     final String lcErrorMessage = this.restoreFromXML();
 
+    // No matter the outcome, refresh all of the data.
+    Main.getController().refreshAllComponents(true);
+
     if (lcErrorMessage.isEmpty())
     {
       Misc.infoMessage(String.format("%s has been imported into %s", this.foXMLFile.getPath(), Main.getApplicationName()));

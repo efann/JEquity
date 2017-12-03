@@ -66,8 +66,12 @@ final public class Constants
   // while maintaining alphbetical order. I discovered that this is not needed;
   // I can presort RDBMS_DRIVERS in this file. Oh well. . . .
   public static final int DRIVER_KEY_DERBY = 100;
-  public static final int DRIVER_KEY_MYSQL5 = 200;
-  public static final int DRIVER_KEY_POSTGRESQL91 = 300;
+  public static final int DRIVER_KEY_MYSQL5_PLUS = 200;
+  public static final int DRIVER_KEY_POSTGRESQL9_PLUS = 300;
+
+  public static final String DRIVER_VALUE_DERBY = "Apache Derby (default)";
+  public static final String DRIVER_VALUE_MYSQL5_PLUS = "MySQL 5.0+";
+  public static final String DRIVER_VALUE_POSTGRESQL9_PLUS = "PostgreSQL 9.1+";
 
   public static final int DAILY_INTERVAL_NEVER = -1;
 
@@ -107,9 +111,9 @@ final public class Constants
 
   public final static IntegerKeyItem[] RDBMS_DRIVERS =
       {
-          new IntegerKeyItem(Constants.DRIVER_KEY_DERBY, "Apache Derby (default)"),
-          new IntegerKeyItem(Constants.DRIVER_KEY_MYSQL5, "MySQL 5.0+"),
-          new IntegerKeyItem(Constants.DRIVER_KEY_POSTGRESQL91, "PostgreSQL 9.1+")
+          new IntegerKeyItem(Constants.DRIVER_KEY_DERBY, Constants.DRIVER_VALUE_DERBY),
+          new IntegerKeyItem(Constants.DRIVER_KEY_MYSQL5_PLUS, Constants.DRIVER_VALUE_MYSQL5_PLUS),
+          new IntegerKeyItem(Constants.DRIVER_KEY_POSTGRESQL9_PLUS, Constants.DRIVER_VALUE_POSTGRESQL9_PLUS)
       };
 
   public final static IntegerKeyItem[] DAILY_INTERVAL =
@@ -259,8 +263,16 @@ final public class Constants
   public final static String SUMMARY_TABLE_RETIREMENT = "Retirement (Total)";
   public final static String SUMMARY_TABLE_NON_RETIREMENT = "Non-Retirement (Total)";
 
+  public final static String SUMMARY_TABLE_ACCOUNT = "Account Total:";
   public final static String SUMMARY_TABLE_TYPE = "Type Summaries:";
   public final static String SUMMARY_TABLE_CATEGORY = "Category Summaries:";
+
+  //************************************************************
+  // The following is used in the development environment
+  public final static String DEVELOPMENT_SERVER = "192.168.139.129";
+  public final static String DEVELOPMENT_DATABASE = "JEquityTest";
+  public final static String DEVELOPMENT_USER = "JEquityTest";
+  public final static String DEVELOPMENT_PASSWORD = "JEquity!!!Test";
 
   // -----------------------------------------------------------------------------
   private Constants()

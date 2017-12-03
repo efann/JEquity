@@ -11,7 +11,9 @@ package com.beowurks.jequity.controller;
 
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.dao.hibernate.warehouses.TimerSymbolInfo;
+import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
+import com.beowurks.jequity.utility.Constants;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -151,11 +153,27 @@ public class OptionsController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void resetTextFields()
   {
-    final boolean llEditable = (this.cboDriver.getSelectionModel().getSelectedIndex() != 0);
+    IntegerKeyItem loItem = this.cboDriver.getSelectionModel().getSelectedItem();
+
+    final boolean llEditable = !loItem.getDescription().equals(Constants.DRIVER_VALUE_DERBY);
 
     this.setEditable(this.txtHost, llEditable);
     this.setEditable(this.txtUser, llEditable);
     this.setEditable(this.txtPassword, llEditable);
+
+    if (Main.isDevelopmentEnvironment())
+    {
+      final boolean llMySQL = !loItem.getDescription().equals(Constants.DRIVER_VALUE_MYSQL5_PLUS);
+      final boolean llPostgreSQL = !loItem.getDescription().equals(Constants.DRIVER_VALUE_POSTGRESQL9_PLUS);
+
+      if (llMySQL || llPostgreSQL)
+      {
+        this.txtHost.setText(Constants.DEVELOPMENT_SERVER);
+        this.txtDatabase.setText(Constants.DEVELOPMENT_DATABASE);
+        this.txtUser.setText(Constants.DEVELOPMENT_USER);
+        this.txtPassword.setText(Constants.DEVELOPMENT_PASSWORD);
+      }
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
