@@ -90,8 +90,8 @@
       <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="267" column="75" lean-forward="true" selection-start-line="267" selection-start-column="75" selection-end-line="267" selection-end-column="75" />
+            <state relative-caret-position="51">
+              <caret line="252" column="41" lean-forward="false" selection-start-line="252" selection-start-column="41" selection-end-line="252" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -1144,12 +1144,12 @@
       <workItem from="1512051072488" duration="4259000" />
       <workItem from="1512058299748" duration="28333000" />
       <workItem from="1512263819539" duration="4132000" />
-      <workItem from="1512325268493" duration="8553000" />
+      <workItem from="1512325268493" duration="9459000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="705835000" />
+    <option name="totallyTimeSpent" value="706741000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -1652,8 +1652,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="267" column="75" lean-forward="true" selection-start-line="267" selection-start-column="75" selection-end-line="267" selection-end-column="75" />
+        <state relative-caret-position="51">
+          <caret line="252" column="41" lean-forward="false" selection-start-line="252" selection-start-column="41" selection-end-line="252" selection-end-column="41" />
           <folding />
         </state>
       </provider>
@@ -1669,7 +1669,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
