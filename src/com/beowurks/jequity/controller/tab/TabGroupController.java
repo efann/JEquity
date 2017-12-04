@@ -11,6 +11,7 @@ package com.beowurks.jequity.controller.tab;
 import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.tableview.GroupProperty;
+import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.table.TableViewPlus;
 import javafx.beans.value.ChangeListener;
@@ -182,6 +183,7 @@ public class TabGroupController extends TabModifyController
 
     if (llSaved)
     {
+      Main.getController().refreshAllComponents(true);
       Misc.setStatusText(llCreatingRow ? "Record has been added" : "Information has been saved");
     }
     else

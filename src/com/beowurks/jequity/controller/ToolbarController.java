@@ -67,7 +67,6 @@ public class ToolbarController
     final EventHandler<ActionEvent> loActionHandler = loCombo.getOnAction();
     loCombo.setOnAction(null);
 
-
     // An error should not occur here; however, I always want the ComboBox action reset afterwards
     // just in case.
     try

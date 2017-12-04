@@ -268,7 +268,7 @@ final public class Constants
   public final static String SUMMARY_TABLE_CATEGORY = "Category Summaries:";
 
   //************************************************************
-  // The following is used in the development environment
+  // The following is used by the development environment for MySQL & PostgreSQL
   public final static String DEVELOPMENT_SERVER = "192.168.139.129";
   public final static String DEVELOPMENT_DATABASE = "JEquityTest";
   public final static String DEVELOPMENT_USER = "JEquityTest";
