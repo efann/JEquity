@@ -90,8 +90,8 @@
       <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="275" column="0" lean-forward="true" selection-start-line="275" selection-start-column="0" selection-end-line="275" selection-end-column="0" />
+            <state relative-caret-position="306">
+              <caret line="267" column="75" lean-forward="true" selection-start-line="267" selection-start-column="75" selection-end-line="267" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -287,7 +287,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-1" />
     <option name="y" value="50" />
     <option name="width" value="1936" />
@@ -1144,12 +1144,12 @@
       <workItem from="1512051072488" duration="4259000" />
       <workItem from="1512058299748" duration="28333000" />
       <workItem from="1512263819539" duration="4132000" />
-      <workItem from="1512325268493" duration="8448000" />
+      <workItem from="1512325268493" duration="8553000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="705730000" />
+    <option name="totallyTimeSpent" value="705835000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -1161,7 +1161,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="50" width="1936" height="1096" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1652,8 +1652,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="275" column="0" lean-forward="true" selection-start-line="275" selection-start-column="0" selection-end-line="275" selection-end-column="0" />
+        <state relative-caret-position="306">
+          <caret line="267" column="75" lean-forward="true" selection-start-line="267" selection-start-column="75" selection-end-line="267" selection-end-column="75" />
           <folding />
         </state>
       </provider>
