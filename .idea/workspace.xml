@@ -66,70 +66,7 @@
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AppProperties.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="21" lean-forward="true" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TabGroupController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabGroupController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="181" column="5" lean-forward="true" selection-start-line="181" selection-start-column="5" selection-end-line="181" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="252" column="41" lean-forward="false" selection-start-line="252" selection-start-column="41" selection-end-line="252" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MenuController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MenuController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="131" column="50" lean-forward="false" selection-start-line="131" selection-start-column="50" selection-end-line="131" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ToolbarController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="90" column="24" lean-forward="true" selection-start-line="90" selection-start-column="24" selection-end-line="90" selection-end-column="24" />
-              <folding>
-                <marker date="1512356069654" expanded="true" signature="2586:2600" ph="SELECT * FRO... missingValue" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainFormController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="203" column="89" lean-forward="true" selection-start-line="203" selection-start-column="89" selection-end-line="203" selection-end-column="89" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -142,7 +79,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>btnClone</find>
       <find>!= null</find>
       <find>resetComponentsOnModify</find>
       <find>modifyRow</find>
@@ -172,6 +108,7 @@
       <find>refreshData(</find>
       <find>restoreFromXML</find>
       <find>jdbc:my</find>
+      <find>iswindow</find>
     </findStrings>
     <replaceStrings>
       <replace>Main.getPrimaryStage()</replace>
@@ -382,7 +319,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="ant" type="cbb8eebc:String" user="ant" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -470,141 +422,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="ant" type="cbb8eebc:String" user="ant" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="controller" type="cbb8eebc:String" user="controller" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="controller" type="cbb8eebc:String" user="controller" />
-              <item name="tab" type="cbb8eebc:String" user="tab" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="dao" type="cbb8eebc:String" user="dao" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="dao" type="cbb8eebc:String" user="dao" />
-              <item name="hibernate" type="cbb8eebc:String" user="hibernate" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="dao" type="cbb8eebc:String" user="dao" />
-              <item name="tableview" type="cbb8eebc:String" user="tableview" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="utility" type="cbb8eebc:String" user="utility" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-              <item name="cell" type="cbb8eebc:String" user="cell" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-              <item name="css" type="cbb8eebc:String" user="css" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-              <item name="fxml" type="cbb8eebc:String" user="fxml" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-              <item name="images" type="cbb8eebc:String" user="images" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-              <item name="misc" type="cbb8eebc:String" user="misc" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-              <item name="table" type="cbb8eebc:String" user="table" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
-              <item name="view" type="cbb8eebc:String" user="view" />
-              <item name="textfield" type="cbb8eebc:String" user="textfield" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -1144,12 +962,16 @@
       <workItem from="1512051072488" duration="4259000" />
       <workItem from="1512058299748" duration="28333000" />
       <workItem from="1512263819539" duration="4132000" />
-      <workItem from="1512325268493" duration="9459000" />
+      <workItem from="1512325268493" duration="10348000" />
+      <workItem from="1512624458345" duration="62000" />
+      <workItem from="1512707050275" duration="205000" />
+      <workItem from="1512707271014" duration="461000" />
+      <workItem from="1512776565814" duration="941000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="706741000" />
+    <option name="totallyTimeSpent" value="709299000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -1162,7 +984,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17748918" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1172,20 +993,19 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15584415" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26321244" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26321244" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746115" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2228145" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23187633" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746115" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25266525" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21588486" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39937758" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39937758" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1201,6 +1021,7 @@
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746115" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1273,7 +1094,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
           <caret line="78" column="9" lean-forward="false" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1281,7 +1101,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1289,7 +1108,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="33" column="40" lean-forward="false" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1297,7 +1115,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1305,7 +1122,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="462" column="10" lean-forward="false" selection-start-line="462" selection-start-column="10" selection-end-line="462" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1313,7 +1129,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="498" column="8" lean-forward="true" selection-start-line="498" selection-start-column="8" selection-end-line="498" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1321,7 +1136,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="438">
           <caret line="38" column="129" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="129" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1336,7 +1150,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="295">
           <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1344,7 +1157,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="158" column="6" lean-forward="false" selection-start-line="158" selection-start-column="6" selection-end-line="158" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1359,63 +1171,60 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
           <caret line="233" column="4" lean-forward="false" selection-start-line="233" selection-start-column="4" selection-end-line="233" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="55" column="38" lean-forward="false" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="34" column="41" lean-forward="false" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="334">
           <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/DoubleTableCell.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="455">
           <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabSymbol.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="566">
           <caret line="36" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="259" column="56" lean-forward="true" selection-start-line="259" selection-start-column="22" selection-end-line="259" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1437,7 +1246,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="48" column="13" lean-forward="false" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1445,7 +1253,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
           <caret line="99" column="39" lean-forward="true" selection-start-line="99" selection-start-column="39" selection-end-line="99" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1453,26 +1260,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="438">
           <caret line="34" column="33" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabGroup.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="39" column="91" lean-forward="false" selection-start-line="39" selection-start-column="91" selection-end-line="39" selection-end-column="91" />
-          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1394">
           <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1487,7 +1291,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1499,25 +1302,16 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabFinancial.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="986">
           <caret line="63" column="68" lean-forward="false" selection-start-line="63" selection-start-column="68" selection-end-line="63" selection-end-column="68" />
-          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ant/ManifestSetupUpdate.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ant/GenerateWindowsSetup.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1536,7 +1330,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1544,7 +1337,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="497">
           <caret line="33" column="3" lean-forward="false" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1552,7 +1344,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1955">
           <caret line="115" column="50" lean-forward="false" selection-start-line="115" selection-start-column="50" selection-end-line="115" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1567,7 +1358,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2992">
           <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1596,7 +1386,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1604,57 +1393,56 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
           <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="21" lean-forward="true" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="20" column="21" lean-forward="false" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="203" column="89" lean-forward="true" selection-start-line="203" selection-start-column="89" selection-end-line="203" selection-end-column="89" />
-          <folding />
+        <state relative-caret-position="3451">
+          <caret line="203" column="89" lean-forward="false" selection-start-line="203" selection-start-column="89" selection-end-line="203" selection-end-column="89" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="90" column="24" lean-forward="true" selection-start-line="90" selection-start-column="24" selection-end-line="90" selection-end-column="24" />
-          <folding>
-            <marker date="1512356069654" expanded="true" signature="2586:2600" ph="SELECT * FRO... missingValue" />
-          </folding>
+        <state relative-caret-position="1530">
+          <caret line="90" column="24" lean-forward="false" selection-start-line="90" selection-start-column="24" selection-end-line="90" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabGroupController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="181" column="5" lean-forward="true" selection-start-line="181" selection-start-column="5" selection-end-line="181" selection-end-column="5" />
-          <folding />
+        <state relative-caret-position="3077">
+          <caret line="181" column="5" lean-forward="false" selection-start-line="181" selection-start-column="5" selection-end-line="181" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MenuController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
+        <state relative-caret-position="2227">
           <caret line="131" column="50" lean-forward="false" selection-start-line="131" selection-start-column="50" selection-end-line="131" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ant/GenerateWindowsSetup.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="252" column="41" lean-forward="false" selection-start-line="252" selection-start-column="41" selection-end-line="252" selection-end-column="41" />
-          <folding />
+        <state relative-caret-position="124">
+          <caret line="98" column="36" lean-forward="false" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
         </state>
       </provider>
     </entry>

@@ -106,7 +106,7 @@ final public class Constants
   public static final String DERBY_BOOT_PASSWORD = "Wolf*Sky1ine)&(DugBite";
 
   public final static String DERBY_PATH = (Main.isDevelopmentEnvironment()
-      ? (Misc.isWindows() ? "d:\\temp\\ApacheDerby\\" : System.getProperty("user.home") + "/ApacheDerby/")
+      ? (Misc.isWindows() ? "d:\\temp\\ApacheDerby.Dev\\" : System.getProperty("user.home") + "/ApacheDerby.Dev/")
       : Constants.LOCAL_PATH) + "JEquityDB";
 
   public final static IntegerKeyItem[] RDBMS_DRIVERS =
