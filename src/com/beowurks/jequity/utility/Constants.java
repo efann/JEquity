@@ -138,7 +138,19 @@ final public class Constants
   public final static int WEB_TIME_OUT = 7500;
 
   // Just Google 'what is my user agent'
-  public final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36";
+  // From https://www.scrapehero.com/scrape-yahoo-finance-stock-market-data/
+  // Recommended to use multiple user agents.
+  public final static String[] USER_AGENT =
+      {
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299",
+          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
+          "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko",
+          "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:57.0) Gecko/20100101 Firefox/57.0",
+          "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"
+      };
+
   public final static String UNKNOWN_STOCK_SYMBOL = "Unknown Stock Symbol";
 
   public final static String YAHOO_SYMBOL = "[Symbol]";
@@ -223,7 +235,7 @@ final public class Constants
 
       };
 
-  public final static String YAHOO_DAILY_HTML = "https://finance.yahoo.com/quote/%s?ltr=1";
+  public final static String YAHOO_DAILY_HTML = "https://finance.yahoo.com/quote/%s?p=%s";
 
   public final static long BAD_DOWNLOAD = -1;
 

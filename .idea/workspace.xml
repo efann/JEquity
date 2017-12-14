@@ -66,7 +66,88 @@
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="TabFinancialController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="31">
+              <caret line="115" column="27" lean-forward="false" selection-start-line="115" selection-start-column="27" selection-end-line="115" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="527">
+              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainFormController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1014">
+              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="596">
+              <caret line="155" column="55" lean-forward="true" selection-start-line="155" selection-start-column="55" selection-end-line="155" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppProperties.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="56" column="44" lean-forward="true" selection-start-line="56" selection-start-column="44" selection-end-line="56" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CheckForUpdates.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/misc/CheckForUpdates.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="58" column="37" lean-forward="false" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Misc.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="499">
+              <caret line="259" column="56" lean-forward="false" selection-start-line="259" selection-start-column="22" selection-end-line="259" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThreadDownloadSymbolInfo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadDownloadSymbolInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="173" column="39" lean-forward="false" selection-start-line="173" selection-start-column="39" selection-end-line="173" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -79,12 +160,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>!= null</find>
-      <find>resetComponentsOnModify</find>
-      <find>modifyRow</find>
-      <find>createRow</find>
-      <find>cloneRow</find>
-      <find>saveRow</find>
       <find>lcSymbol.is</find>
       <find>resizeColumnsToFit</find>
       <find>saveRo</find>
@@ -109,6 +184,12 @@
       <find>restoreFromXML</find>
       <find>jdbc:my</find>
       <find>iswindow</find>
+      <find>List lo</find>
+      <find>finance</find>
+      <find>-1</find>
+      <find>setStatu</find>
+      <find>Misc.setStatusText</find>
+      <find>agent</find>
     </findStrings>
     <replaceStrings>
       <replace>Main.getPrimaryStage()</replace>
@@ -163,7 +244,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/SignAll.xml" />
         <option value="D:/Eclipse/WorkSpace/Stamp/build.xml" />
         <option value="$PROJECT_DIR$/src/SignAllSetup.xml" />
         <option value="$PROJECT_DIR$/ManifestSetupUpdate.xml" />
@@ -172,14 +252,12 @@
         <option value="$PROJECT_DIR$/ant/GenerateSetup.xml" />
         <option value="$PROJECT_DIR$/ant/ManifestSetupUpdate.xml" />
         <option value="$PROJECT_DIR$/ant/GenerateWindowsSetup.xml" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MenuController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/CurrencyTableCell.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/DoubleTableCell.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/IntegerTableCell.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/DateTableCell.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/textfield/UpperCaseTextField.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadDownloadSymbolInfo.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadDownloadHistorical.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/DateAxis.java" />
@@ -204,15 +282,18 @@
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabReportController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/css/Main.css" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/SummaryProperty.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/TimerSummaryTable.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/OptionsController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/MigrationHelper.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/backuprestore/ThreadRestore.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabGroupController.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/misc/CheckForUpdates.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadDownloadSymbolInfo.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" />
       </list>
     </option>
@@ -225,8 +306,7 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1" />
-    <option name="y" value="50" />
+    <option name="x" value="90" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
   </component>
@@ -319,23 +399,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
-              <item name="ant" type="cbb8eebc:String" user="ant" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -422,8 +486,52 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="controller" type="cbb8eebc:String" user="controller" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="controller" type="cbb8eebc:String" user="controller" />
+              <item name="tab" type="cbb8eebc:String" user="tab" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="JEquity" type="cbb8eebc:String" user="JEquity" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="com/beowurks/jequity" type="cbb8eebc:String" user="com/beowurks/jequity" />
+              <item name="utility" type="cbb8eebc:String" user="utility" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -443,7 +551,7 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ant/ManifestSetupUpdate.xml" />
+    <property name="last_opened_file_path" value="D:/Work/Java/JConsult" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
@@ -967,11 +1075,19 @@
       <workItem from="1512707050275" duration="205000" />
       <workItem from="1512707271014" duration="461000" />
       <workItem from="1512776565814" duration="941000" />
+      <workItem from="1513032194708" duration="599000" />
+      <workItem from="1513129078353" duration="4191000" />
+      <workItem from="1513193323280" duration="5571000" />
+      <workItem from="1513199369767" duration="65000" />
+      <workItem from="1513206057077" duration="437000" />
+      <workItem from="1513208332246" duration="652000" />
+      <workItem from="1513216561631" duration="9000" />
+      <workItem from="1513219149951" duration="7937000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="709299000" />
+    <option name="totallyTimeSpent" value="728760000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -987,25 +1103,26 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17748918" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32642487" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32642487" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15584415" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26321244" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746115" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23187633" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2531983" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746115" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25266525" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21588486" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39937758" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1021,7 +1138,6 @@
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746115" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1075,7 +1191,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/jequity.xml" />
     <entry file="file://$PROJECT_DIR$/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1115,13 +1230,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadDownloadSymbolInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="462" column="10" lean-forward="false" selection-start-line="462" selection-start-column="10" selection-end-line="462" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -1221,20 +1329,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="259" column="56" lean-forward="true" selection-start-line="259" selection-start-column="22" selection-end-line="259" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/javafx-src.zip!/javafx/beans/value/ChangeListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="62" column="9" lean-forward="false" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/javafx-src.zip!/javafx/beans/value/ChangeListener.java" />
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/GroupEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -1246,13 +1341,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="48" column="13" lean-forward="false" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="99" column="39" lean-forward="true" selection-start-line="99" selection-start-column="39" selection-end-line="99" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -1347,13 +1435,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1989">
-          <caret line="117" column="33" lean-forward="false" selection-start-line="117" selection-start-column="33" selection-end-line="117" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/OptionsController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2992">
@@ -1396,20 +1477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="20" column="21" lean-forward="false" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3451">
-          <caret line="203" column="89" lean-forward="false" selection-start-line="203" selection-start-column="89" selection-end-line="203" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
@@ -1439,10 +1506,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="259" column="56" lean-forward="false" selection-start-line="259" selection-start-column="22" selection-end-line="259" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1014">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="115" column="27" lean-forward="false" selection-start-line="115" selection-start-column="27" selection-end-line="115" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/misc/CheckForUpdates.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="58" column="37" lean-forward="false" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadDownloadSymbolInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="173" column="39" lean-forward="false" selection-start-line="173" selection-start-column="39" selection-end-line="173" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="56" column="44" lean-forward="true" selection-start-line="56" selection-start-column="44" selection-end-line="56" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="98" column="36" lean-forward="false" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
+        <state relative-caret-position="596">
+          <caret line="155" column="55" lean-forward="true" selection-start-line="155" selection-start-column="55" selection-end-line="155" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1457,6 +1581,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -1464,7 +1589,7 @@
       </state>
       <state key="Copyright.UI">
         <settings>
-          <last-edited>J'EquityFX</last-edited>
+          <last-edited>JEquity</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

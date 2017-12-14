@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "JEquity"
-#define MyAppVersion "2017.0.0.41"
+#define MyAppVersion "2017.0.1.43"
 #define MyAppPublisher "Beowurks"
 #define MyAppURL "http://jequity.sourceforge.net/"
 #define MyAppExeName "JEquity.exe"

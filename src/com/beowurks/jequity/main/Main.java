@@ -19,6 +19,7 @@ import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -64,6 +65,7 @@ public class Main extends Application
       toPrimaryStage.getIcons().add(new Image("/com/beowurks/jequity/view/images/JEquity.png"));
       toPrimaryStage.setScene(new Scene(loBorderPane));
       toPrimaryStage.show();
+
     }
     catch (final IOException loErr)
     {

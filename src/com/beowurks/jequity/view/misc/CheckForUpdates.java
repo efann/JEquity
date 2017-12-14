@@ -75,7 +75,7 @@ public class CheckForUpdates implements Runnable
         // Highly recommended to set the userAgent.
         loDoc = Jsoup.connect(lcURL)
             .followRedirects(false)
-            .userAgent(Constants.USER_AGENT)
+            .userAgent(Constants.USER_AGENT[0])
             .data("name", "jsoup")
             .maxBodySize(0)
             .timeout(Constants.WEB_TIME_OUT)

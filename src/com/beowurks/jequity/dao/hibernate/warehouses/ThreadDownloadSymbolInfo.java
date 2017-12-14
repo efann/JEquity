@@ -149,6 +149,8 @@ public class ThreadDownloadSymbolInfo implements Runnable
     // Must be initialized each time.
     Misc.setStatusText("Downloading. . . .", 0.0);
 
+    final int lnUserAgents = Constants.USER_AGENT.length;
+    int lnUserAgentTrack = 0;
     for (final SymbolEntity loSymbol : loList)
     {
       final String lcSymbol = loSymbol.getSymbol().trim();
@@ -166,7 +168,7 @@ public class ThreadDownloadSymbolInfo implements Runnable
           // Highly recommended to set the userAgent.
           loDoc = Jsoup.connect(lcDailyURL)
               .followRedirects(false)
-              .userAgent(Constants.USER_AGENT)
+              .userAgent(Constants.USER_AGENT[lnUserAgentTrack])
               .data("name", "jsoup")
               .maxBodySize(0)
               .timeout(Constants.WEB_TIME_OUT)
@@ -195,6 +197,11 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
       Misc.setStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
 
+      lnUserAgentTrack++;
+      if (lnUserAgentTrack >= lnUserAgents)
+      {
+        lnUserAgentTrack = 0;
+      }
     }
 
     loSession.close();
@@ -479,7 +486,9 @@ public class ThreadDownloadSymbolInfo implements Runnable
   // Also used by the data entry screen to display the URL for the stock symbol.
   public static String getSymbolDailyURL(final String tcSymbol)
   {
-    return (String.format(Constants.YAHOO_DAILY_HTML, tcSymbol.trim()));
+    final String lcSymbol = tcSymbol.trim();
+
+    return (String.format(Constants.YAHOO_DAILY_HTML, lcSymbol, lcSymbol));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

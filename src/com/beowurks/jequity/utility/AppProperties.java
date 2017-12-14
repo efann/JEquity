@@ -10,6 +10,7 @@ package com.beowurks.jequity.utility;
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.view.dialog.PasswordDialog;
+import javafx.scene.control.ProgressBar;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
@@ -51,6 +52,12 @@ public final class AppProperties extends BaseProperties
     int lnPasswordAttempts = 0;
     while (!this.readProperties())
     {
+      if (lnPasswordAttempts == 0)
+      {
+        // Don't worry about resetting this message, as other ones will follow.
+        Misc.setStatusText("Initializing. . . .", ProgressBar.INDETERMINATE_PROGRESS);
+      }
+
       if (lnPasswordAttempts++ < 3)
       {
         final String lcPassword = this.requestMasterKey();
