@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -32,7 +32,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -159,7 +158,8 @@ public class TabFinancialController extends TabModifyController implements Event
     this.lnkSymbolURL.setOnAction(this);
 
     // Setup the summary table update on scroll.
-    this.tblFinancial.getSelectionModel().selectedItemProperty().addListener((ChangeListener<FinancialProperty>) (observable, toOldRow, toNewRow) -> {
+    this.tblFinancial.getSelectionModel().selectedItemProperty().addListener((ChangeListener<FinancialProperty>) (observable, toOldRow, toNewRow) ->
+    {
 
       String lcAccount = null;
       String lcCategory = null;

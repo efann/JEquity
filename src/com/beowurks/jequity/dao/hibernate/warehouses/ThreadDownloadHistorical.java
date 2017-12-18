@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -17,7 +17,7 @@ import javafx.scene.chart.XYChart;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

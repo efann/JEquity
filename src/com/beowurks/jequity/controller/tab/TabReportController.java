@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -21,7 +21,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;

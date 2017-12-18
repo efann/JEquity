@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *

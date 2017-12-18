@@ -2,7 +2,7 @@
 
 <!--
   ~ JEquity
-  ~ Copyright(c) 2008-2017
+  ~ Copyright(c) 2008-2017, Beowurks
   ~ Original Author: Eddie Fann
   ~ License: Eclipse Public License
   ~
@@ -15,9 +15,9 @@
 <HBox alignment="CENTER_LEFT" stylesheets="@../css/Main.css"
       xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.beowurks.jequity.controller.ToolbarController">
-  <ComboBox fx:id="cboGroup"/>
-  <ToolBar>
-    <Button fx:id="btnUpdate" text="Update"/>
-    <Button fx:id="btnRefresh" text="Refresh"/>
-  </ToolBar>
+    <ComboBox fx:id="cboGroup"/>
+    <ToolBar>
+        <Button fx:id="btnUpdate" text="Update"/>
+        <Button fx:id="btnRefresh" text="Refresh"/>
+    </ToolBar>
 </HBox>

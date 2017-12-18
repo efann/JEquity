@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -76,7 +76,8 @@ public class PasswordConfirmDialog extends PasswordBaseDialog
 
     this.updateGrid();
 
-    this.setResultConverter((dialogButton) -> {
+    this.setResultConverter((dialogButton) ->
+    {
       final ButtonData loButtonData = (dialogButton == null) ? null : dialogButton.getButtonData();
       return ((loButtonData == ButtonData.OK_DONE) ? this.getPasswordResults() : null);
     });

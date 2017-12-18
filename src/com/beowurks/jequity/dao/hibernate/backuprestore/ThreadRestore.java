@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -112,7 +112,8 @@ public class ThreadRestore implements Runnable
     // Even with StatelessSession and using inserts with SQL rather than saving
     // an entity, Hibernate would plod along at about 0.75 seconds per insert.
     // So From http://viralpatel.net/blogs/batch-insert-in-java-jdbc/ . . . .
-    loSession.doWork(toConnection -> {
+    loSession.doWork(toConnection ->
+    {
       toConnection.setAutoCommit(true);
 
       final NodeList loRecordsList = loDocument.getElementsByTagName(Constants.XML_RECORDS_LABEL);

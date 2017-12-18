@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -93,7 +93,8 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
     // I had to use this method rather than using loSession.createNativeQuery.
     // Otherwise I was getting an invalid char '"' in statement error.
-    loSession.doWork(toConnection -> {
+    loSession.doWork(toConnection ->
+    {
       Statement loStatement = null;
       try
       {
@@ -511,7 +512,8 @@ public class ThreadDownloadSymbolInfo implements Runnable
 
       // I had to use this method rather than using loSession.createNativeQuery.
       // Otherwise I was getting an invalid char '"' in statement error.
-      loSession.doWork(toConnection -> {
+      loSession.doWork(toConnection ->
+      {
         // Yea, complicated SQL statements. . . .
         final String lcPrice = String.format("UPDATE %s f SET Price = (SELECT s.LastTrade FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);
         final String lcTradeTime = String.format("UPDATE %s f SET ValuationDate = (SELECT CAST(s.TradeTime AS date) FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);

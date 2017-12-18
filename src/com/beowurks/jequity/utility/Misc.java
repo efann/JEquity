@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -31,23 +31,10 @@ import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
 import org.w3c.dom.NodeList;
 
-import javax.swing.SwingUtilities;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
@@ -221,7 +208,8 @@ public final class Misc
     }
     else
     {
-      Platform.runLater(() -> {
+      Platform.runLater(() ->
+      {
         loStatusMessage.setText(tcMessage);
         loProgressBar.setProgress(tnProgress);
         loProgressLabel.setText(lcPercentage);
@@ -246,7 +234,8 @@ public final class Misc
     }
     else
     {
-      Platform.runLater(() -> {
+      Platform.runLater(() ->
+      {
         loProgressBar.setProgress(tnProgress);
         loProgressLabel.setText(lcPercentage);
       });
@@ -757,7 +746,8 @@ public final class Misc
     toWebView.getEngine().getLoadWorker().stateProperty().addListener(
         (ObservableValue<? extends Worker.State> observable,
          Worker.State oldValue,
-         Worker.State newValue) -> {
+         Worker.State newValue) ->
+        {
           if (newValue != Worker.State.SUCCEEDED)
           {
             return;
@@ -768,7 +758,8 @@ public final class Misc
           {
             final org.w3c.dom.Node loNode = loNodeList.item(i);
             final org.w3c.dom.events.EventTarget loEventTarget = (org.w3c.dom.events.EventTarget) loNode;
-            loEventTarget.addEventListener("click", toEvent -> {
+            loEventTarget.addEventListener("click", toEvent ->
+            {
               final org.w3c.dom.events.EventTarget loCurrentTarget = toEvent.getCurrentTarget();
               final org.w3c.dom.html.HTMLAnchorElement loAnchorElement = (org.w3c.dom.html.HTMLAnchorElement) loCurrentTarget;
               final String lcHref = loAnchorElement.getHref();

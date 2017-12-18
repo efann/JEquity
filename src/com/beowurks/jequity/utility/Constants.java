@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -281,7 +281,7 @@ final public class Constants
 
   //************************************************************
   // The following is used by the development environment for MySQL & PostgreSQL
-  public final static String DEVELOPMENT_SERVER = "192.168.139.129";
+  public final static String DEVELOPMENT_SERVER = "192.168.64.10";
   public final static String DEVELOPMENT_DATABASE = "JEquityTest";
   public final static String DEVELOPMENT_USER = "JEquityTest";
   public final static String DEVELOPMENT_PASSWORD = "JEquity!!!Test";

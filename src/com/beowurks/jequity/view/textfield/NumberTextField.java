@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -36,7 +36,8 @@ public class NumberTextField extends TextField
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupListeners()
   {
-    this.textProperty().addListener((observable, oldValue, newValue) -> {
+    this.textProperty().addListener((observable, oldValue, newValue) ->
+    {
       if (!newValue.matches("\\d{0,8}([\\.]\\d{0,6})?"))
       {
         NumberTextField.this.setText(oldValue);

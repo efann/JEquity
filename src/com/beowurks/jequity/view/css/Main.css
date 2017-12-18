@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -196,6 +196,11 @@
 #lnkLicense
 {
   -fx-padding: 20px 0 0 0;
+}
+
+#lnkApplicationName
+{
+  -fx-padding: 0.166667em 0.25em 0.166667em 0.0;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/

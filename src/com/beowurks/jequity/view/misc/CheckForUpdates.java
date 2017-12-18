@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -44,7 +44,8 @@ public class CheckForUpdates implements Runnable
   {
     final boolean llCurrentVersion = this.getCurrentVersion();
 
-    Platform.runLater(() -> {
+    Platform.runLater(() ->
+    {
       if (llCurrentVersion)
       {
         Misc.displayWebContent(String.format("Check for %s Updates", Main.getApplicationName()), CheckForUpdates.this.buildHTMLCode());

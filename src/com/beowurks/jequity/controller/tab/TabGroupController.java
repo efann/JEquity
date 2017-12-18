@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -70,7 +70,8 @@ public class TabGroupController extends TabModifyController
     this.btnClone.setOnAction(toActionEvent -> TabGroupController.this.cloneRow(this.foCurrentGroupProperty));
     this.btnRemove.setOnAction(toActionEvent -> TabGroupController.this.removeRow());
 
-    this.tblGroup.getSelectionModel().selectedItemProperty().addListener((ChangeListener<GroupProperty>) (observable, toOldRow, toNewRow) -> {
+    this.tblGroup.getSelectionModel().selectedItemProperty().addListener((ChangeListener<GroupProperty>) (observable, toOldRow, toNewRow) ->
+    {
       if (toNewRow != null)
       {
         this.foCurrentGroupProperty = toNewRow;

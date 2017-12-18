@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -165,7 +165,8 @@ public final class HibernateUtil
     this.foTableList.put(HibernateUtil.TABLES_SYMBOL, "Symbol");
 
     final Session loSession = this.getSession();
-    loSession.doWork(toConnection -> {
+    loSession.doWork(toConnection ->
+    {
       HibernateUtil.this.flCaseSensitive = toConnection.getMetaData().supportsMixedCaseQuotedIdentifiers();
 
       HibernateUtil.this.foWhichDatabase = new WhichDatabase(toConnection);
@@ -323,12 +324,20 @@ public final class HibernateUtil
       {
         final GroupEntity loGroupEntity = (GroupEntity) toEntity;
 
-        final String lcDelete = String.format("DELETE FROM %s f WHERE f.groupid = :groupid", this.getTableFinancial());
+        // First remove the related financial records.
+
+        // From http://phpzila.blogspot.com/2012/01/mysql-using-table-alias-in-delete.html
+        // Otherwise, you get 'You have an error in your SQL syntax'
+        // Also, it's not ANSI: https://stackoverflow.com/questions/11005209/why-cant-i-use-an-alias-in-a-delete-statement
+        // Basically, do not use aliases in a DELETE statement.
+        final String lcDelete = String.format("DELETE FROM %s WHERE groupid = :groupid", this.getTableFinancial());
+
         final NativeQuery loDelete = loSession.createNativeQuery(lcDelete)
             .setParameter("groupid", loGroupEntity.getGroupID());
 
         loDelete.executeUpdate();
 
+        // Now remove the group record.
         loSession.delete(loGroupEntity);
       }
       else

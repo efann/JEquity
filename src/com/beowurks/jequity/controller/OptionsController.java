@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017
+ * Copyright(c) 2008-2017, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License
  *
@@ -153,7 +153,7 @@ public class OptionsController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void resetTextFields()
   {
-    IntegerKeyItem loItem = this.cboDriver.getSelectionModel().getSelectedItem();
+    final IntegerKeyItem loItem = this.cboDriver.getSelectionModel().getSelectedItem();
 
     final boolean llEditable = !loItem.getDescription().equals(Constants.DRIVER_VALUE_DERBY);
 
