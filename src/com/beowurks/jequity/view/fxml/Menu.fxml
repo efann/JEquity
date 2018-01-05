@@ -2,9 +2,9 @@
 
 <!--
   ~ JEquity
-  ~ Copyright(c) 2008-2017, Beowurks
+  ~ Copyright(c) 2008-2018, Beowurks
   ~ Original Author: Eddie Fann
-  ~ License: Eclipse Public License
+  ~ License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
   ~
   -->
 
@@ -47,6 +47,8 @@
     <Menu text="Help">
         <MenuItem fx:id="menuCredits" text="Credits" onAction="#showCredits"/>
         <MenuItem fx:id="menuCheckForUpdates" text="Check for Updates..." onAction="#showUpdates"/>
+        <SeparatorMenuItem/>
+        <MenuItem fx:id="menuLicense" text="License" onAction="#showLicense"/>
         <SeparatorMenuItem/>
         <MenuItem fx:id="menuAbout" text="About" onAction="#showAbout"/>
 

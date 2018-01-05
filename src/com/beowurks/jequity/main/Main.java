@@ -1,8 +1,8 @@
 /*
  * JEquity
- * Copyright(c) 2008-2017, Beowurks
+ * Copyright(c) 2008-2018, Beowurks
  * Original Author: Eddie Fann
- * License: Eclipse Public License
+ * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
  */
 
@@ -33,7 +33,10 @@ public class Main extends Application
 
   private static Stage PRIMARY_STAGE = null;
 
-  private static boolean APPLICATION_DEVELOPMENT = true;
+  // This needs to be false, just in case the run time on a user's machine accesses
+  // this variable before this variable is initialized.
+  private static boolean APPLICATION_DEVELOPMENT = false;
+
   private static String APPLICATION_TITLE = "JEquity";
   private static String APPLICATION_VERSION = "(Development Version)";
 
@@ -50,6 +53,8 @@ public class Main extends Application
       Main.PRIMARY_STAGE = toPrimaryStage;
       Main.foHostService = this.getHostServices();
 
+      // Needs to be near the top: otherwise the Constant variables are initialized before
+      // APPLICATION_DEVELOPMENT is set.
       Main.initializeEnvironment(this);
 
       final FXMLLoader loLoader = new FXMLLoader(this.getClass().getResource("/com/beowurks/jequity/view/fxml/MainForm.fxml"));
