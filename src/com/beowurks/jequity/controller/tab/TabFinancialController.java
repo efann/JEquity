@@ -28,6 +28,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
@@ -37,6 +38,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -120,6 +122,10 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   private TextArea txtComments;
 
+  //------------------------
+  @FXML
+  private GridPane gridPaneComponents;
+
   private FinancialProperty foCurrentFinancialProperty = null;
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -160,10 +166,10 @@ public class TabFinancialController extends TabModifyController implements Event
     // Setup the summary table update on scroll.
     this.tblFinancial.getSelectionModel().selectedItemProperty().addListener((ChangeListener<FinancialProperty>) (observable, toOldRow, toNewRow) ->
     {
-
       String lcAccount = null;
       String lcCategory = null;
       String lcType = null;
+
       if (toNewRow != null)
       {
         this.foCurrentFinancialProperty = toNewRow;
@@ -176,6 +182,30 @@ public class TabFinancialController extends TabModifyController implements Event
 
       TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcAccount, lcType, lcCategory);
     });
+
+    // From https://stackoverflow.com/questions/26563390/detect-doubleclick-on-row-of-tableview-javafx
+    this.tblFinancial.setOnMouseClicked(toEvent ->
+    {
+      if (toEvent.getClickCount() == 2)
+      {
+        TabFinancialController.this.modifyRow(this.foCurrentFinancialProperty);
+      }
+    });
+
+    for (Node loNode : this.gridPaneComponents.getChildren())
+    {
+      if ((loNode instanceof TextField) || (loNode instanceof DatePicker) || (loNode instanceof TextArea) || (loNode instanceof CheckBox))
+      {
+        loNode.focusedProperty().addListener((obs, oldVal, newVal) ->
+        {
+          if ((!this.btnModify.isDisabled()) && (this.foCurrentFinancialProperty != null))
+          {
+            TabFinancialController.this.modifyRow(this.foCurrentFinancialProperty);
+          }
+        });
+      }
+
+    }
 
   }
 

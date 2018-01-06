@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
@@ -78,6 +79,17 @@ public class TabGroupController extends TabModifyController
         TabGroupController.this.updateComponentsContent(false);
       }
     });
+
+    // From https://stackoverflow.com/questions/26563390/detect-doubleclick-on-row-of-tableview-javafx
+    this.tblGroup.setOnMouseClicked(toEvent ->
+    {
+      if (toEvent.getClickCount() == 2)
+      {
+        TabGroupController.this.modifyRow(this.foCurrentGroupProperty);
+      }
+    });
+
+
 
   }
 

@@ -34,7 +34,7 @@
     </TableViewPlus>
 
     <HBox fx:id="boxComponents" spacing="10">
-        <GridPane hgap="5">
+        <GridPane fx:id="gridPaneComponents" hgap="5">
 
             <Label text="Description" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="RIGHT"/>
             <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="450"

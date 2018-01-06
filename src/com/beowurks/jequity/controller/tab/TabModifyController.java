@@ -9,6 +9,7 @@
 package com.beowurks.jequity.controller.tab;
 
 
+import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
 import javafx.fxml.FXML;
@@ -121,7 +122,11 @@ abstract public class TabModifyController extends TabBaseController
 
     if (Main.getController() != null)
     {
-      Main.getController().getToolbarController().getGroupComboBox().setDisable(tlModify);
+      final ToolbarController loController = Main.getController().getToolbarController();
+
+      loController.getGroupComboBox().setDisable(tlModify);
+      loController.getUpdateButton().setDisable(tlModify);
+      loController.getRefreshButton().setDisable(tlModify);
     }
 
   }
