@@ -19,7 +19,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
@@ -80,16 +79,7 @@ public class TabGroupController extends TabModifyController
       }
     });
 
-    // From https://stackoverflow.com/questions/26563390/detect-doubleclick-on-row-of-tableview-javafx
-    this.tblGroup.setOnMouseClicked(toEvent ->
-    {
-      if (toEvent.getClickCount() == 2)
-      {
-        TabGroupController.this.modifyRow(this.foCurrentGroupProperty);
-      }
-    });
-
-
+    this.setupQuickModify(this.tblGroup);
 
   }
 
@@ -161,6 +151,17 @@ public class TabGroupController extends TabModifyController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  protected boolean modifyRow()
+  {
+    if (this.isEditing() || (this.foCurrentGroupProperty == null))
+    {
+      return (false);
+    }
+
+    return (this.modifyRow(this.foCurrentGroupProperty));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   protected void saveRow()
   {
     final boolean llCreatingRow = this.flCreatingRow;
@@ -229,12 +230,6 @@ public class TabGroupController extends TabModifyController
 
     // Signifies editing is enabled so move cursor to the first component.
     this.txtDescription.requestFocus();
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  protected void resetTextFields(final boolean tlModify)
-  {
-    this.setEditable(this.txtDescription, tlModify);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

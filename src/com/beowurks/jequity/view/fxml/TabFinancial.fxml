@@ -36,35 +36,39 @@
     <HBox fx:id="boxComponents" spacing="10">
         <GridPane fx:id="gridPaneComponents" hgap="5">
 
-            <Label text="Description" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="RIGHT"/>
-            <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="450"
-                       maxWidth="450"/>
-            <Label text="Account" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="RIGHT"/>
-            <TextField fx:id="txtAccount" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="150"
-                       maxWidth="150"/>
-            <Label text="Type" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="RIGHT"/>
-            <TextField fx:id="txtType" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="450" maxWidth="450"/>
-            <Label text="Category" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="RIGHT"/>
-            <TextField fx:id="txtCategory" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="450"
+            <Label text="Stock Symbol" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="RIGHT"/>
+            <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <UpperCaseTextField fx:id="txtSymbol" prefWidth="100" maxWidth="100"/>
+                <Hyperlink fx:id="lnkSymbolURL"/>
+            </HBox>
+
+            <Label text="Description" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="RIGHT"/>
+            <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="450"
                        maxWidth="450"/>
 
-            <Label text="Shares" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="RIGHT"/>
-            <NumberTextField fx:id="txtShares" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="100"
+            <Label text="Account" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="RIGHT"/>
+            <TextField fx:id="txtAccount" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="150"
+                       maxWidth="150"/>
+            <Label text="Type" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="RIGHT"/>
+            <TextField fx:id="txtType" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="450" maxWidth="450"/>
+
+            <Label text="Category" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="RIGHT"/>
+            <TextField fx:id="txtCategory" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="450"
+                       maxWidth="450"/>
+
+            <Label text="Shares" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="RIGHT"/>
+            <NumberTextField fx:id="txtShares" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="100"
                              maxWidth="100"/>
-            <Label text="Price, $" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="RIGHT"/>
-            <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="5">
+
+            <Label text="Price, $" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="RIGHT"/>
+            <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="6">
                 <NumberTextField fx:id="txtPrice" prefWidth="100" maxWidth="100"/>
                 <Label fx:id="lblTotal"/>
             </HBox>
 
-            <Label text="Valuation Date" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="RIGHT"/>
-            <DatePicker fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+            <Label text="Valuation Date" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.halignment="RIGHT"/>
+            <DatePicker fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
 
-            <Label text="Symbol" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.halignment="RIGHT"/>
-            <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                <UpperCaseTextField fx:id="txtSymbol" prefWidth="100" maxWidth="100"/>
-                <Hyperlink fx:id="lnkSymbolURL"/>
-            </HBox>
             <CheckBox fx:id="chkRetirement" text="Retirement Fund" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
 
             <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.halignment="RIGHT"

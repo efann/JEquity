@@ -13,13 +13,10 @@ import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -46,6 +43,9 @@ abstract public class TabModifyController extends TabBaseController
   @FXML
   protected Button btnRemove;
 
+  @FXML
+  protected GridPane gridPaneComponents;
+
   // ---------------------------------------------------------------------------------------------------------------------
   abstract protected void removeRow();
 
@@ -54,9 +54,6 @@ abstract public class TabModifyController extends TabBaseController
 
   // ---------------------------------------------------------------------------------------------------------------------
   abstract protected void updateComponentsContent(final boolean tlUseEmptyFields);
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  abstract protected void resetTextFields(final boolean tlModify);
 
   // ---------------------------------------------------------------------------------------------------------------------
   abstract protected void setupListeners();
@@ -74,6 +71,48 @@ abstract public class TabModifyController extends TabBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  protected void setupQuickModify(final TableView toTableView)
+  {
+    // From https://stackoverflow.com/questions/26563390/detect-doubleclick-on-row-of-tableview-javafx
+    toTableView.setOnMouseClicked(toEvent ->
+    {
+      if (toEvent.getClickCount() == 2)
+      {
+        TabModifyController.this.modifyRow();
+      }
+    });
+
+    this.addModifyListener(this.gridPaneComponents);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void addModifyListener(final Pane toParent)
+  {
+    for (Node loNode : toParent.getChildren())
+    {
+      if ((loNode instanceof TextField) || (loNode instanceof DatePicker) || (loNode instanceof TextArea) || (loNode instanceof CheckBox))
+      {
+        loNode.focusedProperty().addListener((obs, oldVal, newVal) ->
+        {
+          TabModifyController.this.modifyRow();
+        });
+      }
+      else if (loNode instanceof Pane)
+      {
+        this.addModifyListener((Pane) loNode);
+      }
+
+    }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected boolean isEditing()
+  {
+    return (this.btnModify.isDisabled() || this.btnCreate.isDisabled() || this.btnClone.isDisabled());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   protected void createRow()
   {
     this.flCreatingRow = true;
@@ -81,6 +120,8 @@ abstract public class TabModifyController extends TabBaseController
     this.updateComponentsContent(true);
 
     this.resetComponentsOnModify(true);
+
+    Misc.setStatusText("Creating new row of data.");
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -97,8 +138,13 @@ abstract public class TabModifyController extends TabBaseController
     this.updateComponentsContent(false);
     this.resetComponentsOnModify(true);
 
+    Misc.setStatusText("Cloning from existing row of data to a new one.");
+
     return (true);
   }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  abstract protected boolean modifyRow();
 
   // ---------------------------------------------------------------------------------------------------------------------
   protected boolean modifyRow(final Object toCurrentProperty)
@@ -110,6 +156,8 @@ abstract public class TabModifyController extends TabBaseController
     }
 
     this.resetComponentsOnModify(true);
+
+    Misc.setStatusText("Modifying current row of data.");
 
     return (true);
   }
@@ -153,6 +201,30 @@ abstract public class TabModifyController extends TabBaseController
     this.btnCancel.setDisable(!tlModify);
   }
 
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected void resetTextFields(final boolean tlModify)
+  {
+    this.setEditableFields(this.gridPaneComponents, tlModify);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected void setEditableFields(final Pane toParent, final boolean tlModify)
+  {
+    for (Node loNode : toParent.getChildren())
+    {
+      if (loNode instanceof Control)
+      {
+        this.setEditable((Control) loNode, tlModify);
+      }
+      else if (loNode instanceof Pane)
+      {
+        this.setEditableFields((Pane) loNode, tlModify);
+      }
+    }
+
+  }
+
   // ---------------------------------------------------------------------------------------------------------------------
   // Unfortunately, I can't create an inherited class from TextField and override setEditable: it's a final method.
   // Oh well. . . .
@@ -179,13 +251,38 @@ abstract public class TabModifyController extends TabBaseController
     {
       toField.setDisable(!tlEditable);
     }
-    else
+    else if (!(toField instanceof Label) && !(toField instanceof Button) && !(toField instanceof Hyperlink))
     {
-      System.err.println("Unknown class in TabModifyController.setEditable");
+      System.err.println(String.format("Unknown class in TabModifyController.setEditable: %s", toField.getClass()));
     }
 
     toField.setStyle(lcStyle);
   }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected Control findFocused()
+  {
+    return (this.findFocusedComponent(this.gridPaneComponents));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private Control findFocusedComponent(final Pane toParent)
+  {
+    for (Node loNode : toParent.getChildren())
+    {
+      if ((loNode instanceof Control) && (loNode.isFocused()))
+      {
+        return ((Control) loNode);
+      }
+      else if (loNode instanceof Pane)
+      {
+        this.findFocusedComponent((Pane) loNode);
+      }
+    }
+
+    return (null);
+  }
+
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------

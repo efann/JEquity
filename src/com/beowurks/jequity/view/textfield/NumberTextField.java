@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 // ---------------------------------------------------------------------------------------------------------------------
 public class NumberTextField extends TextField
 {
+  private final static String REGEX_NUMBER = "\\d{0,8}([\\.]\\d{0,6})?";
 
   // ---------------------------------------------------------------------------------------------------------------------
   public NumberTextField()
@@ -38,9 +39,21 @@ public class NumberTextField extends TextField
   {
     this.textProperty().addListener((observable, oldValue, newValue) ->
     {
-      if (!newValue.matches("\\d{0,8}([\\.]\\d{0,6})?"))
+      String lcValue = newValue;
+
+      if (!lcValue.matches(NumberTextField.REGEX_NUMBER))
       {
-        NumberTextField.this.setText(oldValue);
+        // Strip out all but the numbers and decimal point.
+        lcValue = lcValue.replaceAll("[^0-9.]", "");
+        // If now okay, then replace the text with the correct value.
+        if (lcValue.matches(NumberTextField.REGEX_NUMBER))
+        {
+          NumberTextField.this.setText(lcValue);
+        }
+        else
+        {
+          NumberTextField.this.setText(oldValue);
+        }
       }
     });
   }

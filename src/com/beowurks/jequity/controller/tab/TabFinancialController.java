@@ -28,7 +28,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
@@ -38,7 +37,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -123,8 +121,6 @@ public class TabFinancialController extends TabModifyController implements Event
   private TextArea txtComments;
 
   //------------------------
-  @FXML
-  private GridPane gridPaneComponents;
 
   private FinancialProperty foCurrentFinancialProperty = null;
 
@@ -183,30 +179,7 @@ public class TabFinancialController extends TabModifyController implements Event
       TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcAccount, lcType, lcCategory);
     });
 
-    // From https://stackoverflow.com/questions/26563390/detect-doubleclick-on-row-of-tableview-javafx
-    this.tblFinancial.setOnMouseClicked(toEvent ->
-    {
-      if (toEvent.getClickCount() == 2)
-      {
-        TabFinancialController.this.modifyRow(this.foCurrentFinancialProperty);
-      }
-    });
-
-    for (Node loNode : this.gridPaneComponents.getChildren())
-    {
-      if ((loNode instanceof TextField) || (loNode instanceof DatePicker) || (loNode instanceof TextArea) || (loNode instanceof CheckBox))
-      {
-        loNode.focusedProperty().addListener((obs, oldVal, newVal) ->
-        {
-          if ((!this.btnModify.isDisabled()) && (this.foCurrentFinancialProperty != null))
-          {
-            TabFinancialController.this.modifyRow(this.foCurrentFinancialProperty);
-          }
-        });
-      }
-
-    }
-
+    this.setupQuickModify(this.tblFinancial);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -293,6 +266,17 @@ public class TabFinancialController extends TabModifyController implements Event
         .setParameter("groupid", loHibernate.getGroupID().intValue());
 
     return (loQuery);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected boolean modifyRow()
+  {
+    if (this.isEditing() || (this.foCurrentFinancialProperty == null))
+    {
+      return (false);
+    }
+
+    return (this.modifyRow(this.foCurrentFinancialProperty));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -409,32 +393,30 @@ public class TabFinancialController extends TabModifyController implements Event
       return;
     }
 
-    // Signifies editing is enabled so move cursor to the first enabled component.
-    if (this.txtDescription.isEditable())
+    if (this.findFocused() == null)
     {
-      this.txtDescription.requestFocus();
-    }
-    else
-    {
-      this.txtAccount.requestFocus();
+      // Signifies editing is enabled so move cursor to the first enabled component.
+      if (this.txtDescription.isEditable())
+      {
+        this.txtDescription.requestFocus();
+      }
+      else
+      {
+        this.txtAccount.requestFocus();
+      }
     }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   protected void resetTextFields(final boolean tlModify)
   {
+    super.resetTextFields(tlModify);
+
     final boolean llEmpty = this.txtSymbol.getText().isEmpty();
 
     this.setEditable(this.txtDescription, tlModify && llEmpty);
-    this.setEditable(this.txtAccount, tlModify);
-    this.setEditable(this.txtType, tlModify);
-    this.setEditable(this.txtCategory, tlModify);
-    this.setEditable(this.txtShares, tlModify);
     this.setEditable(this.txtPrice, tlModify && llEmpty);
     this.setEditable(this.txtDate, tlModify && llEmpty);
-    this.setEditable(this.txtSymbol, tlModify);
-    this.setEditable(this.chkRetirement, tlModify);
-    this.setEditable(this.txtComments, tlModify);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
