@@ -377,3 +377,20 @@
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  From https://stackoverflow.com/questions/30631179/hide-calendar-button-on-datepicker
+ */
+.non-editable-datepicker > .arrow-button
+{
+  -fx-padding: 0px;
+}
+
+.non-editable-datepicker > .arrow-button > .arrow
+{
+  -fx-padding: 0px;
+}
+
+.non-editable-datepicker > .date-picker-display-node
+{
+  -fx-background-insets: 1 1 1 1;
+}

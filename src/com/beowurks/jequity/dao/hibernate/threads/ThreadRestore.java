@@ -5,7 +5,7 @@
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
  */
-package com.beowurks.jequity.dao.hibernate.backuprestore;
+package com.beowurks.jequity.dao.hibernate.threads;
 
 import com.beowurks.jequity.dao.XMLTextReader;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
@@ -31,12 +31,10 @@ import java.util.HashMap;
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-public class ThreadRestore implements Runnable
+public class ThreadRestore extends ThreadBase implements Runnable
 {
 
   public static ThreadRestore INSTANCE = new ThreadRestore();
-
-  private Thread foThread = null;
 
   private final HashMap<String, GroupEntity> foGroupMap = new HashMap<>();
   private File foXMLFile = null;
@@ -44,34 +42,48 @@ public class ThreadRestore implements Runnable
   // -----------------------------------------------------------------------------
   private ThreadRestore()
   {
+    super();
   }
 
   // -----------------------------------------------------------------------------
   @Override
   public void run()
   {
-    final String lcErrorMessage = this.restoreFromXML();
+    this.fcErrorMessage = this.restoreFromXML();
 
     // No matter the outcome, refresh all of the data.
     Main.getController().refreshAllComponents(true);
 
-    if (lcErrorMessage.isEmpty())
+    if (this.fcErrorMessage.isEmpty())
     {
-      Misc.infoMessage(String.format("%s has been imported into %s", this.foXMLFile.getPath(), Main.getApplicationName()));
+      this.flSuccess = true;
+      if (this.flDisplayDialogMessage)
+      {
+        Misc.infoMessage(String.format("%s has been imported into %s", this.foXMLFile.getPath(), Main.getApplicationName()));
+      }
     }
     else
     {
-      Misc.errorMessage(lcErrorMessage);
+      this.flSuccess = false;
+      if (this.flDisplayDialogMessage)
+      {
+        Misc.errorMessage(this.fcErrorMessage);
+      }
     }
 
   }
 
   // -----------------------------------------------------------------------------
-  public boolean start(final File toXMLFile)
+  public boolean start(final File toXMLFile, final boolean tlDisplayDialogMessage)
   {
+    this.flDisplayDialogMessage = tlDisplayDialogMessage;
+
     if ((this.foThread != null) && (this.foThread.isAlive()))
     {
-      Misc.errorMessage("Restoring is currently in progress. . . .");
+      if (this.flDisplayDialogMessage)
+      {
+        Misc.errorMessage("Restoring is currently in progress. . . .");
+      }
       return (false);
     }
 

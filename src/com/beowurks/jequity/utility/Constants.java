@@ -286,6 +286,10 @@ final public class Constants
   public final static String DEVELOPMENT_USER = "JEquityTest";
   public final static String DEVELOPMENT_PASSWORD = "JEquity!!!Test";
 
+  //************************************************************
+
+  public final static String BLANK_DESCRIPTION_FOR_SYMBOL = "<Run Update to reset the Description, Price and Valuation Date.>";
+
   // -----------------------------------------------------------------------------
   private Constants()
   {

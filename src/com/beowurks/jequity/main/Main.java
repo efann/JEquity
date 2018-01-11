@@ -11,7 +11,7 @@ package com.beowurks.jequity.main;
 
 import com.beowurks.jequity.controller.MainFormController;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
-import com.beowurks.jequity.dao.hibernate.warehouses.TimerSymbolInfo;
+import com.beowurks.jequity.dao.hibernate.threads.TimerSymbolInfo;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Application;

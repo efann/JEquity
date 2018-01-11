@@ -14,7 +14,7 @@ import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
 import com.beowurks.jequity.controller.tab.TabReportController;
 import com.beowurks.jequity.controller.tab.TabSymbolController;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
-import com.beowurks.jequity.dao.hibernate.warehouses.ThreadDownloadSymbolInfo;
+import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
@@ -53,19 +53,19 @@ public class MainFormController implements EventHandler<ActionEvent>
   private ToolbarController toolbarMainController;
 
   @FXML
-  private TabGroupController tableGroupMainController;
+  private TabGroupController tabGroupMainController;
 
   @FXML
-  private TabSymbolController tableSymbolMainController;
+  private TabSymbolController tabSymbolMainController;
 
   @FXML
-  private TabFinancialController tableFinancialMainController;
+  private TabFinancialController tabFinancialMainController;
 
   @FXML
-  private TabHistoricalGraphController historicalGraphMainController;
+  private TabHistoricalGraphController tabHistoricalGraphMainController;
 
   @FXML
-  private TabReportController reportMainController;
+  private TabReportController tabReportMainController;
   //********************************************************************************
   // Status Bar
 
@@ -117,6 +117,16 @@ public class MainFormController implements EventHandler<ActionEvent>
     this.setupTooltips();
 
     this.setupListeners();
+
+    this.setupTables();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void setupTables()
+  {
+    // You have to setup here and not in the tabFinancialController as the tabFinancialController
+    // is created before the MainFormController.
+    this.tabFinancialMainController.getFinancialTable().setStatusMessage(this.statusMessage);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -196,9 +206,9 @@ public class MainFormController implements EventHandler<ActionEvent>
     final String lcTime = loDateFormat.format(loCalender.getTime()).toLowerCase();
 
     // Refresh the Group Table also
-    if (tlIncludeGroupComboBox)
+    if ((tlIncludeGroupComboBox) && (this.tabGroupMainController != null))
     {
-      this.tableGroupMainController.refreshData();
+      this.tabGroupMainController.refreshData();
     }
 
     final Integer loGroupID = (tlIncludeGroupComboBox) ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem().getKey();
@@ -210,25 +220,25 @@ public class MainFormController implements EventHandler<ActionEvent>
     {
       Misc.setStatusText(String.format("Refreshed the Financial grid @ %s. . . .", lcTime));
 
-      this.tableFinancialMainController.refreshData();
+      this.tabFinancialMainController.refreshData();
     }
     else if (loCurrentTab == this.tabDaily)
     {
       Misc.setStatusText(String.format("Refreshed the Daily grid @ %s. . . .", lcTime));
 
-      this.tableSymbolMainController.refreshData();
+      this.tabSymbolMainController.refreshData();
     }
     else if (loCurrentTab == this.tabReports)
     {
       Misc.setStatusText(String.format("Refreshed the Financial Report @ %s. . . .", lcTime));
 
-      this.reportMainController.refreshReport(this.flShowPrintDialog);
+      this.tabReportMainController.refreshReport(this.flShowPrintDialog);
       this.flShowPrintDialog = false;
     }
     else if (loCurrentTab == this.tabHistorical)
     {
       Misc.setStatusText(String.format("Refreshed the Historical data @ %s. . . .", lcTime));
-      this.historicalGraphMainController.refreshData();
+      this.tabHistoricalGraphMainController.refreshData();
     }
     else if (loCurrentTab == this.tabGroup)
     {

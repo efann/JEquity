@@ -5,7 +5,7 @@
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
  */
-package com.beowurks.jequity.dao.hibernate.warehouses;
+package com.beowurks.jequity.dao.hibernate.threads;
 
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
@@ -26,12 +26,10 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class ThreadDownloadSymbolInfo implements Runnable
+public class ThreadDownloadSymbolInfo extends ThreadBase implements Runnable
 {
 
   public static ThreadDownloadSymbolInfo INSTANCE = new ThreadDownloadSymbolInfo();
-
-  private Thread foThread = null;
 
   private String[] faCurrentTextList;
 
@@ -41,11 +39,13 @@ public class ThreadDownloadSymbolInfo implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public boolean start(final boolean tlDisplayMessage)
+  public boolean start(final boolean tlDisplayDialogMessage)
   {
+    this.flDisplayDialogMessage = tlDisplayDialogMessage;
+
     if ((this.foThread != null) && (this.foThread.isAlive()))
     {
-      if (tlDisplayMessage)
+      if (this.flDisplayDialogMessage)
       {
         Misc.errorMessage("The stock information is currently being updated. . . .");
       }
@@ -63,9 +63,9 @@ public class ThreadDownloadSymbolInfo implements Runnable
   @Override
   public void run()
   {
-    final String lcErrorMessage = this.updateSymbolTable();
+    this.fcErrorMessage = this.updateSymbolTable();
     // If no error message has been returned.
-    if (lcErrorMessage.isEmpty())
+    if (this.fcErrorMessage.isEmpty())
     {
       this.updateAllSymbolInformation();
       this.updateFinancialTable();
@@ -73,7 +73,10 @@ public class ThreadDownloadSymbolInfo implements Runnable
       return;
     }
 
-    Misc.errorMessage(lcErrorMessage);
+    if (this.flDisplayDialogMessage)
+    {
+      Misc.errorMessage(this.fcErrorMessage);
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

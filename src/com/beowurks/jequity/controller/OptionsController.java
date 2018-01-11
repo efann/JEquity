@@ -10,7 +10,7 @@ package com.beowurks.jequity.controller;
 
 
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
-import com.beowurks.jequity.dao.hibernate.warehouses.TimerSymbolInfo;
+import com.beowurks.jequity.dao.hibernate.threads.TimerSymbolInfo;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;

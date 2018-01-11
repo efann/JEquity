@@ -10,11 +10,12 @@ package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
-import com.beowurks.jequity.dao.hibernate.warehouses.ThreadDownloadSymbolInfo;
-import com.beowurks.jequity.dao.hibernate.warehouses.TimerSummaryTable;
+import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
+import com.beowurks.jequity.dao.hibernate.threads.TimerSummaryTable;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import com.beowurks.jequity.dao.tableview.SummaryProperty;
 import com.beowurks.jequity.main.Main;
+import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
@@ -155,7 +156,11 @@ public class TabFinancialController extends TabModifyController implements Event
 
     this.txtShares.textProperty().addListener((observable, oldValue, newValue) -> this.updateTotalLabel());
     this.txtPrice.textProperty().addListener((observable, oldValue, newValue) -> this.updateTotalLabel());
-    this.txtSymbol.textProperty().addListener((observable, oldValue, newValue) -> this.updateSymbolHyperlink());
+    this.txtSymbol.textProperty().addListener((observable, oldValue, newValue) ->
+    {
+      this.updateTextFieldsWithSymbol();
+      this.updateSymbolHyperlink();
+    });
 
     this.lnkSymbolURL.setOnAction(this);
 
@@ -368,17 +373,18 @@ public class TabFinancialController extends TabModifyController implements Event
   protected void updateComponentsContent(final boolean tlUseEmptyFields)
   {
     final FinancialProperty loProp = this.foCurrentFinancialProperty;
+    final boolean llUseEmptyFields = (tlUseEmptyFields || (loProp == null));
 
-    this.txtDescription.setText(tlUseEmptyFields ? "" : loProp.getDescription());
-    this.txtAccount.setText(tlUseEmptyFields ? "" : loProp.getAccount());
-    this.txtType.setText(tlUseEmptyFields ? "" : loProp.getType());
-    this.txtCategory.setText(tlUseEmptyFields ? "" : loProp.getCategory());
-    this.txtShares.setText(tlUseEmptyFields ? "0.0" : Double.toString(loProp.getShares()));
-    this.txtPrice.setText(tlUseEmptyFields ? "0.0" : Double.toString(loProp.getPrice()));
-    this.txtDate.setValue(tlUseEmptyFields ? LocalDate.now() : loProp.getValuationDate().toLocalDate());
-    this.txtSymbol.setText(tlUseEmptyFields ? "" : loProp.getSymbol().trim());
-    this.chkRetirement.setSelected(tlUseEmptyFields ? false : loProp.getRetirement());
-    this.txtComments.setText(tlUseEmptyFields ? "" : loProp.getComments());
+    this.txtDescription.setText(llUseEmptyFields ? "" : loProp.getDescription());
+    this.txtAccount.setText(llUseEmptyFields ? "" : loProp.getAccount());
+    this.txtType.setText(llUseEmptyFields ? "" : loProp.getType());
+    this.txtCategory.setText(llUseEmptyFields ? "" : loProp.getCategory());
+    this.txtShares.setText(llUseEmptyFields ? "0.0" : Double.toString(loProp.getShares()));
+    this.txtPrice.setText(llUseEmptyFields ? "0.0" : Double.toString(loProp.getPrice()));
+    this.txtDate.setValue(llUseEmptyFields ? LocalDate.now() : loProp.getValuationDate().toLocalDate());
+    this.txtSymbol.setText(llUseEmptyFields ? "" : loProp.getSymbol().trim());
+    this.chkRetirement.setSelected(llUseEmptyFields ? false : loProp.getRetirement());
+    this.txtComments.setText(llUseEmptyFields ? "" : loProp.getComments());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -396,14 +402,7 @@ public class TabFinancialController extends TabModifyController implements Event
     if (this.findFocused() == null)
     {
       // Signifies editing is enabled so move cursor to the first enabled component.
-      if (this.txtDescription.isEditable())
-      {
-        this.txtDescription.requestFocus();
-      }
-      else
-      {
-        this.txtAccount.requestFocus();
-      }
+      this.txtSymbol.requestFocus();
     }
   }
 
@@ -417,6 +416,29 @@ public class TabFinancialController extends TabModifyController implements Event
     this.setEditable(this.txtDescription, tlModify && llEmpty);
     this.setEditable(this.txtPrice, tlModify && llEmpty);
     this.setEditable(this.txtDate, tlModify && llEmpty);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateTextFieldsWithSymbol()
+  {
+    if (!this.isEditing())
+    {
+      return;
+    }
+
+    this.resetTextFields(true);
+
+    final String lcSymbol = this.txtSymbol.getText().trim();
+    final boolean llSymbolEmpty = lcSymbol.isEmpty();
+    if (llSymbolEmpty && this.txtDescription.getText().equals(Constants.BLANK_DESCRIPTION_FOR_SYMBOL))
+    {
+      this.txtDescription.setText("");
+    }
+    else if (!llSymbolEmpty && this.txtDescription.getText().trim().isEmpty())
+    {
+      this.txtDescription.setText(Constants.BLANK_DESCRIPTION_FOR_SYMBOL);
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -452,6 +474,12 @@ public class TabFinancialController extends TabModifyController implements Event
     }
 
     return (lnValue);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public TableViewPlus getFinancialTable()
+  {
+    return (this.tblFinancial);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

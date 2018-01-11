@@ -11,7 +11,8 @@ package com.beowurks.jequity.controller;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
-import com.beowurks.jequity.dao.hibernate.backuprestore.ThreadRestore;
+import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
+import com.beowurks.jequity.dao.hibernate.threads.ThreadRestore;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
@@ -144,7 +145,27 @@ public class MenuController
 
         FileUtils.copyURLToFile(loURL, loFile, 3000, 3000);
 
-        ThreadRestore.INSTANCE.start(loFile);
+        ThreadRestore.INSTANCE.start(loFile, false);
+        try
+        {
+          // Joining forces this thread to wait for ThreadRestore to finish.
+          ThreadRestore.INSTANCE.getThread().join();
+        }
+        catch (final InterruptedException ignore)
+        {
+        }
+
+        if (ThreadRestore.INSTANCE.isSuccessful())
+        {
+          if (Misc.yesNo("After successfully downloading the sample data, do you now want to update the stock information?\n\nBy the way, you may update the stock information at any time by pressing the Update button located in the toolbar."))
+          {
+            ThreadDownloadSymbolInfo.INSTANCE.start(true);
+          }
+        }
+        else
+        {
+          Misc.errorMessage(String.format("There was an error in restoration:\n\n%s", ThreadRestore.INSTANCE.getErrorMessage()));
+        }
       }
       catch (final IOException loErr)
       {
@@ -174,7 +195,28 @@ public class MenuController
     {
       loApp.setBackupRestoreFolder(loBackupFile.getParent());
 
-      ThreadRestore.INSTANCE.start(loBackupFile);
+      ThreadRestore.INSTANCE.start(loBackupFile, false);
+      try
+      {
+        // Joining forces this thread to wait for ThreadRestore to finish.
+        ThreadRestore.INSTANCE.getThread().join();
+      }
+      catch (final InterruptedException ignore)
+      {
+      }
+
+      if (ThreadRestore.INSTANCE.isSuccessful())
+      {
+        if (Misc.yesNo("After successfully restoring from backup, do you now want to update the stock information?\n\nBy the way, you may update the stock information at any time by pressing the Update button located in the toolbar."))
+        {
+          ThreadDownloadSymbolInfo.INSTANCE.start(true);
+        }
+      }
+      else
+      {
+        Misc.errorMessage(String.format("There was an error in restoration:\n\n%s", ThreadRestore.INSTANCE.getErrorMessage()));
+      }
+
     }
 
   }

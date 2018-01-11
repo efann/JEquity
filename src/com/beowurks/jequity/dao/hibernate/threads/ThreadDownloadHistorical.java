@@ -5,7 +5,7 @@
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
  */
-package com.beowurks.jequity.dao.hibernate.warehouses;
+package com.beowurks.jequity.dao.hibernate.threads;
 
 import com.beowurks.jequity.dao.IDefaultXYChartSeries;
 import com.beowurks.jequity.main.Main;

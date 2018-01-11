@@ -46,6 +46,8 @@ abstract public class TabModifyController extends TabBaseController
   @FXML
   protected GridPane gridPaneComponents;
 
+  private final static String DATEPICKER_NON_EDITABLE = "non-editable-datepicker";
+
   // ---------------------------------------------------------------------------------------------------------------------
   abstract protected void removeRow();
 
@@ -88,14 +90,17 @@ abstract public class TabModifyController extends TabBaseController
   // ---------------------------------------------------------------------------------------------------------------------
   private void addModifyListener(final Pane toParent)
   {
-    for (Node loNode : toParent.getChildren())
+    for (final Node loNode : toParent.getChildren())
     {
-      if ((loNode instanceof TextField) || (loNode instanceof DatePicker) || (loNode instanceof TextArea) || (loNode instanceof CheckBox))
+      if ((loNode instanceof TextField) || (loNode instanceof TextArea) || (loNode instanceof CheckBox))
       {
         loNode.focusedProperty().addListener((obs, oldVal, newVal) ->
-        {
-          TabModifyController.this.modifyRow();
-        });
+            TabModifyController.this.modifyRow());
+      }
+      else if (loNode instanceof DatePicker)
+      {
+        ((DatePicker) loNode).getEditor().focusedProperty().addListener((obs, oldVal, newVal) ->
+            TabModifyController.this.modifyRow());
       }
       else if (loNode instanceof Pane)
       {
@@ -211,7 +216,7 @@ abstract public class TabModifyController extends TabBaseController
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setEditableFields(final Pane toParent, final boolean tlModify)
   {
-    for (Node loNode : toParent.getChildren())
+    for (final Node loNode : toParent.getChildren())
     {
       if (loNode instanceof Control)
       {
@@ -244,8 +249,22 @@ abstract public class TabModifyController extends TabBaseController
     else if (toField instanceof DatePicker)
     {
       final DatePicker loPicker = (DatePicker) toField;
-      loPicker.setDisable(!tlEditable);
+      loPicker.getEditor().setEditable(tlEditable);
       loPicker.getEditor().setStyle(lcStyle);
+
+      // The following hides / shows the button for the calendar.
+      if (tlEditable)
+      {
+        if (loPicker.getStyleClass().contains(TabModifyController.DATEPICKER_NON_EDITABLE))
+        {
+          loPicker.getStyleClass().removeAll(TabModifyController.DATEPICKER_NON_EDITABLE);
+        }
+      }
+      else if (!loPicker.getStyleClass().contains(TabModifyController.DATEPICKER_NON_EDITABLE))
+      {
+        loPicker.getStyleClass().add(TabModifyController.DATEPICKER_NON_EDITABLE);
+      }
+
     }
     else if (toField instanceof CheckBox)
     {
@@ -268,15 +287,23 @@ abstract public class TabModifyController extends TabBaseController
   // ---------------------------------------------------------------------------------------------------------------------
   private Control findFocusedComponent(final Pane toParent)
   {
-    for (Node loNode : toParent.getChildren())
+    for (final Node loNode : toParent.getChildren())
     {
       if ((loNode instanceof Control) && (loNode.isFocused()))
       {
         return ((Control) loNode);
       }
+      else if ((loNode instanceof DatePicker) && (((DatePicker) loNode).getEditor().isFocused()))
+      {
+        return ((Control) loNode);
+      }
       else if (loNode instanceof Pane)
       {
-        this.findFocusedComponent((Pane) loNode);
+        final Node loNodeRecursion = (this.findFocusedComponent((Pane) loNode));
+        if (loNodeRecursion != null)
+        {
+          return ((Control) loNodeRecursion);
+        }
       }
     }
 
