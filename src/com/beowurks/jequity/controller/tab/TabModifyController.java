@@ -12,11 +12,14 @@ package com.beowurks.jequity.controller.tab;
 import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
+import com.sun.javafx.scene.control.skin.TableColumnHeader;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -78,9 +81,14 @@ abstract public class TabModifyController extends TabBaseController
     // From https://stackoverflow.com/questions/26563390/detect-doubleclick-on-row-of-tableview-javafx
     toTableView.setOnMouseClicked(toEvent ->
     {
+
       if (toEvent.getClickCount() == 2)
       {
-        TabModifyController.this.modifyRow();
+        final EventTarget loTarget = toEvent.getTarget();
+        if (!(loTarget instanceof TableColumnHeader) && !(loTarget instanceof Rectangle))
+        {
+          TabModifyController.this.modifyRow();
+        }
       }
     });
 
