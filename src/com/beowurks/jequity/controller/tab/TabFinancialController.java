@@ -190,12 +190,13 @@ public class TabFinancialController extends TabModifyController implements Event
   // ---------------------------------------------------------------------------------------------------------------------
   public void refreshData()
   {
-    this.foDataList.clear();
+    final FinancialProperty loCurrent = (FinancialProperty) this.tblFinancial.getSelectionModel().getSelectedItem();
 
     final Session loSession = HibernateUtil.INSTANCE.getSession();
 
     final List<FinancialEntity> loList = this.getQuery(loSession).list();
 
+    this.foDataList.clear();
     for (final FinancialEntity loRow : loList)
     {
       this.foDataList.add(new FinancialProperty(loRow.getGroupID(), loRow.getFinancialID(), loRow.getDescription(), loRow.getAccount(),
@@ -207,6 +208,21 @@ public class TabFinancialController extends TabModifyController implements Event
     {
       this.tblFinancial.setItems(this.foDataList);
     }
+
+    if (loCurrent != null)
+    {
+      final int lnRows = this.tblFinancial.getItems().size();
+      for (int i = 0; i < lnRows; ++i)
+      {
+        final int lnID = ((FinancialProperty) this.tblFinancial.getItems().get(i)).getFinancialID();
+        if (loCurrent.getFinancialID() == lnID)
+        {
+          this.tblFinancial.getSelectionModel().select(i);
+          this.tblFinancial.scrollTo(i);
+        }
+      }
+    }
+
     this.tblFinancial.resizeColumnsToFit();
 
     loSession.close();

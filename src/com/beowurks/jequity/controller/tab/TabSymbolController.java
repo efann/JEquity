@@ -87,12 +87,13 @@ public class TabSymbolController extends TabBaseController
   // -----------------------------------------------------------------------------
   public void refreshData()
   {
-    this.foDataList.clear();
+    final SymbolProperty loCurrent = (SymbolProperty) this.tblSymbol.getSelectionModel().getSelectedItem();
 
     final Session loSession = HibernateUtil.INSTANCE.getSession();
 
     final List<SymbolEntity> loList = this.getQuery(loSession).list();
 
+    this.foDataList.clear();
     for (final SymbolEntity loRow : loList)
     {
       this.foDataList.add(new SymbolProperty(loRow.getSymbol(), loRow.getDescription(), loRow.getLastTrade(), loRow.getTradeTime(), loRow.getDifferential(),
@@ -104,6 +105,20 @@ public class TabSymbolController extends TabBaseController
     if (this.tblSymbol.getItems() != this.foDataList)
     {
       this.tblSymbol.setItems(this.foDataList);
+    }
+
+    if (loCurrent != null)
+    {
+      final int lnRows = this.tblSymbol.getItems().size();
+      for (int i = 0; i < lnRows; ++i)
+      {
+        final String lcSymbol = ((SymbolProperty) this.tblSymbol.getItems().get(i)).getSymbol();
+        if (loCurrent.getSymbol().equals(lcSymbol))
+        {
+          this.tblSymbol.getSelectionModel().select(i);
+          this.tblSymbol.scrollTo(i);
+        }
+      }
     }
 
     this.tblSymbol.resizeColumnsToFit();

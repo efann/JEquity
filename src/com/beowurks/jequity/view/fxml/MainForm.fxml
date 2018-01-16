@@ -40,7 +40,7 @@
                 <fx:include source="TabHistoricalGraph.fxml" fx:id="tabHistoricalGraphMain"/>
             </Tab>
             <Tab fx:id="tabGroup" text="Group" closable="false">
-                <fx:include source="TabGroup.fxml" fx:id="tableGroupMain"/>
+                <fx:include source="TabGroup.fxml" fx:id="tabGroupMain"/>
             </Tab>
 
         </TabPane>

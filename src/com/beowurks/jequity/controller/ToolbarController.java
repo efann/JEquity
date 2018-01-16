@@ -59,13 +59,13 @@ public class ToolbarController
   // ---------------------------------------------------------------------------------------------------------------------
   public Integer refreshGroupComboBox()
   {
-
-    Integer loInit = Constants.UNINITIALIZED;
-
     final ComboBox<IntegerKeyItem> loCombo = this.cboGroup;
 
+    // Save the onAction event then set to null so nothing happens when rebuilding the list.
     final EventHandler<ActionEvent> loActionHandler = loCombo.getOnAction();
     loCombo.setOnAction(null);
+
+    IntegerKeyItem loKeyItemInit = loCombo.getValue();
 
     // An error should not occur here; however, I always want the ComboBox action reset afterwards
     // just in case.
@@ -86,13 +86,21 @@ public class ToolbarController
         final IntegerKeyItem loKeyItem = new IntegerKeyItem(loID, loRow.getDescription());
         loCombo.getItems().add(loKeyItem);
 
-        if (loInit.intValue() == Constants.UNINITIALIZED)
+        if ((loKeyItemInit != null) && (loKeyItem.getKey() == loKeyItemInit.getKey()))
         {
-          loInit = loID;
+          // The description could have changed.
+          loKeyItemInit = loKeyItem;
           loCombo.setValue(loKeyItem);
         }
       }
       loSession.close();
+
+      if ((loKeyItemInit == null) && (loCombo.getItems().size() > 0))
+      {
+        loKeyItemInit = loCombo.getItems().get(0);
+        loCombo.setValue(loKeyItemInit);
+      }
+
     }
     catch (final HibernateException loErr)
     {
@@ -101,7 +109,7 @@ public class ToolbarController
 
     loCombo.setOnAction(loActionHandler);
 
-    return (loInit);
+    return ((loKeyItemInit != null) ? loKeyItemInit.getKey() : Constants.UNINITIALIZED);
   }
 
 

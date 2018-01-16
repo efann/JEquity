@@ -86,12 +86,13 @@ public class TabGroupController extends TabModifyController
   // ---------------------------------------------------------------------------------------------------------------------
   public void refreshData()
   {
-    this.foDataList.clear();
+    final GroupProperty loCurrent = (GroupProperty) this.tblGroup.getSelectionModel().getSelectedItem();
 
     final Session loSession = HibernateUtil.INSTANCE.getSession();
 
     final List<GroupEntity> loList = this.getQuery(loSession).list();
 
+    this.foDataList.clear();
     for (final GroupEntity loRow : loList)
     {
       this.foDataList.add(new GroupProperty(loRow.getGroupID(), loRow.getDescription()));
@@ -100,7 +101,23 @@ public class TabGroupController extends TabModifyController
     if (this.tblGroup.getItems() != this.foDataList)
     {
       this.tblGroup.setItems(this.foDataList);
+
     }
+
+    if (loCurrent != null)
+    {
+      final int lnRows = this.tblGroup.getItems().size();
+      for (int i = 0; i < lnRows; ++i)
+      {
+        final int lnID = ((GroupProperty) this.tblGroup.getItems().get(i)).getID();
+        if (loCurrent.getID() == lnID)
+        {
+          this.tblGroup.getSelectionModel().select(i);
+          this.tblGroup.scrollTo(i);
+        }
+      }
+    }
+
     this.tblGroup.resizeColumnsToFit();
 
     loSession.close();
@@ -145,7 +162,7 @@ public class TabGroupController extends TabModifyController
         // The grid removes then selects another row and then resets this.foCurrentGroupProperty
         this.foCurrentGroupProperty = null;
 
-        this.tblGroup.getItems().remove(loProp);
+        Main.getController().refreshAllComponents(true);
       }
     }
   }
@@ -192,6 +209,8 @@ public class TabGroupController extends TabModifyController
         this.tblGroup.scrollTo(loNewRecord);
 
         this.foCurrentGroupProperty = loNewRecord;
+
+        Main.getController().refreshAllComponents(true);
       }
     }
 

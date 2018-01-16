@@ -9,6 +9,7 @@ package com.beowurks.jequity.dao.hibernate.threads;
 
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
+import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import org.hibernate.Session;
@@ -70,6 +71,7 @@ public class ThreadDownloadSymbolInfo extends ThreadBase implements Runnable
       this.updateAllSymbolInformation();
       this.updateFinancialTable();
 
+      Main.getController().refreshAllComponents(false);
       return;
     }
 

@@ -206,12 +206,14 @@ public class MainFormController implements EventHandler<ActionEvent>
     final String lcTime = loDateFormat.format(loCalender.getTime()).toLowerCase();
 
     // Refresh the Group Table also
-    if ((tlIncludeGroupComboBox) && (this.tabGroupMainController != null))
+    if (tlIncludeGroupComboBox)
     {
       this.tabGroupMainController.refreshData();
     }
 
-    final Integer loGroupID = (tlIncludeGroupComboBox) ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem().getKey();
+    final boolean llRefreshCombo = (tlIncludeGroupComboBox || (this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem() == null));
+    final Integer loGroupID = (llRefreshCombo) ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem().getKey();
+
     HibernateUtil.INSTANCE.setGroupID(loGroupID);
 
     final Tab loCurrentTab = this.tabPane.getSelectionModel().getSelectedItem();
