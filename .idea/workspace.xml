@@ -79,9 +79,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>modifyRow</find>
-      <find>non-edi</find>
-      <find>TabModifyController.DATEPICKER_NON_EDITABLE</find>
       <find>set</find>
       <find>&quot;non-editable-datepicker&quot;</find>
       <find>import javafx.scene.control.TextInputControl</find>
@@ -106,9 +103,12 @@
       <find>refreshDa</find>
       <find>refresh</find>
       <find>tabGroupMainController</find>
-      <find>update</find>
       <find>refres</find>
       <find>.select(</find>
+      <find>updateKeySearch</find>
+      <find>platform</find>
+      <find>update</find>
+      <find>foTimer</find>
     </findStrings>
     <replaceStrings>
       <replace>ManifestUpdate</replace>
@@ -198,8 +198,6 @@
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/TimerSummaryTable.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/css/Main.css" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/test.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadDownloadSymbolInfo.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/backuprestore/ThreadRestore.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadBase.java" />
@@ -214,6 +212,8 @@
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadSymbolInfo.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabGroupController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java" />
       </list>
     </option>
   </component>
@@ -1056,12 +1056,12 @@
       <workItem from="1515859493588" duration="3565000" />
       <workItem from="1516116710661" duration="210000" />
       <workItem from="1516116976087" duration="8000" />
-      <workItem from="1516117110867" duration="15833000" />
+      <workItem from="1516117110867" duration="18823000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="837065000" />
+    <option name="totallyTimeSpent" value="840055000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -1087,13 +1087,13 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39937758" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17748918" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32624114" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32624114" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987553" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26241136" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26241136" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746115" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25572917" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
@@ -1407,13 +1407,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/test.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="32" column="77" lean-forward="true" selection-start-line="32" selection-start-column="77" selection-end-line="32" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/input/KeyCode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="613">
@@ -1425,27 +1418,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1066">
           <caret line="108" column="5" lean-forward="true" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSymbolInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSummaryTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1566,6 +1538,43 @@
         <state relative-caret-position="0">
           <caret line="74" column="6" lean-forward="false" selection-start-line="74" selection-start-column="6" selection-end-line="74" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSymbolInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="42" column="29" lean-forward="false" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="599">
+          <caret line="295" column="54" lean-forward="false" selection-start-line="295" selection-start-column="54" selection-end-line="295" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="82" column="10" lean-forward="false" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
+          <folding>
+            <element signature="e#4165#4394#0" expanded="true" />
+            <element signature="e#4393#4394#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSummaryTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="97" column="8" lean-forward="false" selection-start-line="97" selection-start-column="8" selection-end-line="97" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

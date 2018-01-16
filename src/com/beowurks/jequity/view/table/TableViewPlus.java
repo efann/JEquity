@@ -8,6 +8,7 @@
 
 package com.beowurks.jequity.view.table;
 
+import com.beowurks.jequity.utility.Constants;
 import com.sun.javafx.scene.control.skin.NestedTableColumnHeader;
 import com.sun.javafx.scene.control.skin.TableColumnHeader;
 import com.sun.javafx.scene.control.skin.TableHeaderRow;
@@ -21,6 +22,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.lang.reflect.Method;
+import java.util.Timer;
+import java.util.TimerTask;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -32,6 +35,9 @@ public class TableViewPlus extends TableView
   private final StringBuffer foKeySearch = new StringBuffer("");
 
   private Label foStatusMessage = null;
+
+  private Timer foTimerSearchReset = null;
+
 
   // ---------------------------------------------------------------------------------------------------------------------
   public TableViewPlus()
@@ -58,21 +64,25 @@ public class TableViewPlus extends TableView
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void updateMessage()
+  protected void updateKeySearchMessage()
   {
-    if (this.foStatusMessage != null)
+    if (this.foStatusMessage == null)
     {
-      this.foStatusMessage.setText(this.foKeySearch.length() > 0 ? String.format("Finding: %s", this.foKeySearch.toString()) : "");
+      return;
     }
-  }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  protected void updateMessage(final String tcMessage)
-  {
-    if (this.foStatusMessage != null)
+    final String lcMessage = this.foKeySearch.length() > 0 ? String.format("Finding: %s", this.foKeySearch.toString()) : "";
+
+    if (Platform.isFxApplicationThread())
     {
-      this.foStatusMessage.setText(tcMessage);
+      this.foStatusMessage.setText(lcMessage);
     }
+    else
+    {
+      Platform.runLater(() ->
+          this.foStatusMessage.setText(lcMessage));
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -104,6 +114,29 @@ public class TableViewPlus extends TableView
         return;
       }
 
+      if (this.foTimerSearchReset != null)
+      {
+        this.foTimerSearchReset.cancel();
+      }
+
+      // From
+      // http://stackoverflow.com/questions/1041675/java-timer
+      // and
+      // http://stackoverflow.com/questions/10335784/restart-timer-in-java
+      this.foTimerSearchReset = new Timer();
+
+      this.foTimerSearchReset.schedule(
+          new TimerTask()
+          {
+            @Override
+            public void run()
+            {
+              TableViewPlus.this.resetKeySearch();
+              TableViewPlus.this.updateKeySearchMessage();
+            }
+          }, Constants.TIMER_TABLE_SEARCH_RESET);
+
+
       final String lcCharacter = toEvent.getCharacter();
       if ((int) lcCharacter.toCharArray()[0] == 8)
       {
@@ -131,7 +164,7 @@ public class TableViewPlus extends TableView
         }
       }
 
-      this.updateMessage();
+      this.updateKeySearchMessage();
     });
 
     this.setOnKeyPressed((KeyEvent toEvent) ->
@@ -140,12 +173,18 @@ public class TableViewPlus extends TableView
 
       if (loKey.isArrowKey() || loKey.isFunctionKey() || loKey.isNavigationKey() || loKey.isMediaKey())
       {
-        this.foKeySearch.setLength(0);
-        this.foKeySearch.append("");
+        this.resetKeySearch();
       }
 
-      this.updateMessage();
+      this.updateKeySearchMessage();
     });
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void resetKeySearch()
+  {
+    this.foKeySearch.setLength(0);
+    this.foKeySearch.append("");
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

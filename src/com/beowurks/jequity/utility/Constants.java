@@ -290,6 +290,11 @@ final public class Constants
 
   public final static String BLANK_DESCRIPTION_FOR_SYMBOL = "<Run Update to reset the Description, Price and Valuation Date.>";
 
+  //************************************************************
+  // Used by TableViewPlus
+  // 3 second delay as it's in milliseconds.
+  public final static int TIMER_TABLE_SEARCH_RESET = 3000;
+
   // -----------------------------------------------------------------------------
   private Constants()
   {
