@@ -117,6 +117,7 @@ public class TabSymbolController extends TabBaseController
         {
           this.tblSymbol.getSelectionModel().select(i);
           this.tblSymbol.scrollTo(i);
+          break;
         }
       }
     }

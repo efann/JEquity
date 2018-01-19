@@ -101,7 +101,6 @@ public class TabGroupController extends TabModifyController
     if (this.tblGroup.getItems() != this.foDataList)
     {
       this.tblGroup.setItems(this.foDataList);
-
     }
 
     if (loCurrent != null)
@@ -114,6 +113,7 @@ public class TabGroupController extends TabModifyController
         {
           this.tblGroup.getSelectionModel().select(i);
           this.tblGroup.scrollTo(i);
+          break;
         }
       }
     }

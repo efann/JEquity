@@ -219,6 +219,7 @@ public class TabFinancialController extends TabModifyController implements Event
         {
           this.tblFinancial.getSelectionModel().select(i);
           this.tblFinancial.scrollTo(i);
+          break;
         }
       }
     }
