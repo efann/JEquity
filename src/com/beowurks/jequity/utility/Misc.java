@@ -814,6 +814,22 @@ public final class Misc
   {
     return (Misc.DATE_FORMAT);
   }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  static public double getDoubleFromTextField(final TextField toField)
+  {
+    double lnValue = 0.0;
+    try
+    {
+      lnValue = Double.parseDouble(toField.getText().trim());
+    }
+    catch (final NumberFormatException ignored)
+    {
+    }
+
+    return (lnValue);
+  }
+
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------

@@ -10,6 +10,8 @@ package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
+import com.beowurks.jequity.dao.hibernate.threads.SingleSymbolInfo;
+import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSingleSymbol;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.hibernate.threads.TimerSummaryTable;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
@@ -138,8 +140,6 @@ public class TabFinancialController extends TabModifyController implements Event
 
     this.resetComponentsOnModify(false);
 
-    this.resetComponentsOnModify(false);
-
     TimerSummaryTable.INSTANCE.setTable(this.tblSummary);
   }
 
@@ -160,6 +160,14 @@ public class TabFinancialController extends TabModifyController implements Event
     {
       this.updateTextFieldsWithSymbol();
       this.updateSymbolHyperlink();
+    });
+
+    this.txtSymbol.focusedProperty().addListener((observable, oldValue, newValue) ->
+    {
+      if (oldValue && (!newValue))
+      {
+        ThreadDownloadSingleSymbol.INSTANCE.start(SingleSymbolInfo.INSTANCE);
+      }
     });
 
     this.lnkSymbolURL.setOnAction(this);
@@ -309,9 +317,10 @@ public class TabFinancialController extends TabModifyController implements Event
 
     final FinancialProperty loProp = llCreatingRow ? new FinancialProperty() : this.foCurrentFinancialProperty;
 
-    final double lnShares = this.getDoubleFromTextFieldl(this.txtShares);
-    final double lnPrice = this.getDoubleFromTextFieldl(this.txtPrice);
+    final double lnShares = Misc.getDoubleFromTextField(this.txtShares);
+    final double lnPrice = Misc.getDoubleFromTextField(this.txtPrice);
 
+    loProp.setSymbol(this.txtSymbol.getText().trim());
     loProp.setDescription(this.txtDescription.getText().trim());
     loProp.setAccount(this.txtAccount.getText().trim());
     loProp.setType(this.txtType.getText().trim());
@@ -319,7 +328,6 @@ public class TabFinancialController extends TabModifyController implements Event
     loProp.setShares(lnShares);
     loProp.setPrice(lnPrice);
     loProp.setValuationDate(Date.valueOf(this.txtDate.getValue()));
-    loProp.setSymbol(this.txtSymbol.getText().trim());
     loProp.setRetirement(this.chkRetirement.isSelected());
     loProp.setComments(this.txtComments.getText().trim());
 
@@ -416,6 +424,9 @@ public class TabFinancialController extends TabModifyController implements Event
       return;
     }
 
+    SingleSymbolInfo.INSTANCE.setInformation(this.txtSymbol.getText(), this.txtSymbol,
+        this.txtDescription, this.txtPrice, this.txtDate, this.btnSave);
+
     if (this.findFocused() == null)
     {
       // Signifies editing is enabled so move cursor to the first enabled component.
@@ -469,28 +480,13 @@ public class TabFinancialController extends TabModifyController implements Event
   // ---------------------------------------------------------------------------------------------------------------------
   private void updateTotalLabel()
   {
-    final double lnShares = this.getDoubleFromTextFieldl(this.txtShares);
-    final double lnPrice = this.getDoubleFromTextFieldl(this.txtPrice);
+    final double lnShares = Misc.getDoubleFromTextField(this.txtShares);
+    final double lnPrice = Misc.getDoubleFromTextField(this.txtPrice);
 
     final double lnTotal = lnShares * lnPrice;
 
     this.lblTotal.setText(Misc.getCurrencyFormat().format(lnTotal));
     this.lblTotal.setTextFill((lnTotal >= 0) ? Color.BLACK : Color.RED);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private double getDoubleFromTextFieldl(final TextField toField)
-  {
-    double lnValue = 0.0;
-    try
-    {
-      lnValue = Double.parseDouble(toField.getText().trim());
-    }
-    catch (final NumberFormatException ignored)
-    {
-    }
-
-    return (lnValue);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
