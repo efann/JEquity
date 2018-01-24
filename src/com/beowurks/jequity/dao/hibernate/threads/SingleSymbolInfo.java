@@ -50,6 +50,12 @@ public class SingleSymbolInfo
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public void resetSymbol(final String tcSymbol)
+  {
+    this.fcInitialSymbol = tcSymbol;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public TextField getSymbol()
   {
     return (this.txtSymbol);

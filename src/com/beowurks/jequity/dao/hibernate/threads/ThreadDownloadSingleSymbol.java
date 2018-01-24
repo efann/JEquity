@@ -119,17 +119,11 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
   // http://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
   private void importInformation(final String tcSymbol, final Document toDoc)
   {
+
     this.refreshCurrentTextList(toDoc, tcSymbol);
 
-    String lcDescription = this.getHTML(toDoc, "#quote-header-info h1");
-    if (lcDescription.isEmpty())
-    {
-      lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;
-    }
-
-    // Get rid of anything between parentheses including the parentheses
-    lcDescription = lcDescription.replaceAll("\\(.*\\)", "").trim();
-    lcDescription = lcDescription.replaceAll("&amp;", "&").trim();
+    final String lcDescription = this.getDescriptionFromHtml(toDoc);
+    final boolean llOkay = !lcDescription.equals(Constants.UNKNOWN_STOCK_SYMBOL);
 
     this.foSingleSymbolInfo.getDescriptionField().setText(lcDescription);
 
@@ -149,6 +143,11 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
     this.foSingleSymbolInfo.getPriceField().setText(Double.toString(lnLastTrade));
 
     this.foSingleSymbolInfo.getDateField().setValue(LocalDate.now());
+
+    if (llOkay)
+    {
+      SingleSymbolInfo.INSTANCE.resetSymbol(tcSymbol);
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

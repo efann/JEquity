@@ -152,6 +152,7 @@ final public class Constants
       };
 
   public final static String UNKNOWN_STOCK_SYMBOL = "Unknown Stock Symbol";
+  public final static String DESCRIPTION_HTML_MARKER = "#quote-header-info h1";
 
   public final static String YAHOO_SYMBOL = "[Symbol]";
   public final static String YAHOO_STARTDAY = "[StartDay]";

@@ -24,6 +24,24 @@ public class ThreadDownloadHTML extends ThreadBase
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  protected String getDescriptionFromHtml(final Document toDoc)
+  {
+    String lcDescription = this.getHTML(toDoc, Constants.DESCRIPTION_HTML_MARKER);
+    if (lcDescription.isEmpty())
+    {
+      lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;
+    }
+    else
+    {
+      // Get rid of anything between parentheses including the parentheses
+      lcDescription = lcDescription.replaceAll("\\(.*\\)", "").trim();
+      lcDescription = lcDescription.replaceAll("&amp;", "&").trim();
+    }
+
+    return (lcDescription);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   protected void refreshCurrentTextList(final Document toDoc, final String tcSymbol)
   {
     String lcText = toDoc.text();

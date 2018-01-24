@@ -164,6 +164,7 @@ public class TabFinancialController extends TabModifyController implements Event
 
     this.txtSymbol.focusedProperty().addListener((observable, oldValue, newValue) ->
     {
+      // Signifies that focus has been lost.
       if (oldValue && (!newValue))
       {
         ThreadDownloadSingleSymbol.INSTANCE.start(SingleSymbolInfo.INSTANCE);

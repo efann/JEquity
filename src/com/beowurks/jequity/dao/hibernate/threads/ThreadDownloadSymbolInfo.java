@@ -227,15 +227,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
     this.refreshCurrentTextList(toDoc, toSymbol.getSymbol());
 
-    String lcDescription = this.getHTML(toDoc, "#quote-header-info h1");
-    if (lcDescription.isEmpty())
-    {
-      lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;
-    }
-
-    // Get rid of anything between parentheses including the parentheses
-    lcDescription = lcDescription.replaceAll("\\(.*\\)", "").trim();
-    lcDescription = lcDescription.replaceAll("&amp;", "&").trim();
+    final String lcDescription = this.getDescriptionFromHtml(toDoc);
 
     toSymbol.setDescription(lcDescription);
 
