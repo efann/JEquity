@@ -14,27 +14,27 @@
 <VBox stylesheets="@../css/Main.css"
       xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.beowurks.jequity.controller.tab.TabGroupController">
-    <TableViewPlus fx:id="tblGroup" prefHeight="200">
-        <columns>
-            <TableColumn fx:id="colID" text="ID #"/>
-            <TableColumn fx:id="colDescription" text="Description"/>
-        </columns>
-    </TableViewPlus>
-    <HBox fx:id="boxComponents">
-        <GridPane fx:id="gridPaneComponents" hgap="5">
-            <Label text="Description" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="RIGHT"/>
-            <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="400"/>
-            <HBox fx:id="boxSaveCancel" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <Button fx:id="btnSave" text="Save"/>
-                <Button fx:id="btnCancel" text="Cancel"/>
-            </HBox>
-        </GridPane>
+  <TableViewPlus fx:id="tblGroup" prefHeight="200">
+    <columns>
+      <TableColumn fx:id="colID" text="ID #"/>
+      <TableColumn fx:id="colDescription" text="Description"/>
+    </columns>
+  </TableViewPlus>
+  <HBox fx:id="boxComponents">
+    <GridPane fx:id="gridPaneComponents" hgap="5">
+      <Label text="Description" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="400"/>
+      <HBox fx:id="boxSaveCancel" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <Button fx:id="btnSave" text="Save"/>
+        <Button fx:id="btnCancel" text="Cancel"/>
+      </HBox>
+    </GridPane>
 
-        <GridPane hgap="10">
-            <Button fx:id="btnModify" text="Modify" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-            <Button fx:id="btnCreate" text="Create" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-            <Button fx:id="btnClone" text="Clone" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-            <Button fx:id="btnRemove" text="Remove" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-        </GridPane>
-    </HBox>
+    <GridPane hgap="10">
+      <Button fx:id="btnModify" text="Modify" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+      <Button fx:id="btnCreate" text="Create" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+      <Button fx:id="btnClone" text="Clone" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+      <Button fx:id="btnRemove" text="Remove" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+    </GridPane>
+  </HBox>
 </VBox>

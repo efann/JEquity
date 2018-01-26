@@ -12,7 +12,7 @@
 <SwingNode fx:id="rptSwingNode"
            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.beowurks.jequity.controller.tab.TabReportController">
-    <!--
-      Leave this end tag: otherwise the application bombs.
-    -->
+  <!--
+    Leave this end tag: otherwise the application bombs.
+  -->
 </SwingNode>

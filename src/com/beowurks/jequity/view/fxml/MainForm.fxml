@@ -19,44 +19,44 @@
 <BorderPane stylesheets="@../css/Main.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.beowurks.jequity.controller.MainFormController">
-    <top>
-        <VBox>
-            <fx:include source="Menu.fxml" fx:id="menuMain"/>
-            <fx:include source="Toolbar.fxml" fx:id="toolbarMain"/>
-        </VBox>
-    </top>
-    <center>
-        <TabPane fx:id="tabPane">
-            <Tab fx:id="tabFinancial" text="Financial" closable="false">
-                <fx:include source="TabFinancial.fxml" fx:id="tabFinancialMain"/>
-            </Tab>
-            <Tab fx:id="tabDaily" text="Daily" closable="false">
-                <fx:include source="TabSymbol.fxml" fx:id="tabSymbolMain"/>
-            </Tab>
-            <Tab fx:id="tabReports" text="Reports" closable="false">
-                <fx:include source="TabReport.fxml" fx:id="tabReportMain"/>
-            </Tab>
-            <Tab fx:id="tabHistorical" text="Historical" closable="false">
-                <fx:include source="TabHistoricalGraph.fxml" fx:id="tabHistoricalGraphMain"/>
-            </Tab>
-            <Tab fx:id="tabGroup" text="Group" closable="false">
-                <fx:include source="TabGroup.fxml" fx:id="tabGroupMain"/>
-            </Tab>
+  <top>
+    <VBox>
+      <fx:include source="Menu.fxml" fx:id="menuMain"/>
+      <fx:include source="Toolbar.fxml" fx:id="toolbarMain"/>
+    </VBox>
+  </top>
+  <center>
+    <TabPane fx:id="tabPane">
+      <Tab fx:id="tabFinancial" text="Financial" closable="false">
+        <fx:include source="TabFinancial.fxml" fx:id="tabFinancialMain"/>
+      </Tab>
+      <Tab fx:id="tabDaily" text="Daily" closable="false">
+        <fx:include source="TabSymbol.fxml" fx:id="tabSymbolMain"/>
+      </Tab>
+      <Tab fx:id="tabReports" text="Reports" closable="false">
+        <fx:include source="TabReport.fxml" fx:id="tabReportMain"/>
+      </Tab>
+      <Tab fx:id="tabHistorical" text="Historical" closable="false">
+        <fx:include source="TabHistoricalGraph.fxml" fx:id="tabHistoricalGraphMain"/>
+      </Tab>
+      <Tab fx:id="tabGroup" text="Group" closable="false">
+        <fx:include source="TabGroup.fxml" fx:id="tabGroupMain"/>
+      </Tab>
 
-        </TabPane>
-    </center>
-    <bottom>
-        <BorderPane fx:id="statusBar">
-            <left>
-                <Label fx:id="statusMessage" text="Welcome to JEquity" GridPane.columnIndex="0" GridPane.rowIndex="0"
-                       GridPane.halignment="LEFT"/>
-            </left>
-            <right>
-                <HBox>
-                    <Label fx:id="progressLabel"/>
-                    <ProgressBar fx:id="progressBar" progress="0.0"/>
-                </HBox>
-            </right>
-        </BorderPane>
-    </bottom>
+    </TabPane>
+  </center>
+  <bottom>
+    <BorderPane fx:id="statusBar">
+      <left>
+        <Label fx:id="statusMessage" text="Welcome to JEquity" GridPane.columnIndex="0" GridPane.rowIndex="0"
+               GridPane.halignment="LEFT"/>
+      </left>
+      <right>
+        <HBox>
+          <Label fx:id="progressLabel"/>
+          <ProgressBar fx:id="progressBar" progress="0.0"/>
+        </HBox>
+      </right>
+    </BorderPane>
+  </bottom>
 </BorderPane>

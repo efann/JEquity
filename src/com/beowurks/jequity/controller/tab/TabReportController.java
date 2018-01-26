@@ -21,7 +21,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;

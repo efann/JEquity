@@ -21,32 +21,32 @@
 <AnchorPane stylesheets="@../css/Main.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.beowurks.jequity.controller.tab.TabHistoricalGraphController">
-    <GridPane hgap="10" vgap="10" fx:id="grdPaneHistorical" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
-        <Label GridPane.columnIndex="0" GridPane.rowIndex="0"
-               text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
-        <ComboBox fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+  <GridPane hgap="10" vgap="10" fx:id="grdPaneHistorical" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="0"
+           text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
+    <ComboBox fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-        <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Start Date"/>
-        <DatePicker fx:id="txtStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <Label GridPane.columnIndex="1" GridPane.rowIndex="2" text="End Date"/>
-        <DatePicker fx:id="txtEnd" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-        <CheckBox fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Start Date"/>
+    <DatePicker fx:id="txtStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="2" text="End Date"/>
+    <DatePicker fx:id="txtEnd" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <CheckBox fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
-        <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+    <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
 
-    </GridPane>
+  </GridPane>
 
-    <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="180.0" AnchorPane.bottomAnchor="10.0"
-               AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" createSymbols="false">
-        <effect>
-            <DropShadow color="GRAY" height="70" width="70"/>
-        </effect>
-        <xAxis>
-            <DateAxis side="BOTTOM" label="Date"/>
-        </xAxis>
-        <yAxis>
-            <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
-        </yAxis>
-    </LineChart>
+  <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="180.0" AnchorPane.bottomAnchor="10.0"
+             AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" createSymbols="false">
+    <effect>
+      <DropShadow color="GRAY" height="70" width="70"/>
+    </effect>
+    <xAxis>
+      <DateAxis side="BOTTOM" label="Date"/>
+    </xAxis>
+    <yAxis>
+      <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
+    </yAxis>
+  </LineChart>
 
 </AnchorPane>

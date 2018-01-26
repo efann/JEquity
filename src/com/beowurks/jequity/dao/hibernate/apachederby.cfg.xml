@@ -9,50 +9,50 @@
   -->
 
 <!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD//EN"
-        "http://www.hibernate.org/dtd//hibernate-configuration-3.0.dtd">
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd//hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</property>
-        <!--
-                From https://docs.jboss.org/hibernate/orm/5.0/javadocs/org/hibernate/dialect/package-summary.html
-        -->
-        <property name="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</property>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</property>
+    <!--
+            From https://docs.jboss.org/hibernate/orm/5.0/javadocs/org/hibernate/dialect/package-summary.html
+    -->
+    <property name="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</property>
 
-        <property name="hibernate.show_sql">false</property>
-        <property name="hibernate.format_sql">false</property>
-        <property name="hibernate.default_schema">"JEquityRCP"</property>
+    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.format_sql">false</property>
+    <property name="hibernate.default_schema">"JEquityRCP"</property>
 
-        <!--
-                Stack Overflow rocks!!!!!! At the Initializing c3p0 pool... line,
-                the program was hanging for about 40 seconds. Now, the Consult screen shows
-                in ~9 seconds versus ~45 seconds.
-                http://stackoverflow.com/questions/10075081/hibernate-slow-to-acquire-postgres-connection
-        -->
-        <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+    <!--
+            Stack Overflow rocks!!!!!! At the Initializing c3p0 pool... line,
+            the program was hanging for about 40 seconds. Now, the Consult screen shows
+            in ~9 seconds versus ~45 seconds.
+            http://stackoverflow.com/questions/10075081/hibernate-slow-to-acquire-postgres-connection
+    -->
+    <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
 
-        <property name="hibernate.jdbc.batch_size">50</property>
+    <property name="hibernate.jdbc.batch_size">50</property>
 
-        <!--
-                From http://www.mkyong.com/hibernate/how-to-configure-the-c3p0-connection-pool-in-hibernate/
-                By the way, with Apache Derby Embedded, it appears that we should NOT use c3p0 as there
-                are issues with multiple connections to an embedded system, like only one connection allowed.
-                This should be okay, as the database server is local and dedicated.
-                I was getting errors like the following:
-                  ERROR 08003: No current connection. Caused: java.sql.SQLNonTransientConnectionException: No current connection.
-                    and
-                  ERROR XSDB6: Another instance of Derby may have already booted the database D:\javadb\JEquityDB.
-        -->
+    <!--
+            From http://www.mkyong.com/hibernate/how-to-configure-the-c3p0-connection-pool-in-hibernate/
+            By the way, with Apache Derby Embedded, it appears that we should NOT use c3p0 as there
+            are issues with multiple connections to an embedded system, like only one connection allowed.
+            This should be okay, as the database server is local and dedicated.
+            I was getting errors like the following:
+              ERROR 08003: No current connection. Caused: java.sql.SQLNonTransientConnectionException: No current connection.
+                and
+              ERROR XSDB6: Another instance of Derby may have already booted the database D:\javadb\JEquityDB.
+    -->
 
-        <!--
-                Good discussion here concerning hbm2ddl.auto
-                http://stackoverflow.com/questions/221379/hibernate-hbm2ddl-auto-update-in-production
-        -->
-        <property name="hibernate.hbm2ddl.auto">none</property>
+    <!--
+            Good discussion here concerning hbm2ddl.auto
+            http://stackoverflow.com/questions/221379/hibernate-hbm2ddl-auto-update-in-production
+    -->
+    <property name="hibernate.hbm2ddl.auto">none</property>
 
-        <mapping class="com.beowurks.jequity.dao.hibernate.FinancialEntity"/>
-        <mapping class="com.beowurks.jequity.dao.hibernate.GroupEntity"/>
-        <mapping class="com.beowurks.jequity.dao.hibernate.SymbolEntity"/>
+    <mapping class="com.beowurks.jequity.dao.hibernate.FinancialEntity"/>
+    <mapping class="com.beowurks.jequity.dao.hibernate.GroupEntity"/>
+    <mapping class="com.beowurks.jequity.dao.hibernate.SymbolEntity"/>
 
-    </session-factory>
+  </session-factory>
 </hibernate-configuration>

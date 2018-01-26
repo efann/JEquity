@@ -63,7 +63,6 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   @FXML
   private TableColumn colValue;
 
-
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
   @FXML

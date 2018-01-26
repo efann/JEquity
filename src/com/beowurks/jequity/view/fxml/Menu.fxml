@@ -12,45 +12,45 @@
 <MenuBar fx:id="menuBar" stylesheets="@../css/Main.css"
          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="com.beowurks.jequity.controller.MenuController">
-    <Menu text="File">
-        <MenuItem fx:id="menuBackup" text="Backup" onAction="#backupData"/>
-        <MenuItem fx:id="menuRestore" text="Restore" onAction="#restoreData"/>
-        <SeparatorMenuItem/>
-        <MenuItem fx:id="menuMasterPassword" text="Master Password..." onAction="#changeMasterPassword"/>
-        <SeparatorMenuItem/>
-        <!--
-            MainFormController takes care of their actions
-        -->
-        <MenuItem fx:id="menuPrint" text="Print..."/>
-        <SeparatorMenuItem/>
-        <MenuItem fx:id="menuExport" text="Export..." onAction="#exportData"/>
-        <SeparatorMenuItem/>
-        <MenuItem fx:id="menuExit" text="Exit" onAction="#exitApplication"/>
-    </Menu>
-    <Menu text="Edit">
-        <MenuItem text="Copy"/>
-        <MenuItem text="Cut"/>
-        <MenuItem text="Paste"/>
-    </Menu>
-    <Menu text="Data">
-        <!--
-            MainFormController takes care of their actions
-        -->
-        <MenuItem fx:id="menuUpdate" text="Update"/>
-        <MenuItem fx:id="menuRefresh" text="Refresh"/>
-    </Menu>
-    <Menu text="Tools">
-        <MenuItem fx:id="menuOptions" text="Options..." onAction="#showOptions"/>
-        <SeparatorMenuItem/>
-        <MenuItem fx:id="menuSampleData" text="Sample Data..." onAction="#downloadSampleData"/>
-    </Menu>
-    <Menu text="Help">
-        <MenuItem fx:id="menuCredits" text="Credits" onAction="#showCredits"/>
-        <MenuItem fx:id="menuCheckForUpdates" text="Check for Updates..." onAction="#showUpdates"/>
-        <SeparatorMenuItem/>
-        <MenuItem fx:id="menuLicense" text="License" onAction="#showLicense"/>
-        <SeparatorMenuItem/>
-        <MenuItem fx:id="menuAbout" text="About" onAction="#showAbout"/>
+  <Menu text="File">
+    <MenuItem fx:id="menuBackup" text="Backup" onAction="#backupData"/>
+    <MenuItem fx:id="menuRestore" text="Restore" onAction="#restoreData"/>
+    <SeparatorMenuItem/>
+    <MenuItem fx:id="menuMasterPassword" text="Master Password..." onAction="#changeMasterPassword"/>
+    <SeparatorMenuItem/>
+    <!--
+        MainFormController takes care of their actions
+    -->
+    <MenuItem fx:id="menuPrint" text="Print..."/>
+    <SeparatorMenuItem/>
+    <MenuItem fx:id="menuExport" text="Export..." onAction="#exportData"/>
+    <SeparatorMenuItem/>
+    <MenuItem fx:id="menuExit" text="Exit" onAction="#exitApplication"/>
+  </Menu>
+  <Menu text="Edit">
+    <MenuItem text="Copy"/>
+    <MenuItem text="Cut"/>
+    <MenuItem text="Paste"/>
+  </Menu>
+  <Menu text="Data">
+    <!--
+        MainFormController takes care of their actions
+    -->
+    <MenuItem fx:id="menuUpdate" text="Update"/>
+    <MenuItem fx:id="menuRefresh" text="Refresh"/>
+  </Menu>
+  <Menu text="Tools">
+    <MenuItem fx:id="menuOptions" text="Options..." onAction="#showOptions"/>
+    <SeparatorMenuItem/>
+    <MenuItem fx:id="menuSampleData" text="Sample Data..." onAction="#downloadSampleData"/>
+  </Menu>
+  <Menu text="Help">
+    <MenuItem fx:id="menuCredits" text="Credits" onAction="#showCredits"/>
+    <MenuItem fx:id="menuCheckForUpdates" text="Check for Updates..." onAction="#showUpdates"/>
+    <SeparatorMenuItem/>
+    <MenuItem fx:id="menuLicense" text="License" onAction="#showLicense"/>
+    <SeparatorMenuItem/>
+    <MenuItem fx:id="menuAbout" text="About" onAction="#showAbout"/>
 
-    </Menu>
+  </Menu>
 </MenuBar>

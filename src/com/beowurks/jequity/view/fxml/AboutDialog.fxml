@@ -22,25 +22,25 @@
           xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="com.beowurks.jequity.controller.AboutBoxController"
           stylesheets="/com/beowurks/jequity/view/css/Main.css">
-    <padding>
-        <Insets top="10" right="10" bottom="10" left="10"/>
-    </padding>
+  <padding>
+    <Insets top="10" right="10" bottom="10" left="10"/>
+  </padding>
 
-    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
-        <Hyperlink fx:id="lnkLogo"/>
-        <HyperlinkLabel fx:id="lnkLicense"/>
-    </VBox>
+  <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Hyperlink fx:id="lnkLogo"/>
+    <HyperlinkLabel fx:id="lnkLicense"/>
+  </VBox>
 
-    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
-        <Hyperlink fx:id="lnkApplicationName"/>
-        <Label fx:id="lblApplicationVersion"/>
-        <HyperlinkLabel fx:id="lnkCopyright"/>
+  <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <Hyperlink fx:id="lnkApplicationName"/>
+    <Label fx:id="lblApplicationVersion"/>
+    <HyperlinkLabel fx:id="lnkCopyright"/>
 
-        <TableViewPlus fx:id="tblEnvironment" prefWidth="600.0">
-            <columns>
-                <TableColumn fx:id="colKey" text="Key"/>
-                <TableColumn fx:id="colValue" text="Value"/>
-            </columns>
-        </TableViewPlus>
-    </VBox>
+    <TableViewPlus fx:id="tblEnvironment" prefWidth="600.0">
+      <columns>
+        <TableColumn fx:id="colKey" text="Key"/>
+        <TableColumn fx:id="colValue" text="Value"/>
+      </columns>
+    </TableViewPlus>
+  </VBox>
 </GridPane>

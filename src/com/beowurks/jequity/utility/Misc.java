@@ -31,8 +31,9 @@ import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
 import org.w3c.dom.NodeList;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.SwingUtilities;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.NumberFormat;
