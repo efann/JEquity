@@ -35,7 +35,7 @@ public class AboutBoxController implements EventHandler<ActionEvent>
 {
   private final static String JEQUITY_COMPANY = "http://www.beowurks.com/";
   private final static String JEQUITY_HOME = "http://www.beowurks.com/applications/single/JEquity";
-  private final static String JEQUITY_LICENSE = "https://opensource.org/licenses/EPL-1.0";
+  private final static String JEQUITY_LICENSE = "https://www.eclipse.org/legal/epl-2.0/";
 
   private final ObservableList<EnvironmentProperty> foDataList = FXCollections.observableArrayList();
 
@@ -68,7 +68,7 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   @FXML
   public void initialize()
   {
-    this.lnkLicense.setText("Licensed under the [Eclipse Public License 1.0]");
+    this.lnkLicense.setText("Licensed under the [Eclipse Public License - v 2.0]");
     this.lnkLicense.setOnAction(this);
 
     this.lnkApplicationName.setText(Main.getApplicationName());

@@ -13,6 +13,7 @@ import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadRestore;
+import com.beowurks.jequity.dao.hibernate.threads.TimerSummaryTable;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
@@ -21,8 +22,10 @@ import com.beowurks.jequity.view.dialog.AboutDialog;
 import com.beowurks.jequity.view.dialog.OptionsDialog;
 import com.beowurks.jequity.view.dialog.PasswordConfirmDialog;
 import com.beowurks.jequity.view.misc.CheckForUpdates;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
@@ -42,6 +45,9 @@ import java.util.Optional;
 public class MenuController
 {
   @FXML
+  private MenuBar menuBar;
+
+  @FXML
   private MenuItem menuUpdate;
 
   @FXML
@@ -49,6 +55,22 @@ public class MenuController
 
   @FXML
   private MenuItem menuPrint;
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
+  @FXML
+  public void initialize()
+  {
+    if (Misc.isMacintosh())
+    {
+      // From https://stackoverflow.com/questions/22569046/how-to-make-an-os-x-menubar-in-javafx
+      Platform.runLater(() ->
+      {
+        this.menuBar.setUseSystemMenuBar(true);
+      });
+    }
+
+  }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public MenuItem getMenuUpdate()
