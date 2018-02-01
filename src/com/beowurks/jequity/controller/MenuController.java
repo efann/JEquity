@@ -13,7 +13,6 @@ import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadRestore;
-import com.beowurks.jequity.dao.hibernate.threads.TimerSummaryTable;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;

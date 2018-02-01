@@ -53,7 +53,7 @@ public final class Misc
   static private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy");
 
   // Used by the isWindows routine
-  static public final String OPERATING_SYSTEM = System.getProperty("os.name");
+  static public final String OPERATING_SYSTEM = System.getProperty("os.name", "Unknown OS");
 
   // Used by the alerts
   static public final String ALERT_STYLE_SHEET = Thread.currentThread().getContextClassLoader().getResource("com/beowurks/jequity/view/css/Main.css").toExternalForm();
