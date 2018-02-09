@@ -25,9 +25,9 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Optional;
 
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------
 public final class AppProperties extends BaseProperties
 {
 
@@ -42,7 +42,7 @@ public final class AppProperties extends BaseProperties
   private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   private AppProperties()
   {
     super(Constants.LOCAL_PATH, Constants.USER_FILENAME, "JEquity\u00a9 Parameters - DO NOT EDIT . . . please", AppProperties.getDefaultMasterKey(), false, false);
@@ -74,7 +74,7 @@ public final class AppProperties extends BaseProperties
 
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   @Override
   public boolean readProperties()
   {
@@ -83,7 +83,7 @@ public final class AppProperties extends BaseProperties
     return (this.flSuccessfulRead);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   @Override
   public boolean writeProperties()
   {
@@ -95,13 +95,13 @@ public final class AppProperties extends BaseProperties
     return (false);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public boolean isSuccessfullyRead()
   {
     return (this.flSuccessfulRead);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String requestMasterKey()
   {
     Misc.setStatusText("Requesting Master Key. . . .");
@@ -114,55 +114,55 @@ public final class AppProperties extends BaseProperties
     return (loResults.orElse((null)));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public IntegerKeyItem[] getRDBMS_Types()
   {
     return (Constants.RDBMS_DRIVERS);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public IntegerKeyItem[] getDailyIntervals()
   {
     return (Constants.DAILY_INTERVAL);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getDefaultDerbyUser()
   {
     return (Constants.DERBY_USERNAME);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getDerbyBootPassword()
   {
     return (Constants.DERBY_BOOT_PASSWORD);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getDefaultDerbyPassword()
   {
     return (Constants.DERBY_DEFAULT_PASSWORD);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public int getDefaultDriverKey()
   {
     return (Constants.DRIVER_KEY_DERBY);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getDefaultDatabase()
   {
     return (Constants.DERBY_PATH);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getDefaultHost()
   {
     return ("localhost");
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getConnectionURL()
   {
     final StringBuilder lcURL = new StringBuilder();
@@ -211,44 +211,44 @@ public final class AppProperties extends BaseProperties
     return (lcURL.toString());
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getConnectionDatabase()
   {
     return (this.getProperty(Constants.CONNECTION_DATABASE, Constants.DERBY_PATH).trim());
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getConnectionHost()
   {
     return (this.getProperty(Constants.CONNECTION_HOST, this.getDefaultHost()).trim());
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getConnectionUser()
   {
     return (this.getProperty(Constants.CONNECTION_USER, this.getDefaultDerbyUser()).trim());
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getConnectionPassword()
   {
     return (this.getProperty(Constants.CONNECTION_PASSWORD, this.getDefaultDerbyPassword()).trim());
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public int getConnectionRDBMS_Key()
   {
     return (this.getProperty(Constants.CONNECTION_RDBMS_KEY, Constants.RDBMS_DRIVERS[0].getKey()));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public int getDailyIntervalKey()
   {
     // Default is every 10 minutes.
     return (this.getProperty(Constants.DAILY_INTERVAL_KEY, Constants.DAILY_INTERVAL[1].getKey()));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getConnectionRDBMS_Description()
   {
     final int lnIndex = this.convertKeyToIndex(this.getRDBMS_Types(), this.getConnectionRDBMS_Key());
@@ -256,13 +256,13 @@ public final class AppProperties extends BaseProperties
     return (Constants.RDBMS_DRIVERS[lnIndex].toString());
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getBackupRestoreFolder()
   {
     return (this.getProperty(Constants.BACKUP_RESTORE_FOLDER, Misc.includeTrailingBackslash(System.getProperty("user.home"))));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public Date getHistoricalStartDefault()
   {
     final Date ldHistoricalStartDateDefault = Date.valueOf("2014-01-01");
@@ -270,13 +270,13 @@ public final class AppProperties extends BaseProperties
     return (this.getProperty(Constants.HISTORICAL_START_DEFAULT, ldHistoricalStartDateDefault));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public Date getHistoricalStart(final String tcSymbol)
   {
     return (this.getProperty(Constants.HISTORICAL_START + tcSymbol, this.getHistoricalStartDefault()));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public boolean getFlywayAlwaysCheck()
   {
     // When developing, sometimes I delete the entire databsae which will then need
@@ -286,20 +286,20 @@ public final class AppProperties extends BaseProperties
     return (this.getProperty(Constants.FLYWAY_ALWAYS_CHECK, Main.isDevelopmentEnvironment()));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   // This represents the version of JEquity where Flyway was successful.
   public String getFlywaySuccessfulJEquityVersion()
   {
     return (this.getProperty(Constants.FLYWAY_SUCCESSFUL_JEQUITY, "0.0.0.0.0"));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getExportFileChooserFilename()
   {
     return (this.getProperty(Constants.EXPORT_FILECHOOSER_FILENAME, "export.csv"));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   private int getPositionOfFirstNumber(final String tcValue)
   {
     final int lnLength = tcValue.length();
@@ -312,82 +312,82 @@ public final class AppProperties extends BaseProperties
     return (lnPos);
   }
 
-  // -----------------------------------------------------------------------------
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setConnectionDatabase(final String tcValue)
   {
     this.setProperty(Constants.CONNECTION_DATABASE, tcValue);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setConnectionHost(final String tcValue)
   {
     this.setProperty(Constants.CONNECTION_HOST, tcValue);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setConnectionUser(final String tcValue)
   {
     this.setProperty(Constants.CONNECTION_USER, tcValue);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setConnectionPassword(final String tcValue)
   {
     this.setProperty(Constants.CONNECTION_PASSWORD, tcValue);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setConnectionRDBMS_Key(final int tnValue)
   {
     this.setProperty(Constants.CONNECTION_RDBMS_KEY, tnValue);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setDailyIntervalKey(final int tnValue)
   {
     this.setProperty(Constants.DAILY_INTERVAL_KEY, tnValue);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setBackupRestoreFolder(final String tcValue)
   {
     this.setProperty(Constants.BACKUP_RESTORE_FOLDER, tcValue);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setHistoricalStartDefault(final Date tdValue)
   {
     this.setProperty(Constants.HISTORICAL_START_DEFAULT, AppProperties.DATE_FORMAT.format(tdValue));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setHistoricalStart(final String tcSymbol, final Date tdValue)
   {
     this.setProperty(Constants.HISTORICAL_START + tcSymbol, AppProperties.DATE_FORMAT.format(tdValue));
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setFlywayAlwaysCheck(final boolean tlValue)
   {
     this.setProperty(Constants.FLYWAY_ALWAYS_CHECK, tlValue);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   // This represents the version of JEquity where Flyway was successful.
   public void setFlywaySuccessfulJEquityVersion(final String tcValue)
   {
     this.setProperty(Constants.FLYWAY_SUCCESSFUL_JEQUITY, tcValue);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setExportFileChooserFilename(final String tcValue)
   {
     this.setProperty(Constants.EXPORT_FILECHOOSER_FILENAME, tcValue);
   }
 
-  // -----------------------------------------------------------------------------
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public int convertIndexToKey(final IntegerKeyItem[] taItems, final int tnIndex)
   {
     int lnIndex = tnIndex;
@@ -405,7 +405,7 @@ public final class AppProperties extends BaseProperties
     return (taItems[lnIndex].getKey());
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public int convertKeyToIndex(final IntegerKeyItem[] taItems, final int tnKey)
   {
     final int lnLength = taItems.length;
@@ -423,8 +423,8 @@ public final class AppProperties extends BaseProperties
     return (lnValue);
   }
 
-  // -----------------------------------------------------------------------------
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   // Never save the password to the property's file.
   public void setMasterKey(final String tcValue)
   {
@@ -432,7 +432,7 @@ public final class AppProperties extends BaseProperties
     this.setKey(this.fcPassword);
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
   public static String getDefaultMasterKey()
   {
     final StringBuilder loBuilder = new StringBuilder(Constants.USER_FILENAME);
@@ -440,8 +440,8 @@ public final class AppProperties extends BaseProperties
     return ("*" + loBuilder.reverse().append("*").toString());
   }
 
-  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------

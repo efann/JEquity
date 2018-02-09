@@ -447,7 +447,7 @@ public final class HibernateUtil
   // -----------------------------------------------------------------------------
   private String generateXMLString(final List<Object> toList)
   {
-    final XMLTextWriter loTextWriter = new XMLTextWriter(true);
+    final XMLTextWriter loTextWriter = XMLTextWriter.INSTANCE;
     loTextWriter.initializeXMLDocument();
     loTextWriter.createRootNode(Constants.XML_ROOT_LABEL, null);
 

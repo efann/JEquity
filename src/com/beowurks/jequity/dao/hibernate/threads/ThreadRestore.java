@@ -76,18 +76,20 @@ public class ThreadRestore extends ThreadBase implements Runnable
   // -----------------------------------------------------------------------------
   public boolean start(final File toXMLFile, final boolean tlDisplayDialogMessage)
   {
-    this.flDisplayDialogMessage = tlDisplayDialogMessage;
-
     if ((this.foThread != null) && (this.foThread.isAlive()))
     {
-      if (this.flDisplayDialogMessage)
+      if (tlDisplayDialogMessage)
       {
         Misc.errorMessage("Restoring is currently in progress. . . .");
       }
       return (false);
     }
 
+    // Set these variables after Thread check just in case the Thread was already running:
+    // you don't want to alter variables in the middle of a run.
+    this.flDisplayDialogMessage = tlDisplayDialogMessage;
     this.foXMLFile = toXMLFile;
+    this.foGroupMap.clear();
 
     this.foThread = new Thread(this);
     this.foThread.setPriority(Thread.NORM_PRIORITY);
@@ -99,7 +101,7 @@ public class ThreadRestore extends ThreadBase implements Runnable
   // -----------------------------------------------------------------------------
   private String restoreFromXML()
   {
-    final XMLTextReader loReader = new XMLTextReader();
+    final XMLTextReader loReader = XMLTextReader.INSTANCE;
     loReader.initializeXMLDocument(this.foXMLFile);
 
     final Document loDocument = loReader.getDocument();

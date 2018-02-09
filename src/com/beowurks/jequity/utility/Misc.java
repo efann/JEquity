@@ -14,16 +14,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -831,6 +823,28 @@ public final class Misc
     return (lnValue);
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  static public void setEditableForDatePicker(final DatePicker toPicker, final boolean tlEditable)
+  {
+    final String lcStyle = tlEditable ? "" : Constants.DISABLED_CONTROL_BACKGROUND;
+
+    toPicker.getEditor().setEditable(tlEditable);
+    toPicker.getEditor().setStyle(lcStyle);
+
+    // The following hides / shows the button for the calendar.
+    if (tlEditable)
+    {
+      if (toPicker.getStyleClass().contains(Constants.DATEPICKER_NON_EDITABLE))
+      {
+        toPicker.getStyleClass().removeAll(Constants.DATEPICKER_NON_EDITABLE);
+      }
+    }
+    else if (!toPicker.getStyleClass().contains(Constants.DATEPICKER_NON_EDITABLE))
+    {
+      toPicker.getStyleClass().add(Constants.DATEPICKER_NON_EDITABLE);
+    }
+
+  }
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------

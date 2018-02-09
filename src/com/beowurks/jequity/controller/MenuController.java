@@ -185,7 +185,7 @@ public class MenuController
         }
         else
         {
-          Misc.errorMessage(String.format("There was an error in restoration:\n\n%s", ThreadRestore.INSTANCE.getErrorMessage()));
+          Misc.errorMessage(String.format("There was an error in importing the Sample Datar:\n\n%s", ThreadRestore.INSTANCE.getErrorMessage()));
         }
       }
       catch (final IOException loErr)

@@ -12,16 +12,22 @@ import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.dao.tableview.GroupProperty;
+import com.beowurks.jequity.utility.AppProperties;
+import com.beowurks.jequity.utility.Misc;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -31,6 +37,18 @@ public class TabHistoricalGraphController
 {
   @FXML
   private ComboBox<StringKeyItem> cboStocks;
+
+  @FXML
+  private DatePicker txtStart;
+
+  @FXML
+  private DatePicker txtEnd;
+
+  @FXML
+  private CheckBox chkUseToday;
+
+  @FXML
+  private Button btnAnalyze;
 
   @FXML
   private LineChart<Date, Number> chtLineChart;
@@ -46,12 +64,23 @@ public class TabHistoricalGraphController
   {
     this.setupXYDataSeries();
     this.setupChart();
+
+    this.setupListeners();
+
+    this.txtStart.setValue(AppProperties.INSTANCE.getHistoricalStartDefault().toLocalDate());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public ComboBox<StringKeyItem> getComboBox()
   {
     return (this.cboStocks);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void setupListeners()
+  {
+    this.btnAnalyze.setOnAction(toActionEvent -> TabHistoricalGraphController.this.analyzeData());
+    this.chkUseToday.setOnAction(toActionEvent -> TabHistoricalGraphController.this.useToday());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -124,6 +153,25 @@ public class TabHistoricalGraphController
 
     return (loInitKeyItem);
 
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void analyzeData()
+  {
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void useToday()
+  {
+    final boolean llChecked = this.chkUseToday.isSelected();
+
+    Misc.setEditableForDatePicker(this.txtEnd, !llChecked);
+
+    if (llChecked)
+    {
+      this.txtEnd.setValue(LocalDate.now());
+    }
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

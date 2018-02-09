@@ -33,7 +33,6 @@ public class BaseProperties
 {
   // From http://stackoverflow.com/questions/25087094/java-cipher-update-method
   private final static String CRYPTO_PROVIDER_BASE = "AES";
-  //  private final static String CRYPTO_PROVIDER = "AES/CBC/PKCS5Padding";
   private final static String CRYPTO_PROVIDER = "AES";
   private final static int CRYPTO_KEY_LENGTH = 16;
 

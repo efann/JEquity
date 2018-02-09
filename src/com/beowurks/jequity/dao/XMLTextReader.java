@@ -21,20 +21,22 @@ import java.io.File;
 import java.io.StringReader;
 import java.util.Date;
 
-// ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 public class XMLTextReader
 {
+  public static final XMLTextReader INSTANCE = new XMLTextReader();
+
   private Document foDoc = null;
   private Node foRootNode = null;
 
-  // ---------------------------------------------------------------------------
-  public XMLTextReader()
+  // ---------------------------------------------------------------------------------------------------------------------
+  private XMLTextReader()
   {
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   // By the way, this initializes a document with a String, NOT a file name.
   public boolean initializeXMLDocument(final String tcXMLString)
   {
@@ -58,7 +60,7 @@ public class XMLTextReader
     return (llOkay);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public boolean initializeXMLDocument(final File toFile)
   {
     boolean llOkay = true;
@@ -82,19 +84,19 @@ public class XMLTextReader
     return (llOkay);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public Node getRootNode()
   {
     return (this.foRootNode);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public Document getDocument()
   {
     return (this.foDoc);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public Element findFirstElement(final String tcElement)
   {
     final NodeList loList = this.foDoc.getElementsByTagName(tcElement);
@@ -106,7 +108,7 @@ public class XMLTextReader
     return ((Element) loList.item(0));
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public String getString(final String tcElement, final String tcDefault)
   {
     final Node loNode = this.findFirstElement(tcElement);
@@ -120,7 +122,7 @@ public class XMLTextReader
     return ((loFirstChild == null) ? tcDefault : loFirstChild.getNodeValue());
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public boolean getBoolean(final String tcElement, final boolean tlDefault)
   {
     final String lcValue = this.getString(tcElement, "");
@@ -138,7 +140,7 @@ public class XMLTextReader
     return (llValue);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public int getInteger(final String tcElement, final int tnDefault)
   {
     final String lcValue = this.getString(tcElement, "");
@@ -156,7 +158,7 @@ public class XMLTextReader
     return (lnValue);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public long getLong(final String tcElement, final long tnDefault)
   {
     final String lcValue = this.getString(tcElement, "");
@@ -174,7 +176,7 @@ public class XMLTextReader
     return (lnValue);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public double getDouble(final String tcElement, final double tnDefault)
   {
     final String lcValue = this.getString(tcElement, "");
@@ -193,7 +195,7 @@ public class XMLTextReader
 
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public Date getDate(final String tcElement, final long tnDefault)
   {
     final String lcValue = this.getString(tcElement, "");
@@ -211,7 +213,7 @@ public class XMLTextReader
     return (new Date(lnValue));
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public String getAttributeString(final Element toElement, final String tcAttribute, final String tcDefault)
   {
     final String lcValue = toElement.getAttribute(tcAttribute);
@@ -223,7 +225,7 @@ public class XMLTextReader
     return (lcValue);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public int getAttributeInteger(final Element toElement, final String tcAttribute, final int tnDefault)
   {
     final String lcValue = this.getAttributeString(toElement, tcAttribute, "");
@@ -241,7 +243,7 @@ public class XMLTextReader
     return (lnValue);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public long getAttributeLong(final Element toElement, final String tcAttribute, final long tnDefault)
   {
     final String lcValue = this.getAttributeString(toElement, tcAttribute, "");
@@ -259,7 +261,7 @@ public class XMLTextReader
     return (lnValue);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public double getAttributeDouble(final Element toElement, final String tcAttribute, final double tnDefault)
   {
     final String lcValue = this.getAttributeString(toElement, tcAttribute, "");
@@ -277,7 +279,7 @@ public class XMLTextReader
     return (lnValue);
   }
 
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public Date getAttributeDate(final Element toElement, final String tcAttribute, final long tnDefault)
   {
     final String lcValue = this.getAttributeString(toElement, tcAttribute, "");
@@ -294,8 +296,8 @@ public class XMLTextReader
 
     return (new Date(lnValue));
   }
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
 }
-// ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------

@@ -11,6 +11,7 @@ package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
+import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.sun.javafx.scene.control.skin.TableColumnHeader;
 import javafx.event.EventTarget;
@@ -49,7 +50,6 @@ abstract public class TabModifyController extends TabBaseController
   @FXML
   protected GridPane gridPaneComponents;
 
-  private final static String DATEPICKER_NON_EDITABLE = "non-editable-datepicker";
 
   // ---------------------------------------------------------------------------------------------------------------------
   abstract protected void removeRow();
@@ -243,7 +243,7 @@ abstract public class TabModifyController extends TabBaseController
   // Oh well. . . .
   protected void setEditable(final Control toField, final boolean tlEditable)
   {
-    final String lcStyle = tlEditable ? "" : "-fx-control-inner-background: #EEEEEE";
+    final String lcStyle = tlEditable ? "" : Constants.DISABLED_CONTROL_BACKGROUND;
 
     if (toField instanceof TextField)
     {
@@ -257,22 +257,8 @@ abstract public class TabModifyController extends TabBaseController
     else if (toField instanceof DatePicker)
     {
       final DatePicker loPicker = (DatePicker) toField;
-      loPicker.getEditor().setEditable(tlEditable);
-      loPicker.getEditor().setStyle(lcStyle);
 
-      // The following hides / shows the button for the calendar.
-      if (tlEditable)
-      {
-        if (loPicker.getStyleClass().contains(TabModifyController.DATEPICKER_NON_EDITABLE))
-        {
-          loPicker.getStyleClass().removeAll(TabModifyController.DATEPICKER_NON_EDITABLE);
-        }
-      }
-      else if (!loPicker.getStyleClass().contains(TabModifyController.DATEPICKER_NON_EDITABLE))
-      {
-        loPicker.getStyleClass().add(TabModifyController.DATEPICKER_NON_EDITABLE);
-      }
-
+      Misc.setEditableForDatePicker(loPicker, tlEditable);
     }
     else if (toField instanceof CheckBox)
     {

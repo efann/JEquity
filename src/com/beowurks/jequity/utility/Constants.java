@@ -298,6 +298,11 @@ final public class Constants
   // 3 second delay as it's in milliseconds.
   public final static int TIMER_TABLE_SEARCH_RESET = 3000;
 
+  //************************************************************
+  // Used for controls that are disabled.
+  public final static String DISABLED_CONTROL_BACKGROUND = "-fx-control-inner-background: #EEEEEE";
+  public final static String DATEPICKER_NON_EDITABLE = "non-editable-datepicker";
+
   // -----------------------------------------------------------------------------
   private Constants()
   {
