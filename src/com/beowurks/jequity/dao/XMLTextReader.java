@@ -19,7 +19,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.StringReader;
-import java.util.Date;
+import java.sql.Date;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ public class XMLTextReader
 
   // ---------------------------------------------------------------------------------------------------------------------
   // By the way, this initializes a document with a String, NOT a file name.
-  public boolean initializeXMLDocument(final String tcXMLString)
+  public boolean initializeXMLDocument(final String tcXMLString, final boolean tlShowMessage)
   {
     boolean llOkay = true;
 
@@ -54,14 +54,17 @@ public class XMLTextReader
     catch (final Exception loErr)
     {
       llOkay = false;
-      Misc.errorMessage("There was an error in parsing the XML document.\n\n" + loErr.getMessage());
+      if (tlShowMessage)
+      {
+        Misc.errorMessage("There was an error in parsing the XML document.\n\n" + loErr.getMessage());
+      }
     }
 
     return (llOkay);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public boolean initializeXMLDocument(final File toFile)
+  public boolean initializeXMLDocument(final File toFile, final boolean tlShowMessage)
   {
     boolean llOkay = true;
 
@@ -78,7 +81,10 @@ public class XMLTextReader
       this.foRootNode = null;
 
       llOkay = false;
-      Misc.errorMessage("There was an error in parsing the XML document.\n\n" + loErr.getMessage());
+      if (tlShowMessage)
+      {
+        Misc.errorMessage("There was an error in parsing the XML document.\n\n" + loErr.getMessage());
+      }
     }
 
     return (llOkay);

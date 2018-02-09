@@ -61,6 +61,15 @@ final public class Constants
   public final static String XML_FALSE = "false";
 
   //************************************************************
+  // Used by Historical Tab
+  public final static String XML_SYMBOL_ROOT_LABEL = "Historical";
+  public final static String XML_SYMBOL_RECORD_LABEL = "symbol";
+
+  public final static String XML_SYMBOL_USE_TODAY = "chkUseToday";
+  public final static String XML_SYMBOL_START_DATE = "txtStart";
+  public final static String XML_SYMBOL_END_DATE = "txtEnd";
+
+  //************************************************************
   // Used by AppProperties
   // I choose 100, 200, etc so I could insert other drivers in the future
   // while maintaining alphbetical order. I discovered that this is not needed;

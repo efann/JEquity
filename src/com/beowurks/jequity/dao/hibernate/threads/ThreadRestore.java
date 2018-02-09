@@ -102,7 +102,7 @@ public class ThreadRestore extends ThreadBase implements Runnable
   private String restoreFromXML()
   {
     final XMLTextReader loReader = XMLTextReader.INSTANCE;
-    loReader.initializeXMLDocument(this.foXMLFile);
+    loReader.initializeXMLDocument(this.foXMLFile,true);
 
     final Document loDocument = loReader.getDocument();
 
