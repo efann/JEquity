@@ -21,20 +21,19 @@
 <AnchorPane stylesheets="@../css/Main.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.beowurks.jequity.controller.tab.TabHistoricalGraphController">
-  <GridPane hgap="10" vgap="10" fx:id="grdPaneHistorical" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
-    <Label GridPane.columnIndex="0" GridPane.rowIndex="0"
-           text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
+  <GridPane hgap="5" vgap="5" fx:id="grdPaneHistorical" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
     <ComboBox fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-
     <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Start Date"/>
     <DatePicker fx:id="txtStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Label GridPane.columnIndex="1" GridPane.rowIndex="2" text="End Date"/>
-    <DatePicker fx:id="txtEnd" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-    <CheckBox fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-
-    <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-
+    <Label GridPane.columnIndex="2" GridPane.rowIndex="0" text="End Date"/>
+    <DatePicker fx:id="txtEnd" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+    <CheckBox fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+    <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
   </GridPane>
+
+  <Label fx:id="lblTitleMessage" AnchorPane.topAnchor="160.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+         maxWidth="Infinity" alignment="CENTER"
+         text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
 
   <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="180.0" AnchorPane.bottomAnchor="10.0"
              AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" createSymbols="false">

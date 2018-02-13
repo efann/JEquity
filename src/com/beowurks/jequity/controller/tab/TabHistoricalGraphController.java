@@ -26,7 +26,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.w3c.dom.Node;
 
@@ -55,6 +58,9 @@ public class TabHistoricalGraphController
   private Button btnAnalyze;
 
   @FXML
+  private Label lblTitleMessage;
+
+  @FXML
   private LineChart<Date, Number> chtLineChart;
 
   private final ObservableList<GroupProperty> foDataList = FXCollections.observableArrayList();
@@ -64,6 +70,12 @@ public class TabHistoricalGraphController
 
   private String fcCurrentSymbol = "";
   private String fcCurrentXML = "";
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void analyzeData()
+  {
+    this.updateTableData();
+  }
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
@@ -88,7 +100,7 @@ public class TabHistoricalGraphController
   private void setupListeners()
   {
     this.btnAnalyze.setOnAction(toActionEvent -> TabHistoricalGraphController.this.analyzeData());
-    this.chkUseToday.setOnAction(toActionEvent -> TabHistoricalGraphController.this.useToday());
+    this.chkUseToday.setOnAction(toActionEvent -> TabHistoricalGraphController.this.updateEndDate(null));
     this.cboStocks.setOnAction(toActionEvent -> TabHistoricalGraphController.this.updateOnComboBoxSelect());
   }
 
@@ -165,7 +177,7 @@ public class TabHistoricalGraphController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void useToday()
+  private void updateEndDate(final LocalDate toDate)
   {
     final boolean llChecked = this.chkUseToday.isSelected();
 
@@ -175,11 +187,46 @@ public class TabHistoricalGraphController
     {
       this.txtEnd.setValue(LocalDate.now());
     }
+    else if (toDate != null)
+    {
+      this.txtEnd.setValue(toDate);
+    }
   }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void analyzeData()
+  // -----------------------------------------------------------------------------
+  private void updateOnComboBoxSelect()
   {
+    if (!this.updateVariablesOnSelect())
+    {
+      this.btnAnalyze.setDisable(true);
+      final StringKeyItem loItem = this.cboStocks.getSelectionModel().getSelectedItem();
+
+      this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%)", loItem.getDescription(), loItem.getKey()), true);
+      return;
+    }
+
+    this.btnAnalyze.setDisable(false);
+    this.updateComponents();
+  }
+
+  // -----------------------------------------------------------------------------
+  private void updateComponents()
+  {
+    final XMLTextReader loReader = XMLTextReader.INSTANCE;
+    if (!this.fcCurrentXML.isEmpty() && loReader.initializeXMLDocument(this.fcCurrentXML, false))
+    {
+      final boolean llUseToday = loReader.getBoolean(Constants.XML_SYMBOL_USE_TODAY, true);
+
+      this.chkUseToday.setSelected(llUseToday);
+      this.txtStart.setValue(loReader.getDate(Constants.XML_SYMBOL_START_DATE, System.currentTimeMillis()).toLocalDate());
+
+      this.updateEndDate(loReader.getDate(Constants.XML_SYMBOL_END_DATE, System.currentTimeMillis()).toLocalDate());
+      return;
+    }
+
+    this.chkUseToday.setSelected(true);
+    this.txtStart.setValue(AppProperties.INSTANCE.getHistoricalStartDefault().toLocalDate());
+    this.updateEndDate(null);
   }
 
   // -----------------------------------------------------------------------------
@@ -195,67 +242,68 @@ public class TabHistoricalGraphController
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_START_DATE, this.txtStart.getValue().toString(), null);
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_END_DATE, this.txtEnd.getValue().toString(), null);
 
-    String lcXML = loTextWriter.generateXMLString(2);
-  }
+    final String lcXML = loTextWriter.generateXMLString(2);
 
-  // -----------------------------------------------------------------------------
-  private void updateOnComboBoxSelect()
-  {
-    if (!this.updateSelectedVariables())
+    final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
+    final Session loSession = HibernateUtil.INSTANCE.getSession();
+
+    final String lcSQL = String.format("UPDATE %s SET historicalinfo = :historicalinfo WHERE symbol = :symbol", loHibernate.getTableSymbol());
+
+    try
     {
-      this.btnAnalyze.setDisable(true);
-      final StringKeyItem loItem = this.cboStocks.getSelectionModel().getSelectedItem();
-      Misc.errorMessage(String.format("Unable to obtain the setup data for %s (%)", loItem.getDescription(), loItem.getKey()));
-      return;
+      final Transaction loTransaction = loSession.beginTransaction();
+
+      final NativeQuery loQuery = loSession.createNativeQuery(lcSQL)
+          .setParameter("symbol", this.fcCurrentSymbol)
+          .setParameter("historicalinfo", lcXML);
+
+      loQuery.executeUpdate();
+
+      loTransaction.commit();
+      loSession.clear();
+    }
+    catch (final Exception ignore)
+    {
     }
 
-    this.btnAnalyze.setDisable(false);
-    this.updateComponents();
   }
 
   // -----------------------------------------------------------------------------
-  private void updateComponents()
-  {
-    final XMLTextReader loReader = XMLTextReader.INSTANCE;
-    if (!this.fcCurrentXML.isEmpty() && loReader.initializeXMLDocument(this.fcCurrentXML, false))
-    {
-      boolean llUseToday = loReader.getBoolean(Constants.XML_SYMBOL_USE_TODAY, true);
-      this.chkUseToday.setSelected(llUseToday);
-      this.txtStart.setValue(loReader.getDate(Constants.XML_SYMBOL_START_DATE, System.currentTimeMillis()).toLocalDate());
-      this.txtEnd.setValue(llUseToday ? LocalDate.now() : loReader.getDate(Constants.XML_SYMBOL_END_DATE, System.currentTimeMillis()).toLocalDate());
-    }
-
-    this.chkUseToday.setSelected(true);
-    this.txtStart.setValue(AppProperties.INSTANCE.getHistoricalStartDefault().toLocalDate());
-    this.txtEnd.setValue(LocalDate.now());
-  }
-
-  // -----------------------------------------------------------------------------
-  private boolean updateSelectedVariables()
+  private boolean updateVariablesOnSelect()
   {
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = HibernateUtil.INSTANCE.getSession();
 
+    final String lcKey = this.cboStocks.getSelectionModel().getSelectedItem().getKey();
+    final String lcDescription = this.cboStocks.getSelectionModel().getSelectedItem().getDescription();
     // There should only be one symbol. I'm not using LIMIT as there could be differences in SQL syntax between
     // the database servers.
-    final String lcSQL = String.format("SELECT * FROM %s WHERE symbol = :symbol", loHibernate.getTableSymbol());
+    final String lcSQL = String.format("SELECT symbol, historicalinfo FROM %s WHERE symbol = :symbol", loHibernate.getTableSymbol());
     final NativeQuery loQuery = loSession.createNativeQuery(lcSQL)
-        .addEntity(SymbolEntity.class)
-        .setParameter("symbol", this.cboStocks.getSelectionModel().getSelectedItem().getKey());
+        .setParameter("symbol", lcKey);
 
-    final List<SymbolEntity> loList = loQuery.list();
+    final List<Object[]> loList = loQuery.list();
 
-    for (final SymbolEntity loRow : loList)
+    // Could use the getKey() above to set the symbol; however, this just ensures that the record exists
+    // in the table.
+    for (final Object[] loRow : loList)
     {
-      this.fcCurrentSymbol = loRow.getSymbol();
-      this.fcCurrentXML = loRow.getHistoricalInfo();
+      this.fcCurrentSymbol = loRow[0].toString();
+      this.fcCurrentXML = loRow[1].toString();
 
+      this.setTitleMessage(String.format("%s (%s)", lcDescription, this.fcCurrentSymbol), false);
       return (true);
     }
 
     return (false);
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void setTitleMessage(final String tcTitle, final boolean tlError)
+  {
+    this.lblTitleMessage.setText(tcTitle);
+    this.lblTitleMessage.setTextFill(tlError ? Color.RED : Color.BLACK);
+  }
   // ---------------------------------------------------------------------------------------------------------------------
 
 }
