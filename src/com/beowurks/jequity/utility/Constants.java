@@ -253,7 +253,7 @@ final public class Constants
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
 
-  public final static String YAHOO_DAILY_LAST_TRADE_HTML_CODE = "#quote-header-info div[class^=Mt] span[class^=Trsdu]";
+  public final static String YAHOO_DAILY_LAST_TRADE_HTML_CODE = "#quote-header-info div[class^=My] span[class^=Trsdu]";
 
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";

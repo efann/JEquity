@@ -72,9 +72,6 @@ public class TabSymbolController extends TabBaseController
   private TableColumn colYearRange;
   @FXML
   private TableColumn colComments;
-  @FXML
-  private TableColumn colHistoricalInfo;
-
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
@@ -149,7 +146,10 @@ public class TabSymbolController extends TabBaseController
     this.colVolume.setCellValueFactory(new PropertyValueFactory<SymbolProperty, Integer>("volume"));
     this.colYearRange.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("yearrange"));
     this.colComments.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("comments"));
-    this.colHistoricalInfo.setCellValueFactory(new PropertyValueFactory<SymbolProperty, String>("historicalinfo"));
+    /*
+      Not showing historicalinfo as it contains XML info for the Historical tab. Plus it's multi-line
+      which makes the rows awkwardly tall.
+    */
 
     this.colAverageVolume.setCellFactory(tc -> new IntegerTableCell());
     this.colVolume.setCellFactory(tc -> new IntegerTableCell());

@@ -33,6 +33,10 @@
     <TableColumn fx:id="colVolume" text="Volume"/>
     <TableColumn fx:id="colYearRange" text="Year Range"/>
     <TableColumn fx:id="colComments" text="Comments"/>
-    <TableColumn fx:id="colHistoricalInfo" text="Historical Info"/>
+    <!--
+      Not showing historicalinfo as it contains XML info for the Historical tab. Plus it's multi-line
+      which makes the rows awkwardly tall.
+    -->
+
   </columns>
 </TableViewPlus>

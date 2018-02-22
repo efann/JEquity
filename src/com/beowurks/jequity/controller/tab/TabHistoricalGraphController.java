@@ -19,6 +19,8 @@ import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -68,13 +70,14 @@ public class TabHistoricalGraphController
   private XYChart.Series[] faXYDataSeries;
 
 
+  private String fcCurrentDescription = "";
   private String fcCurrentSymbol = "";
   private String fcCurrentXML = "";
 
   // ---------------------------------------------------------------------------------------------------------------------
   private void analyzeData()
   {
-    this.updateTableData();
+    this.writeXML();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -86,8 +89,6 @@ public class TabHistoricalGraphController
     this.setupChart();
 
     this.setupListeners();
-
-    this.txtStart.setValue(AppProperties.INSTANCE.getHistoricalStartDefault().toLocalDate());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -133,7 +134,12 @@ public class TabHistoricalGraphController
   // ---------------------------------------------------------------------------------------------------------------------
   synchronized public StringKeyItem refreshData()
   {
-    final StringKeyItem loSelectItem = this.cboStocks.getSelectionModel().getSelectedItem();
+    final ComboBox<StringKeyItem> loCombo = this.cboStocks;
+    // Save the onAction event then set to null so nothing happens when rebuilding the list.
+    final EventHandler<ActionEvent> loActionHandler = loCombo.getOnAction();
+    loCombo.setOnAction(null);
+
+    final StringKeyItem loSelectItem = loCombo.getSelectionModel().getSelectedItem();
 
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = loHibernate.getSession();
@@ -158,22 +164,24 @@ public class TabHistoricalGraphController
     }
     loSession.close();
 
-    this.cboStocks.getItems().clear();
-    this.cboStocks.setItems(loStringKeys);
+    loCombo.getItems().clear();
+    loCombo.setItems(loStringKeys);
+
+    // Reset before selection occurs so that the relevant select actions take place.
+    loCombo.setOnAction(loActionHandler);
 
     if (loSelectItem != null)
     {
-      this.cboStocks.setValue(loSelectItem);
-      this.cboStocks.getSelectionModel().select(loSelectItem);
+      loCombo.setValue(loSelectItem);
+      loCombo.getSelectionModel().select(loSelectItem);
     }
     else
     {
-      this.cboStocks.setValue(loInitKeyItem);
-      this.cboStocks.getSelectionModel().select(loInitKeyItem);
+      loCombo.setValue(loInitKeyItem);
+      loCombo.getSelectionModel().select(loInitKeyItem);
     }
 
     return (loInitKeyItem);
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -196,21 +204,23 @@ public class TabHistoricalGraphController
   // -----------------------------------------------------------------------------
   private void updateOnComboBoxSelect()
   {
-    if (!this.updateVariablesOnSelect())
+    if (!this.readXML())
     {
       this.btnAnalyze.setDisable(true);
       final StringKeyItem loItem = this.cboStocks.getSelectionModel().getSelectedItem();
 
       this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%)", loItem.getDescription(), loItem.getKey()), true);
+
       return;
     }
 
+    this.setTitleMessage(String.format("%s (%s)", this.fcCurrentDescription, this.fcCurrentSymbol), false);
     this.btnAnalyze.setDisable(false);
-    this.updateComponents();
+    this.updateComponentsFromXML();
   }
 
   // -----------------------------------------------------------------------------
-  private void updateComponents()
+  private void updateComponentsFromXML()
   {
     final XMLTextReader loReader = XMLTextReader.INSTANCE;
     if (!this.fcCurrentXML.isEmpty() && loReader.initializeXMLDocument(this.fcCurrentXML, false))
@@ -218,9 +228,12 @@ public class TabHistoricalGraphController
       final boolean llUseToday = loReader.getBoolean(Constants.XML_SYMBOL_USE_TODAY, true);
 
       this.chkUseToday.setSelected(llUseToday);
-      this.txtStart.setValue(loReader.getDate(Constants.XML_SYMBOL_START_DATE, System.currentTimeMillis()).toLocalDate());
+      // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
+      final String lcStart = loReader.getString(Constants.XML_SYMBOL_START_DATE, LocalDate.now().toString());
+      this.txtStart.setValue(LocalDate.parse(lcStart));
 
-      this.updateEndDate(loReader.getDate(Constants.XML_SYMBOL_END_DATE, System.currentTimeMillis()).toLocalDate());
+      final String lcEnd = loReader.getString(Constants.XML_SYMBOL_END_DATE, LocalDate.now().toString());
+      this.updateEndDate(LocalDate.parse(lcEnd));
       return;
     }
 
@@ -230,7 +243,7 @@ public class TabHistoricalGraphController
   }
 
   // -----------------------------------------------------------------------------
-  private void updateTableData()
+  private void writeXML()
   {
     final XMLTextWriter loTextWriter = XMLTextWriter.INSTANCE;
     loTextWriter.initializeXMLDocument();
@@ -239,6 +252,7 @@ public class TabHistoricalGraphController
     final Node loRecord = loTextWriter.appendNodeToRoot(Constants.XML_SYMBOL_RECORD_LABEL, (String) null, null);
 
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_USE_TODAY, this.chkUseToday.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
+    // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_START_DATE, this.txtStart.getValue().toString(), null);
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_END_DATE, this.txtEnd.getValue().toString(), null);
 
@@ -269,7 +283,7 @@ public class TabHistoricalGraphController
   }
 
   // -----------------------------------------------------------------------------
-  private boolean updateVariablesOnSelect()
+  private boolean readXML()
   {
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = HibernateUtil.INSTANCE.getSession();
@@ -290,8 +304,8 @@ public class TabHistoricalGraphController
     {
       this.fcCurrentSymbol = loRow[0].toString();
       this.fcCurrentXML = loRow[1].toString();
+      this.fcCurrentDescription = lcDescription;
 
-      this.setTitleMessage(String.format("%s (%s)", lcDescription, this.fcCurrentSymbol), false);
       return (true);
     }
 

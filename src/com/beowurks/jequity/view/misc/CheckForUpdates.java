@@ -66,7 +66,7 @@ public class CheckForUpdates implements Runnable
 
   private boolean getCurrentVersion()
   {
-    final String lcURL = "http://www.beowurks.com/sites/all/php/jequity-version.php";
+    final String lcURL = "https://www.beowurks.com/sites/all/php/jequity-version.php";
 
     Document loDoc = null;
     for (int lnTries = 0; (lnTries < 5) && (loDoc == null); ++lnTries)
@@ -75,7 +75,7 @@ public class CheckForUpdates implements Runnable
       {
         // Highly recommended to set the userAgent.
         loDoc = Jsoup.connect(lcURL)
-            .followRedirects(false)
+            .followRedirects(true)
             .userAgent(Constants.USER_AGENT[0])
             .data("name", "jsoup")
             .maxBodySize(0)

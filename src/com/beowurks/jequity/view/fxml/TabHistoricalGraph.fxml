@@ -21,6 +21,7 @@
 <AnchorPane stylesheets="@../css/Main.css"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.beowurks.jequity.controller.tab.TabHistoricalGraphController">
+
   <GridPane hgap="5" vgap="5" fx:id="grdPaneHistorical" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
     <ComboBox fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
     <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Start Date"/>

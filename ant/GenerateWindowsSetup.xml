@@ -17,56 +17,58 @@
 
 <project name="GenerateWindowsSetup" default="build" basedir="..//">
 
-    <property name="dirs.base" value="${basedir}"/>
-    <property name="src" value="${dirs.base}"/>
-    <property name="apppath" value="${src}/out/artifacts/JEquity/bundles/JEquity"/>
-    <property name="jarpath" value="${apppath}/app"/>
-    <property name="inno" value="C:/Program Files (x86)/Inno Setup 5"/>
-    <property name="artifact" value="${src}/out/artifacts"/>
+  <property name="dirs.base" value="${basedir}"/>
+  <property name="src" value="${dirs.base}"/>
+  <property name="apppath" value="${src}/out/artifacts/JEquity/bundles/JEquity"/>
+  <property name="jarpath" value="${apppath}/app"/>
+  <property name="inno" value="C:/Program Files (x86)/Inno Setup 5"/>
+  <property name="artifact" value="${src}/out/artifacts"/>
 
-    <property name="dll.bug.fix" value="${apppath}/runtime/bin/MSVCR100.dll"/>
+  <property name="dll.bug.fix" value="${apppath}/runtime/bin/MSVCR100.dll"/>
 
-    <target depends="dllBugFix,signProjectJar,signProjectExe,genInstaller" name="build"/>
+  <target depends="dllBugFix,signProjectJar,signProjectExe,genInstaller" name="build"/>
 
+  <!--
+    Fix for the bug listed here: https://bugs.openjdk.java.net/browse/JDK-8191176
+    They've since fixed the issue. However, this will only copy the file
+    if the target doesn't exist or is older.
+  -->
+  <target name="dllBugFix">
+    <copy file="${dll.bug.fix}" todir="${apppath}"/>
+  </target>
+
+  <!--
+    Sign the Jar file of this project
+    I've decided against signing third party library files as I didn't write them.
+  -->
+  <target name="signProjectJar">
     <!--
-      Fix for the bug listed here: https://bugs.openjdk.java.net/browse/JDK-8191176
+        http://ant.apache.org/manual/CoreTasks/ant.html
+        If you use location rather than value, the absolute file path is used
+        which is needed by the GenerateKey build.xml.
     -->
-    <target name="dllBugFix">
-        <copy file="${dll.bug.fix}" todir="${apppath}"/>
-    </target>
+    <ant inheritAll="false" antfile="d:/Eclipse/WorkSpace/Stamp/build.xml" inheritrefs="false">
+      <property name="sign.project.jars" value="JEquity.jar"/>
+      <property name="sign.project.dir" location="${jarpath}"/>
+    </ant>
+  </target>
 
-    <!--
-      Sign the Jar file of this project
-      I've decided against signing third party library files as I didn't write them.
-    -->
-    <target name="signProjectJar">
-        <!--
-            http://ant.apache.org/manual/CoreTasks/ant.html
-            If you use location rather than value, the absolute file path is used
-            which is needed by the GenerateKey build.xml.
-        -->
-        <ant inheritAll="false" antfile="d:/Eclipse/WorkSpace/Stamp/build.xml" inheritrefs="false">
-            <property name="sign.project.jars" value="JEquity.jar"/>
-            <property name="sign.project.dir" location="${jarpath}"/>
-        </ant>
-    </target>
+  <!-- Sign the Exe program of this project -->
+  <target name="signProjectExe">
+    <exec dir="" executable="cmd">
+      <arg line="/c D:\Eclipse\WorkSpace\Stamp\codesign.cmd"/>
+      <arg line="${apppath}/JEquity.exe"/>
+    </exec>
+  </target>
 
-    <!-- Sign the Exe program of this project -->
-    <target name="signProjectExe">
-        <exec dir="" executable="cmd">
-            <arg line="/c D:\Eclipse\WorkSpace\Stamp\codesign.cmd"/>
-            <arg line="${apppath}/JEquity.exe"/>
-        </exec>
-    </target>
+  <target name="genInstaller">
+    <exec executable="${inno}/ISCC.exe">
+      <arg line="${src}/setup/jequity.iss"/>
+    </exec>
+    <exec dir="" executable="cmd">
+      <arg line="/c D:\Eclipse\WorkSpace\Stamp\codesign.cmd"/>
+      <arg line="${artifact}/*.exe"/>
+    </exec>
 
-    <target name="genInstaller">
-        <exec executable="${inno}/ISCC.exe">
-            <arg line="${src}/setup/jequity.iss"/>
-        </exec>
-        <exec dir="" executable="cmd">
-            <arg line="/c D:\Eclipse\WorkSpace\Stamp\codesign.cmd"/>
-            <arg line="${artifact}/*.exe"/>
-        </exec>
-
-    </target>
+  </target>
 </project>
