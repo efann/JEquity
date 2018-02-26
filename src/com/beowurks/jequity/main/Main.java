@@ -77,8 +77,9 @@ public class Main extends Application
     catch (final IOException loErr)
     {
       // You can also test by doing the following:
-      // cd C:\Program Files\JEquity\app>
-      // java -jar JEquity.jar
+      //   cd C:\Program Files\JEquity\app>
+      //   java -jar JEquity.jar
+      // Then you will see the output of printStackTrace.
       loErr.printStackTrace();
     }
   }

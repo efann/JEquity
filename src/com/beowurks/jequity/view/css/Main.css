@@ -261,7 +261,7 @@
   -fx-graphic: url("../images/kspread_ksp.png");
 }
 
-#tabDaily > .tab-container > .tab-label
+#tabSymbol > .tab-container > .tab-label
 {
   -fx-graphic: url("../images/date16.png");
 

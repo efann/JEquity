@@ -224,8 +224,9 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
   private boolean importDailyInformation(final Session toSession, final SymbolEntity toSymbol, final Document toDoc)
   {
     boolean llOkay = false;
+    final String lcSymbol = toSymbol.getSymbol();
 
-    this.refreshCurrentTextList(toDoc, toSymbol.getSymbol());
+    this.refreshCurrentTextList(toDoc, lcSymbol);
 
     final String lcDescription = this.getDescriptionFromHtml(toDoc);
 
@@ -250,33 +251,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     final Timestamp loTimestamp = new Timestamp(loDate.getTime());
     toSymbol.setTradeTime(loTimestamp);
 
-    final double lnPrevClose = this.parseDouble(Constants.YAHOO_DAILY_PREVCLOSE, 1);
-    toSymbol.setPreviousClose(lnPrevClose);
-
-    toSymbol.setDifferential((lnPrevClose != 0.0) ? ((lnLastTrade - lnPrevClose) / lnPrevClose) * 100.0 : 0.0);
-
-    toSymbol.setOpened(this.parseDouble(Constants.YAHOO_DAILY_OPEN, 1));
-
-    toSymbol.setTargetEstimate(this.parseDouble(Constants.YAHOO_DAILY_TARGETEST, 1));
-
-    toSymbol.setBidding(this.parseDouble(Constants.YAHOO_DAILY_BID, 1));
-    toSymbol.setAsking(this.parseDouble(Constants.YAHOO_DAILY_ASK, 1));
-
-    toSymbol.setVolume(this.parseInt(Constants.YAHOO_DAILY_VOLUME, 1));
-
-    toSymbol.setAverageVolume(this.parseInt(Constants.YAHOO_DAILY_AVGVOLUME, 1));
-
-    toSymbol.setMarketCap(this.getHTML(Constants.YAHOO_DAILY_MARKETCAP, 1));
-
-    toSymbol.setPriceEarnings(this.parseDouble(Constants.YAHOO_DAILY_PE, 1));
-
-    toSymbol.setEarningsPerShare(this.parseDouble(Constants.YAHOO_DAILY_EPS, 1));
-
-    toSymbol.setDayRange(this.getHTML(Constants.YAHOO_DAILY_DAYRANGE, 3));
-    toSymbol.setYearRange(this.getHTML(Constants.YAHOO_DAILY_YEARRANGE, 3));
-    toSymbol.setDividendYield(this.getHTML(Constants.YAHOO_DAILY_DIVIDENDYIELD, 2));
-
-    toSymbol.setComments("Scraped from https://finance.yahoo.com/");
+    toSymbol.setComments(String.format("Scraped from %s", ThreadDownloadSymbolInfo.getSymbolDailyURL(lcSymbol)));
 
     Transaction loTransaction = null;
     try
@@ -289,7 +264,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     }
     catch (final Exception loErr)
     {
-      final String lcMessage = String.format("There was an error with %s: %s %s", toSymbol.getSymbol(), loErr.getMessage(), loErr.getCause().toString());
+      final String lcMessage = String.format("There was an error with %s: %s %s", lcSymbol, loErr.getMessage(), loErr.getCause().toString());
 
       Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
 
@@ -306,7 +281,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
       }
       catch (final RuntimeException loRTErr)
       {
-        final String lcRTMessage = String.format("There was a rollback error with %s: %s", toSymbol.getSymbol(), loRTErr.getMessage());
+        final String lcRTMessage = String.format("There was a rollback error with %s: %s", lcSymbol, loRTErr.getMessage());
 
         Misc.setStatusText(lcRTMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
       }

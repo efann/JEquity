@@ -24,7 +24,7 @@
   <property name="inno" value="C:/Program Files (x86)/Inno Setup 5"/>
   <property name="artifact" value="${src}/out/artifacts"/>
 
-  <property name="dll.bug.fix" value="${apppath}/runtime/bin/MSVCR100.dll"/>
+  <property name="dll.bug.fix" value="${apppath}/runtime/bin/msvcr100.dll"/>
 
   <target depends="dllBugFix,signProjectJar,signProjectExe,genInstaller" name="build"/>
 

@@ -85,7 +85,7 @@ public class MainFormController implements EventHandler<ActionEvent>
   private Tab tabFinancial;
 
   @FXML
-  private Tab tabDaily;
+  private Tab tabSymbol;
 
   @FXML
   private Tab tabReports;
@@ -224,7 +224,7 @@ public class MainFormController implements EventHandler<ActionEvent>
 
       this.tabFinancialMainController.refreshData();
     }
-    else if (loCurrentTab == this.tabDaily)
+    else if (loCurrentTab == this.tabSymbol)
     {
       Misc.setStatusText(String.format("Refreshed the Daily grid @ %s. . . .", lcTime));
 
