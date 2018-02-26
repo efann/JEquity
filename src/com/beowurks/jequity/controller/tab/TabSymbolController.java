@@ -12,8 +12,7 @@ import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.dao.tableview.SymbolProperty;
 import com.beowurks.jequity.view.cell.CurrencyTableCell;
-import com.beowurks.jequity.view.cell.DoubleTableCell;
-import com.beowurks.jequity.view.cell.IntegerTableCell;
+import com.beowurks.jequity.view.cell.HyperLinkLabelTableCell;
 import com.beowurks.jequity.view.table.TableViewPlus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -109,9 +108,16 @@ public class TabSymbolController extends TabBaseController
     */
 
     this.colLastTrade.setCellFactory(tc -> new CurrencyTableCell());
+    this.colComments.setCellFactory(tc -> new HyperLinkLabelTableCell());
 
     this.tblSymbol.getItems().clear();
     this.tblSymbol.setColumnResizePolicy((param -> true));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public TableViewPlus getTable()
+  {
+    return (this.tblSymbol);
   }
 
   // -----------------------------------------------------------------------------

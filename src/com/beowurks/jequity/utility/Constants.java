@@ -36,7 +36,7 @@ final public class Constants
 
   //************************************************************
   // Used by Sample Data
-  public final static String SAMPLE_DATA_URL = "http://www.beowurks.com/Software/JEquity/SampleData/SampleData.2.0.xml";
+  public final static String SAMPLE_DATA_URL = "https://www.beowurks.com/Software/JEquity/SampleData/SampleData.2.0.xml";
   public final static String SAMPLE_DATA_TEMPFILE = Misc.includeTrailingBackslash(Constants.TEMPORARY_PATH) + "SampleData.2.0.xml";
 
   //************************************************************

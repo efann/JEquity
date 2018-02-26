@@ -491,7 +491,7 @@ public class TabFinancialController extends TabModifyController implements Event
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public TableViewPlus getFinancialTable()
+  public TableViewPlus getTable()
   {
     return (this.tblFinancial);
   }

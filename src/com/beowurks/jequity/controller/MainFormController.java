@@ -126,7 +126,10 @@ public class MainFormController implements EventHandler<ActionEvent>
   {
     // You have to setup here and not in the tabFinancialController as the tabFinancialController
     // is created before the MainFormController.
-    this.tabFinancialMainController.getFinancialTable().setStatusMessage(this.statusMessage);
+    this.tabFinancialMainController.getTable().setStatusMessage(this.statusMessage);
+    this.tabSymbolMainController.getTable().setStatusMessage(this.statusMessage);
+    this.tabGroupMainController.getTable().setStatusMessage(this.statusMessage);
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

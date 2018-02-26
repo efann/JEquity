@@ -124,6 +124,12 @@ public class TabGroupController extends TabModifyController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public TableViewPlus getTable()
+  {
+    return (this.tblGroup);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   protected void setupTables()
   {
     this.colID.setCellValueFactory(new PropertyValueFactory<GroupProperty, Integer>("id"));

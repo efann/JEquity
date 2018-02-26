@@ -154,7 +154,7 @@ public class TabHistoricalGraphController
 
     for (final SymbolEntity loRow : loList)
     {
-      final String lcID = loRow.getSymbol();
+      final String lcID = loRow.getSymbol().trim();
       final StringKeyItem loKeyItem = new StringKeyItem(lcID, loRow.getDescription());
       loStringKeys.add(loKeyItem);
       if (loInitKeyItem == null)
@@ -302,7 +302,7 @@ public class TabHistoricalGraphController
     // in the table.
     for (final Object[] loRow : loList)
     {
-      this.fcCurrentSymbol = loRow[0].toString();
+      this.fcCurrentSymbol = loRow[0].toString().trim();
       this.fcCurrentXML = loRow[1].toString();
       this.fcCurrentDescription = lcDescription;
 
