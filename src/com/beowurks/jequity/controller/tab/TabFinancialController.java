@@ -8,11 +8,11 @@
 
 package com.beowurks.jequity.controller.tab;
 
+import com.beowurks.jequity.dao.HTMLMarkers;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.SingleSymbolInfo;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSingleSymbol;
-import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.hibernate.threads.TimerSummaryTable;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import com.beowurks.jequity.dao.tableview.SummaryProperty;
@@ -475,7 +475,7 @@ public class TabFinancialController extends TabModifyController implements Event
   {
     final String lcSymbol = this.txtSymbol.getText().trim();
 
-    this.lnkSymbolURL.setText(lcSymbol.isEmpty() ? "" : ThreadDownloadSymbolInfo.getSymbolDailyURL(lcSymbol));
+    this.lnkSymbolURL.setText(lcSymbol.isEmpty() ? "" : HTMLMarkers.INSTANCE.getDailyStockURL(lcSymbol));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

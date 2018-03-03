@@ -7,6 +7,7 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
+import com.beowurks.jequity.dao.HTMLMarkers;
 import com.beowurks.jequity.utility.Constants;
 import org.jsoup.nodes.Document;
 
@@ -26,7 +27,7 @@ public class ThreadDownloadHTML extends ThreadBase
   // ---------------------------------------------------------------------------------------------------------------------
   protected String getDescriptionFromHtml(final Document toDoc)
   {
-    String lcDescription = this.getHTML(toDoc, Constants.DESCRIPTION_HTML_MARKER);
+    String lcDescription = this.getHTML(toDoc, HTMLMarkers.INSTANCE.getDescriptionMarker());
     if (lcDescription.isEmpty())
     {
       lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;
@@ -204,14 +205,6 @@ public class ThreadDownloadHTML extends ThreadBase
     return (lcHTML.trim());
   }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  // Also used by the data entry screen to display the URL for the stock symbol.
-  public static String getSymbolDailyURL(final String tcSymbol)
-  {
-    final String lcSymbol = tcSymbol.trim();
-
-    return (String.format(Constants.YAHOO_DAILY_HTML, lcSymbol, lcSymbol));
-  }
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------

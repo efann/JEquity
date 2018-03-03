@@ -11,9 +11,9 @@ import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.main.Main;
 
 
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 final public class Constants
 {
   public final static String TEMPORARY_PATH = Misc.includeTrailingBackslash(Misc.includeTrailingBackslash(Misc
@@ -163,7 +163,6 @@ final public class Constants
       };
 
   public final static String UNKNOWN_STOCK_SYMBOL = "Unknown Stock Symbol";
-  public final static String DESCRIPTION_HTML_MARKER = "#quote-header-info h1";
 
   public final static String YAHOO_SYMBOL = "[Symbol]";
   public final static String YAHOO_STARTDAY = "[StartDay]";
@@ -247,13 +246,9 @@ final public class Constants
 
       };
 
-  public final static String YAHOO_DAILY_HTML = "https://finance.yahoo.com/quote/%s?p=%s";
-
   public final static long BAD_DOWNLOAD = -1;
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
-
-  public final static String YAHOO_DAILY_LAST_TRADE_HTML_CODE = "#quote-header-info div[class^=My] span[class^=Trsdu]";
 
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";
@@ -312,14 +307,13 @@ final public class Constants
   public final static String DISABLED_CONTROL_BACKGROUND = "-fx-control-inner-background: #EEEEEE";
   public final static String DATEPICKER_NON_EDITABLE = "non-editable-datepicker";
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   private Constants()
   {
 
   }
-  // -----------------------------------------------------------------------------
-
+  // ---------------------------------------------------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
