@@ -115,6 +115,8 @@ public class Main extends Application
       {
         TimerSymbolInfo.INSTANCE.reSchedule();
 
+        // Always call with the parameter is true when initializing. Otherwise certain
+        // variables will not be properly initialized.
         Main.getController().refreshAllComponents(true);
       }
     });

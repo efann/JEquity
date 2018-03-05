@@ -13,6 +13,7 @@ import com.beowurks.jequity.controller.tab.TabGroupController;
 import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
 import com.beowurks.jequity.controller.tab.TabReportController;
 import com.beowurks.jequity.controller.tab.TabSymbolController;
+import com.beowurks.jequity.dao.HTMLMarkers;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
@@ -208,9 +209,10 @@ public class MainFormController implements EventHandler<ActionEvent>
     // I don't know of another way for lowercase am/pm.
     final String lcTime = loDateFormat.format(loCalender.getTime()).toLowerCase();
 
-    // Refresh the Group Table also
+    // Refresh the Group Table also.
     if (tlIncludeGroupComboBox)
     {
+      HTMLMarkers.INSTANCE.refreshData();
       this.tabGroupMainController.refreshData();
     }
 

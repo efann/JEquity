@@ -27,18 +27,24 @@ public class HTMLMarkers implements Runnable
   private String fcYahooDescriptionMarker = "#quote-header-info h1";
   private String fcYahooLastTradeMarker = "#quote-header-info div[class^=My] span[class^=Trsdu]";
 
+  private Thread foThread = null;
+
   // ---------------------------------------------------------------------------------------------------------------------
   private HTMLMarkers()
   {
-    this.refreshData();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public void refreshData()
   {
-    final Thread loThread = new Thread(this);
-    loThread.setPriority(Thread.NORM_PRIORITY);
-    loThread.start();
+    if ((this.foThread != null) && (this.foThread.isAlive()))
+    {
+      return;
+    }
+
+    this.foThread = new Thread(this);
+    this.foThread.setPriority(Thread.NORM_PRIORITY);
+    this.foThread.start();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
