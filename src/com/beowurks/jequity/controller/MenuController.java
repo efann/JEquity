@@ -63,7 +63,8 @@ public class MenuController
     if (Misc.isMacintosh())
     {
       // From https://stackoverflow.com/questions/22569046/how-to-make-an-os-x-menubar-in-javafx
-      Platform.runLater(() -> this.menuBar.setUseSystemMenuBar(true));
+      // Icons disappear from menu.
+      // Platform.runLater(() -> this.menuBar.setUseSystemMenuBar(true));
     }
 
   }
