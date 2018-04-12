@@ -432,7 +432,7 @@ public class MenuController
     loPrintWriter.write(loContent.toString());
     loPrintWriter.close();
 
-    Misc.infoMessage(String.format("%s has been saved.", toFileName.getPath()));
+    Misc.infoMessage(String.format("%s has been saved in tab-delimited format.", toFileName.getPath()));
 
   }
 
