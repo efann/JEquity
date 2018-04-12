@@ -51,7 +51,7 @@ abstract public class MigrationHelper implements JdbcMigration
     // Because the PreparedStatement instance is declared in a try-with-resource statement,
     // it will be closed regardless of whether the try statement completes normally or abruptly.
     // From https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
-    try (PreparedStatement loStatement = this.foConnection.prepareStatement(tcSQL))
+    try (final PreparedStatement loStatement = this.foConnection.prepareStatement(tcSQL))
     {
       loStatement.execute();
     }

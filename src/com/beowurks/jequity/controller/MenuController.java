@@ -21,7 +21,6 @@ import com.beowurks.jequity.view.dialog.AboutDialog;
 import com.beowurks.jequity.view.dialog.OptionsDialog;
 import com.beowurks.jequity.view.dialog.PasswordConfirmDialog;
 import com.beowurks.jequity.view.misc.CheckForUpdates;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
@@ -416,8 +415,16 @@ public class MenuController
       loContent.append(loFinancialEntity.getValuationDate().toString());
       loContent.append(lcSeparator);
 
-      // Replace tabs with 2 space characters.
-      loContent.append(loFinancialEntity.getComments().replace("\t", "  "));
+      // Get rid of characters that will effect importing to Excel.
+      String lcComments = loFinancialEntity.getComments().replace("\t", " ").replace("\n", " ").replace("\r", " ").trim();
+
+      // Get rid of double spaces
+      while (lcComments.contains("  "))
+      {
+        lcComments = lcComments.replaceAll(" +", " ");
+      }
+
+      loContent.append(lcComments);
 
       loContent.append(lcEOL);
     }

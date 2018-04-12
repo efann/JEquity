@@ -3,7 +3,7 @@ Ant-Version: Apache Ant 1.9.4
 Created-By: 1.8.0_162-b12 (Oracle Corporation)
 Main-Class: com.beowurks.jequity.main.Main
 Implementation-Vendor: Beowurks
-Implementation-Version: 2018.2.0.58-testing
+Implementation-Version: 2018.2.0.68
 Implementation-Title: JEquity
-Built-On: 2018-03-05 13:08:49
+Built-On: 2018-03-05 15:30:10
 
