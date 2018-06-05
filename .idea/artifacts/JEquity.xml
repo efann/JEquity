@@ -25,7 +25,7 @@
         <option name="title" value="JEquity" />
         <option name="updateMode" value="always" />
         <option name="vendor" value="Beowurks" />
-        <option name="version" value="2018.2.0.68" />
+        <option name="version" value="2018.2.0.68-test" />
       </options>
     </properties>
     <root id="root">
