@@ -102,7 +102,7 @@ public class MenuController
     Misc.setStatusText("Showing the credits for " + Main.getApplicationName());
 
     final String lcTitle = String.format("Credits for %s", Main.getApplicationFullName());
-    Misc.displayWebContent(lcTitle, "http://www.beowurks.com/ajax/node/32");
+    Misc.displayWebContent(lcTitle, "http://www.beowurks.com/ajax/node/16");
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

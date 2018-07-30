@@ -66,7 +66,10 @@ public class CheckForUpdates implements Runnable
 
   private boolean getCurrentVersion()
   {
-    final String lcURL = "https://www.beowurks.com/sites/all/php/jequity-version.php";
+    // By the way,
+    //   1 is Trash Wizard.
+    //   2 is JEquity.
+    final String lcURL = "https://www.beowurks.com/ajax/version/2";
 
     Document loDoc = null;
     for (int lnTries = 0; (lnTries < 5) && (loDoc == null); ++lnTries)
