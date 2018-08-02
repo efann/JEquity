@@ -24,6 +24,9 @@ import java.net.URISyntaxException;
 // ---------------------------------------------------------------------------------------------------------------------
 public class CheckForUpdates implements Runnable
 {
+  private final static int TRASH_WIZARD = 1;
+  private final static int JEQUITY = 2;
+
   private String fcAppFolder = "";
   private String fcAppVersion = "";
 
@@ -66,10 +69,7 @@ public class CheckForUpdates implements Runnable
 
   private boolean getCurrentVersion()
   {
-    // By the way,
-    //   1 is Trash Wizard.
-    //   2 is JEquity.
-    final String lcURL = "https://www.beowurks.com/ajax/version/2";
+    final String lcURL = String.format("https://www.beowurks.com/ajax/version/%d", CheckForUpdates.JEQUITY);
 
     Document loDoc = null;
     for (int lnTries = 0; (lnTries < 5) && (loDoc == null); ++lnTries)
