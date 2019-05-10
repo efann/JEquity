@@ -2,7 +2,6 @@
 <project version="4">
   <component name="AnalysisUIOptions">
     <option name="ANALYZE_TEST_SOURCES" value="false" />
-    <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
@@ -11,7 +10,121 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/JavaFX.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_hibernate_hibernate_core_5_4_2_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/JEquity.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/JEquity.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JEquity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JEquity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/controlsfx.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/controlsfx.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/hibernate.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/libraries.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JEquity.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JEquity.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ant/GenerateWindowsSetup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ant/GenerateWindowsSetup.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ant/ManifestSetupUpdate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ant/ManifestSetupUpdate.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/controlsfx/controlsfx-8.40.14.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/antlr-2.7.7.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/c3p0-0.9.5.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/classmate-1.3.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/dom4j-1.6.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/hibernate-c3p0-5.2.10.Final.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/hibernate-commons-annotations-5.0.1.Final.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/hibernate-core-5.2.10.Final.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/hibernate-jpa-2.1-api-1.0.0.Final.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/jandex-2.0.3.Final.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/javassist-3.20.0-GA.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/jboss-logging-3.3.0.Final.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/jboss-transaction-api_1.2_spec-1.0.1.Final.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/hibernate/mchange-commons-java-0.2.11.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/OptionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/OptionsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabBaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabBaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabGroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabGroupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabSymbolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabSymbolController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/DateAxis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/DateAxis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/HTMLMarkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/HTMLMarkers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/IDefaultXYChartSeries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/IDefaultXYChartSeries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/XMLTextReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/XMLTextReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/XMLTextWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/XMLTextWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/IntegerKeyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/IntegerKeyItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/StringKeyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/StringKeyItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/FinancialEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/FinancialEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/GroupEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/GroupEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/HibernateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/HibernateUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/PostgreSQL81IdentityColumnSupportPlus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/PostgreSQL81IdentityColumnSupportPlus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/PostgreSQL91DialectPlus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/PostgreSQL91DialectPlus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/SymbolEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/SymbolEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/WhichDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/WhichDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/apachederby.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/apachederby.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/mysql5.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/mysql5.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/postgresql91.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/postgresql91.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/SingleSymbolInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/SingleSymbolInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHTML.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHTML.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHistorical.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHistorical.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadSingleSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadSingleSymbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadSymbolInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadSymbolInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadRestore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadRestore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSummaryTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSummaryTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSymbolInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSymbolInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/FlywayMigration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/FlywayMigration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/MigrationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/MigrationHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_0__Setup_Primary_Tables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_0__Setup_Primary_Tables.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_1__Setup_Secondary_Tables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_1__Setup_Secondary_Tables.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_2__Setup_Constraints.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_2__Setup_Constraints.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_3__Drop_Warehouse_Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_3__Drop_Warehouse_Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_4__Move_Financial_Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_4__Move_Financial_Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_5__Drop_Add_Daily_Fields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_5__Drop_Add_Daily_Fields.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_6__Drop_Clean_Symbol_Fields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/V3_6__Drop_Clean_Symbol_Fields.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/EnvironmentProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/EnvironmentProperty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/FinancialProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/FinancialProperty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/GroupProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/GroupProperty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/SummaryProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/SummaryProperty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/SymbolProperty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/SymbolProperty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/BaseProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/BaseProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/CurrencyTableCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/CurrencyTableCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/DateTableCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/DateTableCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/DoubleTableCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/DoubleTableCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/HyperLinkLabelTableCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/HyperLinkLabelTableCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/IntegerTableCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/IntegerTableCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/StringKeyComboBoxFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/StringKeyComboBoxFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/SymbolComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/SymbolComboBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/css/Main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/css/Main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/AboutDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/AboutDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/OptionsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/OptionsDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/PasswordBaseDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/PasswordBaseDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/PasswordConfirmDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/PasswordConfirmDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/PasswordDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/PasswordDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Menu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/OptionsDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/OptionsDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabFinancial.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabFinancial.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabGroup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabGroup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabReport.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabReport.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabSymbol.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabSymbol.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Toolbar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Toolbar.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/JRViewerBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/JRViewerBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/Summary.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/Summary.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/misc/CheckForUpdates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/misc/CheckForUpdates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/textfield/NumberTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/textfield/NumberTextField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/textfield/UpperCaseTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/textfield/UpperCaseTextField.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,11 +176,24 @@
     <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
   </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -80,11 +206,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>-</find>
-      <find>== null</find>
-      <find>obtain</find>
-      <find>tabDaily</find>
-      <find>V3_5__Drop_Add_Daily_Fields</find>
       <find>lnkSymbolURL</find>
       <find>getSymbol</find>
       <find>Symbol</find>
@@ -110,9 +231,13 @@
       <find>forupdates</find>
       <find>checkfo</find>
       <find>checkfor</find>
+      <find>com.sun.javafx.scene.control.skin</find>
+      <find>com.sun</find>
+      <find>org.controls</find>
+      <find>resizeColumnsToFit</find>
+      <find>tableSkin</find>
     </findStrings>
     <replaceStrings>
-      <replace>get</replace>
       <replace>SymbolEntity</replace>
       <replace>return (</replace>
       <replace>&lt;TableColumn fx:id=&quot;col</replace>
@@ -142,6 +267,7 @@
       <replace>loCombo</replace>
       <replace>tabSymbol</replace>
       <replace>&lt;&lt;symbol&gt;&gt;</replace>
+      <replace>javafx.scene.control.skin</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\IntelliJ\JEquity\src\com\beowurks\jequity\dao\hibernate\threads</dir>
@@ -159,9 +285,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/migration/MigrationHelper.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/mysql5.cfg.xml" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Menu.fxml" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabGroup.fxml" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/textfield/NumberTextField.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/TimerSummaryTable.java" />
@@ -170,7 +293,6 @@
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadDownloadSymbolInfo.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/backuprestore/ThreadRestore.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/warehouses/ThreadBase.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadBase.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/SingleSymbolInfo.java" />
@@ -178,7 +300,6 @@
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/OptionsDialog.fxml" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/BaseProperties.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/XMLTextWriter.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java" />
@@ -204,12 +325,17 @@
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadSymbolInfo.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadSingleSymbol.java" />
         <option value="$PROJECT_DIR$/config/config.xml" />
-        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/HTMLMarkers.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MenuController.java" />
         <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/misc/CheckForUpdates.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java" />
+        <option value="$PROJECT_DIR$/JEquity.iml" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/dao/DateAxis.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/PasswordBaseDialog.java" />
+        <option value="$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java" />
       </list>
     </option>
   </component>
@@ -217,8 +343,8 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1092" />
+    <option name="width" value="1612" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Beowurks">
@@ -351,6 +477,17 @@
             <path>
               <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
               <item name="JEquity" type="462c0819:PsiDirectoryNode" />
+              <item name="libraries" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JEquity" type="462c0819:PsiDirectoryNode" />
+              <item name="libraries" type="462c0819:PsiDirectoryNode" />
+              <item name="controlsfx" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JEquity" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -371,7 +508,33 @@
               <item name="JEquity" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="jequity" type="462c0819:PsiDirectoryNode" />
-              <item name="utility" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JEquity" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="jequity" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JEquity" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="jequity" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JEquity" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="jequity" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="table" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -449,6 +612,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path" value="D:\IntelliJ\JEquity\libraries\controlsfx.11.0.0" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
@@ -460,18 +625,25 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="OverrideImplement.combined" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="true" />
+    <property name="Repository.Attach.Sources" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1533248145686" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libraries/controlsfx/controlsfx-11.0.0.jar!/" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.side.proportion" value="0.18709074" />
     <property name="recentsLimit" value="5" />
     <property name="run.code.analysis.last.selected.profile" value="aBeowurks" />
-    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -509,33 +681,6 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="EXTRA_OPTIONS" value="" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="DEBUGGER_TYPE" value="Java" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <Java />
-      <Profilers>
-        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
-        <option name="GAPID_ENABLED" value="false" />
-        <option name="GAPID_DISABLE_PCS" value="false" />
-        <option name="SUPPORT_LIB_ENABLED" value="true" />
-        <option name="INSTRUMENTATION_ENABLED" value="true" />
-      </Profilers>
-      <method />
-    </configuration>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
@@ -549,7 +694,7 @@
     <configuration name="Main" type="Application" factoryName="Application" show_console_on_std_err="true" show_console_on_std_out="true">
       <option name="MAIN_CLASS_NAME" value="com.beowurks.jequity.main.Main" />
       <module name="JEquity" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="VM_PARAMETERS" value="-p &quot;C:\Program Files\Java\javafx-sdk-11.0.2\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web --add-exports=javafx.controls/com.sun.javafx.scene.control.skin.resources=ALL-UNNAMED --add-exports=javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED --add-exports=javafx.controls/com.sun.javafx.scene.control.skin=ALL-UNNAMED" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.*" />
@@ -587,6 +732,7 @@
           <option name="containerStateName" value="" />
         </value>
       </option>
+      <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" />
       <properties />
@@ -662,6 +808,7 @@
       </method>
     </configuration>
     <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -846,11 +993,23 @@
       <workItem from="1549033362017" duration="60000" />
       <workItem from="1549033436595" duration="8000" />
       <workItem from="1549034230360" duration="599000" />
+      <workItem from="1556637424134" duration="56000" />
+      <workItem from="1556637721331" duration="2203000" />
+      <workItem from="1556640145984" duration="798000" />
+      <workItem from="1556642036490" duration="2155000" />
+      <workItem from="1556659970748" duration="1194000" />
+      <workItem from="1556665047239" duration="571000" />
+      <workItem from="1556665768041" duration="27000" />
+      <workItem from="1556674245040" duration="381000" />
+      <workItem from="1556728417460" duration="33580000" />
+      <workItem from="1557182185593" duration="589000" />
+      <workItem from="1557242439403" duration="35885000" />
+      <workItem from="1557441562165" duration="15340000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="999319000" />
+    <option name="totallyTimeSpent" value="1092098000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -863,8 +1022,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.28731343" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.27292112" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25266525" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -874,9 +1034,9 @@
       <window_info id="Nl-Palette" order="7" />
       <window_info id="Persistence" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3272543" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" weight="0.26168224" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39937758" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3271028" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4978678" visible="true" weight="0.48494288" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39875388" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.17748918" />
@@ -885,8 +1045,8 @@
       <window_info anchor="bottom" id="Profiler" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32746115" />
       <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.39007092" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50159913" side_tool="true" weight="0.26168224" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32624114" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5021322" side_tool="true" weight="0.26168224" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32606438" />
       <window_info anchor="bottom" id="Problems" order="14" />
       <window_info anchor="bottom" id="Java Enterprise" order="15" weight="0.32987553" />
       <window_info anchor="bottom" id="Version Control" order="16" weight="0.3284974" />
@@ -894,7 +1054,7 @@
       <window_info anchor="bottom" id="Docker" order="18" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.16204691" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="JetGradle" order="4" />
       <window_info anchor="right" id="Maven Projects" order="5" />
@@ -952,55 +1112,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/IDefaultXYChartSeries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/DateAxis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="111" column="32" lean-forward="true" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="267" column="20" selection-start-line="267" selection-start-column="20" selection-end-line="267" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/META-INF/MANIFEST.MF">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/efann.Properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/XMLTextReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="204" column="52" lean-forward="true" selection-start-line="204" selection-start-column="52" selection-end-line="204" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/HibernateUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="444" column="3" lean-forward="true" selection-start-line="444" selection-start-column="3" selection-end-line="444" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/XMLTextWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -1099,31 +1210,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="138" column="14" selection-start-line="138" selection-start-column="14" selection-end-line="138" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/HyperLinkLabelTableCell.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="562">
-          <caret line="54" column="3" lean-forward="true" selection-start-line="54" selection-start-column="3" selection-end-line="54" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
           <caret line="304" column="55" selection-start-line="304" selection-start-column="55" selection-end-line="304" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="60" column="21" selection-start-line="60" selection-start-column="21" selection-end-line="60" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -1169,13 +1259,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" selection-start-line="39" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1201,13 +1284,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8">
           <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="118" column="54" selection-start-line="118" selection-start-column="54" selection-end-line="118" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -1260,13 +1336,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3893">
-          <caret line="229" column="20" selection-start-line="229" selection-start-column="20" selection-end-line="229" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/misc/CheckForUpdates.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="490">
@@ -1281,6 +1350,111 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1598">
+          <caret line="94" column="47" selection-start-line="94" selection-start-column="47" selection-end-line="94" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libraries/hibernate/hibernate-core-5.2.10.Final.jar!/org/hibernate/cfg/Configuration.class" />
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/HibernateUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="130" column="35" lean-forward="true" selection-start-line="130" selection-start-column="35" selection-end-line="130" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="74">
+          <caret line="192" column="33" lean-forward="true" selection-start-line="192" selection-start-column="33" selection-end-line="192" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JEquity.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="61" column="18" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="47" column="7" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/DateAxis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="297" column="2" selection-start-line="297" selection-start-column="2" selection-end-line="297" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/dialog/PasswordBaseDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="47" column="58" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libraries/controlsfx/controlsfx-8.40.14.jar!/org/controlsfx/control/HyperlinkLabel.class" />
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/HyperLinkLabelTableCell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
+          <caret line="58" column="53" selection-start-line="58" selection-start-column="53" selection-end-line="58" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/tableview/EnvironmentProperty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/lang/Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="2480" column="18" selection-start-line="2480" selection-start-column="18" selection-end-line="2480" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/table/TableViewPlus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
   </component>
   <component name="masterDetails">
     <states>
@@ -1291,8 +1465,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
-                <option value="0.5" />
+                <option value="0.18709074" />
               </list>
             </option>
           </splitter-proportions>
@@ -1312,11 +1485,11 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Hibernate</last-edited>
+          <last-edited>Detection</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.18709074" />
               </list>
             </option>
           </splitter-proportions>
@@ -1327,7 +1500,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.18709074" />
               </list>
             </option>
           </splitter-proportions>
@@ -1335,11 +1508,11 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.8</last-edited>
+          <last-edited>12</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.18709074" />
               </list>
             </option>
           </splitter-proportions>
@@ -1347,12 +1520,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>JEquity</last-edited>
+          <last-edited>Hibernate|JEquity</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
-                <option value="0.6" />
+                <option value="0.18709074" />
               </list>
             </option>
           </splitter-proportions>
@@ -1360,11 +1532,11 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>controlsfx</last-edited>
+          <last-edited>javafx</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.18709074" />
               </list>
             </option>
           </splitter-proportions>

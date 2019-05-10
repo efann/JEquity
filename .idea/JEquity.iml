@@ -26,8 +26,9 @@
     <orderEntry type="library" name="controlsfx" level="project" />
     <orderEntry type="library" name="drivers" level="project" />
     <orderEntry type="library" name="flyway" level="project" />
-    <orderEntry type="library" name="hibernate" level="project" />
     <orderEntry type="library" name="jasper-reports" level="project" />
     <orderEntry type="library" name="jsoup" level="project" />
+    <orderEntry type="library" name="org.hibernate:hibernate-core:5.4.2.Final" level="project" />
+    <orderEntry type="library" name="javafx" level="project" />
   </component>
 </module>

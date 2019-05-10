@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2018, Beowurks
+ * Copyright(c) 2008-2019, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
@@ -9,7 +9,6 @@
 // From https://bitbucket.org/sco0ter/extfx/src/729c935ec306d3d5a6c5ef28f9c43b4352f11deb/src/main/java/extfx/scene/chart/DateAxis.java?at=master&fileviewer=file-view-default
 package com.beowurks.jequity.dao;
 
-import com.sun.javafx.charts.ChartLayoutAnimator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.beans.property.LongProperty;
@@ -161,7 +160,7 @@ public final class DateAxis extends Axis<Date>
     }
   };
 
-  private final ChartLayoutAnimator animator = new ChartLayoutAnimator(this);
+ // private final ChartLayoutAnimator animator = new ChartLayoutAnimator(this);
 
   private Object currentAnimationID;
 
@@ -280,7 +279,7 @@ public final class DateAxis extends Axis<Date>
 //                    new KeyFrame(Duration.millis(3000), keyValue, keyValue2));
 //            timeline.play();
 
-      this.animator.stop(this.currentAnimationID);
+   /*   this.animator.stop(this.currentAnimationID);
       this.currentAnimationID = this.animator.animate(
           new KeyFrame(Duration.ZERO,
               new KeyValue(this.currentLowerBound, oldLowerBound.getTime()),
@@ -291,7 +290,7 @@ public final class DateAxis extends Axis<Date>
               new KeyValue(this.currentUpperBound, upper.getTime())
           )
       );
-
+*/
     }
     else
     {

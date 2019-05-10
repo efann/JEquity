@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2018, Beowurks
+ * Copyright(c) 2008-2019, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
@@ -9,19 +9,28 @@
 package com.beowurks.jequity.view.table;
 
 import com.beowurks.jequity.utility.Constants;
-import com.sun.javafx.scene.control.skin.NestedTableColumnHeader;
-import com.sun.javafx.scene.control.skin.TableColumnHeader;
-import com.sun.javafx.scene.control.skin.TableHeaderRow;
-import com.sun.javafx.scene.control.skin.TableViewSkin;
+import com.sun.javafx.scene.control.Properties;
+import com.sun.javafx.scene.control.TableColumnBaseHelper;
+import com.sun.javafx.scene.control.skin.Utils;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.skin.NestedTableColumnHeader;
+import javafx.scene.control.skin.TableColumnHeader;
+import javafx.scene.control.skin.TableHeaderRow;
+import javafx.scene.control.skin.TableViewSkin;
+import javafx.scene.control.skin.TableViewSkinBase;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
+import javafx.util.Callback;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,12 +41,13 @@ public class TableViewPlus extends TableView
 {
   private boolean flSkinPropertyListenerAdded = false;
 
-  private final StringBuffer foKeySearch = new StringBuffer("");
+  private final StringBuffer foKeySearch = new StringBuffer();
 
   private Label foStatusMessage = null;
 
   private Timer foTimerSearchReset = null;
 
+  private static Method foColumnToFitMethod;
 
   // ---------------------------------------------------------------------------------------------------------------------
   public TableViewPlus()
@@ -46,6 +56,7 @@ public class TableViewPlus extends TableView
 
     this.setEditable(false);
     this.setupKeySearch();
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -184,7 +195,6 @@ public class TableViewPlus extends TableView
   private void resetKeySearch()
   {
     this.foKeySearch.setLength(0);
-    this.foKeySearch.append("");
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -218,26 +228,96 @@ public class TableViewPlus extends TableView
       return;
     }
 
-    final TableHeaderRow loHeaderRow = loSkin.getTableHeaderRow();
-    final NestedTableColumnHeader loRootHeader = loHeaderRow.getRootHeader();
-    for (final TableColumnHeader loColumnHeader : loRootHeader.getColumnHeaders())
+    final TableHeaderRow loHeaderRow = (TableHeaderRow) this.lookup("TableHeaderRow");
+    for (final Node loChild : loHeaderRow.getChildren())
     {
-      try
+      if (loChild instanceof NestedTableColumnHeader)
       {
-        final TableColumn<?, ?> loColumn = (TableColumn<?, ?>) loColumnHeader.getTableColumn();
-        if (loColumn != null)
+        for (final TableColumnHeader loHeader : ((NestedTableColumnHeader) loChild).getColumnHeaders())
         {
-          final Method loMethod = loSkin.getClass().getDeclaredMethod("resizeColumnToFitContent", TableColumn.class, int.class);
-          loMethod.setAccessible(true);
-          loMethod.invoke(loSkin, loColumn, 30);
+          TableViewPlus.resizeColumnToFitContent(this, loSkin, loHeader);
         }
       }
-      catch (final Throwable loErr)
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // Unfortunately, we can't access TableSkinUtils.resizeColumnToFitContent. So I just copied the code, modify slightly,
+  // and use what's below.
+  private static <T, S> void resizeColumnToFitContent(final TableView<T> toTableView, final TableViewSkinBase toSkin, final TableColumnHeader toHeader)
+  {
+    final TableColumn<T, S> loTableColumn = (TableColumn) toHeader.getTableColumn();
+    final List<?> loItems = toTableView.getItems();
+    if (loItems == null || loItems.isEmpty())
+    {
+      return;
+    }
+
+    final Callback/*<TableColumn<T, ?>, TableCell<T,?>>*/ loCellFactory = loTableColumn.getCellFactory();
+    if (loCellFactory == null)
+    {
+      return;
+    }
+
+    final TableCell<T, ?> loCell = (TableCell<T, ?>) loCellFactory.call(loTableColumn);
+    if (loCell == null)
+    {
+      return;
+    }
+
+    // set this property to tell the TableCell we want to know its actual
+    // preferred width, not the width of the associated TableColumnBase
+    loCell.getProperties().put(Properties.DEFER_TO_PARENT_PREF_WIDTH, Boolean.TRUE);
+
+    // determine cell padding
+    double lnPadding = 10;
+    final Node loNode = loCell.getSkin() == null ? null : loCell.getSkin().getNode();
+    if (loNode instanceof Region)
+    {
+      final Region loRegion = (Region) loNode;
+      lnPadding = loRegion.snappedLeftInset() + loRegion.snappedRightInset();
+    }
+
+    final int lnRows = loItems.size();
+    double lnMaxWidth = 0.0;
+    for (int lnRow = 0; lnRow < lnRows; lnRow++)
+    {
+      loCell.updateTableColumn(loTableColumn);
+      loCell.updateTableView(toTableView);
+      loCell.updateIndex(lnRow);
+
+      if ((loCell.getText() != null && !loCell.getText().isEmpty()) || loCell.getGraphic() != null)
       {
-        loErr.printStackTrace(System.err);
+        toSkin.getChildren().add(loCell);
+        loCell.applyCss();
+        lnMaxWidth = Math.max(lnMaxWidth, loCell.prefWidth(-1));
+        toSkin.getChildren().remove(loCell);
       }
     }
 
+    // dispose of the cell to prevent it retaining listeners (see RT-31015)
+    loCell.updateIndex(-1);
+
+    // RT-36855 - take into account the column header text / graphic widths.
+    // Magic 10 is to allow for sort arrow to appear without text truncation.
+    for (final Node loItem : toHeader.getChildrenUnmodifiable())
+    {
+      if (loItem instanceof Label)
+      {
+        final Label loLabel = (Label) loItem;
+        final double lnHeaderTextWidth = Utils.computeTextWidth(loLabel.getFont(), loTableColumn.getText(), -1);
+        final Node loGraphic = loLabel.getGraphic();
+        final double lnHeaderGraphicWidth = loGraphic == null ? 0 : loGraphic.prefWidth(-1) + loLabel.getGraphicTextGap();
+        final double lnHeaderWidth = lnHeaderTextWidth + lnHeaderGraphicWidth + 10 + toHeader.snappedLeftInset() + toHeader.snappedRightInset();
+        lnMaxWidth = Math.max(lnMaxWidth, lnHeaderWidth);
+
+        break;
+      }
+    }
+
+    // RT-23486
+    lnMaxWidth += lnPadding;
+    TableColumnBaseHelper.setWidth(loTableColumn, lnMaxWidth);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

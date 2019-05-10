@@ -32,13 +32,13 @@
       <element id="library" level="project" name="commons-io" />
       <element id="library" level="project" name="drivers" />
       <element id="library" level="project" name="flyway" />
-      <element id="library" level="project" name="hibernate" />
       <element id="library" level="project" name="jasper-reports" />
       <element id="library" level="project" name="jsoup" />
       <element id="library" level="project" name="controlsfx" />
       <element id="archive" name="JEquity.jar">
         <element id="module-output" name="JEquity" />
       </element>
+      <element id="library" level="project" name="org.hibernate:hibernate-core:5.4.2.Final" />
     </root>
   </artifact>
 </component>

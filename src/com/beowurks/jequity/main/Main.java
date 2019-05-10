@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2018, Beowurks
+ * Copyright(c) 2008-2019, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
@@ -44,6 +44,10 @@ public class Main extends Application
 
   private static MainFormController foMainController;
 
+  private static FXMLLoader foMainLoader;
+
+  private static BorderPane foMainBorderPane;
+
   // ---------------------------------------------------------------------------------------------------------------------
   @Override
   public void start(final Stage toPrimaryStage) throws Exception
@@ -53,21 +57,16 @@ public class Main extends Application
       Main.PRIMARY_STAGE = toPrimaryStage;
       Main.foHostService = this.getHostServices();
 
+      Main.foMainLoader = new FXMLLoader(this.getClass().getResource("/com/beowurks/jequity/view/fxml/MainForm.fxml"));
+
       // Needs to be near the top: otherwise the Constant variables are initialized before
       // APPLICATION_DEVELOPMENT is set.
       Main.initializeEnvironment(this);
 
-      final FXMLLoader loLoader = new FXMLLoader(this.getClass().getResource("/com/beowurks/jequity/view/fxml/MainForm.fxml"));
-
-      // loLoader.load must be run before obtaining the controller, which kind of makes sense.
-      final BorderPane loBorderPane = loLoader.load();
-
-      Main.foMainController = loLoader.getController();
-
       toPrimaryStage.setTitle(Main.getApplicationFullName());
 
       toPrimaryStage.getIcons().add(new Image("/com/beowurks/jequity/view/images/JEquity.png"));
-      toPrimaryStage.setScene(new Scene(loBorderPane));
+      toPrimaryStage.setScene(new Scene(Main.foMainBorderPane));
       toPrimaryStage.show();
 
     }
@@ -92,8 +91,13 @@ public class Main extends Application
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private static void initializeEnvironment(final Object toObject)
+  private static void initializeEnvironment(final Object toObject) throws IOException
   {
+    // loLoader.load must be run before obtaining the controller, which kind of makes sense.
+    Main.foMainBorderPane = Main.foMainLoader.load();
+
+    Main.foMainController = Main.foMainLoader.getController();
+
     // If you use Main.class.getClass instead of toObject in a static method,
     // you'll get something like Java Runtime Environment 1.8.0_144
     final String lcTitle = toObject.getClass().getPackage().getImplementationTitle();
