@@ -9,8 +9,8 @@ package com.beowurks.jequity.dao.migration;
 
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import org.flywaydb.core.api.migration.Context;
 
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,11 +31,11 @@ public class V3_4__Move_Financial_Data extends MigrationHelper
 
   // -----------------------------------------------------------------------------
   @Override
-  public void migrate(final Connection toConnection) throws Exception
+  public void migrate(final Context toContext) throws Exception
   {
     Misc.setStatusText("Migration v3.4. . . .");
 
-    this.foConnection = toConnection;
+    this.foConnection = toContext.getConnection();
 
     // Only the original version which used Apache Derby
     // contains separate financial tables in the JEquity schema.

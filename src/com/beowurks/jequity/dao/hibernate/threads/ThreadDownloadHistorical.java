@@ -200,17 +200,15 @@ public class ThreadDownloadHistorical implements Runnable
       }
 
       this.foDoubleList.sort(new DoubleComparator());
+
+      if (loLines != null)
+      {
+        loLines.close();
+      }
     }
     catch (final IOException loErr)
     {
       loException = loErr;
-    }
-    finally
-    {
-      if (loLines != null)
-      {
-        LineIterator.closeQuietly(loLines);
-      }
     }
 
     return (loException == null);

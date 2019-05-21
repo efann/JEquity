@@ -8,8 +8,7 @@
 package com.beowurks.jequity.dao.migration;
 
 import com.beowurks.jequity.utility.Misc;
-
-import java.sql.Connection;
+import org.flywaydb.core.api.migration.Context;
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
@@ -19,11 +18,11 @@ public class V3_1__Setup_Secondary_Tables extends MigrationHelper
 
   // -----------------------------------------------------------------------------
   @Override
-  public void migrate(final Connection toConnection) throws Exception
+  public void migrate(final Context toContext) throws Exception
   {
     Misc.setStatusText("Migration v3.1. . . .");
 
-    this.foConnection = toConnection;
+    this.foConnection = toContext.getConnection();
 
     this.executeStatements("TablesSecondarySetup.sql");
 

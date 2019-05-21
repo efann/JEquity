@@ -10,7 +10,7 @@ package com.beowurks.jequity.dao.migration;
 import com.beowurks.jequity.dao.hibernate.WhichDatabase;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
-import org.flywaydb.core.api.migration.jdbc.JdbcMigration;
+import org.flywaydb.core.api.migration.BaseJavaMigration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-abstract public class MigrationHelper implements JdbcMigration
+abstract public class MigrationHelper extends BaseJavaMigration
 {
 
   protected Connection foConnection = null;

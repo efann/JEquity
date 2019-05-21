@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="flyway">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libraries/flyway/flyway-core-4.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/flyway/flyway-core-5.2.4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

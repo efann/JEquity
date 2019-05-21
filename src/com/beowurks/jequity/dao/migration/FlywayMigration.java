@@ -14,6 +14,7 @@ import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import org.flywaydb.core.Flyway;
 
+
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
@@ -22,7 +23,7 @@ public final class FlywayMigration
 
   public static final FlywayMigration INSTANCE = new FlywayMigration();
 
-  private final Flyway foFlyway = new Flyway();
+  private Flyway foFlyway;
 
   private WhichDatabase foWhichDatabase = null;
 
@@ -52,10 +53,11 @@ public final class FlywayMigration
           return (false);
         }
 
-        this.foFlyway.setLocations(lcPath);
-        this.foFlyway.setDataSource(lcConnectionURL, loAppProp.getConnectionUser(), loAppProp.getConnectionPassword());
+        Flyway.configure().locations(lcPath);
 
-        this.foWhichDatabase = new WhichDatabase(this.foFlyway.getDataSource().getConnection());
+        this.foFlyway = Flyway.configure().dataSource(lcConnectionURL, loAppProp.getConnectionUser(), loAppProp.getConnectionPassword()).load();
+
+        this.foWhichDatabase = new WhichDatabase(this.foFlyway.getConfiguration().getDataSource().getConnection());
 
         // In Flyway.java, line 975, the migration routine wants to reset the schema to the default
         // schema of the database. However, if the default schema has not been created, then
@@ -66,17 +68,17 @@ public final class FlywayMigration
         if (this.isApacheDerby())
         {
           // From https://github.com/flyway/flyway/issues/1331
-          this.foFlyway.setValidateOnMigrate(false);
+          Flyway.configure().validateOnMigrate(false);
 
-          this.foFlyway.setSchemas(Constants.FLYWAY_JEQUITY_SCHEMA, Constants.FLYWAY_DERBY_DEFAULT_SCHEMA);
+          Flyway.configure().schemas(Constants.FLYWAY_JEQUITY_SCHEMA, Constants.FLYWAY_DERBY_DEFAULT_SCHEMA);
         }
         else if (!this.isMySQL())
         {
-          this.foFlyway.setSchemas(Constants.FLYWAY_JEQUITY_SCHEMA);
+          Flyway.configure().schemas(Constants.FLYWAY_JEQUITY_SCHEMA);
         }
 
         // Will call baseline if needed.
-        this.foFlyway.setBaselineOnMigrate(true);
+        Flyway.configure().baselineOnMigrate(true);
 
         this.foFlyway.migrate();
 

@@ -7,7 +7,7 @@
  */
 package com.beowurks.jequity.dao.migration;
 
-import java.sql.Connection;
+import org.flywaydb.core.api.migration.Context;
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
@@ -17,9 +17,9 @@ public class V3_5__Drop_Add_Daily_Fields extends MigrationHelper
 
   // -----------------------------------------------------------------------------
   @Override
-  public void migrate(final Connection toConnection) throws Exception
+  public void migrate(final Context toContext) throws Exception
   {
-    this.foConnection = toConnection;
+    this.foConnection = toContext.getConnection();
 
     this.executeStatements("DropAddDailyFields.sql");
 

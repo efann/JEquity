@@ -9,14 +9,11 @@
 // From https://bitbucket.org/sco0ter/extfx/src/729c935ec306d3d5a6c5ef28f9c43b4352f11deb/src/main/java/extfx/scene/chart/DateAxis.java?at=master&fileviewer=file-view-default
 package com.beowurks.jequity.dao;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.scene.chart.Axis;
-import javafx.util.Duration;
 import javafx.util.StringConverter;
 
 import java.sql.Date;
