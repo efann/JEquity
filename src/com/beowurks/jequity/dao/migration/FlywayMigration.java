@@ -13,6 +13,7 @@ import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.configuration.ClassicConfiguration;
 
 
 // -----------------------------------------------------------------------------
@@ -53,11 +54,13 @@ public final class FlywayMigration
           return (false);
         }
 
-        Flyway.configure().locations(lcPath);
+        // From https://github.com/flyway/flyway/issues/1928
+        final ClassicConfiguration loConfiguration = new ClassicConfiguration();
 
-        this.foFlyway = Flyway.configure().dataSource(lcConnectionURL, loAppProp.getConnectionUser(), loAppProp.getConnectionPassword()).load();
+        loConfiguration.setDataSource(lcConnectionURL, loAppProp.getConnectionUser(), loAppProp.getConnectionPassword());
+        loConfiguration.setLocationsAsStrings(lcPath);
 
-        this.foWhichDatabase = new WhichDatabase(this.foFlyway.getConfiguration().getDataSource().getConnection());
+        this.foWhichDatabase = new WhichDatabase(loConfiguration.getDataSource().getConnection());
 
         // In Flyway.java, line 975, the migration routine wants to reset the schema to the default
         // schema of the database. However, if the default schema has not been created, then
@@ -68,18 +71,19 @@ public final class FlywayMigration
         if (this.isApacheDerby())
         {
           // From https://github.com/flyway/flyway/issues/1331
-          Flyway.configure().validateOnMigrate(false);
+          loConfiguration.setValidateOnMigrate(false);
 
-          Flyway.configure().schemas(Constants.FLYWAY_JEQUITY_SCHEMA, Constants.FLYWAY_DERBY_DEFAULT_SCHEMA);
+          loConfiguration.setSchemas(Constants.FLYWAY_JEQUITY_SCHEMA, Constants.FLYWAY_DERBY_DEFAULT_SCHEMA);
         }
         else if (!this.isMySQL())
         {
-          Flyway.configure().schemas(Constants.FLYWAY_JEQUITY_SCHEMA);
+          loConfiguration.setSchemas(Constants.FLYWAY_JEQUITY_SCHEMA);
         }
 
         // Will call baseline if needed.
-        Flyway.configure().baselineOnMigrate(true);
+        loConfiguration.setBaselineOnMigrate(true);
 
+        this.foFlyway = new Flyway(loConfiguration);
         this.foFlyway.migrate();
 
         if (this.isApacheDerby())
@@ -92,8 +96,7 @@ public final class FlywayMigration
       catch (final Exception loErr)
       {
         llOkay = false;
-        // You have to use Util.errorMessage rather than Misc.errorMessage as some of the pieces parts of JavaFX
-        // are not yet working.
+
         Misc.errorMessage(String.format("There was a problem in opening the database:\n\n%s\n\nIf Apache Derby, make sure the directory does not already exist. Otherwise ensure that your login parameters are correct.", loErr.getMessage()));
       }
 

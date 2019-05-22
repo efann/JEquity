@@ -151,32 +151,6 @@ public class OptionsController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void resetTextFields()
-  {
-    final IntegerKeyItem loItem = this.cboDriver.getSelectionModel().getSelectedItem();
-
-    final boolean llEditable = !loItem.getDescription().equals(Constants.DRIVER_VALUE_DERBY);
-
-    this.setEditable(this.txtHost, llEditable);
-    this.setEditable(this.txtUser, llEditable);
-    this.setEditable(this.txtPassword, llEditable);
-
-    if (Main.isDevelopmentEnvironment())
-    {
-      final boolean llMySQL = !loItem.getDescription().equals(Constants.DRIVER_VALUE_MYSQL5_PLUS);
-      final boolean llPostgreSQL = !loItem.getDescription().equals(Constants.DRIVER_VALUE_POSTGRESQL9_PLUS);
-
-      if (llMySQL || llPostgreSQL)
-      {
-        this.txtHost.setText(Constants.DEVELOPMENT_SERVER);
-        this.txtDatabase.setText(Constants.DEVELOPMENT_DATABASE);
-        this.txtUser.setText(Constants.DEVELOPMENT_USER);
-        this.txtPassword.setText(Constants.DEVELOPMENT_PASSWORD);
-      }
-    }
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
   // Unfortunately, I can't create an inherited class from TextField and override setEditable: it's a final method.
   // Oh well. . . .
   private void setEditable(final TextField toField, final boolean tlEditable)
@@ -187,19 +161,60 @@ public class OptionsController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  private void resetTextFields()
+  {
+    final IntegerKeyItem loItem = this.cboDriver.getSelectionModel().getSelectedItem();
+
+    final String lcDescription = loItem.getDescription();
+    final boolean llApacheDerby = lcDescription.equals(Constants.DRIVER_VALUE_DERBY);
+    final boolean llEditable = !llApacheDerby;
+
+    this.setEditable(this.txtHost, llEditable);
+    this.setEditable(this.txtUser, llEditable);
+    this.setEditable(this.txtPassword, llEditable);
+
+    if (!Main.isDevelopmentEnvironment())
+    {
+      return;
+    }
+
+    final boolean llMySQL = lcDescription.equals(Constants.DRIVER_VALUE_MYSQL5_PLUS);
+    final boolean llPostgreSQL = lcDescription.equals(Constants.DRIVER_VALUE_POSTGRESQL9_PLUS);
+
+    if (llMySQL || llPostgreSQL)
+    {
+      this.txtHost.setText(Constants.DEVELOPMENT_SERVER);
+      this.txtDatabase.setText(Constants.DEVELOPMENT_DATABASE);
+      this.txtUser.setText(Constants.DEVELOPMENT_USER);
+      this.txtPassword.setText(Constants.DEVELOPMENT_PASSWORD);
+    }
+    else if (llApacheDerby)
+    {
+      this.resetDefaultValues();
+    }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void resetDefaultValues()
+  {
+    final AppProperties loApp = AppProperties.INSTANCE;
+
+    this.cboDriver.getSelectionModel().select(loApp.convertKeyToIndex(loApp.getRDBMS_Types(), loApp.getDefaultDriverKey()));
+
+    this.txtHost.setText(loApp.getDefaultHost());
+    this.txtDatabase.setText(loApp.getDefaultDatabase());
+    this.txtUser.setText(loApp.getDefaultDerbyUser());
+    this.txtPassword.setText(loApp.getDefaultDerbyPassword());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public void handle(final ActionEvent toEvent)
   {
     final Object loObject = toEvent.getSource();
     if (loObject == this.btnDefault)
     {
-      final AppProperties loApp = AppProperties.INSTANCE;
-
-      this.cboDriver.getSelectionModel().select(loApp.convertKeyToIndex(loApp.getRDBMS_Types(), loApp.getDefaultDriverKey()));
-
-      this.txtHost.setText(loApp.getDefaultHost());
-      this.txtDatabase.setText(loApp.getDefaultDatabase());
-      this.txtUser.setText(loApp.getDefaultDerbyUser());
-      this.txtPassword.setText(loApp.getDefaultDerbyPassword());
+      this.resetDefaultValues();
     }
     else if (loObject == this.cboDriver)
     {
