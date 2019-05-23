@@ -28,6 +28,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
@@ -561,20 +562,13 @@ public final class Misc
       laResults[i] = ' ';
     }
 
-    try
+    final byte[] laKey = tcKey.getBytes(StandardCharsets.UTF_8);
+    final int lnLength = laKey.length;
+    for (int i = 0; i < lnLength; ++i)
     {
-      final byte[] laKey = tcKey.getBytes("UTF-8");
-      final int lnLength = laKey.length;
-      for (int i = 0; i < lnLength; ++i)
-      {
-        // Should keep wrapping around and XORing the values.
-        final int lnMod = i % tnFinalLength;
-        laResults[lnMod] = (i < tnFinalLength) ? laKey[i] : (byte) (laResults[lnMod] ^ laKey[i]);
-      }
-
-    }
-    catch (final UnsupportedEncodingException ignored)
-    {
+      // Should keep wrapping around and XORing the values.
+      final int lnMod = i % tnFinalLength;
+      laResults[lnMod] = (i < tnFinalLength) ? laKey[i] : (byte) (laResults[lnMod] ^ laKey[i]);
     }
 
     return (laResults);

@@ -20,7 +20,7 @@ import java.util.TimerTask;
 public class TimerSymbolInfo
 {
 
-  public static TimerSymbolInfo INSTANCE = new TimerSymbolInfo();
+  public static final TimerSymbolInfo INSTANCE = new TimerSymbolInfo();
 
   private Timer foTimer = null;
 

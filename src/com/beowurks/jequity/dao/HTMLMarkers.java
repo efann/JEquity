@@ -18,7 +18,7 @@ import org.jsoup.nodes.Document;
 // ---------------------------------------------------------------------------------------------------------------------
 public class HTMLMarkers implements Runnable
 {
-  public static HTMLMarkers INSTANCE = new HTMLMarkers();
+  public static final HTMLMarkers INSTANCE = new HTMLMarkers();
 
   private static final String CONFIG_URL = "https://www.beowurks.com/Software/JEquity/config.xml";
   private static final String SYMBOL_MARKER = "###symbol###";

@@ -34,7 +34,7 @@ import java.util.HashMap;
 public class ThreadRestore extends ThreadBase implements Runnable
 {
 
-  public static ThreadRestore INSTANCE = new ThreadRestore();
+  public static final ThreadRestore INSTANCE = new ThreadRestore();
 
   private final HashMap<String, GroupEntity> foGroupMap = new HashMap<>();
   private File foXMLFile = null;
@@ -120,7 +120,7 @@ public class ThreadRestore extends ThreadBase implements Runnable
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = loHibernate.getSession();
 
-    final StringBuilder loMessage = new StringBuilder("");
+    final StringBuilder loMessage = new StringBuilder();
 
     // Hibernate works well; however, it is not efficient for batch insert operations.
     // Even with StatelessSession and using inserts with SQL rather than saving

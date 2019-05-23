@@ -201,11 +201,7 @@ public class MenuController
   {
     final AppProperties loApp = AppProperties.INSTANCE;
 
-    final FileChooser loFileChooser = new FileChooser();
-    loFileChooser.setTitle("Restore from Backup File");
-    loFileChooser.setInitialDirectory(new File(loApp.getBackupRestoreFolder()));
-    loFileChooser.setInitialFileName("backup.xml");
-    loFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+    final FileChooser loFileChooser = this.getBackupRestoreChooser("Restore from Backup File");
 
     final File loBackupFile = loFileChooser.showOpenDialog(Main.getPrimaryStage());
 
@@ -241,15 +237,26 @@ public class MenuController
 
   // ---------------------------------------------------------------------------------------------------------------------
   @FXML
-  private void backupData()
+  private FileChooser getBackupRestoreChooser(final String tcTitle)
   {
     final AppProperties loApp = AppProperties.INSTANCE;
 
     final FileChooser loFileChooser = new FileChooser();
-    loFileChooser.setTitle("Save to Backup File");
+    loFileChooser.setTitle(tcTitle);
     loFileChooser.setInitialDirectory(new File(loApp.getBackupRestoreFolder()));
     loFileChooser.setInitialFileName("backup.xml");
     loFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+
+    return (loFileChooser);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
+  private void backupData()
+  {
+    final AppProperties loApp = AppProperties.INSTANCE;
+
+    final FileChooser loFileChooser = this.getBackupRestoreChooser("Save to Backup File");
 
     final File loBackupFile = loFileChooser.showSaveDialog(Main.getPrimaryStage());
 

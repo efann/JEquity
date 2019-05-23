@@ -22,7 +22,7 @@ import java.time.LocalDate;
 public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Runnable
 {
 
-  public static ThreadDownloadSingleSymbol INSTANCE = new ThreadDownloadSingleSymbol();
+  public static final ThreadDownloadSingleSymbol INSTANCE = new ThreadDownloadSingleSymbol();
 
   private SingleSymbolInfo foSingleSymbolInfo;
 

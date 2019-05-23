@@ -60,37 +60,37 @@ public class XMLTextWriter
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Node appendNodeToRoot(final String tcElement, final boolean tlValue, final Object taAttributes[][])
+  public Node appendNodeToRoot(final String tcElement, final boolean tlValue, final Object[][] taAttributes)
   {
     return (this.appendNodeToRoot(tcElement, Boolean.toString(tlValue), taAttributes));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Node appendNodeToRoot(final String tcElement, final Date tdValue, final Object taAttributes[][])
+  public Node appendNodeToRoot(final String tcElement, final Date tdValue, final Object[][] taAttributes)
   {
     return (this.appendNodeToRoot(tcElement, tdValue.getTime(), taAttributes));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Node appendNodeToRoot(final String tcElement, final double tnValue, final Object taAttributes[][])
+  public Node appendNodeToRoot(final String tcElement, final double tnValue, final Object[][] taAttributes)
   {
     return (this.appendNodeToRoot(tcElement, Double.toString(tnValue), taAttributes));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Node appendNodeToRoot(final String tcElement, final int tnValue, final Object taAttributes[][])
+  public Node appendNodeToRoot(final String tcElement, final int tnValue, final Object[][] taAttributes)
   {
     return (this.appendNodeToRoot(tcElement, Integer.toString(tnValue), taAttributes));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Node appendNodeToRoot(final String tcElement, final long tnValue, final Object taAttributes[][])
+  public Node appendNodeToRoot(final String tcElement, final long tnValue, final Object[][] taAttributes)
   {
     return (this.appendNodeToRoot(tcElement, Long.toString(tnValue), taAttributes));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Node appendNodeToRoot(final String tcElement, final String tcValue, final Object taAttributes[][])
+  public Node appendNodeToRoot(final String tcElement, final String tcValue, final Object[][] taAttributes)
   {
     Node loNode = null;
 
@@ -131,26 +131,26 @@ public class XMLTextWriter
 
   // ---------------------------------------------------------------------------------------------------------------------
   public Node appendToNode(final Node toNode, final String tcElement, final double tnValue,
-                           final Object taAttributes[][])
+                           final Object[][] taAttributes)
   {
     return (this.appendToNode(toNode, tcElement, Double.toString(tnValue), taAttributes));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Node appendToNode(final Node toNode, final String tcElement, final int tnValue, final Object taAttributes[][])
+  public Node appendToNode(final Node toNode, final String tcElement, final int tnValue, final Object[][] taAttributes)
   {
     return (this.appendToNode(toNode, tcElement, Integer.toString(tnValue), taAttributes));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Node appendToNode(final Node toNode, final String tcElement, final long tnValue, final Object taAttributes[][])
+  public Node appendToNode(final Node toNode, final String tcElement, final long tnValue, final Object[][] taAttributes)
   {
     return (this.appendToNode(toNode, tcElement, Long.toString(tnValue), taAttributes));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public Node appendToNode(final Node toNode, final String tcElement, final String tcValue,
-                           final Object taAttributes[][])
+                           final Object[][] taAttributes)
   {
     Node loNode = null;
 
@@ -190,7 +190,7 @@ public class XMLTextWriter
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public Node createRootNode(final String tcRootName, final Object taAttributes[][])
+  public Node createRootNode(final String tcRootName, final Object[][] taAttributes)
   {
     try
     {

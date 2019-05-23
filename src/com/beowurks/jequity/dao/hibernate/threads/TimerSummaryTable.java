@@ -48,7 +48,7 @@ public class TimerSummaryTable
     protected Double fnSubTotal;
   }
 
-  public static TimerSummaryTable INSTANCE = new TimerSummaryTable();
+  public static final TimerSummaryTable INSTANCE = new TimerSummaryTable();
 
   private final Vector<SummarySubAmount> foSummaryList = new Vector<>();
 
@@ -189,8 +189,8 @@ public class TimerSummaryTable
       final SummarySubAmount loSumAmount = new SummarySubAmount();
 
       loSumAmount.fcAccount = lcAccount;
-      loSumAmount.fcType = this.standardizeDelimitedString(lcType, true);
-      loSumAmount.fcCategory = this.standardizeDelimitedString(lcCategory, true);
+      loSumAmount.fcType = TimerSummaryTable.standardizeDelimitedString(lcType, true);
+      loSumAmount.fcCategory = TimerSummaryTable.standardizeDelimitedString(lcCategory, true);
       loSumAmount.fnSubTotal = lnPrice * lnShares;
       loSumAmount.flRetirement = llRetirement;
 
@@ -312,7 +312,7 @@ public class TimerSummaryTable
       return (null);
     }
 
-    final String[] laStrings = this.standardizeDelimitedString(tcValue, false).split(Constants.CATEGORY_TYPE_DELIMITER, 0);
+    final String[] laStrings = TimerSummaryTable.standardizeDelimitedString(tcValue, false).split(Constants.CATEGORY_TYPE_DELIMITER, 0);
     Vector<SummarySubList> loVector = null;
 
     if (!laStrings[0].isEmpty())
@@ -320,7 +320,7 @@ public class TimerSummaryTable
       final int lnCount = laStrings.length;
       loVector = new Vector<>();
 
-      final StringBuilder lcValue = new StringBuilder("");
+      final StringBuilder lcValue = new StringBuilder();
       for (int i = 0; i < lnCount; ++i)
       {
         lcValue.append(laStrings[i].trim());

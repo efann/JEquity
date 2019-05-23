@@ -31,7 +31,7 @@ import java.util.List;
 public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runnable
 {
 
-  public static ThreadDownloadSymbolInfo INSTANCE = new ThreadDownloadSymbolInfo();
+  public static final ThreadDownloadSymbolInfo INSTANCE = new ThreadDownloadSymbolInfo();
 
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
   {
     Misc.setStatusText("First updating codes in the Symbol table. . . .");
 
-    final StringBuilder lcMessage = new StringBuilder("");
+    final StringBuilder lcMessage = new StringBuilder();
 
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = loHibernate.getSession();

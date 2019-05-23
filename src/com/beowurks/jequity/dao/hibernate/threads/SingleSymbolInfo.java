@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 // ---------------------------------------------------------------------------------------------------------------------
 public class SingleSymbolInfo
 {
-  public static SingleSymbolInfo INSTANCE = new SingleSymbolInfo();
+  public static final SingleSymbolInfo INSTANCE = new SingleSymbolInfo();
 
   private String fcInitialSymbol;
   private TextField txtSymbol;

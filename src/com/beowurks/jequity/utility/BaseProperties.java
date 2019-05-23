@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -217,7 +217,7 @@ public class BaseProperties
     {
       try
       {
-        this.foProperties.load(new StringReader(new String(lbInput, "UTF8")));
+        this.foProperties.load(new StringReader(new String(lbInput, StandardCharsets.UTF_8)));
       }
       catch (final IOException loErr)
       {
@@ -234,7 +234,7 @@ public class BaseProperties
 
         loCipher.init(Cipher.DECRYPT_MODE, loKey);
 
-        this.foProperties.load(new StringReader(new String(loCipher.doFinal(lbInput), "UTF8")));
+        this.foProperties.load(new StringReader(new String(loCipher.doFinal(lbInput), StandardCharsets.UTF_8)));
       }
       catch (final IOException loErr)
       {
@@ -275,21 +275,13 @@ public class BaseProperties
 
     if (this.fcKey == null)
     {
-      try
-      {
-        Misc.bytesToBinaryFile(lcString.getBytes("UTF8"), this.fcFullName);
-      }
-      catch (final UnsupportedEncodingException loErr)
-      {
-        llOkay = false;
-        Misc.infoMessage(loErr.getMessage());
-      }
+      Misc.bytesToBinaryFile(lcString.getBytes(StandardCharsets.UTF_8), this.fcFullName);
     }
     else
     {
       try
       {
-        final byte[] lbOutput = lcString.getBytes("UTF8");
+        final byte[] lbOutput = lcString.getBytes(StandardCharsets.UTF_8);
         final SecretKeySpec loKey = new SecretKeySpec(Misc.getKeyBytes(this.fcKey, BaseProperties.CRYPTO_KEY_LENGTH), BaseProperties.CRYPTO_PROVIDER_BASE);
         final Cipher loCipher = Cipher.getInstance(BaseProperties.CRYPTO_PROVIDER);
 
@@ -297,7 +289,7 @@ public class BaseProperties
 
         Misc.bytesToBinaryFile(loCipher.doFinal(lbOutput), this.fcFullName);
       }
-      catch (final InvalidKeyException | UnsupportedEncodingException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException loErr)
+      catch (final InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException loErr)
       {
         llOkay = false;
         if (this.flDisplayErrors)
