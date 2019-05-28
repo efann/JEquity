@@ -39,6 +39,7 @@
         <element id="module-output" name="JEquity" />
       </element>
       <element id="library" level="project" name="org.hibernate:hibernate-core:5.4.2.Final" />
+      <element id="library" level="application" name="javafx-11.0.2" />
     </root>
   </artifact>
 </component>

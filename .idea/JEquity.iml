@@ -29,6 +29,6 @@
     <orderEntry type="library" name="jasper-reports" level="project" />
     <orderEntry type="library" name="jsoup" level="project" />
     <orderEntry type="library" name="org.hibernate:hibernate-core:5.4.2.Final" level="project" />
-    <orderEntry type="library" name="javafx" level="project" />
+    <orderEntry type="library" name="javafx-11.0.2" level="application" />
   </component>
 </module>
