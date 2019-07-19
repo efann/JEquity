@@ -11,10 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/JEquity.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/JEquity.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JEquity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JEquity.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/JavaFX.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -77,8 +75,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="22" column="54" lean-forward="true" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="54" />
+            <state relative-caret-position="479">
+              <caret line="30" column="120" lean-forward="true" selection-start-line="30" selection-end-line="30" selection-end-column="120" />
             </state>
           </provider>
         </entry>
@@ -231,10 +229,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="180" />
-    <option name="y" value="61" />
-    <option name="width" value="1612" />
-    <option name="height" value="767" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Beowurks">
@@ -357,6 +355,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -425,13 +424,17 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
               <item name="JEquity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JEquity" type="462c0819:PsiDirectoryNode" />
+              <item name="ant" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="JEquity" type="b2602c69:ProjectViewProjectNode" />
@@ -915,11 +918,15 @@
       <workItem from="1558616751079" duration="5374000" />
       <workItem from="1558728412600" duration="32000" />
       <workItem from="1558732022637" duration="1452000" />
+      <workItem from="1562168170070" duration="346000" />
+      <workItem from="1562168639336" duration="650000" />
+      <workItem from="1563306822790" duration="38000" />
+      <workItem from="1563463561629" duration="630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1134570000" />
+    <option name="totallyTimeSpent" value="1136234000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -934,7 +941,7 @@
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.29904053" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.31183368" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25266525" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -956,7 +963,7 @@
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32746115" />
       <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.3894081" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5026652" side_tool="true" weight="0.3997923" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32606438" />
+      <window_info active="true" anchor="bottom" id="Messages" order="13" visible="true" weight="0.32606438" />
       <window_info anchor="bottom" id="Problems" order="14" />
       <window_info anchor="bottom" id="Java Enterprise" order="15" weight="0.32987553" />
       <window_info anchor="bottom" id="Version Control" order="16" weight="0.3284974" />
@@ -1022,27 +1029,13 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/JEquity.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="61" column="18" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="47" column="7" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/dao/DateAxis.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1343,10 +1336,20 @@
     <entry file="file://$PROJECT_DIR$/setup/jequity.iss">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/ant/GenerateWindowsSetup.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ant/ManifestSetupUpdate.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-714" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/beowurks/jequity/controller/AboutBoxController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="22" column="54" lean-forward="true" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="54" />
+        <state relative-caret-position="479">
+          <caret line="30" column="120" lean-forward="true" selection-start-line="30" selection-end-line="30" selection-end-column="120" />
         </state>
       </provider>
     </entry>
