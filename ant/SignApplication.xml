@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<project name="SignApplication-Manual" default="build" basedir="..//">
+
+  <property name="dirs.base" value="${basedir}"/>
+  <property name="idea.out.path" value="${dirs.base}/out"/>
+  <property name="project.name" value="JEquity"/>
+  <property name="project.name.path" value="${idea.out.path}/artifacts/${project.name}"/>
+
+  <property name="project.jar" value="${project.name}.jar"/>
+  <property name="IDE.WorkSpace.Root" value="d:/Eclipse"/>
+
+  <echo level="info" message="Java Version ${java.runtime.version}"/>
+  <echo level="info" message="Java Home ${java.home}"/>
+  <echo level="info" message="Ant Version ${ant.version}"/>
+  <echo level="info" message="Ant Home ${ant.home}"/>
+
+  <target depends="signApplication" name="build"/>
+
+  <!-- Sign the Jar file -->
+  <target name="signApplication">
+    <!--
+        http://ant.apache.org/manual/CoreTasks/ant.html
+        If you use location rather than value, the absolute file path is used
+        which is needed by the GenerateKey build.xml.
+    -->
+    <ant inheritAll="false" antfile="${IDE.WorkSpace.Root}/WorkSpace/Stamp/build.xml" inheritrefs="false">
+      <property name="sign.project.jars" value="${project.jar}"/>
+      <property name="sign.project.dir" location="${project.name.path}"/>
+    </ant>
+  </target>
+
+</project>

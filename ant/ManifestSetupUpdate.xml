@@ -1,115 +1,63 @@
 <?xml version="1.0"?>
+
 <!--
-  ~ JEquity
-  ~ Copyright(c) 2008-2019, Beowurks
-  ~ Original Author: Eddie Fann
-  ~ License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
+  ~ PolyJen: a program that predicts chain-growth polymerization (specifically oxyalkylation)
+  ~          reactions and minimizes expensive laboratory experimentation.
+  ~
+  ~ Copyright(c) 2003-2019, Beowurks.
+  ~ License: Eclipse Public License - v 2.0 (https://www.eclipse.org/legal/epl-2.0/)
   ~
   -->
 
 <project name="ManifestSetupUpdate" default="build" basedir="..//">
 
   <property name="dirs.base" value="${basedir}"/>
-  <property name="src" value="${dirs.base}"/>
 
-  <property name="Beo.Title" value="unknown"/>
-  <property name="Beo.Version" value="unknown"/>
-  <property name="Beo.Vendor" value="unknown"/>
-  <property name="Beo.AppClass" value="unknown"/>
+  <property name="Beo.Install4J" value="${dirs.base}/install/install.install4j"/>
 
   <tstamp>
-    <format property="buildtime.isoformat" pattern="yyyy-MM-dd HH:mm:ss"/>
+    <format property="build.time.isoformat" pattern="yyyy-MM-dd HH:mm:ss"/>
   </tstamp>
 
-  <loadfile property="Beo.artifact.xml" srcfile="${src}/.idea/artifacts/JEquity.xml"/>
+  <target depends="getInformation, buildManifest" name="build"/>
 
-  <target depends="extractXMLValues,buildManifest,updateInnoSetup" name="build"/>
+  <target name="getInformation">
+    <echo message="===================================================================" level="info" />
+    <echo message="REMEMBER: You're pulling these values from install4j settings file." level="info" />
+    <echo message="===================================================================" level="info" />
 
-  <target name="extractXMLValues">
+    <xmlproperty file="${Beo.Install4J}" collapseAttributes="true" prefix="Prefix"/>
     <!--
-        You can use JavaScript in Ant! Woah!!!!!!!!!!!!
-        And combine with Java libraries!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      Ignore the red highlights that state ${Prefix.*} do not exist: they exist inside the XML file.
     -->
-    <script language="javascript">
-      <![CDATA[
+    <property name="Beo.Title" value="${Prefix.install4j.application.shortName}"/>
+    <property name="Beo.Version" value="${Prefix.install4j.application.version}"/>
+    <property name="Beo.Vendor" value="${Prefix.install4j.application.publisher}"/>
+    <property name="Beo.AppClass" value="${Prefix.install4j.launchers.launcher.java.mainClass}"/>
 
-        // From https://stackoverflow.com/questions/22503100/java-8-javascript-engine-backwards-compatibility
-        load("nashorn:mozilla_compat.js");
+    <echo message="Title from install4j: ${Beo.Title}" level="info"/>
+    <echo message="Version from install4j: ${Beo.Version}" level="info"/>
+    <echo message="Vendor from install4j: ${Beo.Vendor}" level="info"/>
+    <echo message="App Class from install4j: ${Beo.AppClass}" level="info"/>
 
-        // Here's more information: https://ant.apache.org/manual/Tasks/script.html
-        importClass(java.io.StringReader);
-
-        importClass(Packages.org.xml.sax.InputSource);
-        importClass(Packages.javax.xml.parsers.DocumentBuilderFactory);
-        importClass(Packages.javax.xml.parsers.DocumentBuilder);
-        importClass(Packages.org.w3c.dom.Document);
-        importClass(Packages.org.w3c.dom.NodeList);
-        importClass(Packages.org.w3c.dom.Node);
-        importClass(Packages.org.w3c.dom.Element);
-
-        var loDBFactory = DocumentBuilderFactory.newInstance();
-	      var loDocBuilder = loDBFactory.newDocumentBuilder();
-
-		    var loDoc = loDocBuilder.parse(new InputSource(new StringReader(ManifestSetupUpdate.getProperty("Beo.artifact.xml"))));
-
-        var lcAppClass = 'unknown';
-        var lcTitle = 'unknown';
-        var lcVersion = 'unknown';
-        var lcVendor = 'unknown';
-
-        var loNodeList = loDoc.getElementsByTagName("option");
-        var lnCount = loNodeList.getLength();
-        for (var i = 0; i < lnCount; i++)
-        {
-          var loNode = loNodeList.item(i);
-
-          var lcName = loNode.getAttributes().getNamedItem('name').getValue();
-          if (lcName)
-          {
-            switch (lcName)
-            {
-              case 'appClass':
-                lcAppClass = loNode.getAttributes().getNamedItem('value').getValue();
-                break;
-              case 'title':
-                lcTitle = loNode.getAttributes().getNamedItem('value').getValue();
-                break;
-              case 'version':
-                lcVersion = loNode.getAttributes().getNamedItem('value').getValue();
-                break;
-              case 'vendor':
-                lcVendor = loNode.getAttributes().getNamedItem('value').getValue();
-                break;
-            }
-          }
-        }
-
-        ManifestSetupUpdate.setProperty("Beo.Title", lcTitle);
-        ManifestSetupUpdate.setProperty("Beo.Version", lcVersion);
-        ManifestSetupUpdate.setProperty("Beo.Vendor", lcVendor);
-        ManifestSetupUpdate.setProperty("Beo.AppClass", lcAppClass);
-      ]]>
-    </script>
-
+    <condition property="bad-class">
+      <contains substring="," string="${Beo.AppClass}"/>
+    </condition>
+    <fail message="Beo.AppClass has commas due to multiple launchers.launcher.java.mainClass: ${Beo.AppClass}"
+          if="bad-class"/>
   </target>
 
   <!-- Recreate the manifest for the project -->
   <target name="buildManifest">
-    <manifest file="${src}/META-INF/Manifest.mf">
+    <manifest file="${dirs.base}/src/META-INF/MANIFEST.MF">
       <attribute name="Manifest-Version" value="1.0"/>
       <attribute name="Main-Class" value="${Beo.AppClass}"/>
       <attribute name="Implementation-Vendor" value="${Beo.Vendor}"/>
       <attribute name="Implementation-Version" value="${Beo.Version}"/>
       <attribute name="Implementation-Title" value="${Beo.Title}"/>
-      <attribute name="Built-On" value="${buildtime.isoformat}"/>
+      <attribute name="Built-On" value="${build.time.isoformat}"/>
+      <attribute name="Permissions" value="all-permissions"/>
     </manifest>
-  </target>
-
-  <!-- Recreate the manifest for the project -->
-  <target name="updateInnoSetup">
-    <replaceregexp match="#define MyAppVersion &quot;(.*?)&quot;" replace="#define MyAppVersion &quot;${Beo.Version}&quot;" flags="g" byline="true">
-      <fileset dir="${src}/setup" includes="jequity.iss"/>
-    </replaceregexp>
   </target>
 
 </project>
