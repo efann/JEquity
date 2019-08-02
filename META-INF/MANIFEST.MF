@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.10.5
-Created-By: 12.0.1+12 (Oracle Corporation)
+Created-By: 12.0.2+10 (AdoptOpenJDK)
 Main-Class: com.beowurks.jequity.main.Main
 Implementation-Vendor: Beowurks
 Implementation-Version: 2018.3.0.74
 Implementation-Title: JEquity
-Built-On: 2019-07-03 11:10:00
+Built-On: 2019-08-02 17:53:57
 

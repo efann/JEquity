@@ -7,39 +7,70 @@
         <target>build</target>
       </options>
     </properties>
-    <properties id="javafx-properties">
-      <options>
-        <option name="alias" value="" />
-        <option name="appClass" value="com.beowurks.jequity.main.Main" />
-        <option name="description" value="" />
-        <option name="htmlPlaceholderId" value="" />
-        <option name="icons">
-          <JavaFxApplicationIcons>
-            <option name="macIcon" value="$PROJECT_DIR$/icons/JEquity.icns" />
-            <option name="windowsIcon" value="$PROJECT_DIR$/Icons/JEquity.ico" />
-          </JavaFxApplicationIcons>
-        </option>
-        <option name="keystore" value="" />
-        <option name="nativeBundle" value="all" />
-        <option name="selfSigning" value="false" />
-        <option name="title" value="JEquity" />
-        <option name="updateMode" value="always" />
-        <option name="vendor" value="Beowurks" />
-        <option name="version" value="2018.3.0.74" />
-      </options>
-    </properties>
-    <root id="root">
-      <element id="library" level="project" name="commons-io" />
-      <element id="library" level="project" name="drivers" />
-      <element id="library" level="project" name="flyway" />
-      <element id="library" level="project" name="jasper-reports" />
-      <element id="library" level="project" name="jsoup" />
-      <element id="library" level="project" name="controlsfx" />
-      <element id="archive" name="JEquity.jar">
-        <element id="module-output" name="JEquity" />
-      </element>
-      <element id="library" level="project" name="org.hibernate:hibernate-core:5.4.2.Final" />
-      <element id="library" level="application" name="javafx-11.0.2" />
+    <root id="archive" name="JEquity.jar">
+      <element id="module-output" name="JEquity" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/commons-io/commons-io-2.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/controlsfx/controlsfx-11.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/mysql-connector-java-8.0.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/postgresql-42.2.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/derby-10.14.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/derbyclient-10.14.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/flyway/flyway-core-5.2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/barcode4j-2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-anim.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-awt-util.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-bridge.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-css.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-dom.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-ext.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-gvt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-parser.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-script.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-svg-dom.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-svggen.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-util.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/batik-xml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/castor-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/commons-beanutils-1.8.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/commons-collections-2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/commons-digester-2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/commons-logging-1.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/dom4j-1.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/geronimo-stax-api_1.0_spec-1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/itext-2.1.7.js1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/jackson-annotations-2.0.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/jackson-core-2.0.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/jackson-databind-2.0.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/jasperreports-4.8.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/jcommon-1.0.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/jdtcore-3.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/jfreechart-1.0.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/poi-3.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/poi-ooxml-3.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/poi-ooxml-schemas-3.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/stax-api-1.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/xml-apis-1.3.02.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/xml-apis-ext.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasper-reports/xmlbeans-2.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jsoup/jsoup-1.12.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/hibernate-core-5.4.2.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/jboss-logging-3.3.2.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/javax.persistence-api-2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/javassist-3.24.0-GA.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/byte-buddy-1.9.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/antlr-2.7.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/jboss-transaction-api_1.2_spec-1.1.1.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/jandex-2.0.5.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/classmate-1.3.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/javax.activation-api-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/dom4j-2.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/hibernate-commons-annotations-5.1.0.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/jaxb-api-2.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/jaxb-runtime-2.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/txw2-2.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/istack-commons-runtime-3.0.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/stax-ex-1.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/FastInfoset-1.2.15.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
