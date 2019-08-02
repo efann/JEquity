@@ -1,14 +1,5 @@
 <?xml version="1.0"?>
 
-<!--
-  ~ PolyJen: a program that predicts chain-growth polymerization (specifically oxyalkylation)
-  ~          reactions and minimizes expensive laboratory experimentation.
-  ~
-  ~ Copyright(c) 2003-2019, Beowurks.
-  ~ License: Eclipse Public License - v 2.0 (https://www.eclipse.org/legal/epl-2.0/)
-  ~
-  -->
-
 <project name="ManifestSetupUpdate" default="build" basedir="..//">
 
   <property name="dirs.base" value="${basedir}"/>
