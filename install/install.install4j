@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.1" transformSequenceNumber="8">
-  <directoryPresets config="D:/IntelliJ/JEquity/install" />
-  <application name="JEquity" applicationId="6382-1326-5244-6127" mediaDir="D:/temp/install4j/JEquity/media" shortName="JEquity" publisher="Beowurks" publisherWeb="https://www.beowurks.com/applications/single/JEquity" version="2019.0.2.22" macVolumeId="704ca49a6335aefd" javaMinVersion="12" javaMaxVersion="12">
+  <directoryPresets config="D:/OneDrive/Downloads/Certificates/Apple/DeveloperCertificates.p12" />
+  <application name="JEquity" applicationId="3320-6753-1790-7084" mediaDir="D:/temp/install4j/JEquity/media" shortName="JEquity" publisher="Beowurks" publisherWeb="https://www.beowurks.com/applications/single/JEquity" version="2019.0.5.30" convertDotsToUnderscores="false" macVolumeId="704ca49a6335aefd" javaMinVersion="12" javaMaxVersion="12">
     <languages>
       <principalLanguage id="en" customLocalizationFile="D:/IntelliJ/JEquity/install/English.utf8" />
     </languages>
-    <codeSigning windowsEnabled="true" windowsKeySource="windows">
+    <codeSigning macEnabled="true" macPkcs12File="D:/OneDrive/Downloads/Certificates/Apple/DeveloperCertificates.p12" windowsEnabled="true" windowsKeySource="windows">
       <windowsKeystoreIdentifier issuer="Sectigo RSA Code Signing CA" serial="83b2b0638de0f944f6bf5c4bbf6ffa94" subject="Beowurks" />
     </codeSigning>
-    <jreBundles jdkProviderId="AdoptOpenJDK" release="openjdk12/jdk-12.0.2+10_openj9-0.15.1" />
+    <jreBundles jdkProviderId="Liberica" release="OpenJDK 12.0.2">
+      <modules>
+        <module name="java.sql" />
+        <module name="java.sql.rowset" />
+        <module name="javafx.base" />
+        <module name="javafx.controls" />
+        <module name="javafx.fxml" />
+        <module name="javafx.graphics" />
+        <module name="javafx.media" />
+        <module name="javafx.swing" />
+        <module name="javafx.web" />
+      </modules>
+    </jreBundles>
   </application>
   <files missingFilesStrategy="error" defaultOverwriteMode="1" launcherOverwriteMode="1">
     <mountPoints>
@@ -19,9 +31,9 @@
     </entries>
   </files>
   <launchers>
-    <launcher name="JEquity" id="156">
-      <executable name="JEquity" iconSet="true" iconFile="D:/IntelliJ/JEquity/images/JEquity.ico" executableMode="gui" singleInstance="true" />
-      <splashScreen show="true" bitmapFile="D:/IntelliJ/JEquity/images/Beowurks.png" />
+    <launcher name="JEquity" id="156" icnsFile="D:/IntelliJ/JEquity/Images/JEquity.icns">
+      <executable name="JEquity" iconSet="true" iconFile="D:/IntelliJ/JEquity/Images/JEquity.ico" executableMode="gui" singleInstance="true" />
+      <splashScreen show="true" bitmapFile="D:/IntelliJ/JEquity/Images/Beowurks.png" />
       <java mainClass="com.beowurks.jequity.main.Main">
         <classPath>
           <archive location="JEquity.jar" failOnError="false" />
@@ -68,9 +80,10 @@
                 <serializedBean>
                   <property name="consoleScript">
                     <object class="com.install4j.api.beans.ScriptProperty">
-                      <property name="value" type="string">String message = context.getMessage("ConsoleWelcomeLabel", context.getApplicationName());
-return console.askOkCancel(message, true);
-</property>
+                      <property name="value" type="string">String message = context.getMessage("ConsoleWelcomeLabel",
+                        context.getApplicationName());
+                        return console.askOkCancel(message, true);
+                      </property>
                     </object>
                   </property>
                 </serializedBean>
@@ -202,7 +215,9 @@ return console.askOkCancel(message, true);
               <action id="17" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="quit" errorMessage="${i18n:FileCorrupted}" />
               <action id="18" beanClass="com.install4j.runtime.beans.actions.desktop.CreateProgramGroupAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
-                  <property name="uninstallerMenuName" type="string">${i18n:UninstallerMenuEntry(${compiler:sys.fullName})}</property>
+                  <property name="uninstallerMenuName" type="string">
+                    ${i18n:UninstallerMenuEntry(${compiler:sys.fullName})}
+                  </property>
                 </serializedBean>
                 <condition>!context.getBooleanVariable("sys.programGroupDisabled")</condition>
               </action>
@@ -237,7 +252,8 @@ return console.askOkCancel(message, true);
                 <serializedBean>
                   <property name="launcherId" type="string">156</property>
                 </serializedBean>
-                <condition>context.getBooleanVariable("executeLauncherAction") &amp;&amp; (!context.isUnattended())</condition>
+                <condition>context.getBooleanVariable("executeLauncherAction") &amp;&amp; (!context.isUnattended())
+                </condition>
               </action>
             </actions>
             <formComponents>
@@ -248,7 +264,8 @@ return console.askOkCancel(message, true);
               </formComponent>
               <formComponent name="Execute launcher" id="343" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
                 <serializedBean>
-                  <property name="checkboxText" type="string">${i18n:RunEntryExec("${compiler:sys.fullName}")}</property>
+                  <property name="checkboxText" type="string">${i18n:RunEntryExec("${compiler:sys.fullName}")}
+                  </property>
                   <property name="initiallySelected" type="boolean" value="true" />
                   <property name="variableName" type="string">executeLauncherAction</property>
                 </serializedBean>
@@ -259,7 +276,9 @@ return console.askOkCancel(message, true);
       </application>
       <application id="uninstaller" beanClass="com.install4j.runtime.beans.applications.UninstallerApplication">
         <serializedBean>
-          <property name="customMacosExecutableName" type="string">${i18n:UninstallerMenuEntry(${compiler:sys.fullName})}</property>
+          <property name="customMacosExecutableName" type="string">
+            ${i18n:UninstallerMenuEntry(${compiler:sys.fullName})}
+          </property>
           <property name="useCustomMacosExecutableName" type="boolean" value="true" />
         </serializedBean>
         <startup>
@@ -283,9 +302,10 @@ return console.askOkCancel(message, true);
                 <serializedBean>
                   <property name="consoleScript">
                     <object class="com.install4j.api.beans.ScriptProperty">
-                      <property name="value" type="string">String message = context.getMessage("ConfirmUninstall", context.getApplicationName());
-return console.askYesNo(message, true);
-</property>
+                      <property name="value" type="string">String message = context.getMessage("ConfirmUninstall",
+                        context.getApplicationName());
+                        return console.askYesNo(message, true);
+                      </property>
                     </object>
                   </property>
                 </serializedBean>
@@ -531,5 +551,11 @@ return console.askYesNo(message, true);
     <windows name="Windows" id="61">
       <jreBundle release="openjdk12/jdk-12.0.2+10_openj9-0.15.1" usePack200="false" jreBundleSource="generated" manualJreEntry="true" />
     </windows>
+    <macosArchive name="macOS Single Bundle Archive" id="523" launcherId="156">
+      <jreBundle jreBundleSource="generated" />
+    </macosArchive>
+    <unixInstaller name="Unix Installer" id="524" mediaFileName="${compiler:sys.shortName}_linux-${compiler:sys.platform}_${compiler:sys.version}">
+      <jreBundle jreBundleSource="generated" />
+    </unixInstaller>
   </mediaSets>
 </install4j>

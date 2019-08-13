@@ -11,12 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ant.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ant.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JEquity.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JEquity_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JEquity_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ant/GenerateWindowsSetup.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ant/ManifestSetupUpdate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ant/ManifestSetupUpdate.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/install.install4j" beforeDir="false" afterPath="$PROJECT_DIR$/install/install.install4j" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,76 +75,6 @@
         <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>lnkLicen</find>
-      <find>fcCurrentSymbol</find>
-      <find>tblFinan</find>
-      <find>tblFinancial</find>
-      <find>setStatusMessage</find>
-      <find>^</find>
-      <find>%s</find>
-      <find>MARK</find>
-      <find>jsoup.con</find>
-      <find>Sample</find>
-      <find>finance.yahoo</find>
-      <find>###</find>
-      <find>start</find>
-      <find>btnrefresh</find>
-      <find>jsoup</find>
-      <find>export</find>
-      <find>fcAppVersion</find>
-      <find>forupdates</find>
-      <find>checkfo</find>
-      <find>checkfor</find>
-      <find>com.sun.javafx.scene.control.skin</find>
-      <find>com.sun</find>
-      <find>org.controls</find>
-      <find>resizeColumnsToFit</find>
-      <find>tableSkin</find>
-      <find>setb</find>
-      <find>apachederby</find>
-      <find>If Apache Derby</find>
-      <find>isDevelopmentEnvironment</find>
-      <find>fcPassword</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>SymbolEntity</replace>
-      <replace>return (</replace>
-      <replace>&lt;TableColumn fx:id=&quot;col</replace>
-      <replace>&quot; text=&quot;&quot; /&gt;</replace>
-      <replace>@FXML   private TableColumn</replace>
-      <replace>&quot;&quot;</replace>
-      <replace>this.</replace>
-      <replace>return (this.</replace>
-      <replace>java.sql.Date</replace>
-      <replace>Date</replace>
-      <replace>TextFieldPlus</replace>
-      <replace>TextField</replace>
-      <replace>builder.append</replace>
-      <replace>builder.append(lcTab);</replace>
-      <replace>builder.append(lcEOL);</replace>
-      <replace>builder.append(</replace>
-      <replace>FinancialEntity</replace>
-      <replace>FinancialProperty</replace>
-      <replace>getText</replace>
-      <replace>this.setEditable(</replace>
-      <replace>set</replace>
-      <replace>loNewEntity</replace>
-      <replace>ManifestSetupUpdate</replace>
-      <replace>&quot;non-editable-datepicker&quot;</replace>
-      <replace>&quot;non-editable-class&quot;</replace>
-      <replace>// ---------------------------------------------------------------------------------------------------------------------</replace>
-      <replace>loCombo</replace>
-      <replace>tabSymbol</replace>
-      <replace>&lt;&lt;symbol&gt;&gt;</replace>
-      <replace>javafx.scene.control.skin</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>D:\IntelliJ\JEquity\src\com\beowurks\jequity\dao\hibernate\threads</dir>
-      <dir>D:\IntelliJ\JEquity\src</dir>
-    </dirStrings>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -305,10 +234,10 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.18709074" />
+    <property name="project.structure.side.proportion" value="0.12765957" />
     <property name="recentsLimit" value="5" />
     <property name="run.code.analysis.last.selected.profile" value="aBeowurks" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -359,7 +288,6 @@
     <configuration name="Main" type="Application" factoryName="Application" show_console_on_std_err="true" show_console_on_std_out="true">
       <option name="MAIN_CLASS_NAME" value="com.beowurks.jequity.main.Main" />
       <module name="JEquity" />
-      <option name="VM_PARAMETERS" value="-p &quot;C:\Program Files\Java\javafx-sdk-11.0.2\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web --add-exports=javafx.controls/com.sun.javafx.scene.control.skin.resources=ALL-UNNAMED --add-exports=javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED --add-exports=javafx.controls/com.sun.javafx.scene.control.skin=ALL-UNNAMED" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.*" />
@@ -696,6 +624,10 @@
       <workItem from="1564786386360" duration="124000" />
       <workItem from="1564786621773" duration="45000" />
       <workItem from="1564787635748" duration="364000" />
+      <workItem from="1564788353850" duration="95000" />
+      <workItem from="1564854472952" duration="934000" />
+      <workItem from="1565643506370" duration="3239000" />
+      <workItem from="1565725208029" duration="4102000" />
     </task>
     <servers />
   </component>

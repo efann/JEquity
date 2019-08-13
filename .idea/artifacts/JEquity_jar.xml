@@ -16,7 +16,6 @@
     <root id="archive" name="JEquity.jar">
       <element id="module-output" name="JEquity" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/commons-io/commons-io-2.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/controlsfx/controlsfx-11.0.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/mysql-connector-java-8.0.16.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/postgresql-42.2.5.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/derby-10.14.2.0.jar" path-in-jar="/" />
@@ -77,6 +76,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/istack-commons-runtime-3.0.7.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/stax-ex-1.8.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/hibernate.5.4.2/FastInfoset-1.2.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/controlsfx/controlsfx-11.0.0.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
