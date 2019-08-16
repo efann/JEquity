@@ -19,6 +19,11 @@
         <module name="javafx.media" />
         <module name="javafx.swing" />
         <module name="javafx.web" />
+        <module name="java.base" />
+        <module name="java.desktop" />
+        <module name="java.xml" />
+        <module name="java.xml.crypto" />
+        <module name="jdk.xml.dom" />
       </modules>
     </jreBundles>
   </application>

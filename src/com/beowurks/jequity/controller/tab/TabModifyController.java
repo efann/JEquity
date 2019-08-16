@@ -96,6 +96,8 @@ abstract public class TabModifyController extends TabBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  // Adds a focused listener to any editable field so that when a disabled field is clicked, the user
+  // will immediately be able to modify the components.
   private void addModifyListener(final Pane toParent)
   {
     for (final Node loNode : toParent.getChildren())
@@ -262,7 +264,7 @@ abstract public class TabModifyController extends TabBaseController
     }
     else if (toField instanceof CheckBox)
     {
-      toField.setDisable(!tlEditable);
+      ((CheckBox)toField).setDisable(!tlEditable);
     }
     else if (!(toField instanceof Label) && !(toField instanceof Button) && !(toField instanceof Hyperlink))
     {

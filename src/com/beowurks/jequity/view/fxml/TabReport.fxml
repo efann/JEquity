@@ -10,7 +10,7 @@
 
 <?import javafx.embed.swing.SwingNode?>
 <SwingNode fx:id="rptSwingNode"
-           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.beowurks.jequity.controller.tab.TabReportController">
   <!--
     Leave this end tag: otherwise the application bombs.

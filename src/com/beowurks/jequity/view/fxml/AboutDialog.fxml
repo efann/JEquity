@@ -19,7 +19,7 @@
 <GridPane hgap="10"
           vgap="10"
           xmlns="http://javafx.com/javafx/8.0.141"
-          xmlns:fx="http://javafx.com/fxml/1"
+          xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.beowurks.jequity.controller.AboutBoxController"
           stylesheets="/com/beowurks/jequity/view/css/Main.css">
   <padding>
