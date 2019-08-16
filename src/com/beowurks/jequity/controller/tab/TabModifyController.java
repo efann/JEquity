@@ -13,12 +13,14 @@ import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import javafx.collections.ObservableList;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
@@ -49,7 +51,6 @@ abstract public class TabModifyController extends TabBaseController
 
   @FXML
   protected GridPane gridPaneComponents;
-
 
   // ---------------------------------------------------------------------------------------------------------------------
   abstract protected void removeRow();
@@ -96,7 +97,7 @@ abstract public class TabModifyController extends TabBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  // Adds a focused listener to any editable field so that when a disabled field is clicked, the user
+  // Adds a focused listener to any editable field so that when a readonly field is clicked, the user
   // will immediately be able to modify the components.
   private void addModifyListener(final Pane toParent)
   {
@@ -112,13 +113,33 @@ abstract public class TabModifyController extends TabBaseController
         ((DatePicker) loNode).getEditor().focusedProperty().addListener((obs, oldVal, newVal) ->
             TabModifyController.this.modifyRow());
       }
+      else if (loNode instanceof HBox)
+      {
+        // CheckBox can only be disabled, not readonly. So if you surround with a container
+        // the container can implement a mouse listener. Cool. . . .
+        boolean llAddListener = false;
+        final ObservableList<Node> loChildren = ((HBox) loNode).getChildren();
+        for (final Node loChildNode : loChildren)
+        {
+          if (loChildNode instanceof CheckBox)
+          {
+            llAddListener = true;
+            break;
+          }
+        }
+        if (llAddListener)
+        {
+          loNode.setOnMouseClicked(toEvent ->
+              TabModifyController.this.modifyRow());
+        }
+      }
+      // Otherwise, do recursion.
       else if (loNode instanceof Pane)
       {
         this.addModifyListener((Pane) loNode);
       }
 
     }
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -264,7 +285,7 @@ abstract public class TabModifyController extends TabBaseController
     }
     else if (toField instanceof CheckBox)
     {
-      ((CheckBox)toField).setDisable(!tlEditable);
+      ((CheckBox) toField).setDisable(!tlEditable);
     }
     else if (!(toField instanceof Label) && !(toField instanceof Button) && !(toField instanceof Hyperlink))
     {

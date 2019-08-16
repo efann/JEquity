@@ -68,7 +68,6 @@ public class Main extends Application
       toPrimaryStage.getIcons().add(new Image("/com/beowurks/jequity/view/images/JEquity.png"));
       toPrimaryStage.setScene(new Scene(Main.foMainBorderPane));
       toPrimaryStage.show();
-
     }
     catch (final IOException loErr)
     {

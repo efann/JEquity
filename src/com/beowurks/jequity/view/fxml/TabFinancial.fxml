@@ -69,7 +69,12 @@
       <Label text="Valuation Date" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.halignment="RIGHT"/>
       <DatePicker fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
 
-      <CheckBox fx:id="chkRetirement" text="Retirement Fund" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+      <!--
+        This HBox is necessary for a mouse listener set in TabModifyController.addModifyListener
+      -->
+      <HBox GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <CheckBox fx:id="chkRetirement" text="Retirement Fund"/>
+      </HBox>
 
       <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.halignment="RIGHT"
              GridPane.valignment="TOP"/>
