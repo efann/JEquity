@@ -33,7 +33,7 @@
       <Tab fx:id="tabSymbol" text="Symbol" closable="false">
         <fx:include source="TabSymbol.fxml" fx:id="tabSymbolMain"/>
       </Tab>
-      <Tab fx:id="tabReports" text="Reports" closable="false">
+      <Tab fx:id="tabReports" text="Reports" closable="false" >
         <fx:include source="TabReport.fxml" fx:id="tabReportMain"/>
       </Tab>
       <Tab fx:id="tabHistorical" text="Historical" closable="false">

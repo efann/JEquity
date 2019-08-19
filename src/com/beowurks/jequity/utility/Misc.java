@@ -19,6 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
 import org.w3c.dom.NodeList;
@@ -31,6 +32,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Optional;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -839,6 +841,26 @@ public final class Misc
     }
 
   }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public static boolean checkForFontAvailability(final String tcFontFamily)
+  {
+    final List<String> laFontNames = Font.getFamilies();
+
+    final int lnFonts = laFontNames.size();
+
+    for (int i = 0; i < lnFonts; ++i)
+    {
+      // Font family names appear to be case-sensitive as they are returned in proper title case.
+      if (laFontNames.get(i).equals(tcFontFamily))
+      {
+        return (true);
+      }
+    }
+
+    return (false);
+  }
+
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------

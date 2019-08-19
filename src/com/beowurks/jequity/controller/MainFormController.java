@@ -237,10 +237,26 @@ public class MainFormController implements EventHandler<ActionEvent>
     }
     else if (loCurrentTab == this.tabReports)
     {
-      Misc.setStatusText(String.format("Refreshed the Financial Report @ %s. . . .", lcTime));
+      final var lcFont = "Arial";
+      if (Misc.checkForFontAvailability(lcFont))
+      {
+        Misc.setStatusText(String.format("Refreshed the Financial Report @ %s. . . .", lcTime));
 
-      this.tabReportMainController.refreshReport(this.flShowPrintDialog);
-      this.flShowPrintDialog = false;
+        this.tabReportMainController.refreshReport(this.flShowPrintDialog);
+        this.flShowPrintDialog = false;
+      }
+      else
+      {
+        final StringBuffer lcMessage = new StringBuffer("");
+        lcMessage.append(String.format("Your %s system is missing the %s font.\n", System.getProperty("os.name"), lcFont));
+        lcMessage.append("By the way, this font is standard on Windows and Mac OS X.\n");
+        lcMessage.append("If you're using Linux, try running the following commands:\n\n");
+        lcMessage.append("\tsudo apt install ttf-mscorefonts-installer\n");
+        lcMessage.append("\tsudo fc-cache -f -v\n\n");
+        lcMessage.append("Or google 'ubuntu install arial' or 'linux install arial'");
+
+        Misc.errorMessage(lcMessage.toString());
+      }
     }
     else if (loCurrentTab == this.tabHistorical)
     {
