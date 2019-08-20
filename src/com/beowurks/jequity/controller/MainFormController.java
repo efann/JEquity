@@ -235,6 +235,7 @@ public class MainFormController implements EventHandler<ActionEvent>
 
       this.tabSymbolMainController.refreshData();
     }
+    // Called by both the Report tab and the Print menu option.
     else if (loCurrentTab == this.tabReports)
     {
       final var lcFont = "Arial";

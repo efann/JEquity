@@ -21,6 +21,7 @@ import com.beowurks.jequity.view.dialog.AboutDialog;
 import com.beowurks.jequity.view.dialog.OptionsDialog;
 import com.beowurks.jequity.view.dialog.PasswordConfirmDialog;
 import com.beowurks.jequity.view.misc.CheckForUpdates;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
@@ -63,7 +64,7 @@ public class MenuController
     {
       // From https://stackoverflow.com/questions/22569046/how-to-make-an-os-x-menubar-in-javafx
       // Icons disappear from menu.
-      // Platform.runLater(() -> this.menuBar.setUseSystemMenuBar(true));
+      Platform.runLater(() -> this.menuBar.setUseSystemMenuBar(true));
     }
 
   }
