@@ -49,7 +49,6 @@
   <launchers>
     <launcher name="JEquity" id="156" icnsFile="D:/IntelliJ/JEquity/Images/JEquity.icns">
       <executable name="JEquity" iconSet="true" iconFile="D:/IntelliJ/JEquity/Images/JEquity.ico" executableMode="gui" singleInstance="true" />
-      <splashScreen show="true" bitmapFile="D:/IntelliJ/JEquity/Images/Beowurks.png" />
       <java mainClass="com.beowurks.jequity.main.Main">
         <classPath>
           <archive location="JEquity.jar" failOnError="false" />

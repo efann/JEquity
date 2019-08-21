@@ -285,7 +285,7 @@ abstract public class TabModifyController extends TabBaseController
     }
     else if (toField instanceof CheckBox)
     {
-      ((CheckBox) toField).setDisable(!tlEditable);
+      toField.setDisable(!tlEditable);
     }
     else if (!(toField instanceof Label) && !(toField instanceof Button) && !(toField instanceof Hyperlink))
     {

@@ -21,11 +21,17 @@ import com.beowurks.jequity.view.dialog.AboutDialog;
 import com.beowurks.jequity.view.dialog.OptionsDialog;
 import com.beowurks.jequity.view.dialog.PasswordConfirmDialog;
 import com.beowurks.jequity.view.misc.CheckForUpdates;
+import de.codecentric.centerdevice.MenuToolkit;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 import org.hibernate.Session;
@@ -47,6 +53,27 @@ public class MenuController
   private MenuBar menuBar;
 
   @FXML
+  private MenuItem SystemMenu;
+
+  @FXML
+  private MenuItem menuAbout;
+
+  @FXML
+  private MenuItem menuAboutSys;
+
+  @FXML
+  private MenuItem menuOptions;
+
+  @FXML
+  private MenuItem menuOptionsSys;
+
+  @FXML
+  private MenuItem menuExit;
+
+  @FXML
+  private MenuItem menuExitSys;
+
+  @FXML
   private MenuItem menuUpdate;
 
   @FXML
@@ -60,13 +87,63 @@ public class MenuController
   @FXML
   public void initialize()
   {
-    if (Misc.isMacintosh())
+    Platform.runLater(() ->
     {
-      // From https://stackoverflow.com/questions/22569046/how-to-make-an-os-x-menubar-in-javafx
-      // Icons disappear from menu.
-      Platform.runLater(() -> this.menuBar.setUseSystemMenuBar(true));
-    }
+      if (Misc.isMacintosh())
+      {
+        // Hide the menu items that are under SystemMenu.
+        this.menuAbout.setVisible(false);
+        this.menuOptions.setVisible(false);
+        this.menuExit.setVisible(false);
 
+        this.menuAboutSys.setText("About " + Main.getApplicationName());
+
+        this.menuOptionsSys.setText("Preferences...");
+        this.menuOptionsSys.setAccelerator(new KeyCodeCombination(KeyCode.COMMA, KeyCombination.META_DOWN));
+
+        this.menuExitSys.setText("Quit " + Main.getApplicationName());
+        this.menuExitSys.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.META_DOWN));
+
+        try
+        {
+          final MenuBar loMenuBar = this.getMainMenu();
+
+          // By the way, if you use loMenuBar.setUseSystemMenuBar(true), then
+          // a default application menu is created. Your menu is moved to the top, but you end up
+          // with two JEquity main menu items. Not a good look.
+
+          // From https://stackoverflow.com/questions/42157377/osx-system-menubar-not-working-in-javafx
+          // DO NOT use a Splash Screen. I've turned it off in the installation settings.
+          // Apparently, AWT and JavaFX threads do not mix.
+          final MenuToolkit loToolkit = MenuToolkit.toolkit();
+          loToolkit.setMenuBar(Main.getPrimaryStage(), loMenuBar);
+
+          // Remove the menu bar after successfully adding the menu to the MenuToolkit. Otherwise,
+          // on error, the user would not have a menu.
+          final Parent loParent = loMenuBar.getParent();
+          if (loParent instanceof Pane)
+          {
+            final Pane loPane = (Pane) loParent;
+            loPane.getChildren().remove(loMenuBar);
+          }
+        }
+        catch (final Exception loErr)
+        {
+          Misc.showStackTraceInMessage(loErr, "Oops");
+        }
+      }
+      else
+      {
+        this.SystemMenu.setVisible(false);
+      }
+    });
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public MenuBar getMainMenu()
+  {
+    return (this.menuBar);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

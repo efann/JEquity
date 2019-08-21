@@ -8,7 +8,6 @@
 
 package com.beowurks.jequity.main;
 
-
 import com.beowurks.jequity.controller.MainFormController;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.TimerSymbolInfo;

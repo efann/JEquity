@@ -18,7 +18,8 @@ public class V3_2__Setup_Constraints extends MigrationHelper
 
   // -----------------------------------------------------------------------------
   @Override
-  public void migrate(final Context toContext) throws Exception  {
+  public void migrate(final Context toContext) throws Exception
+  {
     Misc.setStatusText("Migration v3.2. . . .");
 
     this.foConnection = toContext.getConnection();

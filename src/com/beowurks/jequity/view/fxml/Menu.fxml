@@ -12,6 +12,13 @@
 <MenuBar fx:id="menuBar" stylesheets="@../css/Main.css"
          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
          fx:controller="com.beowurks.jequity.controller.MenuController">
+  <Menu fx:id="SystemMenu" text="JEquity">
+    <MenuItem fx:id="menuAboutSys" onAction="#showAbout"/>
+    <SeparatorMenuItem/>
+    <MenuItem fx:id="menuOptionsSys" onAction="#showOptions"/>
+    <SeparatorMenuItem/>
+    <MenuItem fx:id="menuExitSys" onAction="#exitApplication"/>
+  </Menu>
   <Menu text="File">
     <MenuItem fx:id="menuBackup" text="Backup" onAction="#backupData"/>
     <MenuItem fx:id="menuRestore" text="Restore" onAction="#restoreData"/>

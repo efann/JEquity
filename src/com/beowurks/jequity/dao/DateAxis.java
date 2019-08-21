@@ -157,7 +157,7 @@ public final class DateAxis extends Axis<Date>
     }
   };
 
- // private final ChartLayoutAnimator animator = new ChartLayoutAnimator(this);
+  // private final ChartLayoutAnimator animator = new ChartLayoutAnimator(this);
 
   private Object currentAnimationID;
 

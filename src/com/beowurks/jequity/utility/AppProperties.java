@@ -201,7 +201,7 @@ public final class AppProperties extends BaseProperties
       // From https://stackoverflow.com/questions/34189756/warning-about-ssl-connection-when-connecting-to-mysql-database
       // Also, with new Jar driver, https://community.oracle.com/message/14819583#14819583
       case Constants.DRIVER_KEY_MYSQL5_PLUS:
-          lcURL.append("jdbc:mysql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase()).append("?autoReconnect=true&useSSL=false&serverTimezone=UTC");
+        lcURL.append("jdbc:mysql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase()).append("?autoReconnect=true&useSSL=false&serverTimezone=UTC");
         break;
 
       case Constants.DRIVER_KEY_POSTGRESQL9_PLUS:
