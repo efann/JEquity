@@ -119,7 +119,10 @@ public class MenuController
           loToolkit.setMenuBar(Main.getPrimaryStage(), loMenuBar);
 
           // Remove the menu bar after successfully adding the menu to the MenuToolkit. Otherwise,
-          // on error, the user would not have a menu.
+          // on error, the user would not have a menu. By the way, I have the following options:
+          // - Use FXML to add menu and remove menu if Mac OS X
+          // - Don't use FXML, and add menu programmatically if not Mac OS X.
+          // It's easier to just remove.
           final Parent loParent = loMenuBar.getParent();
           if (loParent instanceof Pane)
           {
@@ -134,6 +137,7 @@ public class MenuController
       }
       else
       {
+        // Simply hide the first menu element which is designed for use by Mac OS X.
         this.SystemMenu.setVisible(false);
       }
     });

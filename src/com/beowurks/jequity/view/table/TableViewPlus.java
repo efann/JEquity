@@ -29,7 +29,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,7 +36,7 @@ import java.util.TimerTask;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class TableViewPlus extends TableView
+public class TableViewPlus<S> extends TableView
 {
   private boolean flSkinPropertyListenerAdded = false;
 
@@ -47,8 +46,6 @@ public class TableViewPlus extends TableView
 
   private Timer foTimerSearchReset = null;
 
-  private static Method foColumnToFitMethod;
-
   // ---------------------------------------------------------------------------------------------------------------------
   public TableViewPlus()
   {
@@ -56,7 +53,6 @@ public class TableViewPlus extends TableView
 
     this.setEditable(false);
     this.setupKeySearch();
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -66,6 +62,18 @@ public class TableViewPlus extends TableView
 
     this.setEditable(false);
     this.setupKeySearch();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @Override
+  public void sort()
+  {
+    super.sort();
+
+    if ((this.getSelectionModel().getSelectedIndex()) > -1)
+    {
+      this.scrollTo(this.getSelectionModel().getSelectedItem());
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
