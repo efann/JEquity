@@ -176,24 +176,34 @@ public class TabFinancialController extends TabModifyController implements Event
     // Setup the summary table update on scroll.
     this.tblFinancial.getSelectionModel().selectedItemProperty().addListener((ChangeListener<FinancialProperty>) (observable, toOldRow, toNewRow) ->
     {
-      String lcAccount = null;
-      String lcCategory = null;
-      String lcType = null;
-
       if (toNewRow != null)
       {
         this.foCurrentFinancialProperty = toNewRow;
-        TabFinancialController.this.updateComponentsContent(false);
-
-        lcAccount = toNewRow.getAccount();
-        lcCategory = toNewRow.getCategory();
-        lcType = toNewRow.getType();
+        this.refreshCalculationsAndSummary();
       }
 
-      TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcAccount, lcType, lcCategory);
     });
 
     this.setupQuickModify(this.tblFinancial);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void refreshCalculationsAndSummary()
+  {
+    if (this.foCurrentFinancialProperty == null)
+    {
+      return;
+    }
+
+    final FinancialProperty loCurrentRow = this.foCurrentFinancialProperty;
+
+    TabFinancialController.this.updateComponentsContent(false);
+
+    final String lcAccount = loCurrentRow.getAccount();
+    final String lcCategory = loCurrentRow.getCategory();
+    final String lcType = loCurrentRow.getType();
+
+    TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcAccount, lcType, lcCategory);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -367,6 +377,7 @@ public class TabFinancialController extends TabModifyController implements Event
       Misc.errorMessage("The information was unable to be saved.");
     }
 
+    this.refreshCalculationsAndSummary();
     this.resetComponentsOnModify(false);
   }
 
