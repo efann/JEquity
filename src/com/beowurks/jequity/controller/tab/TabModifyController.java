@@ -117,6 +117,7 @@ abstract public class TabModifyController extends TabBaseController
       {
         // CheckBox can only be disabled, not readonly. So if you surround with a container
         // the container can implement a mouse listener. Cool. . . .
+        // However, there could be other components in an HBox.
         boolean llAddListener = false;
         final ObservableList<Node> loChildren = ((HBox) loNode).getChildren();
         for (final Node loChildNode : loChildren)
@@ -127,10 +128,16 @@ abstract public class TabModifyController extends TabBaseController
             break;
           }
         }
+
         if (llAddListener)
         {
           loNode.setOnMouseClicked(toEvent ->
               TabModifyController.this.modifyRow());
+        }
+        // If checkbox not found, do recursion
+        else
+        {
+          this.addModifyListener((HBox) loNode);
         }
       }
       // Otherwise, do recursion.
