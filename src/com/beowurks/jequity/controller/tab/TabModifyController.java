@@ -13,10 +13,10 @@ import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
-import javafx.collections.ObservableList;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.layout.GridPane;
@@ -103,42 +103,24 @@ abstract public class TabModifyController extends TabBaseController
   {
     for (final Node loNode : toParent.getChildren())
     {
-      if ((loNode instanceof TextField) || (loNode instanceof TextArea) || (loNode instanceof CheckBox))
+      if ((loNode instanceof TextField) || (loNode instanceof TextArea))
       {
         loNode.focusedProperty().addListener((obs, oldVal, newVal) ->
             TabModifyController.this.modifyRow());
+      }
+      else if ((loNode instanceof CheckBox))
+      {
+        final Parent loParent = loNode.getParent();
+        if (loParent instanceof HBox)
+        {
+          loParent.setOnMouseClicked(toEvent ->
+              TabModifyController.this.modifyRow());
+        }
       }
       else if (loNode instanceof DatePicker)
       {
         ((DatePicker) loNode).getEditor().focusedProperty().addListener((obs, oldVal, newVal) ->
             TabModifyController.this.modifyRow());
-      }
-      else if (loNode instanceof HBox)
-      {
-        // CheckBox can only be disabled, not readonly. So if you surround with a container
-        // the container can implement a mouse listener. Cool. . . .
-        // However, there could be other components in an HBox.
-        boolean llAddListener = false;
-        final ObservableList<Node> loChildren = ((HBox) loNode).getChildren();
-        for (final Node loChildNode : loChildren)
-        {
-          if (loChildNode instanceof CheckBox)
-          {
-            llAddListener = true;
-            break;
-          }
-        }
-
-        if (llAddListener)
-        {
-          loNode.setOnMouseClicked(toEvent ->
-              TabModifyController.this.modifyRow());
-        }
-        // If checkbox not found, do recursion
-        else
-        {
-          this.addModifyListener((HBox) loNode);
-        }
       }
       // Otherwise, do recursion.
       else if (loNode instanceof Pane)
