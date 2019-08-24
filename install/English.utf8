@@ -1,3 +1,4 @@
+DirExists=The directory of {0} already exists.\nA 2018 or older version of JEquity is probably installed.\n\nWe recommend canceling this installation and uninstalling the previous version. Then you can proceed again with this installation.\n\nSo, do you wish to continue?
 PrepareInstaller={0} is preparing the Install Wizard which will guide you through the rest of the setup process.
 WizardCaption=Install Wizard
 LocateOrDownloadJre2=The Install Wizard could not find a Java(TM) Runtime Environment on your system. You can locate or download a suitable JRE. (minimum version: {0}, maximum version: {1})

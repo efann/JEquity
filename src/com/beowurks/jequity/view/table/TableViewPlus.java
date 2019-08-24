@@ -66,6 +66,7 @@ public class TableViewPlus<S> extends TableView
 
   // ---------------------------------------------------------------------------------------------------------------------
   @Override
+  // Well, that was easy.
   public void sort()
   {
     super.sort();
