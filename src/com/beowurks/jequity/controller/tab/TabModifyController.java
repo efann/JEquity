@@ -22,6 +22,7 @@ import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -114,7 +115,7 @@ abstract public class TabModifyController extends TabBaseController
         // the container can implement a mouse listener. Cool. . . .
         // However, there could be other components in an HBox.
         final Parent loParent = loNode.getParent();
-        if (loParent instanceof HBox)
+        if ((loParent instanceof HBox) || (loParent instanceof VBox))
         {
           loParent.setOnMouseClicked(toEvent ->
               TabModifyController.this.modifyRow());
