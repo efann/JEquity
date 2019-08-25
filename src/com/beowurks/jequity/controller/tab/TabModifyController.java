@@ -110,6 +110,9 @@ abstract public class TabModifyController extends TabBaseController
       }
       else if ((loNode instanceof CheckBox))
       {
+        // CheckBox can only be disabled, not readonly. So if you surround with a container
+        // the container can implement a mouse listener. Cool. . . .
+        // However, there could be other components in an HBox.
         final Parent loParent = loNode.getParent();
         if (loParent instanceof HBox)
         {
