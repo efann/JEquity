@@ -79,6 +79,8 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   private TableColumn colRetirement;
   @FXML
+  private TableColumn colTaxable1099;
+  @FXML
   private TableColumn colSymbol;
   @FXML
   private TableColumn colSharesPrice;
@@ -116,10 +118,10 @@ public class TabFinancialController extends TabModifyController implements Event
   private UpperCaseTextField txtSymbol;
   @FXML
   private Hyperlink lnkSymbolURL;
-
   @FXML
   private CheckBox chkRetirement;
-
+  @FXML
+  private CheckBox chkTaxable1099;
   @FXML
   private TextArea txtComments;
 
@@ -219,7 +221,7 @@ public class TabFinancialController extends TabModifyController implements Event
     for (final FinancialEntity loRow : loList)
     {
       this.foDataList.add(new FinancialProperty(loRow.getGroupID(), loRow.getFinancialID(), loRow.getDescription(), loRow.getAccount(),
-          loRow.getType(), loRow.getCategory(), loRow.getShares(), loRow.getPrice(), loRow.getValuationDate(), loRow.getRetirement(),
+          loRow.getType(), loRow.getCategory(), loRow.getShares(), loRow.getPrice(), loRow.getValuationDate(), loRow.getRetirement(), loRow.getTaxable1099(),
           loRow.getSymbol(), loRow.getComments()));
     }
 
@@ -270,11 +272,13 @@ public class TabFinancialController extends TabModifyController implements Event
     this.colPrice.setCellValueFactory(new PropertyValueFactory<FinancialProperty, Double>("price"));
     this.colValuationDate.setCellValueFactory(new PropertyValueFactory<FinancialProperty, String>("valuationdate"));
     this.colRetirement.setCellValueFactory(new PropertyValueFactory<FinancialProperty, Boolean>("retirement"));
+    this.colTaxable1099.setCellValueFactory(new PropertyValueFactory<FinancialProperty, Boolean>("taxable1099"));
     this.colSymbol.setCellValueFactory(new PropertyValueFactory<FinancialProperty, String>("symbol"));
     this.colSharesPrice.setCellValueFactory(new PropertyValueFactory<FinancialProperty, Double>("total"));
 
     // Add check box to the grid.
     this.colRetirement.setCellFactory(tc -> new CheckBoxTableCell<FinancialProperty, Boolean>());
+    this.colTaxable1099.setCellFactory(tc -> new CheckBoxTableCell<FinancialProperty, Boolean>());
 
     this.colValuationDate.setCellFactory(tc -> new DateTableCell());
 
@@ -340,6 +344,7 @@ public class TabFinancialController extends TabModifyController implements Event
     loProp.setPrice(lnPrice);
     loProp.setValuationDate(Date.valueOf(this.txtDate.getValue()));
     loProp.setRetirement(this.chkRetirement.isSelected());
+    loProp.setTaxable1099(this.chkTaxable1099.isSelected());
     loProp.setComments(this.txtComments.getText().trim());
 
     boolean llSaved = false;
@@ -357,7 +362,7 @@ public class TabFinancialController extends TabModifyController implements Event
       if (llSaved)
       {
         final FinancialProperty loNewRecord = new FinancialProperty(loNewEntity.getGroupID(), loNewEntity.getFinancialID(), loNewEntity.getDescription(), loNewEntity.getAccount(),
-            loNewEntity.getType(), loNewEntity.getCategory(), loNewEntity.getShares(), loNewEntity.getPrice(), loNewEntity.getValuationDate(), loNewEntity.getRetirement(),
+            loNewEntity.getType(), loNewEntity.getCategory(), loNewEntity.getShares(), loNewEntity.getPrice(), loNewEntity.getValuationDate(), loNewEntity.getRetirement(), loNewEntity.getTaxable1099(),
             loNewEntity.getSymbol(), loNewEntity.getComments());
 
         this.foDataList.add(loNewRecord);
@@ -421,6 +426,7 @@ public class TabFinancialController extends TabModifyController implements Event
     this.txtDate.setValue(llUseEmptyFields ? LocalDate.now() : loProp.getValuationDate().toLocalDate());
     this.txtSymbol.setText(llUseEmptyFields ? "" : loProp.getSymbol().trim());
     this.chkRetirement.setSelected(!llUseEmptyFields && loProp.getRetirement());
+    this.chkTaxable1099.setSelected(!llUseEmptyFields && loProp.getTaxable1099());
     this.txtComments.setText(llUseEmptyFields ? "" : loProp.getComments());
   }
 

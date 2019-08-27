@@ -469,6 +469,7 @@ public final class HibernateUtil
       loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL, loFinancialEntity.getSymbol(), null);
       loTextWriter.appendToNode(loRecord, Constants.XML_TYPE, loFinancialEntity.getType(), null);
       loTextWriter.appendToNode(loRecord, Constants.XML_RETIREMENT, loFinancialEntity.getRetirement() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
+      loTextWriter.appendToNode(loRecord, Constants.XML_TAX1099, loFinancialEntity.getTaxable1099() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
       loTextWriter.appendToNode(loRecord, Constants.XML_VALUATIONDATE, loFinancialEntity.getValuationDate().toString(), null);
     }
 

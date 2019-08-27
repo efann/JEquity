@@ -139,7 +139,7 @@ public class ThreadRestore extends ThreadBase implements Runnable
       PreparedStatement loPreparedStatement = null;
       try
       {
-        final String lcInsertSQL = String.format("INSERT INTO %s (groupid, description, symbol, account, type, category, shares, price, valuationdate, retirement, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", loHibernate.getTableFinancial());
+        final String lcInsertSQL = String.format("INSERT INTO %s (groupid, description, symbol, account, type, category, shares, price, valuationdate, retirement, taxable1099, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", loHibernate.getTableFinancial());
         loPreparedStatement = toConnection.prepareStatement(lcInsertSQL);
         for (int lnRow = 0; lnRow < lnRows; ++lnRow)
         {
@@ -198,6 +198,10 @@ public class ThreadRestore extends ThreadBase implements Runnable
             {
               loEntity.setRetirement(Boolean.parseBoolean(lcValue));
             }
+            else if (lcField.compareTo(Constants.XML_TAX1099) == 0)
+            {
+              loEntity.setTaxable1099(Boolean.parseBoolean(lcValue));
+            }
             else if (lcField.compareTo(Constants.XML_SHARES) == 0)
             {
               loEntity.setShares(Double.parseDouble(lcValue));
@@ -228,7 +232,8 @@ public class ThreadRestore extends ThreadBase implements Runnable
           loPreparedStatement.setDouble(8, loEntity.getPrice());
           loPreparedStatement.setDate(9, loEntity.getValuationDate());
           loPreparedStatement.setBoolean(10, loEntity.getRetirement());
-          loPreparedStatement.setString(11, loEntity.getComments());
+          loPreparedStatement.setBoolean(11, loEntity.getTaxable1099());
+          loPreparedStatement.setString(12, loEntity.getComments());
 
           loPreparedStatement.addBatch();
 

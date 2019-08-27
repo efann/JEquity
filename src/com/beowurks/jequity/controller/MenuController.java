@@ -471,6 +471,8 @@ public class MenuController
     loContent.append(lcSeparator);
     loContent.append(Constants.XML_RETIREMENT);
     loContent.append(lcSeparator);
+    loContent.append(Constants.XML_TAX1099);
+    loContent.append(lcSeparator);
     loContent.append(Constants.XML_VALUATIONDATE);
     loContent.append(lcSeparator);
 
@@ -500,6 +502,8 @@ public class MenuController
       loContent.append(loFinancialEntity.getType());
       loContent.append(lcSeparator);
       loContent.append(loFinancialEntity.getRetirement() ? Constants.XML_TRUE : Constants.XML_FALSE);
+      loContent.append(lcSeparator);
+      loContent.append(loFinancialEntity.getTaxable1099() ? Constants.XML_TRUE : Constants.XML_FALSE);
       loContent.append(lcSeparator);
       loContent.append(loFinancialEntity.getValuationDate().toString());
       loContent.append(lcSeparator);

@@ -35,6 +35,7 @@ public class TimerSummaryTable
   class SummarySubAmount
   {
     protected Boolean flRetirement;
+    protected Boolean flTaxable1099;
     protected String fcAccount;
     protected String fcType;
     protected String fcCategory;
@@ -102,6 +103,10 @@ public class TimerSummaryTable
         else if ((lcDescription.equals(Constants.SUMMARY_TABLE_RETIREMENT)) || (lcDescription.equals(Constants.SUMMARY_TABLE_NON_RETIREMENT)))
         {
           this.setStyle("-fx-background-color: white;");
+        }
+        else if ((lcDescription.equals(Constants.SUMMARY_TABLE_TAXABLE1099)) || (lcDescription.equals(Constants.SUMMARY_TABLE_NON_TAXABLE1099)))
+        {
+          this.setStyle("-fx-background-color: lightyellow;");
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_ACCOUNT))
         {
@@ -185,6 +190,7 @@ public class TimerSummaryTable
       final double lnPrice = loRow.getPrice();
       final double lnShares = loRow.getShares();
       final boolean llRetirement = loRow.getRetirement();
+      final boolean llTaxable1099 = loRow.getTaxable1099();
 
       final SummarySubAmount loSumAmount = new SummarySubAmount();
 
@@ -193,6 +199,7 @@ public class TimerSummaryTable
       loSumAmount.fcCategory = TimerSummaryTable.standardizeDelimitedString(lcCategory, true);
       loSumAmount.fnSubTotal = lnPrice * lnShares;
       loSumAmount.flRetirement = llRetirement;
+      loSumAmount.flTaxable1099 = llTaxable1099;
 
       this.foSummaryList.add(loSumAmount);
     }
@@ -223,11 +230,14 @@ public class TimerSummaryTable
     double lnTotal = 0;
     double lnRetirement = 0;
     double lnNonRetirement = 0;
+    double lnTaxable1099 = 0;
+    double lnNonTaxable1099 = 0;
     double lnAccount = 0;
 
     for (final SummarySubAmount loSumAmount : this.foSummaryList)
     {
       lnTotal += loSumAmount.fnSubTotal;
+
       if (loSumAmount.flRetirement)
       {
         lnRetirement += loSumAmount.fnSubTotal;
@@ -235,6 +245,15 @@ public class TimerSummaryTable
       else
       {
         lnNonRetirement += loSumAmount.fnSubTotal;
+      }
+
+      if (loSumAmount.flTaxable1099)
+      {
+        lnTaxable1099 += loSumAmount.fnSubTotal;
+      }
+      else
+      {
+        lnNonTaxable1099 += loSumAmount.fnSubTotal;
       }
 
       if ((tcAccount != null) && (!tcAccount.isEmpty()) && (tcAccount.compareTo(loSumAmount.fcAccount) == 0))
@@ -267,8 +286,12 @@ public class TimerSummaryTable
 
     this.foDataList.clear();
     this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_TOTAL, lnTotal));
+
     this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_RETIREMENT, lnRetirement));
     this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_NON_RETIREMENT, lnNonRetirement));
+
+    this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_TAXABLE1099, lnTaxable1099));
+    this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_NON_TAXABLE1099, lnNonTaxable1099));
 
     if ((tcAccount != null) && (!tcAccount.isEmpty()))
     {

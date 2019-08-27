@@ -190,6 +190,20 @@ public class FinancialEntity implements Serializable
     this.retirement = tlRetirement;
   }
 
+  private Boolean taxable1099 = false;
+
+  @Basic
+  @Column(name = "TAXABLE1099", nullable = false, insertable = true, updatable = true)
+  public Boolean getTaxable1099()
+  {
+    return (this.taxable1099);
+  }
+
+  public void setTaxable1099(final Boolean tlTaxable1099)
+  {
+    this.taxable1099 = tlTaxable1099;
+  }
+
   private String comments = "";
 
   @Basic
@@ -250,6 +264,10 @@ public class FinancialEntity implements Serializable
     {
       return (false);
     }
+    if (this.taxable1099 != null ? !this.taxable1099.equals(that.taxable1099) : that.taxable1099 != null)
+    {
+      return (false);
+    }
     if (this.shares != null ? !this.shares.equals(that.shares) : that.shares != null)
     {
       return (false);
@@ -279,6 +297,7 @@ public class FinancialEntity implements Serializable
     lnResult = 31 * lnResult + (this.price != null ? this.price.hashCode() : 0);
     lnResult = 31 * lnResult + (this.valuationdate != null ? this.valuationdate.hashCode() : 0);
     lnResult = 31 * lnResult + (this.retirement != null ? this.retirement.hashCode() : 0);
+    lnResult = 31 * lnResult + (this.taxable1099 != null ? this.taxable1099.hashCode() : 0);
     lnResult = 31 * lnResult + (this.comments != null ? this.comments.hashCode() : 0);
 
     return (lnResult);

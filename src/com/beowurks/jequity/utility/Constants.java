@@ -55,6 +55,7 @@ final public class Constants
   public final static String XML_SYMBOL = "symbol";
   public final static String XML_TYPE = "type";
   public final static String XML_RETIREMENT = "retirement";
+  public final static String XML_TAX1099 = "taxable1099";
   public final static String XML_VALUATIONDATE = "valuationdate";
 
   public final static String XML_TRUE = "true";
@@ -279,8 +280,12 @@ final public class Constants
   //************************************************************
   // The following is used by the Summary Table
   public final static String SUMMARY_TABLE_TOTAL = "Total";
+
   public final static String SUMMARY_TABLE_RETIREMENT = "Retirement (Total)";
   public final static String SUMMARY_TABLE_NON_RETIREMENT = "Non-Retirement (Total)";
+
+  public final static String SUMMARY_TABLE_TAXABLE1099 = "1099 Taxable (Total)";
+  public final static String SUMMARY_TABLE_NON_TAXABLE1099 = "Non-1099 Taxable (Total)";
 
   public final static String SUMMARY_TABLE_ACCOUNT = "Account Total:";
   public final static String SUMMARY_TABLE_TYPE = "Type Summaries:";

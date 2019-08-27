@@ -32,6 +32,7 @@ public class FinancialProperty
   private final DoubleProperty price;
   private final ObjectProperty<Date> valuationdate;
   private final BooleanProperty retirement;
+  private final BooleanProperty taxable1099;
   private final StringProperty symbol;
   private final DoubleProperty total;
 
@@ -52,6 +53,7 @@ public class FinancialProperty
     this.price = new SimpleDoubleProperty();
     this.valuationdate = new SimpleObjectProperty<>();
     this.retirement = new SimpleBooleanProperty(false);
+    this.taxable1099 = new SimpleBooleanProperty(false);
     this.symbol = new SimpleStringProperty();
     this.comments = new SimpleStringProperty();
     this.total = new SimpleDoubleProperty();
@@ -61,7 +63,7 @@ public class FinancialProperty
 
   // ---------------------------------------------------------------------------------------------------------------------
   public FinancialProperty(final int tnGroupID, final int tnFinancialID, final String tcDescription, final String tcAccount, final String tcType, final String tcCategory,
-                           final double tnShares, final double tnPrice, final java.sql.Date tdDate, final boolean tlRetirement,
+                           final double tnShares, final double tnPrice, final java.sql.Date tdDate, final boolean tlRetirement, final boolean tlTaxable1099,
                            final String tcSymbol, final String tcComments)
   {
     this.groupid = new SimpleIntegerProperty(tnGroupID);
@@ -74,6 +76,7 @@ public class FinancialProperty
     this.price = new SimpleDoubleProperty(tnPrice);
     this.valuationdate = new SimpleObjectProperty<>(tdDate);
     this.retirement = new SimpleBooleanProperty(tlRetirement);
+    this.taxable1099 = new SimpleBooleanProperty(tlTaxable1099);
     this.symbol = new SimpleStringProperty(tcSymbol);
     this.comments = new SimpleStringProperty(tcComments);
     this.total = new SimpleDoubleProperty(tnShares * tnPrice);
@@ -270,6 +273,24 @@ public class FinancialProperty
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public boolean getTaxable1099()
+  {
+    return (this.taxable1099.get());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public BooleanProperty taxable1099Property()
+  {
+    return (this.taxable1099);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void setTaxable1099(final boolean tlTaxable1099)
+  {
+    this.taxable1099.set(tlTaxable1099);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public String getSymbol()
   {
     return (this.symbol.get());
@@ -339,6 +360,7 @@ public class FinancialProperty
     loEntity.setValuationDate(this.getValuationDate());
     loEntity.setSymbol(this.getSymbol());
     loEntity.setRetirement(this.getRetirement());
+    loEntity.setTaxable1099(this.getTaxable1099());
     loEntity.setComments(this.getComments());
 
     return (loEntity);

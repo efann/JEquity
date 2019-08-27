@@ -28,6 +28,7 @@
       <TableColumn fx:id="colPrice" text="Price"/>
       <TableColumn fx:id="colValuationDate" text="Valuation Date"/>
       <TableColumn fx:id="colRetirement" text="Retirement (?)"/>
+      <TableColumn fx:id="colTaxable1099" text="1099 Taxable (?)"/>
       <TableColumn fx:id="colSymbol" text="Symbol"/>
       <TableColumn fx:id="colSharesPrice" text="Total"/>
     </columns>
@@ -76,11 +77,15 @@
         <CheckBox fx:id="chkRetirement" text="Retirement Fund"/>
       </HBox>
 
-      <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.halignment="RIGHT"
-             GridPane.valignment="TOP"/>
-      <TextArea fx:id="txtComments" GridPane.columnIndex="1" GridPane.rowIndex="9" prefHeight="75"/>
+      <HBox GridPane.columnIndex="1" GridPane.rowIndex="9">
+        <CheckBox fx:id="chkTaxable1099" text="1099 Taxable"/>
+      </HBox>
 
-      <HBox fx:id="boxSaveCancel" GridPane.columnIndex="1" GridPane.rowIndex="10">
+      <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.halignment="RIGHT"
+             GridPane.valignment="TOP"/>
+      <TextArea fx:id="txtComments" GridPane.columnIndex="1" GridPane.rowIndex="10" prefHeight="75"/>
+
+      <HBox fx:id="boxSaveCancel" GridPane.columnIndex="1" GridPane.rowIndex="11">
         <Button fx:id="btnSave" text="Save"/>
         <Button fx:id="btnCancel" text="Cancel"/>
       </HBox>
