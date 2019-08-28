@@ -16,21 +16,21 @@ import org.jsoup.nodes.Document;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class HTMLMarkers implements Runnable
+public class HTMLScraping implements Runnable
 {
-  public static final HTMLMarkers INSTANCE = new HTMLMarkers();
+  public static final HTMLScraping INSTANCE = new HTMLScraping();
 
   private static final String CONFIG_URL = "https://www.beowurks.com/Software/JEquity/config.xml";
   private static final String SYMBOL_MARKER = "###symbol###";
 
-  private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", HTMLMarkers.SYMBOL_MARKER, HTMLMarkers.SYMBOL_MARKER);
+  private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", HTMLScraping.SYMBOL_MARKER, HTMLScraping.SYMBOL_MARKER);
   private String fcYahooDescriptionMarker = "#quote-header-info h1";
   private String fcYahooLastTradeMarker = "#quote-header-info div[class^=My] span[class^=Trsdu]";
 
   private Thread foThread = null;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private HTMLMarkers()
+  private HTMLScraping()
   {
   }
 
@@ -57,7 +57,7 @@ public class HTMLMarkers implements Runnable
       try
       {
         // Highly recommended to set the userAgent.
-        loDoc = Jsoup.connect(HTMLMarkers.CONFIG_URL + "?" + System.currentTimeMillis())
+        loDoc = Jsoup.connect(HTMLScraping.CONFIG_URL + "?" + System.currentTimeMillis())
             .followRedirects(true)
             .userAgent(Constants.USER_AGENT[0])
             .data("name", "jsoup")
@@ -73,7 +73,7 @@ public class HTMLMarkers implements Runnable
 
     if (loDoc == null)
     {
-      final String lcMessage = String.format("Unable to read the page of %s.", HTMLMarkers.CONFIG_URL);
+      final String lcMessage = String.format("Unable to read the page of %s.", HTMLScraping.CONFIG_URL);
       Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
 
       return;
@@ -102,7 +102,7 @@ public class HTMLMarkers implements Runnable
   public String getDailyStockURL(final String tcSymbol)
   {
     final String lcSymbol = tcSymbol.trim();
-    final String lcURL = this.fcYahooDailyURL.replaceAll(HTMLMarkers.SYMBOL_MARKER, lcSymbol);
+    final String lcURL = this.fcYahooDailyURL.replaceAll(HTMLScraping.SYMBOL_MARKER, lcSymbol);
 
     return (lcURL);
   }

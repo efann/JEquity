@@ -7,7 +7,7 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
-import com.beowurks.jequity.dao.HTMLMarkers;
+import com.beowurks.jequity.dao.HTMLScraping;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.main.Main;
@@ -161,7 +161,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     {
       final String lcSymbol = loSymbol.getSymbol().trim();
 
-      final String lcDailyURL = HTMLMarkers.INSTANCE.getDailyStockURL(lcSymbol);
+      final String lcDailyURL = HTMLScraping.INSTANCE.getDailyStockURL(lcSymbol);
 
       Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
@@ -233,13 +233,13 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
     toSymbol.setDescription(lcDescription);
 
-    double lnLastTrade = this.parseDouble(toDoc, HTMLMarkers.INSTANCE.getLastTradeMarker());
+    double lnLastTrade = this.parseDouble(toDoc, HTMLScraping.INSTANCE.getLastTradeMarker());
 
     if (lnLastTrade == 0.0)
     {
       // Some symbols, like FDRXX, don't have a last trade field. So in that case,
       // default to 1.0.
-      final String lcLastTrade = this.getHTML(toDoc, HTMLMarkers.INSTANCE.getLastTradeMarker());
+      final String lcLastTrade = this.getHTML(toDoc, HTMLScraping.INSTANCE.getLastTradeMarker());
       if (lcLastTrade.isEmpty())
       {
         lnLastTrade = 1.0;
@@ -252,7 +252,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     final Timestamp loTimestamp = new Timestamp(loDate.getTime());
     toSymbol.setTradeTime(loTimestamp);
 
-    toSymbol.setComments(String.format("Scraped from %s", HTMLMarkers.INSTANCE.getDailyStockURL(lcSymbol)));
+    toSymbol.setComments(String.format("Scraped from %s", HTMLScraping.INSTANCE.getDailyStockURL(lcSymbol)));
 
     Transaction loTransaction = null;
     try

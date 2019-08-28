@@ -189,6 +189,14 @@ public class MenuController
 
   // ---------------------------------------------------------------------------------------------------------------------
   @FXML
+  private void showHelp()
+  {
+    final String lcURL = "https://1drv.ms/b/s!Ak4RMu0v512Wgcl3vwvZXv4bmqL3uA?e=HQwrDs";
+    Main.getMainHostServices().showDocument(lcURL);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @FXML
   private void showLicense()
   {
     Misc.setStatusText("Showing the open-source license for " + Main.getApplicationName());

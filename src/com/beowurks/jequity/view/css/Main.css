@@ -87,6 +87,11 @@
   Help
 */
 
+#menuHelp > .label
+{
+  -fx-graphic: url("../images/help.png");
+}
+
 #menuCredits > .label
 {
   -fx-graphic: url("../images/package_wordprocessing.png");

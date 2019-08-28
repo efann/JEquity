@@ -52,6 +52,8 @@
     <MenuItem fx:id="menuSampleData" text="Sample Data..." onAction="#downloadSampleData"/>
   </Menu>
   <Menu text="Help">
+    <MenuItem fx:id="menuHelp" text="Help" onAction="#showHelp"/>
+    <SeparatorMenuItem/>
     <MenuItem fx:id="menuCredits" text="Credits" onAction="#showCredits"/>
     <MenuItem fx:id="menuCheckForUpdates" text="Check for Updates..." onAction="#showUpdates"/>
     <SeparatorMenuItem/>
