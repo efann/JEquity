@@ -7,7 +7,7 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
-import com.beowurks.jequity.dao.HTMLScraping;
+import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
@@ -65,7 +65,7 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
   private void downloadPageAndImport()
   {
     final String lcSymbol = this.foSingleSymbolInfo.getSymbol().getText();
-    final String lcDailyURL = HTMLScraping.INSTANCE.getDailyStockURL(lcSymbol);
+    final String lcDailyURL = PageScraping.INSTANCE.getDailyStockURL(lcSymbol);
 
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
@@ -78,7 +78,7 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
         // Highly recommended to set the userAgent.
         loDoc = Jsoup.connect(lcDailyURL)
             .followRedirects(false)
-            .userAgent(Constants.USER_AGENT[0])
+            .userAgent(Constants.getUserAgent())
             .data("name", "jsoup")
             .maxBodySize(0)
             .timeout(Constants.WEB_TIME_OUT)
@@ -128,13 +128,13 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
 
     this.foSingleSymbolInfo.getDescriptionField().setText(lcDescription);
 
-    double lnLastTrade = this.parseDouble(toDoc, HTMLScraping.INSTANCE.getLastTradeMarker());
+    double lnLastTrade = this.parseDouble(toDoc, PageScraping.INSTANCE.getLastTradeMarker());
 
     if (lnLastTrade == 0.0)
     {
       // Some symbols, like FDRXX, don't have a last trade field. So in that case,
       // default to 1.0.
-      final String lcLastTrade = this.getHTML(toDoc, HTMLScraping.INSTANCE.getLastTradeMarker());
+      final String lcLastTrade = this.getHTML(toDoc, PageScraping.INSTANCE.getLastTradeMarker());
       if (lcLastTrade.isEmpty())
       {
         lnLastTrade = 1.0;

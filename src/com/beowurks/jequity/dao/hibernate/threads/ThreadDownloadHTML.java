@@ -7,7 +7,7 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
-import com.beowurks.jequity.dao.HTMLScraping;
+import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.utility.Constants;
 import org.jsoup.nodes.Document;
 
@@ -27,7 +27,7 @@ public class ThreadDownloadHTML extends ThreadBase
   // ---------------------------------------------------------------------------------------------------------------------
   protected String getDescriptionFromHtml(final Document toDoc)
   {
-    String lcDescription = this.getHTML(toDoc, HTMLScraping.INSTANCE.getDescriptionMarker());
+    String lcDescription = this.getHTML(toDoc, PageScraping.INSTANCE.getDescriptionMarker());
     if (lcDescription.isEmpty())
     {
       lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;

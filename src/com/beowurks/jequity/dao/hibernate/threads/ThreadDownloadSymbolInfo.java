@@ -7,7 +7,7 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
-import com.beowurks.jequity.dao.HTMLScraping;
+import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.main.Main;
@@ -155,13 +155,11 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     // Must be initialized each time.
     Misc.setStatusText("Downloading. . . .", 0.0);
 
-    final int lnUserAgents = Constants.USER_AGENT.length;
-    int lnUserAgentTrack = 0;
     for (final SymbolEntity loSymbol : loList)
     {
       final String lcSymbol = loSymbol.getSymbol().trim();
 
-      final String lcDailyURL = HTMLScraping.INSTANCE.getDailyStockURL(lcSymbol);
+      final String lcDailyURL = PageScraping.INSTANCE.getDailyStockURL(lcSymbol);
 
       Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
@@ -174,7 +172,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
           // Highly recommended to set the userAgent.
           loDoc = Jsoup.connect(lcDailyURL)
               .followRedirects(false)
-              .userAgent(Constants.USER_AGENT[lnUserAgentTrack])
+              .userAgent(Constants.getUserAgent())
               .data("name", "jsoup")
               .maxBodySize(0)
               .timeout(Constants.WEB_TIME_OUT)
@@ -202,12 +200,6 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
       }
 
       Misc.setStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
-
-      lnUserAgentTrack++;
-      if (lnUserAgentTrack >= lnUserAgents)
-      {
-        lnUserAgentTrack = 0;
-      }
     }
 
     loSession.close();
@@ -233,13 +225,13 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
     toSymbol.setDescription(lcDescription);
 
-    double lnLastTrade = this.parseDouble(toDoc, HTMLScraping.INSTANCE.getLastTradeMarker());
+    double lnLastTrade = this.parseDouble(toDoc, PageScraping.INSTANCE.getLastTradeMarker());
 
     if (lnLastTrade == 0.0)
     {
       // Some symbols, like FDRXX, don't have a last trade field. So in that case,
       // default to 1.0.
-      final String lcLastTrade = this.getHTML(toDoc, HTMLScraping.INSTANCE.getLastTradeMarker());
+      final String lcLastTrade = this.getHTML(toDoc, PageScraping.INSTANCE.getLastTradeMarker());
       if (lcLastTrade.isEmpty())
       {
         lnLastTrade = 1.0;
@@ -252,7 +244,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     final Timestamp loTimestamp = new Timestamp(loDate.getTime());
     toSymbol.setTradeTime(loTimestamp);
 
-    toSymbol.setComments(String.format("Scraped from %s", HTMLScraping.INSTANCE.getDailyStockURL(lcSymbol)));
+    toSymbol.setComments(String.format("Scraped from %s", PageScraping.INSTANCE.getDailyStockURL(lcSymbol)));
 
     Transaction loTransaction = null;
     try

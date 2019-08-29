@@ -6,7 +6,7 @@
  *
  */
 
-package com.beowurks.jequity.dao;
+package com.beowurks.jequity.dao.web;
 
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
@@ -16,21 +16,21 @@ import org.jsoup.nodes.Document;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class HTMLScraping implements Runnable
+public class PageScraping implements Runnable
 {
-  public static final HTMLScraping INSTANCE = new HTMLScraping();
+  public static final PageScraping INSTANCE = new PageScraping();
 
   private static final String CONFIG_URL = "https://www.beowurks.com/Software/JEquity/config.xml";
   private static final String SYMBOL_MARKER = "###symbol###";
 
-  private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", HTMLScraping.SYMBOL_MARKER, HTMLScraping.SYMBOL_MARKER);
+  private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", PageScraping.SYMBOL_MARKER, PageScraping.SYMBOL_MARKER);
   private String fcYahooDescriptionMarker = "#quote-header-info h1";
   private String fcYahooLastTradeMarker = "#quote-header-info div[class^=My] span[class^=Trsdu]";
 
   private Thread foThread = null;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private HTMLScraping()
+  private PageScraping()
   {
   }
 
@@ -57,9 +57,9 @@ public class HTMLScraping implements Runnable
       try
       {
         // Highly recommended to set the userAgent.
-        loDoc = Jsoup.connect(HTMLScraping.CONFIG_URL + "?" + System.currentTimeMillis())
+        loDoc = Jsoup.connect(PageScraping.CONFIG_URL + "?" + System.currentTimeMillis())
             .followRedirects(true)
-            .userAgent(Constants.USER_AGENT[0])
+            .userAgent(Constants.getUserAgent())
             .data("name", "jsoup")
             .maxBodySize(0)
             .timeout(Constants.WEB_TIME_OUT)
@@ -73,7 +73,7 @@ public class HTMLScraping implements Runnable
 
     if (loDoc == null)
     {
-      final String lcMessage = String.format("Unable to read the page of %s.", HTMLScraping.CONFIG_URL);
+      final String lcMessage = String.format("Unable to read the page of %s.", PageScraping.CONFIG_URL);
       Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
 
       return;
@@ -102,7 +102,7 @@ public class HTMLScraping implements Runnable
   public String getDailyStockURL(final String tcSymbol)
   {
     final String lcSymbol = tcSymbol.trim();
-    final String lcURL = this.fcYahooDailyURL.replaceAll(HTMLScraping.SYMBOL_MARKER, lcSymbol);
+    final String lcURL = this.fcYahooDailyURL.replaceAll(PageScraping.SYMBOL_MARKER, lcSymbol);
 
     return (lcURL);
   }

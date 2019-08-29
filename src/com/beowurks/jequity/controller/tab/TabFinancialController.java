@@ -8,7 +8,7 @@
 
 package com.beowurks.jequity.controller.tab;
 
-import com.beowurks.jequity.dao.HTMLScraping;
+import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.SingleSymbolInfo;
@@ -492,7 +492,7 @@ public class TabFinancialController extends TabModifyController implements Event
   {
     final String lcSymbol = this.txtSymbol.getText().trim();
 
-    this.lnkSymbolURL.setText(lcSymbol.isEmpty() ? "" : HTMLScraping.INSTANCE.getDailyStockURL(lcSymbol));
+    this.lnkSymbolURL.setText(lcSymbol.isEmpty() ? "" : PageScraping.INSTANCE.getDailyStockURL(lcSymbol));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

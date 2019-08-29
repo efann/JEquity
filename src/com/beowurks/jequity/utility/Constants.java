@@ -150,7 +150,8 @@ final public class Constants
   // Just Google 'what is my user agent'
   // From https://www.scrapehero.com/scrape-yahoo-finance-stock-market-data/
   // Recommended to use multiple user agents.
-  public final static String[] USER_AGENT =
+  // And, yes, I want access private so force access through getUserAgent.
+  private final static String[] USER_AGENTS =
       {
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36",
@@ -165,6 +166,8 @@ final public class Constants
           "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:57.0) Gecko/20100101 Firefox/57.0",
           "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"
       };
+
+  private static int fnTrackUserAgent = 0;
 
   public final static String UNKNOWN_STOCK_SYMBOL = "Unknown Stock Symbol";
 
@@ -318,6 +321,19 @@ final public class Constants
   // ---------------------------------------------------------------------------------------------------------------------
   private Constants()
   {
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public static String getUserAgent()
+  {
+    if (++Constants.fnTrackUserAgent > Constants.USER_AGENTS.length)
+    {
+      Constants.fnTrackUserAgent = 0;
+    }
+
+    System.err.println(Constants.USER_AGENTS[Constants.fnTrackUserAgent]);
+    return (Constants.USER_AGENTS[Constants.fnTrackUserAgent]);
 
   }
   // ---------------------------------------------------------------------------------------------------------------------
