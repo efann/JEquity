@@ -321,20 +321,17 @@ final public class Constants
   // ---------------------------------------------------------------------------------------------------------------------
   private Constants()
   {
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public static String getUserAgent()
   {
-    if (++Constants.fnTrackUserAgent > Constants.USER_AGENTS.length)
+    if (++Constants.fnTrackUserAgent >= Constants.USER_AGENTS.length)
     {
       Constants.fnTrackUserAgent = 0;
     }
 
-    System.err.println(Constants.USER_AGENTS[Constants.fnTrackUserAgent]);
     return (Constants.USER_AGENTS[Constants.fnTrackUserAgent]);
-
   }
   // ---------------------------------------------------------------------------------------------------------------------
 }
