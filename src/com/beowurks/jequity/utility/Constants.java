@@ -326,6 +326,9 @@ final public class Constants
   // ---------------------------------------------------------------------------------------------------------------------
   public static String getUserAgent()
   {
+    // It doesn't use the first element of the array the first time called,
+    // but that's okay. The idea is to not download web data with the same
+    // User Agent each time.
     if (++Constants.fnTrackUserAgent >= Constants.USER_AGENTS.length)
     {
       Constants.fnTrackUserAgent = 0;

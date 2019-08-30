@@ -8,7 +8,6 @@
 
 package com.beowurks.jequity.controller.tab;
 
-import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.SingleSymbolInfo;
@@ -16,6 +15,7 @@ import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSingleSymbol;
 import com.beowurks.jequity.dao.hibernate.threads.TimerSummaryTable;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import com.beowurks.jequity.dao.tableview.SummaryProperty;
+import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
