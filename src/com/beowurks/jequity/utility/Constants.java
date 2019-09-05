@@ -100,6 +100,7 @@ final public class Constants
   // And yes, HISTORICAL_START should end with a '.'.
   public final static String HISTORICAL_START = "historical.start.";
   public final static String HISTORICAL_START_DEFAULT = "historical.start.defaultvalueforstart";
+  public final static String ALPHAVANTAGE_API_KEY = "alpha.vantage.api.key";
 
   public final static String FLYWAY_ALWAYS_CHECK = "flyway.always.check";
   public final static String FLYWAY_SUCCESSFUL_JEQUITY = "flyway.sucessful.jequity";
@@ -128,9 +129,9 @@ final public class Constants
 
   public final static IntegerKeyItem[] DAILY_INTERVAL =
       {
-          new IntegerKeyItem(30 * 60 * 1000, "Every 30 Minutes"),
           new IntegerKeyItem(60 * 60 * 1000, "Every Hour"),
           new IntegerKeyItem(120 * 60 * 1000, "Every 2 Hours"),
+          new IntegerKeyItem(480 * 60 * 1000, "Every 4 Hours"),
           new IntegerKeyItem(Constants.DAILY_INTERVAL_NEVER, "Never")
       };
 

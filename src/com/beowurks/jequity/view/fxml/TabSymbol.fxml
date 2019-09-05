@@ -9,20 +9,30 @@
   -->
 
 <?import com.beowurks.jequity.view.table.TableViewPlus?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
-<TableViewPlus fx:id="tblSymbol" stylesheets="@../css/Main.css"
-               xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-               fx:controller="com.beowurks.jequity.controller.tab.TabSymbolController">
-  <columns>
-    <TableColumn fx:id="colSymbol" text="Symbol"/>
-    <TableColumn fx:id="colDescription" text="Description"/>
-    <TableColumn fx:id="colLastTrade" text="Last Trade"/>
-    <TableColumn fx:id="colTradeTime" text="Trade Time"/>
-    <TableColumn fx:id="colComments" text="Comments"/>
-    <!--
-      Not showing historicalinfo as it contains XML info for the Historical tab. Plus it's multi-line
-      which makes the rows awkwardly tall.
-    -->
+<?import javafx.scene.layout.VBox?>
+<VBox stylesheets="@../css/Main.css"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.beowurks.jequity.controller.tab.TabSymbolController">
 
-  </columns>
-</TableViewPlus>
+  <Label fx:id="lblSymbolWarning" text="By the way, the data below is for personal use only."/>
+  <!--
+    There's not a VBox.hgrow (vertical, duh), and it's not needed as the tableview
+    expands the entire width.
+  -->
+  <TableViewPlus fx:id="tblSymbol" VBox.vgrow="ALWAYS">
+    <columns>
+      <TableColumn fx:id="colSymbol" text="Symbol"/>
+      <TableColumn fx:id="colDescription" text="Description"/>
+      <TableColumn fx:id="colLastTrade" text="Last Trade"/>
+      <TableColumn fx:id="colTradeTime" text="Trade Time"/>
+      <TableColumn fx:id="colComments" text="Comments"/>
+      <!--
+        Not showing historicalinfo as it contains XML info for the Historical tab. Plus it's multi-line
+        which makes the rows awkwardly tall.
+      -->
+
+    </columns>
+  </TableViewPlus>
+</VBox>

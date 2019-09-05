@@ -69,7 +69,6 @@ public class TabHistoricalGraphController
 
   private XYChart.Series[] faXYDataSeries;
 
-
   private String fcCurrentDescription = "";
   private String fcCurrentSymbol = "";
   private String fcCurrentXML = "";

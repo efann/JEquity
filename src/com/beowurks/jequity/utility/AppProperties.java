@@ -245,8 +245,18 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------------------------------------------------
   public int getDailyIntervalKey()
   {
-    // Default is every 10 minutes.
-    return (this.getProperty(Constants.DAILY_INTERVAL_KEY, Constants.DAILY_INTERVAL[1].getKey()));
+    // Due to the fact that I keep increasing the minimum time, I'm just insuring that the latest minimum value
+    // is returned.
+    final int lnMinimumKeyValue = Constants.DAILY_INTERVAL[0].getKey();
+    final int lnKey = Integer.max(this.getProperty(Constants.DAILY_INTERVAL_KEY, lnMinimumKeyValue), lnMinimumKeyValue);
+
+    return (lnKey);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public String getAlphaVantageAPIKey()
+  {
+    return (this.getProperty(Constants.ALPHAVANTAGE_API_KEY, ""));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -348,6 +358,12 @@ public final class AppProperties extends BaseProperties
   public void setDailyIntervalKey(final int tnValue)
   {
     this.setProperty(Constants.DAILY_INTERVAL_KEY, tnValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setAlphaVantageAPIKey(final String tcValue)
+  {
+    this.setProperty(Constants.ALPHAVANTAGE_API_KEY, tcValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

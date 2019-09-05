@@ -35,12 +35,14 @@
           </VBox>
         </GridPane>
       </Tab>
-      <Tab text="Historical" closable="false">
+      <Tab text="Stock Data" closable="false">
         <GridPane hgap="10" vgap="10">
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Default Historical Start Date"/>
-          <DatePicker fx:id="txtHistoricalStart" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Daily Download Interval"/>
-          <ComboBox fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Daily Download Interval"/>
+          <ComboBox fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Alpha Vantage API Key"/>
+          <PasswordField fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Default Historical Start Date"/>
+          <DatePicker fx:id="txtHistoricalStart" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
         </GridPane>
       </Tab>
       <Tab text="Miscellaneous" closable="false">

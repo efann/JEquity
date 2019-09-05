@@ -381,6 +381,15 @@
   -fx-pref-width: 350px;
 }
 
+#lblSymbolWarning
+{
+  -fx-alignment: center;
+  -fx-font-weight: bold;
+  -fx-font-style: italic;
+  -fx-font-size: 1.2em;
+  -fx-pref-width: Infinity;
+}
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
   From https://stackoverflow.com/questions/30631179/hide-calendar-button-on-datepicker
