@@ -60,6 +60,15 @@ public final class FlywayMigration
         loConfiguration.setDataSource(lcConnectionURL, loAppProp.getConnectionUser(), loAppProp.getConnectionPassword());
         loConfiguration.setLocationsAsStrings(lcPath);
 
+        /*
+        WARNING: Could not find schema history table "JEquityRCP"."flyway_schema_history", but found "JEquityRCP"."schema_version" instead.
+        You are seeing this message because Flyway changed its default for flyway.table in version 5.0.0 to flyway_schema_history and you are still relying on
+        the old default (schema_version). Set flyway.table=schema_version in your configuration to fix this. This fallback mechanism will be removed in Flyway 6.0.0.
+        And here's the remedy from the following link:
+        https://stackoverflow.com/questions/49063385/flyway-5-0-7-warning-about-using-schema-version-table
+        */
+        loConfiguration.setTable("schema_version");
+
         this.foWhichDatabase = new WhichDatabase(loConfiguration.getDataSource().getConnection());
 
         // In Flyway.java, line 975, the migration routine wants to reset the schema to the default
