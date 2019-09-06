@@ -14,11 +14,13 @@ import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.ClassicConfiguration;
+import org.flywaydb.core.internal.jdbc.JdbcUtils;
 
+import java.sql.ResultSet;
 
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 public final class FlywayMigration
 {
 
@@ -28,12 +30,12 @@ public final class FlywayMigration
 
   private WhichDatabase foWhichDatabase = null;
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   private FlywayMigration()
   {
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   public boolean migrate()
   {
     // From http://stackoverflow.com/questions/1921975/java-convert-package-name-to-path
@@ -60,15 +62,6 @@ public final class FlywayMigration
         loConfiguration.setDataSource(lcConnectionURL, loAppProp.getConnectionUser(), loAppProp.getConnectionPassword());
         loConfiguration.setLocationsAsStrings(lcPath);
 
-        /*
-        WARNING: Could not find schema history table "JEquityRCP"."flyway_schema_history", but found "JEquityRCP"."schema_version" instead.
-        You are seeing this message because Flyway changed its default for flyway.table in version 5.0.0 to flyway_schema_history and you are still relying on
-        the old default (schema_version). Set flyway.table=schema_version in your configuration to fix this. This fallback mechanism will be removed in Flyway 6.0.0.
-        And here's the remedy from the following link:
-        https://stackoverflow.com/questions/49063385/flyway-5-0-7-warning-about-using-schema-version-table
-        */
-        loConfiguration.setTable(Constants.FLYWAY_SCHEMA_HISTORY_TABLE);
-
         this.foWhichDatabase = new WhichDatabase(loConfiguration.getDataSource().getConnection());
 
         // In Flyway.java, line 975, the migration routine wants to reset the schema to the default
@@ -91,8 +84,10 @@ public final class FlywayMigration
 
         // Will call baseline if needed.
         loConfiguration.setBaselineOnMigrate(true);
+        this.setSchemaTable(loConfiguration);
 
         this.foFlyway = new Flyway(loConfiguration);
+
         this.foFlyway.migrate();
 
         if (this.isApacheDerby())
@@ -115,25 +110,61 @@ public final class FlywayMigration
     return (llOkay);
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  // I was getting the following message:
+  //      WARNING: Could not find schema history table "JEquityRCP"."flyway_schema_history", but found "JEquityRCP"."schema_version" instead.
+  //               You are seeing this message because Flyway changed its default for flyway.table in version 5.0.0 to flyway_schema_history
+  //               and you are still relying on the old default (schema_version). Set flyway.table=schema_version in your configuration to fix
+  //               this. This fallback mechanism will be removed in Flyway 6.0.0.
+  // And here's the remedy from the following link:
+  //   https://stackoverflow.com/questions/49063385/flyway-5-0-7-warning-about-using-schema-version-table
+  // Basically, if I'm using the old schema table (it must exist) from Flyway v 4 and older, then switch.
+  // I got the idea for determining this table's existence from the following routines:
+  //   org.flywaydb.core.internal.schemahistory.determineTable(Table table)
+  //   org.flywaydb.core.internal.database.base.Table.exists(Schema catalog, Schema schema, String table, String... tableTypes)
+  private void setSchemaTable(final ClassicConfiguration toConfiguration)
+  {
+    final String lcDefaultTableSchemaName = toConfiguration.getTable();
+
+    ResultSet loResultSet = null;
+    boolean llLegacyFound = false;
+    try
+    {
+      loResultSet = toConfiguration.getDataSource().getConnection().getMetaData().getTables(null, null, Constants.FLYWAY_LEGACY_SCHEMA_HISTORY_TABLE, null);
+      llLegacyFound = loResultSet.next();
+    }
+    catch (final java.sql.SQLException loErr)
+    {
+    }
+    finally
+    {
+      JdbcUtils.closeResultSet(loResultSet);
+    }
+
+    toConfiguration.setTable(llLegacyFound ? Constants.FLYWAY_LEGACY_SCHEMA_HISTORY_TABLE : lcDefaultTableSchemaName);
+
+    System.err.println(String.format("Flyway is using the following schema history table: %s (%s).", toConfiguration.getTable(), (llLegacyFound ? "legacy" : "current")));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   protected boolean isMySQL() throws Exception
   {
     return (this.foWhichDatabase.isMySQL());
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   protected boolean isApacheDerby() throws Exception
   {
     return (this.foWhichDatabase.isApacheDerby());
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   protected boolean isPostgreSQL() throws Exception
   {
     return (this.foWhichDatabase.isPostgreSQL());
   }
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------

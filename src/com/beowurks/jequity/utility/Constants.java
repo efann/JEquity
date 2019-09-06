@@ -283,7 +283,7 @@ final public class Constants
 
   public final static String FLYWAY_DERBY_DEFAULT_SCHEMA = Constants.DERBY_USERNAME.toUpperCase();
 
-  public final static String FLYWAY_SCHEMA_HISTORY_TABLE = "schema_version";
+  public final static String FLYWAY_LEGACY_SCHEMA_HISTORY_TABLE = "schema_version";
 
   //************************************************************
   // The following is used by the Summary Table
