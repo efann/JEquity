@@ -67,7 +67,7 @@ public final class FlywayMigration
         And here's the remedy from the following link:
         https://stackoverflow.com/questions/49063385/flyway-5-0-7-warning-about-using-schema-version-table
         */
-        loConfiguration.setTable("schema_version");
+        loConfiguration.setTable(Constants.FLYWAY_SCHEMA_HISTORY_TABLE);
 
         this.foWhichDatabase = new WhichDatabase(loConfiguration.getDataSource().getConnection());
 
