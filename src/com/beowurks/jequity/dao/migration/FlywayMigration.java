@@ -14,6 +14,8 @@ import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.ClassicConfiguration;
+import org.flywaydb.core.api.logging.Log;
+import org.flywaydb.core.api.logging.LogFactory;
 import org.flywaydb.core.internal.jdbc.JdbcUtils;
 
 import java.sql.ResultSet;
@@ -84,6 +86,7 @@ public final class FlywayMigration
 
         // Will call baseline if needed.
         loConfiguration.setBaselineOnMigrate(true);
+        // Needs to be called before calling new Flyway.
         this.setSchemaTable(loConfiguration);
 
         this.foFlyway = new Flyway(loConfiguration);
@@ -124,8 +127,6 @@ public final class FlywayMigration
   //   org.flywaydb.core.internal.database.base.Table.exists(Schema catalog, Schema schema, String table, String... tableTypes)
   private void setSchemaTable(final ClassicConfiguration toConfiguration)
   {
-    final String lcDefaultTableSchemaName = toConfiguration.getTable();
-
     ResultSet loResultSet = null;
     boolean llLegacyFound = false;
     try
@@ -141,9 +142,14 @@ public final class FlywayMigration
       JdbcUtils.closeResultSet(loResultSet);
     }
 
-    toConfiguration.setTable(llLegacyFound ? Constants.FLYWAY_LEGACY_SCHEMA_HISTORY_TABLE : lcDefaultTableSchemaName);
+    if (llLegacyFound)
+    {
+      toConfiguration.setTable(Constants.FLYWAY_LEGACY_SCHEMA_HISTORY_TABLE);
+    }
 
-    System.err.println(String.format("Flyway is using the following schema history table: %s (%s).", toConfiguration.getTable(), (llLegacyFound ? "legacy" : "current")));
+    // Using Flyway logging 'cause why not.
+    final Log loLog = LogFactory.getLog(FlywayMigration.class);
+    loLog.info(String.format("Flyway is using the following schema history table: %s (%s).", toConfiguration.getTable(), (llLegacyFound ? "legacy" : "current")));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
