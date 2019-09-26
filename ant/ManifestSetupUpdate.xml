@@ -13,9 +13,9 @@
   <target depends="getInformation, buildManifest" name="build"/>
 
   <target name="getInformation">
-    <echo message="===================================================================" level="info" />
-    <echo message="REMEMBER: You're pulling these values from install4j settings file." level="info" />
-    <echo message="===================================================================" level="info" />
+    <echo message="===================================================================" level="info"/>
+    <echo message="REMEMBER: You're pulling these values from install4j settings file." level="info"/>
+    <echo message="===================================================================" level="info"/>
 
     <xmlproperty file="${Beo.Install4J}" collapseAttributes="true" prefix="Prefix"/>
     <!--

@@ -124,6 +124,9 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  // Implements methods for EventHandler
+  @Override
   public void handle(final ActionEvent toEvent)
   {
     final Object loSource = toEvent.getSource();

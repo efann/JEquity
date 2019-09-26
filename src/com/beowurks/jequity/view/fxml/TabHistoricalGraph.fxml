@@ -18,11 +18,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.HyperlinkLabel?>
 <AnchorPane stylesheets="@../css/Main.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.beowurks.jequity.controller.tab.TabHistoricalGraphController">
 
-  <GridPane hgap="5" vgap="5" fx:id="grdPaneHistorical" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
+  <GridPane fx:id="grdPaneHistorical" hgap="5" vgap="5" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
     <ComboBox fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
     <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Start Date"/>
     <DatePicker fx:id="txtStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
@@ -31,8 +32,8 @@
     <CheckBox fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
     <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
 
-    <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="[Not yet working with Yahoo Financials]"
-           style="-fx-font-weight: bold;"/>
+    <HyperlinkLabel fx:id="lnkAlphaVantageMessage" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                    style="-fx-font-weight: bold;"/>
   </GridPane>
 
   <Label fx:id="lblTitleMessage" AnchorPane.topAnchor="160.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"

@@ -256,7 +256,7 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------------------------------------------------
   public String getAlphaVantageAPIKey()
   {
-    return (this.getProperty(Constants.ALPHAVANTAGE_API_KEY, ""));
+    return (this.getProperty(Constants.ALPHAVANTAGE_API_KEY, "").trim());
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

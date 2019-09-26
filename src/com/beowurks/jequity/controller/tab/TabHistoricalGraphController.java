@@ -14,6 +14,7 @@ import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.dao.tableview.GroupProperty;
+import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
@@ -28,8 +29,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import org.controlsfx.control.HyperlinkLabel;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
@@ -42,7 +45,7 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class TabHistoricalGraphController
+public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 {
   @FXML
   private ComboBox<StringKeyItem> cboStocks;
@@ -63,6 +66,9 @@ public class TabHistoricalGraphController
   private Label lblTitleMessage;
 
   @FXML
+  private HyperlinkLabel lnkAlphaVantageMessage;
+
+  @FXML
   private LineChart<Date, Number> chtLineChart;
 
   private final ObservableList<GroupProperty> foDataList = FXCollections.observableArrayList();
@@ -76,6 +82,12 @@ public class TabHistoricalGraphController
   // ---------------------------------------------------------------------------------------------------------------------
   private void analyzeData()
   {
+    if (!this.isAlphaVantageKeySet())
+    {
+      Misc.errorMessage("Your Alpha Vantage key has not been set yet.");
+      return;
+    }
+
     this.writeXML();
   }
 
@@ -99,9 +111,11 @@ public class TabHistoricalGraphController
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupListeners()
   {
-    this.btnAnalyze.setOnAction(toActionEvent -> TabHistoricalGraphController.this.analyzeData());
-    this.chkUseToday.setOnAction(toActionEvent -> TabHistoricalGraphController.this.updateEndDate(null));
-    this.cboStocks.setOnAction(toActionEvent -> TabHistoricalGraphController.this.updateOnComboBoxSelect());
+    this.btnAnalyze.setOnAction(this);
+    this.chkUseToday.setOnAction(this);
+    this.cboStocks.setOnAction(this);
+
+    this.lnkAlphaVantageMessage.setOnAction(this);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -131,8 +145,67 @@ public class TabHistoricalGraphController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  // Do not call when initializing the tab: AppProperties.INSTANCE has not yet been set.
+  private void refreshLabels()
+  {
+    final StringBuilder lcMessage = new StringBuilder();
+
+    if (this.isAlphaVantageKeySet())
+    {
+      lcMessage.append(String.format("Your Alpha Vantage key, %s, is set for downloading historical data.", this.maskKey(this.getAlphaVantageKey())));
+    }
+    else
+    {
+      lcMessage.append(String.format("Visit [https://www.alphavantage.co/] and get your free API key for downloading historical data. Then save key under %s.", Misc.isMacintosh() ? "Preferences... | Stock Data" : "Tools | Options... | Stock Data"));
+    }
+
+    this.lnkAlphaVantageMessage.setText(lcMessage.toString());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private boolean isAlphaVantageKeySet()
+  {
+    return (!this.getAlphaVantageKey().isEmpty());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String maskKey(final String tcKey)
+  {
+    final int lnLimit = 4;
+    final StringBuilder loMasked = new StringBuilder();
+
+    final int lnLength = tcKey.length();
+    if (lnLength < lnLimit)
+    {
+      for (int i = 0; i < lnLimit; ++i)
+      {
+        loMasked.append("*");
+      }
+
+      return (loMasked.toString());
+    }
+
+    final char[] taChar = tcKey.toCharArray();
+    for (int i = 0; i < lnLength; ++i)
+    {
+      loMasked.append(i < (lnLength - lnLimit) ? '*' : taChar[i]);
+    }
+
+    return (loMasked.toString());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String getAlphaVantageKey()
+  {
+    return (AppProperties.INSTANCE.getAlphaVantageAPIKey());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   synchronized public StringKeyItem refreshData()
   {
+    // Just in case, the key has been modified in the Options dialog.
+    this.refreshLabels();
+
     final ComboBox<StringKeyItem> loCombo = this.cboStocks;
     // Save the onAction event then set to null so nothing happens when rebuilding the list.
     final EventHandler<ActionEvent> loActionHandler = loCombo.getOnAction();
@@ -316,6 +389,35 @@ public class TabHistoricalGraphController
   {
     this.lblTitleMessage.setText(tcTitle);
     this.lblTitleMessage.setTextFill(tlError ? Color.RED : Color.BLACK);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
+  // Implements methods for EventHandler
+  @Override
+  public void handle(final ActionEvent toEvent)
+  {
+    final Object loSource = toEvent.getSource();
+    if (loSource.equals(this.btnAnalyze))
+    {
+      this.analyzeData();
+    }
+    else if (loSource.equals(this.chkUseToday))
+    {
+      this.updateEndDate(null);
+    }
+    else if (loSource.equals(this.cboStocks))
+    {
+      this.updateOnComboBoxSelect();
+    }
+    else if (loSource instanceof Hyperlink)
+    {
+      final Hyperlink loHyperLink = (Hyperlink) loSource;
+
+      final String lcURL = loHyperLink.getText();
+      Main.getMainHostServices().showDocument(lcURL);
+    }
+
   }
   // ---------------------------------------------------------------------------------------------------------------------
 
