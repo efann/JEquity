@@ -7,20 +7,19 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
-import com.beowurks.jequity.dao.IDefaultXYChartSeries;
+import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
-import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
+import org.json.JSONArray;
+import org.jsoup.Jsoup;
 
-import javax.swing.SwingUtilities;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,12 +31,10 @@ import java.util.Iterator;
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-public class ThreadDownloadHistorical implements Runnable
+public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 {
 
   public static ThreadDownloadHistorical INSTANCE = new ThreadDownloadHistorical();
-
-  private Thread foThread = null;
 
   private String fcHistoricalFile;
   private String fcSymbol;
@@ -48,8 +45,10 @@ public class ThreadDownloadHistorical implements Runnable
   private LineChart<java.util.Date, Number> chtLineChart;
 
   private final ArrayList<double[]> foDoubleList = new ArrayList<>();
+  private final String fcAlphaVantage = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s";
 
   private boolean flProccessRunning = false;
+  private TabHistoricalGraphController foTabHistoricalGraphController;
 
   // -----------------------------------------------------------------------------
   private ThreadDownloadHistorical()
@@ -57,14 +56,15 @@ public class ThreadDownloadHistorical implements Runnable
   }
 
   // -----------------------------------------------------------------------------
-  public boolean start(final boolean tlDisplayMessage, final IDefaultXYChartSeries toHistoricalPanel)
+  public boolean start(final boolean tlDisplayMessage, final TabHistoricalGraphController toTabHistoricalGraphController)
   {
-    if ((this.flProccessRunning) && (this.foThread != null) && (this.foThread.isAlive()))
+    this.flDisplayDialogMessage = tlDisplayMessage;
+
+    if ((this.foThread != null) && (this.foThread.isAlive()))
     {
-      if (tlDisplayMessage)
+      if (this.flDisplayDialogMessage)
       {
-        SwingUtilities.invokeLater(() ->
-            Misc.errorMessage("The historical information is currently being updated. . . ."));
+        Misc.errorMessage("The historical stock information is currently being updated. . . .");
       }
       return (false);
     }
@@ -73,12 +73,9 @@ public class ThreadDownloadHistorical implements Runnable
     // we set Platform.setImplicitExit(false); in the Installer), we use flProccessRunning also.
     this.flProccessRunning = true;
 
-    this.chtLineChart = toHistoricalPanel.getLineChart();
-    this.faXYDataSeries = toHistoricalPanel.getXYDataSeries();
-    this.fcSymbol = toHistoricalPanel.getSymbol();
-    this.fdStartDate = toHistoricalPanel.getStartDate();
-    this.fdEndDate = toHistoricalPanel.getEndDate();
-    this.fcDescription = toHistoricalPanel.getDescription();
+    this.foTabHistoricalGraphController = toTabHistoricalGraphController;
+    this.chtLineChart = this.foTabHistoricalGraphController.getChart();
+    this.fcSymbol = this.foTabHistoricalGraphController.getSymbol();
 
     this.foThread = new Thread(this);
     this.foThread.setPriority(Thread.NORM_PRIORITY);
@@ -93,13 +90,6 @@ public class ThreadDownloadHistorical implements Runnable
   {
     if (this.downloadHistoricalFile())
     {
-      Platform.runLater(() ->
-      {
-        this.resetDataset();
-        this.importHistoricalInformation();
-
-        this.flProccessRunning = false;
-      });
 
     }
   }
@@ -252,40 +242,55 @@ public class ThreadDownloadHistorical implements Runnable
     Misc.setStatusText("Downloading the historical data. . . .");
 
     final String lcSymbol = this.fcSymbol;
-
-    this.fcHistoricalFile = this.buildSymbolHistoricalLocalFile(lcSymbol);
+    //final String lcURL = String.format(this.fcAlphaVantage, "MFST", "compact", "demo");
+    final String lcURL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&apikey=demo";
 
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
-    // Historical Information
-    IOException loIOException = null;
+    String lcJSONText = null;
     try
     {
-      // If you don't use the multiple parameters of the URL constructor, then an unknown protocol
-      // error will be thrown because of the c parameter.
-      final URL loURL = new URL(Constants.YAHOO_HISTORICAL_PROTOCOL,
-          Constants.YAHOO_HISTORICAL_HOST,
-          Constants.YAHOO_HISTORICAL_PORT,
-          this.buildSymbolHistoricalHTMLFile(lcSymbol, this.fdStartDate, this.fdEndDate));
+      // Highly recommended to set the userAgent.
+      // Leave out data. I get errors when setting that parameter.
+      lcJSONText = Jsoup.connect(lcURL)
+          .followRedirects(false)
+          .userAgent(Constants.getUserAgent())
+          .maxBodySize(0)
+          .timeout(Constants.WEB_TIME_OUT)
+          .ignoreContentType(true)
+          .execute()
+          .body();
 
-      final File loFile = new File(this.fcHistoricalFile);
-
-      FileUtils.copyURLToFile(loURL, loFile, 3000, 3000);
     }
-    catch (final IOException loErr)
+    catch (final Exception loErr)
     {
-      loIOException = loErr;
+      lcJSONText = null;
     }
 
-    if (loIOException != null)
+    if (lcJSONText == null)
     {
-      final String lcMessage = String.format("Unable to read the page for %s. %s", this.fcSymbol, loIOException.getMessage());
-      Misc.setStatusText(lcMessage);
-      return (false);
+      final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcURL, lcSymbol);
+      Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
     }
     else
     {
+      lcJSONText = lcJSONText.trim();
+      lcJSONText = "[" + lcJSONText + "]";
+//      System.err.println(lcJSONText);
+      System.err.println("all good");
       Misc.setStatusText("Successfully read " + lcSymbol + " historical information");
+    }
+
+    try
+    {
+      JSONArray laJSONInfo = new JSONArray(lcJSONText);
+
+      System.err.println("right before");
+      System.err.println(laJSONInfo.toString(2));
+    }
+    catch (final Exception loErr)
+    {
+      Misc.showStackTraceInMessage(loErr, "ooops");
     }
 
     return (true);

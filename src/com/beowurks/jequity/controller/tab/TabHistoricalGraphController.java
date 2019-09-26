@@ -13,6 +13,8 @@ import com.beowurks.jequity.dao.XMLTextWriter;
 import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
+import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadHistorical;
+import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.GroupProperty;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
@@ -47,6 +49,8 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 {
+  private final static int ALPHA_KEY_MASK_LIMIT = 4;
+
   @FXML
   private ComboBox<StringKeyItem> cboStocks;
 
@@ -89,6 +93,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     }
 
     this.writeXML();
+
+    ThreadDownloadHistorical.INSTANCE.start(true, this);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -106,6 +112,18 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   public ComboBox<StringKeyItem> getComboBox()
   {
     return (this.cboStocks);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public LineChart getChart()
+  {
+    return (this.chtLineChart);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public String getSymbol()
+  {
+    return (this.fcCurrentSymbol);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -152,7 +170,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     if (this.isAlphaVantageKeySet())
     {
-      lcMessage.append(String.format("Your Alpha Vantage key, %s, is set for downloading historical data.", this.maskKey(this.getAlphaVantageKey())));
+      lcMessage.append(String.format("Your Alpha Vantage key, %s, is set for downloading historical data. For more information, visit [https://www.alphavantage.co/documentation/].", this.maskKey(this.getAlphaVantageKey())));
     }
     else
     {
@@ -171,13 +189,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private String maskKey(final String tcKey)
   {
-    final int lnLimit = 4;
     final StringBuilder loMasked = new StringBuilder();
 
     final int lnLength = tcKey.length();
-    if (lnLength < lnLimit)
+    if (lnLength < TabHistoricalGraphController.ALPHA_KEY_MASK_LIMIT)
     {
-      for (int i = 0; i < lnLimit; ++i)
+      for (int i = 0; i < TabHistoricalGraphController.ALPHA_KEY_MASK_LIMIT; ++i)
       {
         loMasked.append("*");
       }
@@ -188,7 +205,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final char[] taChar = tcKey.toCharArray();
     for (int i = 0; i < lnLength; ++i)
     {
-      loMasked.append(i < (lnLength - lnLimit) ? '*' : taChar[i]);
+      loMasked.append(i < (lnLength - TabHistoricalGraphController.ALPHA_KEY_MASK_LIMIT) ? '*' : taChar[i]);
     }
 
     return (loMasked.toString());
