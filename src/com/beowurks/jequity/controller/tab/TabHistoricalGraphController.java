@@ -14,7 +14,6 @@ import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadHistorical;
-import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.GroupProperty;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
@@ -40,7 +39,8 @@ import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.w3c.dom.Node;
 
-import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -73,15 +73,17 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private HyperlinkLabel lnkAlphaVantageMessage;
 
   @FXML
-  private LineChart<Date, Number> chtLineChart;
+  private LineChart chtLineChart;
 
   private final ObservableList<GroupProperty> foDataList = FXCollections.observableArrayList();
 
-  private XYChart.Series[] faXYDataSeries;
+  private XYChart.Series<String, Double>[] faXYDataSeries;
 
   private String fcCurrentDescription = "";
   private String fcCurrentSymbol = "";
   private String fcCurrentXML = "";
+
+  private final DateFormat foXAxisDateFormat = new SimpleDateFormat("MM-yy");
 
   // ---------------------------------------------------------------------------------------------------------------------
   private void analyzeData()
@@ -143,6 +145,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       this.chtLineChart.getData().add(loSeries);
     }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

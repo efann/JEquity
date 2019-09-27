@@ -8,7 +8,7 @@
   ~
   -->
 
-<?import com.beowurks.jequity.dao.DateAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -46,7 +46,7 @@
       <DropShadow color="GRAY" height="70" width="70"/>
     </effect>
     <xAxis>
-      <DateAxis side="BOTTOM" label="Date"/>
+      <CategoryAxis side="BOTTOM" label="Date"/>
     </xAxis>
     <yAxis>
       <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
