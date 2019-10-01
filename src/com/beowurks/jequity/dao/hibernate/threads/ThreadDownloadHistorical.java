@@ -13,16 +13,16 @@ import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ProgressBar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
+import java.util.Iterator;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -32,11 +32,12 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   public static ThreadDownloadHistorical INSTANCE = new ThreadDownloadHistorical();
 
   private String fcSymbol;
+  private String fcAPIKey;
   private LineChart<Number, Number> chtLineChart;
 
   private class DataElements
   {
-    Date foDate;
+    LocalDate foDate;
     double[] faNumbers = new double[5];
   }
 
@@ -44,11 +45,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
   private final String fcAlphaVantage = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s";
 
-  private boolean flProccessRunning = false;
   private TabHistoricalGraphController foTabHistoricalGraphController;
 
-  private final DateFormat foAlphaVantageDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-  private final DateFormat foXAxisFormat = new SimpleDateFormat("MM-dd-yy");
+  private final DateTimeFormatter foXAxisFormat = DateTimeFormatter.ofPattern("MM-dd-yy");
 
   // ---------------------------------------------------------------------------------------------------------------------
   private ThreadDownloadHistorical()
@@ -69,13 +68,10 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       return (false);
     }
 
-    // As we're unable to determine if Platform thread has ended (it's always there as
-    // we set Platform.setImplicitExit(false); in the Installer), we use flProccessRunning also.
-    this.flProccessRunning = true;
-
     this.foTabHistoricalGraphController = toTabHistoricalGraphController;
     this.chtLineChart = this.foTabHistoricalGraphController.getChart();
     this.fcSymbol = this.foTabHistoricalGraphController.getSymbol();
+    this.fcAPIKey = this.foTabHistoricalGraphController.getAlphaVantageKey();
 
     this.foThread = new Thread(this);
     this.foThread.setPriority(Thread.NORM_PRIORITY);
@@ -88,6 +84,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   @Override
   public void run()
   {
+    Misc.setStatusText(ProgressBar.INDETERMINATE_PROGRESS);
+
     if (this.downloadHistoricalFile())
     {
       // Must be run in the JavaFX thread, duh.
@@ -95,6 +93,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       Platform.runLater(() ->
           this.updateChart());
     }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -118,7 +117,6 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       }
     }
 
-
     // By the way, I wanted to use the techniques found here;
     // From https://stackoverflow.com/questions/46987823/javafx-line-chart-with-date-axis
     // However, I was having round off problems where 1,566,566,566,566 was converted to 1,500,000,000,000.
@@ -137,6 +135,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     }
 
+    Misc.setStatusText(0.0);
 
     return (true);
   }
@@ -147,8 +146,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     Misc.setStatusText("Downloading the historical data. . . .");
 
     final String lcSymbol = this.fcSymbol;
-    //final String lcURL = String.format(this.fcAlphaVantage, "MFST", "compact", "demo");
-    final String lcURL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&apikey=demo";
+    // You can test with
+    //   https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo
+    final String lcURL = String.format(this.fcAlphaVantage, this.fcSymbol, "full", this.fcAPIKey);
 
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
@@ -174,8 +174,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     if (lcJSONText == null)
     {
+      System.err.println(lcURL);
       final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcURL, lcSymbol);
-      Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+      Misc.setStatusText(lcMessage);
       return (false);
     }
 
@@ -207,62 +208,83 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       return (false);
     }
 
-    laJSONInfo.iterator().forEachRemaining(toElement ->
+    final LocalDate ldStart = this.foTabHistoricalGraphController.getStartDate();
+    final LocalDate ldEnd = this.foTabHistoricalGraphController.getEndDate();
+
+    final Object loSeries = this.getSeries(laJSONInfo);
+    if (loSeries == null)
     {
-      if (toElement instanceof JSONObject)
+      return (false);
+    }
+
+    final JSONObject loDates = (JSONObject) loSeries;
+    final Iterator<String> loIterator = loDates.keys();
+
+    while (loIterator.hasNext())
+    {
+      final String loDateKey = loIterator.next();
+      final Object loValues = loDates.get(loDateKey);
+
+      final DataElements loElement = new DataElements();
+
+      loElement.foDate = LocalDate.parse(loDateKey);
+
+      if ((loElement.foDate.isBefore(ldStart)) || (loElement.foDate.isAfter(ldEnd)))
       {
-        final JSONObject loTopObject = (JSONObject) toElement;
-
-        final Object loSeries = loTopObject.get("Time Series (Daily)");
-
-        if (loSeries instanceof JSONObject)
-        {
-          final JSONObject loDates = (JSONObject) loSeries;
-          loDates.keys().forEachRemaining(loDateKey ->
-          {
-            final Object loValues = loDates.get(loDateKey);
-
-            final DataElements loElement = new DataElements();
-
-            try
-            {
-              loElement.foDate = this.foAlphaVantageDateFormat.parse(loDateKey);
-            }
-            catch (final ParseException ignore)
-            {
-            }
-
-            if (loValues instanceof JSONObject)
-            {
-              final JSONObject loNumbers = (JSONObject) loValues;
-              loNumbers.keys().forEachRemaining(loSequence ->
-              {
-                final Object loStockValue = loNumbers.get(loSequence);
-
-                try
-                {
-                  final int lnIndex = Integer.parseInt(loSequence.trim().substring(0, 1)) - 1;
-                  if ((lnIndex >= 0) && (lnIndex < loElement.faNumbers.length))
-                  {
-                    loElement.faNumbers[lnIndex] = Double.parseDouble(loStockValue.toString().trim());
-                  }
-                }
-                catch (final NumberFormatException ignore)
-                {
-                }
-              });
-
-            }
-
-            this.foDataList.add(loElement);
-          });
-        }
+        continue;
       }
-    });
+
+      if (loValues instanceof JSONObject)
+      {
+        final JSONObject loNumbers = (JSONObject) loValues;
+        loNumbers.keys().forEachRemaining(loSequence ->
+        {
+          final Object loStockValue = loNumbers.get(loSequence);
+
+          try
+          {
+            final int lnIndex = Integer.parseInt(loSequence.trim().substring(0, 1)) - 1;
+            if ((lnIndex >= 0) && (lnIndex < loElement.faNumbers.length))
+            {
+              loElement.faNumbers[lnIndex] = Double.parseDouble(loStockValue.toString().trim());
+            }
+          }
+          catch (final NumberFormatException ignore)
+          {
+          }
+        });
+
+      }
+
+      this.foDataList.add(loElement);
+    }
 
     this.foDataList.sort(Comparator.comparing(o -> o.foDate));
 
     return (true);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private Object getSeries(final JSONArray taJSONInfo)
+  {
+    final Iterator<Object> loIterator = taJSONInfo.iterator();
+
+    while (loIterator.hasNext())
+    {
+      final Object loElement = loIterator.next();
+      if (loElement instanceof JSONObject)
+      {
+        final JSONObject loTopObject = (JSONObject) loElement;
+
+        final Object loSeries = loTopObject.get("Time Series (Daily)");
+        if (loSeries instanceof JSONObject)
+        {
+          return (loSeries);
+        }
+      }
+    }
+
+    return (null);
   }
   // ---------------------------------------------------------------------------------------------------------------------
 }

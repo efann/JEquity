@@ -83,8 +83,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private String fcCurrentSymbol = "";
   private String fcCurrentXML = "";
 
-  private final DateFormat foXAxisDateFormat = new SimpleDateFormat("MM-yy");
-
   // ---------------------------------------------------------------------------------------------------------------------
   private void analyzeData()
   {
@@ -126,6 +124,18 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   public String getSymbol()
   {
     return (this.fcCurrentSymbol);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public LocalDate getEndDate()
+  {
+    return (this.txtEnd.getValue());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public LocalDate getStartDate()
+  {
+    return (this.txtStart.getValue());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -215,7 +225,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private String getAlphaVantageKey()
+  public String getAlphaVantageKey()
   {
     return (AppProperties.INSTANCE.getAlphaVantageAPIKey());
   }
