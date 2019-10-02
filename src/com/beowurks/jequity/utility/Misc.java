@@ -9,13 +9,22 @@ package com.beowurks.jequity.utility;
 
 import com.beowurks.jequity.controller.MainFormController;
 import com.beowurks.jequity.main.Main;
+import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -820,7 +829,7 @@ public final class Misc
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  static public void setEditableForDatePicker(final DatePicker toPicker, final boolean tlEditable)
+  static public void setEditableForDatePicker(final DatePickerPlus toPicker, final boolean tlEditable)
   {
     final String lcStyle = tlEditable ? "" : Constants.DISABLED_CONTROL_BACKGROUND;
 

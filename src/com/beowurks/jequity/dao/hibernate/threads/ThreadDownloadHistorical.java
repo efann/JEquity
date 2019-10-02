@@ -10,11 +10,14 @@ package com.beowurks.jequity.dao.hibernate.threads;
 import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
-import com.beowurks.jequity.view.chart.HoveredNode;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -133,11 +136,44 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
         if (loSeries instanceof XYChart.Series)
         {
           final XYChart.Data loData = new XYChart.Data<>(lcDate, loElement.faNumbers[i]);
-          loData.setNode(new HoveredNode(loElement.faNumbers[i]));
+          //loData.setNode(new HoveredNode(loElement.faNumbers[i]));
+
           ((XYChart.Series) loSeries).getData().add(loData);
+
         }
       }
 
+    }
+
+    // From https://stackoverflow.com/questions/14615590/javafx-linechart-hover-values
+    //loop through data and add tooltip
+    //THIS MUST BE DONE AFTER ADDING THE DATA TO THE CHART!
+    for (int i = 0; i < lnSize; ++i)
+    {
+      final Object loSeries = loChart.getData().get(i);
+      if (loSeries instanceof XYChart.Series)
+      {
+        for (final Object loObject : ((XYChart.Series) loSeries).getData())
+        {
+          if (loObject instanceof XYChart.Data)
+          {
+            final XYChart.Data loData = (XYChart.Data) loObject;
+
+            final Node loNode = loData.getNode();
+            if ((loNode != null) && (loNode instanceof StackPane))
+            {
+              final StackPane loStackPane = (StackPane) loNode;
+              // From https://stackoverflow.com/questions/39658056/how-do-i-change-the-size-of-a-chart-symbol-in-a-javafx-scatter-chart
+              loStackPane.setPrefWidth(7);
+              loStackPane.setPrefHeight(7);
+
+              final Tooltip loTooltip = new Tooltip("$ " + loData.getYValue());
+              loTooltip.setShowDelay(Duration.millis(0));
+              Tooltip.install(loStackPane, loTooltip);
+            }
+          }
+        }
+      }
     }
 
     Misc.setStatusText(0.0);
@@ -153,9 +189,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     final String lcSymbol = this.fcSymbol;
     // You can test with
     //   https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo
-    //final String lcURL = String.format(this.fcAlphaVantage, this.fcSymbol, "full", this.fcAPIKey);
+    final String lcURL = String.format(this.fcAlphaVantage, this.fcSymbol, "full", this.fcAPIKey);
 
-    final String lcURL="https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo";
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
     String lcJSONText = null;

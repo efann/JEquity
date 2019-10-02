@@ -23,6 +23,7 @@ import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
 import com.beowurks.jequity.view.cell.DoubleTableCell;
 import com.beowurks.jequity.view.table.TableViewPlus;
+import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.NumberTextField;
 import com.beowurks.jequity.view.textfield.UpperCaseTextField;
 import javafx.beans.value.ChangeListener;
@@ -32,7 +33,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -113,7 +113,7 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   private Label lblTotal;
   @FXML
-  private DatePicker txtDate;
+  private DatePickerPlus txtDate;
   @FXML
   private UpperCaseTextField txtSymbol;
   @FXML

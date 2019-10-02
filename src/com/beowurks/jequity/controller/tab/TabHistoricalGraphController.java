@@ -19,6 +19,7 @@ import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +30,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -54,10 +54,10 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private ComboBox<StringKeyItem> cboStocks;
 
   @FXML
-  private DatePicker txtStart;
+  private DatePickerPlus txtStart;
 
   @FXML
-  private DatePicker txtEnd;
+  private DatePickerPlus txtEnd;
 
   @FXML
   private CheckBox chkUseToday;
@@ -171,7 +171,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       this.chtLineChart.getData().add(loSeries);
     }
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -370,7 +369,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.updateEndDate(null);
   }
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   private void writeXML()
   {
     final XMLTextWriter loTextWriter = XMLTextWriter.INSTANCE;
@@ -471,19 +470,19 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     else if (loSource.equals(this.chkShowOpen))
     {
       // From https://stackoverflow.com/questions/39507491/how-to-remove-symbol-markers-from-only-selected-series-in-javafx-charts
-      for (Object loTemp : this.chtLineChart.getData())
+      for (final Object loTemp : this.chtLineChart.getData())
       {
-        XYChart.Series<Number, Number> series = (XYChart.Series<Number, Number>) loTemp;
+        final XYChart.Series<Number, Number> series = (XYChart.Series<Number, Number>) loTemp;
         if (!series.getName().equals("Open")) //if Name is "blue" then continue
         {
-         // continue;
+          // continue;
         }
 
         //for all series, take date, each data has Node (symbol) for representing point
-        for (XYChart.Data<Number, Number> data : series.getData())
+        for (final XYChart.Data<Number, Number> data : series.getData())
         {
           // this node is StackPane
-          StackPane stackPane = (StackPane) data.getNode();
+          final StackPane stackPane = (StackPane) data.getNode();
           stackPane.setVisible(false);
         }
       }

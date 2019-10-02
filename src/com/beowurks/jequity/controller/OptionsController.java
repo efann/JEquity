@@ -14,13 +14,13 @@ import com.beowurks.jequity.dao.hibernate.threads.TimerSymbolInfo;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
+import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -47,7 +47,7 @@ public class OptionsController implements EventHandler<ActionEvent>
   private Button btnDefault;
 
   @FXML
-  private DatePicker txtHistoricalStart;
+  private DatePickerPlus txtHistoricalStart;
   @FXML
   private PasswordField txtAlphaVantageAPIKey;
   @FXML

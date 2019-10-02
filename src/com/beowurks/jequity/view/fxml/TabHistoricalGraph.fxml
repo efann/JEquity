@@ -8,6 +8,7 @@
   ~
   -->
 
+<?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -22,9 +23,9 @@
   <GridPane fx:id="grdPaneHistorical" hgap="5" vgap="5" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
     <ComboBox fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
     <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Start Date"/>
-    <DatePicker fx:id="txtStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <DatePickerPlus fx:id="txtStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     <Label GridPane.columnIndex="2" GridPane.rowIndex="0" text="End Date"/>
-    <DatePicker fx:id="txtEnd" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+    <DatePickerPlus fx:id="txtEnd" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
     <CheckBox fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
     <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
 
@@ -36,8 +37,9 @@
          maxWidth="Infinity" alignment="CENTER"
          text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
 
+  <!-- And, yes, make sure that createSymbols is set to true so that the Tooltips will work. -->
   <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="180.0" AnchorPane.bottomAnchor="20.0"
-             AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" createSymbols="false">
+             AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" createSymbols="true">
     <effect>
       <DropShadow color="GRAY" height="70" width="70"/>
     </effect>
@@ -48,7 +50,8 @@
       <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
     </yAxis>
   </LineChart>
-  <HBox style="-fx-alignment: center" spacing="20" AnchorPane.BottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+  <HBox style="-fx-alignment: center" spacing="20" AnchorPane.BottomAnchor="0.0" AnchorPane.leftAnchor="10.0"
+        AnchorPane.rightAnchor="10.0">
     <CheckBox fx:id="chkShowOpen" text="Open" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <CheckBox fx:id="chkShowHigh" text="High" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
     <CheckBox fx:id="chkShowLow" text="Low" GridPane.columnIndex="2" GridPane.rowIndex="0"/>

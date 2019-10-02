@@ -9,6 +9,7 @@
   -->
 
 <?import com.beowurks.jequity.view.table.TableViewPlus?>
+<?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
 <?import com.beowurks.jequity.view.textfield.NumberTextField?>
 <?import com.beowurks.jequity.view.textfield.UpperCaseTextField?>
 <?import javafx.scene.control.*?>
@@ -68,7 +69,7 @@
       </HBox>
 
       <Label text="Valuation Date" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.halignment="RIGHT"/>
-      <DatePicker fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+      <DatePickerPlus fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
 
       <!--
         This HBox is necessary for a mouse listener set in TabModifyController.addModifyListener

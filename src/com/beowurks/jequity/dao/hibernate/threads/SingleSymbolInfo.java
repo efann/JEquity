@@ -10,9 +10,9 @@ package com.beowurks.jequity.dao.hibernate.threads;
 
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.NumberTextField;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ public class SingleSymbolInfo
 
   private TextField txtDescription;
   private NumberTextField txtPrice;
-  private DatePicker txtDate;
+  private DatePickerPlus txtDate;
 
   private Button btnSave;
 
@@ -37,7 +37,7 @@ public class SingleSymbolInfo
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void setInformation(final String tcInitialSymbol, final TextField toSymbol, final TextField toDescription, final NumberTextField toPrice, final DatePicker toDate, final Button toSave)
+  public void setInformation(final String tcInitialSymbol, final TextField toSymbol, final TextField toDescription, final NumberTextField toPrice, final DatePickerPlus toDate, final Button toSave)
   {
     this.fcInitialSymbol = tcInitialSymbol.trim();
     this.txtSymbol = toSymbol;
@@ -74,7 +74,7 @@ public class SingleSymbolInfo
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public DatePicker getDateField()
+  public DatePickerPlus getDateField()
   {
     return (this.txtDate);
   }

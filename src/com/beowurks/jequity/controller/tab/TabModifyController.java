@@ -13,11 +13,20 @@ import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Control;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -121,9 +130,9 @@ abstract public class TabModifyController extends TabBaseController
               TabModifyController.this.modifyRow());
         }
       }
-      else if (loNode instanceof DatePicker)
+      else if (loNode instanceof DatePickerPlus)
       {
-        ((DatePicker) loNode).getEditor().focusedProperty().addListener((obs, oldVal, newVal) ->
+        ((DatePickerPlus) loNode).getEditor().focusedProperty().addListener((obs, oldVal, newVal) ->
             TabModifyController.this.modifyRow());
       }
       // Otherwise, do recursion.
@@ -270,9 +279,9 @@ abstract public class TabModifyController extends TabBaseController
       final TextArea loTextArea = (TextArea) toField;
       loTextArea.setEditable(tlEditable);
     }
-    else if (toField instanceof DatePicker)
+    else if (toField instanceof DatePickerPlus)
     {
-      final DatePicker loPicker = (DatePicker) toField;
+      final DatePickerPlus loPicker = (DatePickerPlus) toField;
 
       Misc.setEditableForDatePicker(loPicker, tlEditable);
     }
@@ -303,7 +312,7 @@ abstract public class TabModifyController extends TabBaseController
       {
         return ((Control) loNode);
       }
-      else if ((loNode instanceof DatePicker) && (((DatePicker) loNode).getEditor().isFocused()))
+      else if ((loNode instanceof DatePickerPlus) && (((DatePickerPlus) loNode).getEditor().isFocused()))
       {
         return ((Control) loNode);
       }
