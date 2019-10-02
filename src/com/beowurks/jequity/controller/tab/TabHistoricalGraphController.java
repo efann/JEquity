@@ -32,6 +32,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import org.controlsfx.control.HyperlinkLabel;
 import org.hibernate.Session;
@@ -39,8 +40,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.w3c.dom.Node;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -62,6 +61,17 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
   @FXML
   private CheckBox chkUseToday;
+
+  @FXML
+  private CheckBox chkShowOpen;
+  @FXML
+  private CheckBox chkShowHigh;
+  @FXML
+  private CheckBox chkShowLow;
+  @FXML
+  private CheckBox chkShowClose;
+  @FXML
+  private CheckBox chkShowAdjClose;
 
   @FXML
   private Button btnAnalyze;
@@ -144,6 +154,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.btnAnalyze.setOnAction(this);
     this.chkUseToday.setOnAction(this);
     this.cboStocks.setOnAction(this);
+
+    this.chkShowOpen.setOnAction(this);
+    this.chkShowHigh.setOnAction(this);
+    this.chkShowLow.setOnAction(this);
+    this.chkShowClose.setOnAction(this);
+    this.chkShowAdjClose.setOnAction(this);
 
     this.lnkAlphaVantageMessage.setOnAction(this);
   }
@@ -311,6 +327,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       this.btnAnalyze.setDisable(true);
       final StringKeyItem loItem = this.cboStocks.getSelectionModel().getSelectedItem();
 
+      this.chkShowOpen.setSelected(true);
+      this.chkShowHigh.setSelected(true);
+      this.chkShowLow.setSelected(true);
+      this.chkShowClose.setSelected(true);
+      this.chkShowAdjClose.setSelected(true);
+
       this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%)", loItem.getDescription(), loItem.getKey()), true);
 
       return;
@@ -327,12 +349,16 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final XMLTextReader loReader = XMLTextReader.INSTANCE;
     if (!this.fcCurrentXML.isEmpty() && loReader.initializeXMLDocument(this.fcCurrentXML, false))
     {
-      final boolean llUseToday = loReader.getBoolean(Constants.XML_SYMBOL_USE_TODAY, true);
-
-      this.chkUseToday.setSelected(llUseToday);
+      this.chkUseToday.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_USE_TODAY, true));
       // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
       final String lcStart = loReader.getString(Constants.XML_SYMBOL_START_DATE, LocalDate.now().toString());
       this.txtStart.setValue(LocalDate.parse(lcStart));
+
+      this.chkShowOpen.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_OPEN, true));
+      this.chkShowHigh.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_HIGH, true));
+      this.chkShowLow.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_LOW, true));
+      this.chkShowClose.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_CLOSE, true));
+      this.chkShowAdjClose.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_ADJCLOSE, true));
 
       final String lcEnd = loReader.getString(Constants.XML_SYMBOL_END_DATE, LocalDate.now().toString());
       this.updateEndDate(LocalDate.parse(lcEnd));
@@ -357,6 +383,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_START_DATE, this.txtStart.getValue().toString(), null);
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_END_DATE, this.txtEnd.getValue().toString(), null);
+
+    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_OPEN, this.chkShowOpen.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
+    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_HIGH, this.chkShowHigh.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
+    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_LOW, this.chkShowLow.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
+    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_CLOSE, this.chkShowClose.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
+    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_ADJCLOSE, this.chkShowAdjClose.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
 
     final String lcXML = loTextWriter.generateXMLString(2);
 
@@ -435,6 +467,38 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     else if (loSource.equals(this.chkUseToday))
     {
       this.updateEndDate(null);
+    }
+    else if (loSource.equals(this.chkShowOpen))
+    {
+      // From https://stackoverflow.com/questions/39507491/how-to-remove-symbol-markers-from-only-selected-series-in-javafx-charts
+      for (Object loTemp : this.chtLineChart.getData())
+      {
+        XYChart.Series<Number, Number> series = (XYChart.Series<Number, Number>) loTemp;
+        if (!series.getName().equals("Open")) //if Name is "blue" then continue
+        {
+         // continue;
+        }
+
+        //for all series, take date, each data has Node (symbol) for representing point
+        for (XYChart.Data<Number, Number> data : series.getData())
+        {
+          // this node is StackPane
+          StackPane stackPane = (StackPane) data.getNode();
+          stackPane.setVisible(false);
+        }
+      }
+    }
+    else if (loSource.equals(this.chkShowHigh))
+    {
+    }
+    else if (loSource.equals(this.chkShowLow))
+    {
+    }
+    else if (loSource.equals(this.chkShowClose))
+    {
+    }
+    else if (loSource.equals(this.chkShowAdjClose))
+    {
     }
     else if (loSource.equals(this.cboStocks))
     {

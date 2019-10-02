@@ -10,11 +10,13 @@ package com.beowurks.jequity.dao.hibernate.threads;
 import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.view.chart.HoveredNode;
 import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ProgressBar;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
@@ -33,7 +35,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
   private String fcSymbol;
   private String fcAPIKey;
-  private LineChart<Number, Number> chtLineChart;
+  private LineChart<String, Number> chtLineChart;
 
   private class DataElements
   {
@@ -123,13 +125,16 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     for (final DataElements loElement : this.foDataList)
     {
       final String lcDate = this.foXAxisFormat.format(loElement.foDate);
+      // Now add the elements to the particular line.
       final int lnCount = loElement.faNumbers.length;
       for (int i = 0; i < lnCount; ++i)
       {
         final Object loSeries = loChart.getData().get(i);
         if (loSeries instanceof XYChart.Series)
         {
-          ((XYChart.Series) loSeries).getData().add(new XYChart.Data<>(lcDate, loElement.faNumbers[i]));
+          final XYChart.Data loData = new XYChart.Data<>(lcDate, loElement.faNumbers[i]);
+          loData.setNode(new HoveredNode(loElement.faNumbers[i]));
+          ((XYChart.Series) loSeries).getData().add(loData);
         }
       }
 
@@ -148,8 +153,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     final String lcSymbol = this.fcSymbol;
     // You can test with
     //   https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo
-    final String lcURL = String.format(this.fcAlphaVantage, this.fcSymbol, "full", this.fcAPIKey);
+    //final String lcURL = String.format(this.fcAlphaVantage, this.fcSymbol, "full", this.fcAPIKey);
 
+    final String lcURL="https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo";
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
     String lcJSONText = null;
@@ -276,10 +282,16 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       {
         final JSONObject loTopObject = (JSONObject) loElement;
 
-        final Object loSeries = loTopObject.get("Time Series (Daily)");
-        if (loSeries instanceof JSONObject)
+        try
         {
-          return (loSeries);
+          final Object loSeries = loTopObject.get("Time Series (Daily)");
+          if (loSeries instanceof JSONObject)
+          {
+            return (loSeries);
+          }
+        }
+        catch (final JSONException ignore)
+        {
         }
       }
     }

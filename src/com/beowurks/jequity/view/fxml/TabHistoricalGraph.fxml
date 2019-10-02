@@ -11,11 +11,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.HyperlinkLabel?>
@@ -40,7 +36,7 @@
          maxWidth="Infinity" alignment="CENTER"
          text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
 
-  <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="180.0" AnchorPane.bottomAnchor="10.0"
+  <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="180.0" AnchorPane.bottomAnchor="20.0"
              AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" createSymbols="false">
     <effect>
       <DropShadow color="GRAY" height="70" width="70"/>
@@ -52,5 +48,11 @@
       <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
     </yAxis>
   </LineChart>
-
+  <HBox style="-fx-alignment: center" spacing="20" AnchorPane.BottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+    <CheckBox fx:id="chkShowOpen" text="Open" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <CheckBox fx:id="chkShowHigh" text="High" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <CheckBox fx:id="chkShowLow" text="Low" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+    <CheckBox fx:id="chkShowClose" text="Close" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+    <CheckBox fx:id="chkShowAdjClose" text="Adj Close" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+  </HBox>
 </AnchorPane>
