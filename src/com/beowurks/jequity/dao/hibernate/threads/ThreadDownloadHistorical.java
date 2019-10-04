@@ -37,7 +37,6 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   public static ThreadDownloadHistorical INSTANCE = new ThreadDownloadHistorical();
 
   private String fcSymbol;
-  private String fcAPIKey;
   private LineChart<String, Number> chtLineChart;
 
   private class DataElements
@@ -47,8 +46,6 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   }
 
   private final ArrayList<DataElements> foDataList = new ArrayList<>();
-
-  private final String fcAlphaVantage = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s";
 
   private TabHistoricalGraphController foTabHistoricalGraphController;
 
@@ -76,7 +73,6 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     this.foTabHistoricalGraphController = toTabHistoricalGraphController;
     this.chtLineChart = this.foTabHistoricalGraphController.getChart();
     this.fcSymbol = this.foTabHistoricalGraphController.getSymbol();
-    this.fcAPIKey = this.foTabHistoricalGraphController.getAlphaVantageKey();
 
     this.foThread = new Thread(this);
     this.foThread.setPriority(Thread.NORM_PRIORITY);
@@ -187,9 +183,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     Misc.setStatusText("Downloading the historical data. . . .");
 
     final String lcSymbol = this.fcSymbol;
-    // You can test with
-    //   https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo
-    final String lcURL = String.format(this.fcAlphaVantage, this.fcSymbol, "full", this.fcAPIKey);
+    final String lcURL = this.foTabHistoricalGraphController.getAlphaVantageURL();
 
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
@@ -215,9 +209,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     if (lcJSONText == null)
     {
-      System.err.println(lcURL);
       final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcURL, lcSymbol);
-      Misc.setStatusText(lcMessage);
+      Misc.setStatusText(lcMessage, 0.0);
       return (false);
     }
 
@@ -228,7 +221,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     }
     else
     {
-      Misc.setStatusText("Unable to read from Alpha Vantage for " + lcSymbol + " historical information");
+      Misc.setStatusText("Unable to read from Alpha Vantage for " + lcSymbol + " historical information", 0.0);
     }
 
     return (llOkay);

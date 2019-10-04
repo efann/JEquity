@@ -49,6 +49,10 @@ import java.util.List;
 public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 {
   private final static int ALPHA_KEY_MASK_LIMIT = 4;
+  private final static String ALPHA_KEY_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s";
+
+  // You can test with this one.
+  private final static String ALPHA_DEMO_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo";
 
   @FXML
   private ComboBox<StringKeyItem> cboStocks;
@@ -134,6 +138,14 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   public String getSymbol()
   {
     return (this.fcCurrentSymbol);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public String getAlphaVantageURL()
+  {
+    return (!Main.isDevelopmentEnvironment() ?
+        String.format(TabHistoricalGraphController.ALPHA_KEY_STRING, this.getSymbol(), "full", this.getAlphaVantageKey()) :
+        TabHistoricalGraphController.ALPHA_DEMO_STRING);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
