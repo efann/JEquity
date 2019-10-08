@@ -29,6 +29,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
 import org.w3c.dom.NodeList;
@@ -478,7 +479,12 @@ public final class Misc
 
     if (toContent instanceof String)
     {
-      loDialogPane.setContentText((String) toContent);
+      // From https://stackoverflow.com/questions/35693180/javafx-wrap-content-text-in-alert-dialg
+      final Text loMessage = new Text((String) toContent);
+      // Seems to be a good compromise for the size and close to the original size for alerts.
+      loMessage.setWrappingWidth(400.0);
+
+      loDialogPane.setContent(loMessage);
     }
     else if (toContent instanceof Node)
     {

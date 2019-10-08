@@ -209,8 +209,12 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     if (lcJSONText == null)
     {
-      final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcURL, lcSymbol);
+      final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid. If so, try again.", lcURL, lcSymbol);
+
+      // Display both messages, so at least one of them is noticed.
+      Misc.errorMessage(lcMessage);
       Misc.setStatusText(lcMessage, 0.0);
+
       return (false);
     }
 
