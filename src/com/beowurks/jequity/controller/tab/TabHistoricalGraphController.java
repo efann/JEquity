@@ -32,7 +32,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import org.controlsfx.control.HyperlinkLabel;
 import org.hibernate.Session;
@@ -67,15 +67,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private CheckBox chkUseToday;
 
   @FXML
-  private CheckBox chkShowOpen;
-  @FXML
-  private CheckBox chkShowHigh;
-  @FXML
-  private CheckBox chkShowLow;
-  @FXML
-  private CheckBox chkShowClose;
-  @FXML
-  private CheckBox chkShowAdjClose;
+  private HBox hboxSeriesVisibility;
 
   @FXML
   private Button btnAnalyze;
@@ -97,6 +89,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private String fcCurrentSymbol = "";
   private String fcCurrentXML = "";
 
+  private CheckBox[] faSeriesVisibility;
+  private String[] faSeriesColors;
+
   // ---------------------------------------------------------------------------------------------------------------------
   private void analyzeData()
   {
@@ -117,6 +112,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   public void initialize()
   {
     this.setupXYDataSeries();
+    this.setupCheckboxes();
     this.setupChart();
 
     this.setupListeners();
@@ -167,22 +163,31 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.chkUseToday.setOnAction(this);
     this.cboStocks.setOnAction(this);
 
-    this.chkShowOpen.setOnAction(this);
-    this.chkShowHigh.setOnAction(this);
-    this.chkShowLow.setOnAction(this);
-    this.chkShowClose.setOnAction(this);
-    this.chkShowAdjClose.setOnAction(this);
-
     this.lnkAlphaVantageMessage.setOnAction(this);
+
+    final int lnCount = this.faSeriesVisibility.length;
+    for (int i = 0; i < lnCount; ++i)
+    {
+      this.faSeriesVisibility[i].setOnAction(this);
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupChart()
   {
+    final StringBuilder loStyles = new StringBuilder();
     for (final XYChart.Series loSeries : this.faXYDataSeries)
     {
       this.chtLineChart.getData().add(loSeries);
+      final int lnSize = this.chtLineChart.getData().size();
+      loStyles.append(this.getChartColorString(lnSize, this.faSeriesColors[lnSize - 1]));
     }
+
+    if (loStyles.length() > 0)
+    {
+      this.chtLineChart.setStyle(loStyles.toString());
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -200,6 +205,39 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.faXYDataSeries[3].setName("Close");
     this.faXYDataSeries[4] = new XYChart.Series();
     this.faXYDataSeries[4].setName("Adj Close");
+
+
+    // From modena.css at https://gist.github.com/maxd/63691840fc372f22f470
+    // which define CHART_COLOR_1 through CHART_COLOR_8
+    this.faSeriesColors = new String[5];
+    this.faSeriesColors[0] = "#f3622d";
+    this.faSeriesColors[1] = "#fba71b";
+    this.faSeriesColors[2] = "#57b757";
+    this.faSeriesColors[3] = "#41a9c9";
+    this.faSeriesColors[4] = "#4258c9";
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void setupCheckboxes()
+  {
+    if (this.faXYDataSeries == null)
+    {
+      System.err.println("EROR: setupCheckboxes muse be called after setupXYDataSeries");
+      return;
+    }
+
+    final int lnCount = this.faXYDataSeries.length;
+    this.faSeriesVisibility = new CheckBox[lnCount];
+
+    for (int i = 0; i < lnCount; ++i)
+    {
+      final CheckBox loCheckBox = new CheckBox(this.faXYDataSeries[i].getName());
+      loCheckBox.setId(Constants.SERIES_VISIBILITY + i);
+      this.faSeriesVisibility[i] = loCheckBox;
+
+      this.hboxSeriesVisibility.getChildren().add(loCheckBox);
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -333,16 +371,17 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // -----------------------------------------------------------------------------
   private void updateOnComboBoxSelect()
   {
+    final int lnCount = this.faSeriesVisibility.length;
+    for (int i = 0; i < lnCount; ++i)
+    {
+      this.faSeriesVisibility[i].setSelected(true);
+    }
+
     if (!this.readXML())
     {
       this.btnAnalyze.setDisable(true);
       final StringKeyItem loItem = this.cboStocks.getSelectionModel().getSelectedItem();
 
-      this.chkShowOpen.setSelected(true);
-      this.chkShowHigh.setSelected(true);
-      this.chkShowLow.setSelected(true);
-      this.chkShowClose.setSelected(true);
-      this.chkShowAdjClose.setSelected(true);
 
       this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%)", loItem.getDescription(), loItem.getKey()), true);
 
@@ -364,12 +403,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
       final String lcStart = loReader.getString(Constants.XML_SYMBOL_START_DATE, LocalDate.now().toString());
       this.txtStart.setValue(LocalDate.parse(lcStart));
-
-      this.chkShowOpen.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_OPEN, true));
-      this.chkShowHigh.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_HIGH, true));
-      this.chkShowLow.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_LOW, true));
-      this.chkShowClose.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_CLOSE, true));
-      this.chkShowAdjClose.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_SHOW_ADJCLOSE, true));
 
       final String lcEnd = loReader.getString(Constants.XML_SYMBOL_END_DATE, LocalDate.now().toString());
       this.updateEndDate(LocalDate.parse(lcEnd));
@@ -394,12 +427,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_START_DATE, this.txtStart.getValue().toString(), null);
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_END_DATE, this.txtEnd.getValue().toString(), null);
-
-    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_OPEN, this.chkShowOpen.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
-    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_HIGH, this.chkShowHigh.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
-    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_LOW, this.chkShowLow.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
-    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_CLOSE, this.chkShowClose.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
-    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_SHOW_ADJCLOSE, this.chkShowAdjClose.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
 
     final String lcXML = loTextWriter.generateXMLString(2);
 
@@ -465,6 +492,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  private String getChartColorString(final int tnIndex1Based, final String tcColor)
+  {
+    return (String.format("CHART_COLOR_%d: %s;\n", tnIndex1Based, tcColor));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   // ---------------------------------------------------------------------------------------------------------------------
   // Implements methods for EventHandler
   @Override
@@ -479,38 +512,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       this.updateEndDate(null);
     }
-    else if (loSource.equals(this.chkShowOpen))
-    {
-      // From https://stackoverflow.com/questions/39507491/how-to-remove-symbol-markers-from-only-selected-series-in-javafx-charts
-      for (final Object loTemp : this.chtLineChart.getData())
-      {
-        final XYChart.Series<Number, Number> series = (XYChart.Series<Number, Number>) loTemp;
-        if (!series.getName().equals("Open")) //if Name is "blue" then continue
-        {
-          // continue;
-        }
-
-        //for all series, take date, each data has Node (symbol) for representing point
-        for (final XYChart.Data<Number, Number> data : series.getData())
-        {
-          // this node is StackPane
-          final StackPane stackPane = (StackPane) data.getNode();
-          stackPane.setVisible(false);
-        }
-      }
-    }
-    else if (loSource.equals(this.chkShowHigh))
-    {
-    }
-    else if (loSource.equals(this.chkShowLow))
-    {
-    }
-    else if (loSource.equals(this.chkShowClose))
-    {
-    }
-    else if (loSource.equals(this.chkShowAdjClose))
-    {
-    }
     else if (loSource.equals(this.cboStocks))
     {
       this.updateOnComboBoxSelect();
@@ -521,6 +522,32 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
       final String lcURL = loHyperLink.getText();
       Main.getMainHostServices().showDocument(lcURL);
+    }
+    // This should come last.
+    else if (loSource instanceof CheckBox)
+    {
+      if (((CheckBox) loSource).getId().contains(Constants.SERIES_VISIBILITY))
+      {
+        final StringBuilder loStyles = new StringBuilder();
+        // Seems awkward, but it works.
+        final ObservableList<XYChart.Series> loData = this.chtLineChart.getData();
+        loData.clear();
+        final int lnLength = this.faSeriesVisibility.length;
+        for (int i = 0; i < lnLength; ++i)
+        {
+          if (this.faSeriesVisibility[i].isSelected())
+          {
+            loData.add(this.faXYDataSeries[i]);
+            final int lnSize = loData.size();
+            loStyles.append(this.getChartColorString(lnSize, this.faSeriesColors[i]));
+          }
+        }
+
+        if (loStyles.length() > 0)
+        {
+          this.chtLineChart.setStyle(loStyles.toString());
+        }
+      }
     }
 
   }

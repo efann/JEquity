@@ -70,11 +70,7 @@ final public class Constants
   public final static String XML_SYMBOL_START_DATE = "txtStart";
   public final static String XML_SYMBOL_END_DATE = "txtEnd";
 
-  public final static String XML_SYMBOL_SHOW_OPEN = "chkShowOpen";
-  public final static String XML_SYMBOL_SHOW_HIGH = "chkShowHigh";
-  public final static String XML_SYMBOL_SHOW_LOW = "chkShowLow";
-  public final static String XML_SYMBOL_SHOW_CLOSE = "chkShowClose";
-  public final static String XML_SYMBOL_SHOW_ADJCLOSE = "chkShowAdjClose";
+  public final static String SERIES_VISIBILITY = "SeriesVisibility_";
 
   //************************************************************
   // Used by AppProperties
