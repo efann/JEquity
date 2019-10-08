@@ -70,8 +70,6 @@ final public class Constants
   public final static String XML_SYMBOL_START_DATE = "txtStart";
   public final static String XML_SYMBOL_END_DATE = "txtEnd";
 
-  public final static String SERIES_VISIBILITY = "SeriesVisibility_";
-
   //************************************************************
   // Used by AppProperties
   // I choose 100, 200, etc so I could insert other drivers in the future

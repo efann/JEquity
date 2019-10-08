@@ -232,7 +232,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     for (int i = 0; i < lnCount; ++i)
     {
       final CheckBox loCheckBox = new CheckBox(this.faXYDataSeries[i].getName());
-      loCheckBox.setId(Constants.SERIES_VISIBILITY + i);
       this.faSeriesVisibility[i] = loCheckBox;
 
       this.hboxSeriesVisibility.getChildren().add(loCheckBox);
@@ -492,6 +491,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  // I got the idea from https://stackoverflow.com/questions/23228344/change-chart-color
+  // Helps with a series having a constant color as series are removed / added.
   private String getChartColorString(final int tnIndex1Based, final String tcColor)
   {
     return (String.format("CHART_COLOR_%d: %s;\n", tnIndex1Based, tcColor));
@@ -526,7 +527,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // This should come last.
     else if (loSource instanceof CheckBox)
     {
-      if (((CheckBox) loSource).getId().contains(Constants.SERIES_VISIBILITY))
+      if (((CheckBox) loSource).getParent() == this.hboxSeriesVisibility)
       {
         final StringBuilder loStyles = new StringBuilder();
         // Seems awkward, but it works.
