@@ -5,6 +5,6 @@ Main-Class: com.beowurks.jequity.main.Main
 Implementation-Vendor: Beowurks
 Implementation-Version: 2019.1.0.118
 Implementation-Title: JEquity
-Built-On: 2019-10-08 14:20:59
+Built-On: 2019-10-10 14:04:47
 Permissions: all-permissions
 

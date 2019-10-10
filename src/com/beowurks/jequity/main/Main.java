@@ -17,9 +17,11 @@ import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -108,6 +110,12 @@ public class Main extends Application
       Main.APPLICATION_TITLE = lcTitle;
       Main.APPLICATION_VERSION = lcVersion;
     }
+
+    final Rectangle2D loPrimaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+    // Set Stage boundaries to visible bounds of the main screen.
+    Main.getPrimaryStage().setWidth(loPrimaryScreenBounds.getWidth() * 0.75);
+    Main.getPrimaryStage().setHeight(loPrimaryScreenBounds.getHeight() * 0.75);
 
     Misc.makeAllTemporaryDirectories();
 
