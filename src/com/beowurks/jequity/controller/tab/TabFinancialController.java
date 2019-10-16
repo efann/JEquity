@@ -221,8 +221,8 @@ public class TabFinancialController extends TabModifyController implements Event
     for (final FinancialEntity loRow : loList)
     {
       this.foDataList.add(new FinancialProperty(loRow.getGroupID(), loRow.getFinancialID(), loRow.getDescription(), loRow.getAccount(),
-          loRow.getType(), loRow.getCategory(), loRow.getShares(), loRow.getPrice(), loRow.getValuationDate(), loRow.getRetirement(), loRow.getTaxable1099(),
-          loRow.getSymbol(), loRow.getComments()));
+          loRow.getType(), loRow.getCategory(), loRow.getShares(), loRow.getPrice(), loRow.getValuationDate(), loRow.getRetirement(), loRow.getOwnership(),
+          loRow.getTaxStatus(), loRow.getSymbol(), loRow.getComments()));
     }
 
     if (this.tblFinancial.getItems() != this.foDataList)

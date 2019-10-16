@@ -104,7 +104,8 @@ public class TimerSummaryTable
         {
           this.setStyle("-fx-background-color: white;");
         }
-        else if ((lcDescription.equals(Constants.SUMMARY_TABLE_TAXABLE1099)) || (lcDescription.equals(Constants.SUMMARY_TABLE_NON_TAXABLE1099)))
+        // Tax Status
+        else if (lcDescription.contains("Tax "))
         {
           this.setStyle("-fx-background-color: lightyellow;");
         }

@@ -190,18 +190,32 @@ public class FinancialEntity implements Serializable
     this.retirement = tlRetirement;
   }
 
-  private Boolean taxable1099 = false;
+  private String ownership = "";
 
   @Basic
-  @Column(name = "TAXABLE1099", nullable = false, insertable = true, updatable = true)
-  public Boolean getTaxable1099()
+  @Column(name = "OWNERSHIP", nullable = false, insertable = true, updatable = true, length = 15)
+  public String getOwnership()
   {
-    return (this.taxable1099);
+    return (this.ownership);
   }
 
-  public void setTaxable1099(final Boolean tlTaxable1099)
+  public void setOwnership(final String tcOwnership)
   {
-    this.taxable1099 = tlTaxable1099;
+    this.ownership = tcOwnership.trim();
+  }
+
+  private String taxstatus = "";
+
+  @Basic
+  @Column(name = "TAXSTATUS", nullable = false, insertable = true, updatable = true, length = 1)
+  public String getTaxStatus()
+  {
+    return (this.taxstatus);
+  }
+
+  public void setTaxStatus(final String tcTaxStatus)
+  {
+    this.taxstatus = tcTaxStatus.trim();
   }
 
   private String comments = "";
@@ -264,7 +278,11 @@ public class FinancialEntity implements Serializable
     {
       return (false);
     }
-    if (this.taxable1099 != null ? !this.taxable1099.equals(that.taxable1099) : that.taxable1099 != null)
+    if (this.ownership != null ? !this.ownership.equals(that.ownership) : that.ownership != null)
+    {
+      return (false);
+    }
+    if (this.taxstatus != null ? !this.taxstatus.equals(that.taxstatus) : that.taxstatus != null)
     {
       return (false);
     }
@@ -297,7 +315,8 @@ public class FinancialEntity implements Serializable
     lnResult = 31 * lnResult + (this.price != null ? this.price.hashCode() : 0);
     lnResult = 31 * lnResult + (this.valuationdate != null ? this.valuationdate.hashCode() : 0);
     lnResult = 31 * lnResult + (this.retirement != null ? this.retirement.hashCode() : 0);
-    lnResult = 31 * lnResult + (this.taxable1099 != null ? this.taxable1099.hashCode() : 0);
+    lnResult = 31 * lnResult + (this.ownership != null ? this.ownership.hashCode() : 0);
+    lnResult = 31 * lnResult + (this.taxstatus != null ? this.taxstatus.hashCode() : 0);
     lnResult = 31 * lnResult + (this.comments != null ? this.comments.hashCode() : 0);
 
     return (lnResult);
