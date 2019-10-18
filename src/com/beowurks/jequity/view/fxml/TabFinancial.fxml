@@ -8,6 +8,7 @@
   ~
   -->
 
+<?import com.beowurks.jequity.view.combobox.StringKeyComboBoxFX?>
 <?import com.beowurks.jequity.view.table.TableViewPlus?>
 <?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
 <?import com.beowurks.jequity.view.textfield.NumberTextField?>
@@ -22,6 +23,7 @@
     <columns>
       <TableColumn fx:id="colID" text="ID #"/>
       <TableColumn fx:id="colDescription" text="Description"/>
+      <TableColumn fx:id="colOwnership" text="Ownership"/>
       <TableColumn fx:id="colAccount" text="Account"/>
       <TableColumn fx:id="colType" text="Type"/>
       <TableColumn fx:id="colCategory" text="Category"/>
@@ -29,7 +31,7 @@
       <TableColumn fx:id="colPrice" text="Price"/>
       <TableColumn fx:id="colValuationDate" text="Valuation Date"/>
       <TableColumn fx:id="colRetirement" text="Retirement (?)"/>
-      <TableColumn fx:id="colTaxable1099" text="1099 Taxable (?)"/>
+      <TableColumn fx:id="colTaxStatus" text="Tax Status"/>
       <TableColumn fx:id="colSymbol" text="Symbol"/>
       <TableColumn fx:id="colSharesPrice" text="Total"/>
     </columns>
@@ -48,45 +50,48 @@
       <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="450"
                  maxWidth="450"/>
 
-      <Label text="Account" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="RIGHT"/>
-      <TextField fx:id="txtAccount" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="150"
+      <Label text="Ownership" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtOwnership" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="150"
                  maxWidth="150"/>
-      <Label text="Type" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="RIGHT"/>
-      <TextField fx:id="txtType" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="450" maxWidth="450"/>
 
-      <Label text="Category" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="RIGHT"/>
-      <TextField fx:id="txtCategory" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="450"
+      <Label text="Account" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtAccount" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="150"
+                 maxWidth="150"/>
+      <Label text="Type" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtType" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="450" maxWidth="450"/>
+
+      <Label text="Category" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="RIGHT"/>
+      <TextField fx:id="txtCategory" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="450"
                  maxWidth="450"/>
 
-      <Label text="Shares" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="RIGHT"/>
-      <NumberTextField fx:id="txtShares" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="100"
+      <Label text="Shares" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="RIGHT"/>
+      <NumberTextField fx:id="txtShares" GridPane.columnIndex="1" GridPane.rowIndex="6" prefWidth="100"
                        maxWidth="100"/>
 
-      <Label text="Price, $" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="RIGHT"/>
-      <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <Label text="Price, $" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.halignment="RIGHT"/>
+      <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7">
         <NumberTextField fx:id="txtPrice" prefWidth="100" maxWidth="100"/>
         <Label fx:id="lblTotal"/>
       </HBox>
 
-      <Label text="Valuation Date" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.halignment="RIGHT"/>
-      <DatePickerPlus fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+      <Label text="Valuation Date" GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.halignment="RIGHT"/>
+      <DatePickerPlus fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
 
       <!--
         This HBox is necessary for a mouse listener set in TabModifyController.addModifyListener
       -->
-      <HBox GridPane.columnIndex="1" GridPane.rowIndex="8">
+      <HBox GridPane.columnIndex="1" GridPane.rowIndex="9">
         <CheckBox fx:id="chkRetirement" text="Retirement Fund"/>
       </HBox>
 
-      <HBox GridPane.columnIndex="1" GridPane.rowIndex="9">
-        <CheckBox fx:id="chkTaxable1099" text="1099 Taxable"/>
-      </HBox>
+      <Label text="Tax Status" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.halignment="RIGHT"/>
+      <StringKeyComboBoxFX fx:id="cboTaxStatus" GridPane.columnIndex="1" GridPane.rowIndex="10" prefWidth="50"/>
 
-      <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.halignment="RIGHT"
+      <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.halignment="RIGHT"
              GridPane.valignment="TOP"/>
-      <TextArea fx:id="txtComments" GridPane.columnIndex="1" GridPane.rowIndex="10" prefHeight="75"/>
+      <TextArea fx:id="txtComments" GridPane.columnIndex="1" GridPane.rowIndex="11" prefHeight="75"/>
 
-      <HBox fx:id="boxSaveCancel" GridPane.columnIndex="1" GridPane.rowIndex="11">
+      <HBox fx:id="boxSaveCancel" GridPane.columnIndex="1" GridPane.rowIndex="12">
         <Button fx:id="btnSave" text="Save"/>
         <Button fx:id="btnCancel" text="Cancel"/>
       </HBox>

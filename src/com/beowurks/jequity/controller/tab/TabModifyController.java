@@ -18,15 +18,7 @@ import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -286,6 +278,10 @@ abstract public class TabModifyController extends TabBaseController
       Misc.setEditableForDatePicker(loPicker, tlEditable);
     }
     else if (toField instanceof CheckBox)
+    {
+      toField.setDisable(!tlEditable);
+    }
+    else if (toField instanceof ComboBox)
     {
       toField.setDisable(!tlEditable);
     }

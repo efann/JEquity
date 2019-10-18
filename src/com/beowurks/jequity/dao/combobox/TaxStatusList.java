@@ -5,46 +5,75 @@
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
  */
+
 package com.beowurks.jequity.dao.combobox;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class StringKeyItem
+public class TaxStatusList
 {
+  // Here's a discussion of when INSTANCE will be initialized:
+  // http://stackoverflow.com/questions/13724230/singleton-and-public-static-variable-java
+  // Accordingly, it should be initialized when first accessed.
+  public static final TaxStatusList INSTANCE = new TaxStatusList();
 
-  private final String fcKey;
-  private final String fcDescription;
+  private final ObservableList<StringKeyItem> faOptions = FXCollections.observableArrayList();
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public StringKeyItem(final String tcKey, final String tcDescription)
+  private TaxStatusList()
   {
-    this.fcKey = tcKey.trim();
-    this.fcDescription = tcDescription.trim();
+    // Let's not change these keys as they will be stored in the database.
+    this.faOptions.add(new StringKeyItem("T", "Taxable"));
+    this.faOptions.add(new StringKeyItem("D", "Tax Deferred"));
+    this.faOptions.add(new StringKeyItem("F", "Tax Free"));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public String getKey()
+  public ObservableList<StringKeyItem> getList()
   {
-    return (this.fcKey);
+    return (this.faOptions);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public String getDescription()
+  public int getCount()
   {
-    return (this.fcDescription);
+    return (this.faOptions.size());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  // By the way, toString is used by the JComboBox renderer.
-  @Override
-  public String toString()
+  public int getIndex(final String tcKey)
   {
-    return (this.fcDescription);
+    int lnIndex = -1;
+    for (StringKeyItem loOption : this.faOptions)
+    {
+      if (loOption.getKey().equals(tcKey))
+      {
+        lnIndex = this.faOptions.indexOf(loOption);
+        break;
+      }
+    }
+
+    return (lnIndex);
   }
+
   // ---------------------------------------------------------------------------------------------------------------------
+  public String getDescription(final int tnIndex)
+  {
+    if ((tnIndex >= 0) && (tnIndex < this.faOptions.size()))
+    {
+      return (this.faOptions.get(tnIndex).getDescription());
+    }
+
+    return ("");
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-

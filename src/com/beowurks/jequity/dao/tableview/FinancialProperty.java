@@ -307,7 +307,7 @@ public class FinancialProperty
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void getTaxStatus(final String tcTaxStatus)
+  public void setTaxStatus(final String tcTaxStatus)
   {
     this.taxstatus.set(tcTaxStatus);
   }

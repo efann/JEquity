@@ -7,6 +7,7 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
+import com.beowurks.jequity.dao.combobox.TaxStatusList;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.tableview.SummaryProperty;
@@ -35,7 +36,7 @@ public class TimerSummaryTable
   class SummarySubAmount
   {
     protected Boolean flRetirement;
-    protected Boolean flTaxable1099;
+    protected int fnTaxStatus;
     protected String fcAccount;
     protected String fcType;
     protected String fcCategory;
@@ -105,7 +106,7 @@ public class TimerSummaryTable
           this.setStyle("-fx-background-color: white;");
         }
         // Tax Status
-        else if (lcDescription.contains("Tax "))
+        else if (lcDescription.startsWith("Tax"))
         {
           this.setStyle("-fx-background-color: lightyellow;");
         }
@@ -191,7 +192,7 @@ public class TimerSummaryTable
       final double lnPrice = loRow.getPrice();
       final double lnShares = loRow.getShares();
       final boolean llRetirement = loRow.getRetirement();
-      final boolean llTaxable1099 = loRow.getTaxable1099();
+      final int lnTaxStatus = TaxStatusList.INSTANCE.getIndex(loRow.getTaxStatus());
 
       final SummarySubAmount loSumAmount = new SummarySubAmount();
 
@@ -200,7 +201,7 @@ public class TimerSummaryTable
       loSumAmount.fcCategory = TimerSummaryTable.standardizeDelimitedString(lcCategory, true);
       loSumAmount.fnSubTotal = lnPrice * lnShares;
       loSumAmount.flRetirement = llRetirement;
-      loSumAmount.flTaxable1099 = llTaxable1099;
+      loSumAmount.fnTaxStatus = lnTaxStatus;
 
       this.foSummaryList.add(loSumAmount);
     }
@@ -231,9 +232,14 @@ public class TimerSummaryTable
     double lnTotal = 0;
     double lnRetirement = 0;
     double lnNonRetirement = 0;
-    double lnTaxable1099 = 0;
-    double lnNonTaxable1099 = 0;
     double lnAccount = 0;
+
+    int lnTaxStatus = TaxStatusList.INSTANCE.getCount();
+    double[] laTaxStatus = new double[lnTaxStatus];
+    for (int i = 0; i < lnTaxStatus; ++i)
+    {
+      laTaxStatus[i] = 0.0;
+    }
 
     for (final SummarySubAmount loSumAmount : this.foSummaryList)
     {
@@ -248,13 +254,9 @@ public class TimerSummaryTable
         lnNonRetirement += loSumAmount.fnSubTotal;
       }
 
-      if (loSumAmount.flTaxable1099)
+      if (loSumAmount.fnTaxStatus >= 0)
       {
-        lnTaxable1099 += loSumAmount.fnSubTotal;
-      }
-      else
-      {
-        lnNonTaxable1099 += loSumAmount.fnSubTotal;
+        laTaxStatus[loSumAmount.fnTaxStatus] += loSumAmount.fnSubTotal;
       }
 
       if ((tcAccount != null) && (!tcAccount.isEmpty()) && (tcAccount.compareTo(loSumAmount.fcAccount) == 0))
@@ -291,8 +293,11 @@ public class TimerSummaryTable
     this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_RETIREMENT, lnRetirement));
     this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_NON_RETIREMENT, lnNonRetirement));
 
-    this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_TAXABLE1099, lnTaxable1099));
-    this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_NON_TAXABLE1099, lnNonTaxable1099));
+    // Add Tax Status info
+    for (int i = 0; i < lnTaxStatus; ++i)
+    {
+      this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, TaxStatusList.INSTANCE.getDescription(i)), laTaxStatus[i]));
+    }
 
     if ((tcAccount != null) && (!tcAccount.isEmpty()))
     {
