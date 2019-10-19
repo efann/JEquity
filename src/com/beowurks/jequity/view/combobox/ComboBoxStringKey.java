@@ -16,7 +16,7 @@ import javafx.util.StringConverter;
 // ---------------------------------------------------------------------------------------------------------------------
 // So I couldn't find a native way to disable the dropdown list on setEditable(false). And because
 // setEditable is final for Node, I can't override it. So I just created a setReadOnly function.
-public class ComboBoxStringKey<T> extends ComboBoxPlus<T>
+public class ComboBoxStringKey extends ComboBoxPlus<StringKeyItem>
 {
 
   // ---------------------------------------------------------------------------------------------------------------------

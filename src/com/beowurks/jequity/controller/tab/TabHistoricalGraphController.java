@@ -19,6 +19,7 @@ import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,7 +56,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private final static String ALPHA_DEMO_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo";
 
   @FXML
-  private ComboBox<StringKeyItem> cboStocks;
+  private ComboBoxStringKey cboStocks;
 
   @FXML
   private DatePickerPlus txtStart;
@@ -271,10 +272,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final int lnLength = tcKey.length();
     if (lnLength < TabHistoricalGraphController.ALPHA_KEY_MASK_LIMIT)
     {
-      for (int i = 0; i < TabHistoricalGraphController.ALPHA_KEY_MASK_LIMIT; ++i)
-      {
-        loMasked.append("*");
-      }
+      loMasked.append("*".repeat(TabHistoricalGraphController.ALPHA_KEY_MASK_LIMIT));
 
       return (loMasked.toString());
     }
@@ -379,7 +377,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     if (!this.readXML())
     {
       this.btnAnalyze.setDisable(true);
-      final StringKeyItem loItem = this.cboStocks.getSelectionModel().getSelectedItem();
+      final StringKeyItem loItem = (StringKeyItem) this.cboStocks.getValue();
 
 
       this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%)", loItem.getDescription(), loItem.getKey()), true);
@@ -459,8 +457,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = HibernateUtil.INSTANCE.getSession();
 
-    final String lcKey = this.cboStocks.getSelectionModel().getSelectedItem().getKey();
-    final String lcDescription = this.cboStocks.getSelectionModel().getSelectedItem().getDescription();
+    final StringKeyItem loItem = (StringKeyItem) this.cboStocks.getValue();
+    final String lcKey = loItem.getKey();
+    final String lcDescription = loItem.getDescription();
     // There should only be one symbol. I'm not using LIMIT as there could be differences in SQL syntax between
     // the database servers.
     final String lcSQL = String.format("SELECT symbol, historicalinfo FROM %s WHERE symbol = :symbol", loHibernate.getTableSymbol());

@@ -249,7 +249,7 @@ public class MainFormController implements EventHandler<ActionEvent>
       }
       else
       {
-        final StringBuffer lcMessage = new StringBuffer();
+        final StringBuilder lcMessage = new StringBuilder();
         lcMessage.append(String.format("Your %s system is missing the %s font.\n", System.getProperty("os.name"), lcFont));
         lcMessage.append("By the way, this font is standard on Windows and Mac OS X.\n");
         lcMessage.append("If you're using Linux, try running the following commands:\n\n");

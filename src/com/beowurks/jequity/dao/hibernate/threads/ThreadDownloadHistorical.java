@@ -34,7 +34,7 @@ import java.util.Iterator;
 // ---------------------------------------------------------------------------------------------------------------------
 public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 {
-  public static ThreadDownloadHistorical INSTANCE = new ThreadDownloadHistorical();
+  public static final ThreadDownloadHistorical INSTANCE = new ThreadDownloadHistorical();
 
   private String fcSymbol;
   private LineChart<String, Number> chtLineChart;
@@ -42,7 +42,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   private class DataElements
   {
     LocalDate foDate;
-    double[] faNumbers = new double[5];
+    final double[] faNumbers = new double[5];
   }
 
   private final ArrayList<DataElements> foDataList = new ArrayList<>();

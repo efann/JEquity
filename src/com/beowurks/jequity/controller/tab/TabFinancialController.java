@@ -129,7 +129,7 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   private CheckBox chkRetirement;
   @FXML
-  private ComboBoxStringKey<StringKeyItem> cboTaxStatus;
+  private ComboBoxStringKey cboTaxStatus;
   @FXML
   private TextArea txtComments;
 

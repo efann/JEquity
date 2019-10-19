@@ -18,7 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -31,7 +30,7 @@ import java.util.List;
 public class ToolbarController
 {
   @FXML
-  private ComboBoxIntegerKey<IntegerKeyItem> cboGroup;
+  private ComboBoxIntegerKey cboGroup;
 
   @FXML
   private Button btnUpdate;
@@ -40,7 +39,7 @@ public class ToolbarController
   private Button btnRefresh;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public ComboBoxIntegerKey<IntegerKeyItem> getGroupComboBox()
+  public ComboBoxIntegerKey getGroupComboBox()
   {
     return (this.cboGroup);
   }
@@ -60,13 +59,13 @@ public class ToolbarController
   // ---------------------------------------------------------------------------------------------------------------------
   public Integer refreshGroupComboBox()
   {
-    final ComboBox<IntegerKeyItem> loCombo = this.cboGroup;
+    final ComboBoxIntegerKey loCombo = this.cboGroup;
 
     // Save the onAction event then set to null so nothing happens when rebuilding the list.
     final EventHandler<ActionEvent> loActionHandler = loCombo.getOnAction();
     loCombo.setOnAction(null);
 
-    IntegerKeyItem loKeyItemInit = loCombo.getValue();
+    IntegerKeyItem loKeyItemInit = (IntegerKeyItem) loCombo.getValue();
 
     // An error should not occur here; however, I always want the ComboBox action reset afterwards
     // just in case.
@@ -102,7 +101,7 @@ public class ToolbarController
       }
       else if ((loCombo.getValue() == null) && (loCombo.getItems().size() > 0))
       {
-        loKeyItemInit = loCombo.getItems().get(0);
+        loKeyItemInit = (IntegerKeyItem) loCombo.getItems().get(0);
         loCombo.setValue(loKeyItemInit);
       }
 
