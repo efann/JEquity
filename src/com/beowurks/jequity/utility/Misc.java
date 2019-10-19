@@ -9,7 +9,6 @@ package com.beowurks.jequity.utility;
 
 import com.beowurks.jequity.controller.MainFormController;
 import com.beowurks.jequity.main.Main;
-import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -777,29 +776,6 @@ public final class Misc
     }
 
     return (lnValue);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  static public void setEditableForDatePicker(final DatePickerPlus toPicker, final boolean tlEditable)
-  {
-    final String lcStyle = tlEditable ? "" : Constants.DISABLED_CONTROL_BACKGROUND;
-
-    toPicker.getEditor().setEditable(tlEditable);
-    toPicker.getEditor().setStyle(lcStyle);
-
-    // The following hides / shows the button for the calendar.
-    if (tlEditable)
-    {
-      if (toPicker.getStyleClass().contains(Constants.DATEPICKER_NON_EDITABLE))
-      {
-        toPicker.getStyleClass().removeAll(Constants.DATEPICKER_NON_EDITABLE);
-      }
-    }
-    else if (!toPicker.getStyleClass().contains(Constants.DATEPICKER_NON_EDITABLE))
-    {
-      toPicker.getStyleClass().add(Constants.DATEPICKER_NON_EDITABLE);
-    }
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

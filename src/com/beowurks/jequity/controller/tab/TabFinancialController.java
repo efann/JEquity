@@ -360,7 +360,7 @@ public class TabFinancialController extends TabModifyController implements Event
     loProp.setPrice(lnPrice);
     loProp.setValuationDate(Date.valueOf(this.txtDate.getValue()));
     loProp.setRetirement(this.chkRetirement.isSelected());
-    loProp.setTaxStatus(this.cboTaxStatus.getSelectedValue().getKey());
+    loProp.setTaxStatus(this.cboTaxStatus.getSelectedItem().getKey());
     loProp.setComments(this.txtComments.getText().trim());
 
     boolean llSaved = false;

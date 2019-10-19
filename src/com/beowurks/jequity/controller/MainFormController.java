@@ -217,7 +217,7 @@ public class MainFormController implements EventHandler<ActionEvent>
     }
 
     final boolean llRefreshCombo = (tlIncludeGroupComboBox || (this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem() == null));
-    final Integer loGroupID = (llRefreshCombo) ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectedValue().getKey();
+    final Integer loGroupID = (llRefreshCombo) ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectedItem().getKey();
 
     HibernateUtil.INSTANCE.setGroupID(loGroupID);
 

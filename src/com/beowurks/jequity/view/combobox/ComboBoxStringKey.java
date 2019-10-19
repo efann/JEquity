@@ -21,7 +21,7 @@ public class ComboBoxStringKey extends ComboBoxPlus<StringKeyItem>
 
   // ---------------------------------------------------------------------------------------------------------------------
   @Override
-  public StringKeyItem getSelectedValue()
+  public StringKeyItem getSelectedItem()
   {
     return ((StringKeyItem) this.getValue());
   }
@@ -50,7 +50,7 @@ public class ComboBoxStringKey extends ComboBoxPlus<StringKeyItem>
           return (null);
         }
 
-        return (ComboBoxStringKey.this.getSelectedValue());
+        return (ComboBoxStringKey.this.getSelectedItem());
       }
 
     });

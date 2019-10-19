@@ -14,13 +14,13 @@ import com.beowurks.jequity.dao.hibernate.threads.TimerSymbolInfo;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
+import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -34,7 +34,7 @@ public class OptionsController implements EventHandler<ActionEvent>
 {
 
   @FXML
-  private ComboBox<IntegerKeyItem> cboDriver;
+  private ComboBoxIntegerKey cboDriver;
   @FXML
   private TextField txtHost;
   @FXML
@@ -51,7 +51,7 @@ public class OptionsController implements EventHandler<ActionEvent>
   @FXML
   private PasswordField txtAlphaVantageAPIKey;
   @FXML
-  private ComboBox<IntegerKeyItem> cboDailyDownloadInterval;
+  private ComboBoxIntegerKey cboDailyDownloadInterval;
 
   @FXML
   private CheckBox chkMigrationStatus;
@@ -77,7 +77,7 @@ public class OptionsController implements EventHandler<ActionEvent>
 
     //***************************************
     // Connections tab
-    final int lnKey = loApp.convertIndexToKey(loApp.getRDBMS_Types(), this.cboDriver.getSelectionModel().getSelectedIndex());
+    final int lnKey = loApp.convertIndexToKey(loApp.getRDBMS_Types(), this.cboDriver.getSelectedIndex());
 
     loApp.setConnectionRDBMS_Key(lnKey);
     loApp.setConnectionHost(this.txtHost.getText().trim());
@@ -88,7 +88,7 @@ public class OptionsController implements EventHandler<ActionEvent>
 
     //***************************************
     // Stock Data tab
-    loApp.setDailyIntervalKey(loApp.convertIndexToKey(loApp.getDailyIntervals(), this.cboDailyDownloadInterval.getSelectionModel().getSelectedIndex()));
+    loApp.setDailyIntervalKey(loApp.convertIndexToKey(loApp.getDailyIntervals(), this.cboDailyDownloadInterval.getSelectedIndex()));
     loApp.setHistoricalStartDefault(Date.valueOf(this.txtHistoricalStart.getValue()));
     loApp.setAlphaVantageAPIKey(this.txtAlphaVantageAPIKey.getText().trim());
 
@@ -166,7 +166,7 @@ public class OptionsController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void resetTextFields()
   {
-    final IntegerKeyItem loItem = this.cboDriver.getSelectionModel().getSelectedItem();
+    final IntegerKeyItem loItem = this.cboDriver.getSelectedItem();
 
     final String lcDescription = loItem.getDescription();
     final boolean llApacheDerby = lcDescription.equals(Constants.DRIVER_VALUE_DERBY);

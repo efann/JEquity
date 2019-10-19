@@ -8,6 +8,7 @@
 
 package com.beowurks.jequity.view.textfield;
 
+import com.beowurks.jequity.utility.Constants;
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
@@ -54,6 +55,32 @@ public class DatePickerPlus extends DatePicker
       }
     });
   }
+
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void setReadOnly(final boolean tlReadOnly)
+  {
+    final String lcStyle = tlReadOnly ? Constants.DISABLED_CONTROL_BACKGROUND : "";
+
+    this.getEditor().setEditable(!tlReadOnly);
+    this.getEditor().setStyle(lcStyle);
+
+    // The following hides / shows the button for the calendar.
+    if (!tlReadOnly)
+    {
+      if (this.getStyleClass().contains(Constants.DATEPICKER_NON_EDITABLE))
+      {
+        this.getStyleClass().removeAll(Constants.DATEPICKER_NON_EDITABLE);
+      }
+    }
+    else if (!this.getStyleClass().contains(Constants.DATEPICKER_NON_EDITABLE))
+    {
+      this.getStyleClass().add(Constants.DATEPICKER_NON_EDITABLE);
+    }
+
+  }
+
+
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------

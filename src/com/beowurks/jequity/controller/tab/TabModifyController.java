@@ -258,7 +258,8 @@ abstract public class TabModifyController extends TabBaseController
 
   // ---------------------------------------------------------------------------------------------------------------------
   // Unfortunately, I can't create an inherited class from TextField and override setEditable: it's a final method.
-  // Oh well. . . .
+  // So I have to set the style here.
+  // Thinking about adding setReadOnly function.
   protected void setEditable(final Control toField, final boolean tlEditable)
   {
     final String lcStyle = tlEditable ? "" : Constants.DISABLED_CONTROL_BACKGROUND;
@@ -280,7 +281,7 @@ abstract public class TabModifyController extends TabBaseController
     {
       final DatePickerPlus loPicker = (DatePickerPlus) toField;
 
-      Misc.setEditableForDatePicker(loPicker, tlEditable);
+      loPicker.setReadOnly(!tlEditable);
     }
     else if (toField instanceof CheckBox)
     {
