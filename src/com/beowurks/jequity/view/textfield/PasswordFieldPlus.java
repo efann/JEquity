@@ -9,12 +9,13 @@
 package com.beowurks.jequity.view.textfield;
 
 import com.beowurks.jequity.utility.Constants;
+import com.beowurks.jequity.view.interfaces.IReadOnly;
 import javafx.scene.control.PasswordField;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class PasswordFieldPlus extends PasswordField
+public class PasswordFieldPlus extends PasswordField implements IReadOnly
 {
   // ---------------------------------------------------------------------------------------------------------------------
   public PasswordFieldPlus()

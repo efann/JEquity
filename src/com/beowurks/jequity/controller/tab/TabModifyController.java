@@ -13,7 +13,7 @@ import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
-import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
+import com.beowurks.jequity.view.interfaces.IReadOnly;
 import com.beowurks.jequity.view.textarea.TextAreaPlus;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.TextFieldPlus;
@@ -240,7 +240,6 @@ abstract public class TabModifyController extends TabBaseController
     this.btnCancel.setDisable(!tlModify);
   }
 
-
   // ---------------------------------------------------------------------------------------------------------------------
   protected void resetTextFields(final boolean tlModify)
   {
@@ -252,49 +251,22 @@ abstract public class TabModifyController extends TabBaseController
   {
     for (final Node loNode : toParent.getChildren())
     {
-      if (loNode instanceof Control)
+      if (loNode instanceof IReadOnly)
       {
-        this.setReadOnly((Control) loNode, !tlModify);
+        ((IReadOnly) loNode).setReadOnly(!tlModify);
       }
       else if (loNode instanceof Pane)
       {
         this.setEditableFields((Pane) loNode, tlModify);
       }
-    }
 
-  }
+      else if (!(loNode instanceof Label) && !(loNode instanceof Button) && !(loNode instanceof Hyperlink))
+      {
+        System.err.println("==========================================================================================");
+        System.err.println(String.format("Unknown class in TabModifyController.setEditable: %s", loNode.getClass()));
+        System.err.println("==========================================================================================");
+      }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  // Unfortunately, I can't create an inherited class from a Control and override setEditable: it's a final method.
-  // So I created a setReadOnly function.
-  private void setReadOnly(final Control toField, final boolean tlReadOnly)
-  {
-    if (toField instanceof TextFieldPlus)
-    {
-      ((TextFieldPlus) toField).setReadOnly(tlReadOnly);
-    }
-    else if (toField instanceof ComboBoxStringKey)
-    {
-      ((ComboBoxStringKey) toField).setReadOnly(tlReadOnly);
-    }
-    else if (toField instanceof TextAreaPlus)
-    {
-      final TextAreaPlus loTextArea = (TextAreaPlus) toField;
-      loTextArea.setReadOnly(tlReadOnly);
-    }
-    else if (toField instanceof DatePickerPlus)
-    {
-      final DatePickerPlus loPicker = (DatePickerPlus) toField;
-
-      loPicker.setReadOnly(tlReadOnly);
-    }
-    else if (toField instanceof CheckBoxPlus)
-    {
-      ((CheckBoxPlus) toField).setReadOnly(tlReadOnly);
-    }
-    else if (!(toField instanceof Label) && !(toField instanceof Button) && !(toField instanceof Hyperlink))
-    {
-      System.err.println(String.format("Unknown class in TabModifyController.setEditable: %s", toField.getClass()));
     }
 
   }

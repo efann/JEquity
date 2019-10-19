@@ -9,12 +9,13 @@
 package com.beowurks.jequity.view.textfield;
 
 import com.beowurks.jequity.utility.Constants;
+import com.beowurks.jequity.view.interfaces.IReadOnly;
 import javafx.scene.control.TextField;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class TextFieldPlus extends TextField
+public class TextFieldPlus extends TextField implements IReadOnly
 {
 
   // ---------------------------------------------------------------------------------------------------------------------

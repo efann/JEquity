@@ -8,6 +8,7 @@
 
 package com.beowurks.jequity.view.combobox;
 
+import com.beowurks.jequity.view.interfaces.IReadOnly;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 
@@ -16,7 +17,7 @@ import javafx.scene.control.ComboBox;
 // ---------------------------------------------------------------------------------------------------------------------
 // So I couldn't find a native way to disable the dropdown list on setEditable(false). And because
 // setEditable is final for Node, I can't override it. So I just created a setReadOnly function.
-abstract public class ComboBoxPlus<T> extends ComboBox
+abstract public class ComboBoxPlus<T> extends ComboBox implements IReadOnly
 {
   private EventHandler foOriginalShownEvent;
 

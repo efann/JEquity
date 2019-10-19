@@ -9,6 +9,7 @@
 package com.beowurks.jequity.view.textfield;
 
 import com.beowurks.jequity.utility.Constants;
+import com.beowurks.jequity.view.interfaces.IReadOnly;
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ import java.time.format.DateTimeParseException;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class DatePickerPlus extends DatePicker
+public class DatePickerPlus extends DatePicker implements IReadOnly
 {
   // ---------------------------------------------------------------------------------------------------------------------
   public DatePickerPlus()
