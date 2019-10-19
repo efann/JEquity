@@ -13,7 +13,6 @@ import com.beowurks.jequity.controller.tab.TabGroupController;
 import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
 import com.beowurks.jequity.controller.tab.TabReportController;
 import com.beowurks.jequity.controller.tab.TabSymbolController;
-import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
@@ -218,7 +217,7 @@ public class MainFormController implements EventHandler<ActionEvent>
     }
 
     final boolean llRefreshCombo = (tlIncludeGroupComboBox || (this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem() == null));
-    final Integer loGroupID = (llRefreshCombo) ? this.toolbarMainController.refreshGroupComboBox() : ((IntegerKeyItem) this.toolbarMainController.getGroupComboBox().getValue()).getKey();
+    final Integer loGroupID = (llRefreshCombo) ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectedValue().getKey();
 
     HibernateUtil.INSTANCE.setGroupID(loGroupID);
 

@@ -16,8 +16,8 @@
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHistorical.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHistorical.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxIntegerKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxIntegerKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxPlus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxPlus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxStringKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxStringKey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml" afterDir="false" />
@@ -25,8 +25,10 @@
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/OptionsDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/OptionsDialog.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabFinancial.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabFinancial.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabGroup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabGroup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabReport.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabReport.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabSymbol.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabSymbol.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Toolbar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Toolbar.fxml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -684,6 +686,7 @@
       <workItem from="1571456575885" duration="4295000" />
       <workItem from="1571466267794" duration="21000" />
       <workItem from="1571467405805" duration="1225000" />
+      <workItem from="1571499002678" duration="769000" />
     </task>
     <servers />
   </component>

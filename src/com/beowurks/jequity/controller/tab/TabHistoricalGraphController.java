@@ -377,7 +377,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     if (!this.readXML())
     {
       this.btnAnalyze.setDisable(true);
-      final StringKeyItem loItem = (StringKeyItem) this.cboStocks.getValue();
+      final StringKeyItem loItem = this.cboStocks.getSelectedValue();
 
 
       this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%)", loItem.getDescription(), loItem.getKey()), true);
@@ -457,7 +457,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = HibernateUtil.INSTANCE.getSession();
 
-    final StringKeyItem loItem = (StringKeyItem) this.cboStocks.getValue();
+    final StringKeyItem loItem = this.cboStocks.getSelectedValue();
     final String lcKey = loItem.getKey();
     final String lcDescription = loItem.getDescription();
     // There should only be one symbol. I'm not using LIMIT as there could be differences in SQL syntax between

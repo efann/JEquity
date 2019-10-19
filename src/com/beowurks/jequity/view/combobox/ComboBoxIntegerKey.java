@@ -20,6 +20,14 @@ public class ComboBoxIntegerKey extends ComboBoxPlus<IntegerKeyItem>
 {
 
   // ---------------------------------------------------------------------------------------------------------------------
+  @Override
+  public IntegerKeyItem getSelectedValue()
+  {
+    return ((IntegerKeyItem) this.getValue());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @Override
   protected void setupStringConverter()
   {
     this.setConverter(new StringConverter<IntegerKeyItem>()
@@ -43,12 +51,12 @@ public class ComboBoxIntegerKey extends ComboBoxPlus<IntegerKeyItem>
           return (null);
         }
 
-        return ((IntegerKeyItem) ComboBoxIntegerKey.this.getValue());
+        return (ComboBoxIntegerKey.this.getSelectedValue());
       }
     });
 
   }
-  // ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 
 }
 // ---------------------------------------------------------------------------------------------------------------------

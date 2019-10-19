@@ -8,6 +8,7 @@
   ~
   -->
 
+<?import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey?>
 <?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -19,7 +20,7 @@
       <Tab text="Connections" closable="false">
         <GridPane hgap="10" vgap="10">
           <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Driver"/>
-          <ComboBox fx:id="cboDriver" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+          <ComboBoxIntegerKey fx:id="cboDriver" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Host"/>
           <TextField fx:id="txtHost" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Database"/>
@@ -39,7 +40,7 @@
       <Tab text="Stock Data" closable="false">
         <GridPane hgap="10" vgap="10">
           <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Daily Download Interval"/>
-          <ComboBox fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+          <ComboBoxIntegerKey fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Alpha Vantage API Key"/>
           <PasswordField fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Default Historical Start Date"/>

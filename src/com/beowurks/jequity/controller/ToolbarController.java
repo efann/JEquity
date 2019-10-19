@@ -65,7 +65,7 @@ public class ToolbarController
     final EventHandler<ActionEvent> loActionHandler = loCombo.getOnAction();
     loCombo.setOnAction(null);
 
-    IntegerKeyItem loKeyItemInit = (IntegerKeyItem) loCombo.getValue();
+    IntegerKeyItem loKeyItemInit = loCombo.getSelectedValue();
 
     // An error should not occur here; however, I always want the ComboBox action reset afterwards
     // just in case.

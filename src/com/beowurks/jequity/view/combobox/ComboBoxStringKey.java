@@ -20,6 +20,14 @@ public class ComboBoxStringKey extends ComboBoxPlus<StringKeyItem>
 {
 
   // ---------------------------------------------------------------------------------------------------------------------
+  @Override
+  public StringKeyItem getSelectedValue()
+  {
+    return ((StringKeyItem) this.getValue());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  @Override
   protected void setupStringConverter()
   {
     this.setConverter(new StringConverter<StringKeyItem>()
@@ -42,7 +50,7 @@ public class ComboBoxStringKey extends ComboBoxPlus<StringKeyItem>
           return (null);
         }
 
-        return ((StringKeyItem) ComboBoxStringKey.this.getValue());
+        return (ComboBoxStringKey.this.getSelectedValue());
       }
 
     });

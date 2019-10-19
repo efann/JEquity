@@ -8,7 +8,6 @@
 
 package com.beowurks.jequity.controller.tab;
 
-import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.combobox.TaxStatusList;
 import com.beowurks.jequity.dao.hibernate.FinancialEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
@@ -361,7 +360,7 @@ public class TabFinancialController extends TabModifyController implements Event
     loProp.setPrice(lnPrice);
     loProp.setValuationDate(Date.valueOf(this.txtDate.getValue()));
     loProp.setRetirement(this.chkRetirement.isSelected());
-    loProp.setTaxStatus(((StringKeyItem) this.cboTaxStatus.getValue()).getKey());
+    loProp.setTaxStatus(this.cboTaxStatus.getSelectedValue().getKey());
     loProp.setComments(this.txtComments.getText().trim());
 
     boolean llSaved = false;
