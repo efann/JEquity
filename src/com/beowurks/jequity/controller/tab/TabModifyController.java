@@ -13,6 +13,7 @@ import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.view.combobox.ComboBoxPlus;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
@@ -105,7 +106,7 @@ abstract public class TabModifyController extends TabBaseController
   {
     for (final Node loNode : toParent.getChildren())
     {
-      if ((loNode instanceof TextField) || (loNode instanceof TextArea))
+      if ((loNode instanceof TextField) || (loNode instanceof TextArea) || (loNode instanceof ComboBox))
       {
         loNode.focusedProperty().addListener((obs, oldVal, newVal) ->
             TabModifyController.this.modifyRow());
@@ -266,6 +267,10 @@ abstract public class TabModifyController extends TabBaseController
     {
       ((TextField) toField).setEditable(tlEditable);
     }
+    else if (toField instanceof ComboBoxPlus)
+    {
+      ((ComboBoxPlus) toField).setReadOnly(!tlEditable);
+    }
     else if (toField instanceof TextArea)
     {
       final TextArea loTextArea = (TextArea) toField;
@@ -278,10 +283,6 @@ abstract public class TabModifyController extends TabBaseController
       Misc.setEditableForDatePicker(loPicker, tlEditable);
     }
     else if (toField instanceof CheckBox)
-    {
-      toField.setDisable(!tlEditable);
-    }
-    else if (toField instanceof ComboBox)
     {
       toField.setDisable(!tlEditable);
     }

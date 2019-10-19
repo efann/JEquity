@@ -4,7 +4,7 @@
  * Original Author: Eddie Fann
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
- */
+*/
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
@@ -218,9 +218,8 @@
   Main toolbar
 */
 
-.combo-box
+#cboGroup
 {
-  -fx-cursor: hand;
   -fx-pref-width: 300px;
 }
 
@@ -361,8 +360,21 @@
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
+  Edit Fields
+*/
+
+#cboTaxStatus
+{
+  -fx-pref-width: 150px;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
   Miscellaneous
 */
+
+.combo-box,
 .button,
 .check-box
 {
@@ -393,7 +405,8 @@
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
   From https://stackoverflow.com/questions/30631179/hide-calendar-button-on-datepicker
- */
+*/
+
 .non-editable-datepicker > .arrow-button
 {
   -fx-padding: 0px;
@@ -407,4 +420,17 @@
 .non-editable-datepicker > .date-picker-display-node
 {
   -fx-background-insets: 1 1 1 1;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  https://stackoverflow.com/questions/21379865/how-to-hide-the-down-arrow-button-on-a-combobox-in-javafx
+*/
+
+.hide-combo-box-arrow .arrow-button
+{
+  -fx-opacity: 0.0;
+  -fx-cursor: text;
+  -fx-padding: 0;
 }

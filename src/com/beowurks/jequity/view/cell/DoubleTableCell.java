@@ -31,7 +31,6 @@ public class DoubleTableCell extends TableCell<Object, Double>
   {
     super.updateItem(tnItem, tlEmpty);
 
-
     if ((tnItem == null) || tlEmpty)
     {
       return;

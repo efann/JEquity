@@ -8,7 +8,7 @@
   ~
   -->
 
-<?import com.beowurks.jequity.view.combobox.StringKeyComboBoxFX?>
+<?import com.beowurks.jequity.view.combobox.ComboBoxPlus?>
 <?import com.beowurks.jequity.view.table.TableViewPlus?>
 <?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
 <?import com.beowurks.jequity.view.textfield.NumberTextField?>
@@ -85,7 +85,7 @@
       </HBox>
 
       <Label text="Tax Status" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.halignment="RIGHT"/>
-      <StringKeyComboBoxFX fx:id="cboTaxStatus" GridPane.columnIndex="1" GridPane.rowIndex="10" prefWidth="50"/>
+      <ComboBoxPlus fx:id="cboTaxStatus" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
 
       <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.halignment="RIGHT"
              GridPane.valignment="TOP"/>

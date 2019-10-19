@@ -106,7 +106,7 @@ public class TimerSummaryTable
           this.setStyle("-fx-background-color: white;");
         }
         // Tax Status
-        else if (lcDescription.startsWith("Tax"))
+        else if ((lcDescription.startsWith("Tax")) && (lcDescription.contains("(Total)")))
         {
           this.setStyle("-fx-background-color: lightyellow;");
         }
@@ -234,8 +234,8 @@ public class TimerSummaryTable
     double lnNonRetirement = 0;
     double lnAccount = 0;
 
-    int lnTaxStatus = TaxStatusList.INSTANCE.getCount();
-    double[] laTaxStatus = new double[lnTaxStatus];
+    final int lnTaxStatus = TaxStatusList.INSTANCE.getCount();
+    final double[] laTaxStatus = new double[lnTaxStatus];
     for (int i = 0; i < lnTaxStatus; ++i)
     {
       laTaxStatus[i] = 0.0;

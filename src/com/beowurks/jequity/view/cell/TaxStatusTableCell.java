@@ -5,40 +5,41 @@
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
  */
-package com.beowurks.jequity.dao.combobox;
+
+package com.beowurks.jequity.view.cell;
+
+import com.beowurks.jequity.dao.combobox.TaxStatusList;
+import javafx.scene.control.TableCell;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class StringKeyItem
+// From http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
+public class TaxStatusTableCell extends TableCell<Object, String>
 {
-
-  private final String fcKey;
-  private final String fcDescription;
-
   // ---------------------------------------------------------------------------------------------------------------------
-  // By the way, according to StackOverFlow, you shouldn't override toString as it causes problems down the road.
-  public StringKeyItem(final String tcKey, final String tcDescription)
+  public TaxStatusTableCell()
   {
-    this.fcKey = tcKey.trim();
-    this.fcDescription = tcDescription.trim();
+    super();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public String getKey()
-  {
-    return (this.fcKey);
-  }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  public String getDescription()
+  @Override
+  protected void updateItem(final String tcItem, final boolean tlEmpty)
   {
-    return (this.fcDescription);
-  }
+    super.updateItem(tcItem, tlEmpty);
 
+    if ((tcItem == null) || tlEmpty)
+    {
+      return;
+    }
+
+    this.setText(TaxStatusList.INSTANCE.getItem(tcItem).getDescription());
+  }
   // ---------------------------------------------------------------------------------------------------------------------
+
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-

@@ -24,7 +24,8 @@ import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
 import com.beowurks.jequity.view.cell.DoubleTableCell;
-import com.beowurks.jequity.view.combobox.StringKeyComboBoxFX;
+import com.beowurks.jequity.view.cell.TaxStatusTableCell;
+import com.beowurks.jequity.view.combobox.ComboBoxPlus;
 import com.beowurks.jequity.view.table.TableViewPlus;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.NumberTextField;
@@ -128,7 +129,7 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   private CheckBox chkRetirement;
   @FXML
-  private StringKeyComboBoxFX cboTaxStatus;
+  private ComboBoxPlus<StringKeyItem> cboTaxStatus;
   @FXML
   private TextArea txtComments;
 
@@ -271,6 +272,7 @@ public class TabFinancialController extends TabModifyController implements Event
   {
     this.cboTaxStatus.getItems().addAll(TaxStatusList.INSTANCE.getList());
   }
+
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupTables()
   {
@@ -299,6 +301,7 @@ public class TabFinancialController extends TabModifyController implements Event
     this.colSharesPrice.setCellFactory(tc -> new CurrencyTableCell());
 
     this.colShares.setCellFactory(tc -> new DoubleTableCell());
+    this.colTaxStatus.setCellFactory(tc -> new TaxStatusTableCell());
 
     this.tblFinancial.getItems().clear();
 
@@ -350,6 +353,7 @@ public class TabFinancialController extends TabModifyController implements Event
 
     loProp.setSymbol(this.txtSymbol.getText().trim());
     loProp.setDescription(this.txtDescription.getText().trim());
+    loProp.setOwnership(this.txtOwnership.getText().trim());
     loProp.setAccount(this.txtAccount.getText().trim());
     loProp.setType(this.txtType.getText().trim());
     loProp.setCategory(this.txtCategory.getText().trim());
@@ -357,11 +361,7 @@ public class TabFinancialController extends TabModifyController implements Event
     loProp.setPrice(lnPrice);
     loProp.setValuationDate(Date.valueOf(this.txtDate.getValue()));
     loProp.setRetirement(this.chkRetirement.isSelected());
-    Object loSelected = this.cboTaxStatus.getSelectionModel().getSelectedItem();
-    if (loSelected instanceof StringKeyItem)
-    {
-      loProp.setTaxStatus(((StringKeyItem) loSelected).getKey());
-    }
+    loProp.setTaxStatus(((StringKeyItem) this.cboTaxStatus.getValue()).getKey());
     loProp.setComments(this.txtComments.getText().trim());
 
     boolean llSaved = false;
@@ -435,6 +435,7 @@ public class TabFinancialController extends TabModifyController implements Event
     final boolean llUseEmptyFields = (tlUseEmptyFields || (loProp == null));
 
     this.txtDescription.setText(llUseEmptyFields ? "" : loProp.getDescription());
+    this.txtOwnership.setText(llUseEmptyFields ? "" : loProp.getOwnership());
     this.txtAccount.setText(llUseEmptyFields ? "" : loProp.getAccount());
     this.txtType.setText(llUseEmptyFields ? "" : loProp.getType());
     this.txtCategory.setText(llUseEmptyFields ? "" : loProp.getCategory());
@@ -443,7 +444,8 @@ public class TabFinancialController extends TabModifyController implements Event
     this.txtDate.setValue(llUseEmptyFields ? LocalDate.now() : loProp.getValuationDate().toLocalDate());
     this.txtSymbol.setText(llUseEmptyFields ? "" : loProp.getSymbol().trim());
     this.chkRetirement.setSelected(!llUseEmptyFields && loProp.getRetirement());
-    this.cboTaxStatus.getSelectionModel().select(loProp.getTaxStatus());
+    this.cboTaxStatus.setValue(TaxStatusList.INSTANCE.getItem(loProp.getTaxStatus()));
+
     this.txtComments.setText(llUseEmptyFields ? "" : loProp.getComments());
   }
 

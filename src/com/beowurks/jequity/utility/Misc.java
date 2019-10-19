@@ -19,14 +19,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -50,7 +48,6 @@ import java.util.Optional;
 // ---------------------------------------------------------------------------------------------------------------------
 public final class Misc
 {
-
   static private NumberFormat foCurrencyFormat = null;
   static private NumberFormat foIntegerFormat = null;
   static private NumberFormat foDoubleFormat = null;
@@ -62,10 +59,6 @@ public final class Misc
 
   // Used by the alerts
   static public final String ALERT_STYLE_SHEET = Thread.currentThread().getContextClassLoader().getResource("com/beowurks/jequity/view/css/Main.css").toExternalForm();
-
-  private static final StringBuilder fcExceptionError = new StringBuilder(256);
-
-  private static final boolean flUpdateTopComponentEditorsAlreadyInitialized = false;
 
   private static boolean flShutdownStarted = false;
 
@@ -278,54 +271,6 @@ public final class Misc
     catch (final InterruptedException loErr)
     {
       loErr.printStackTrace();
-    }
-
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  // From https://stackoverflow.com/questions/19804751/get-all-text-fields-values-and-id-in-javafx
-  public static void initializeTextForDataEntry(final Pane toPane, final String tcValue)
-  {
-    for (final Node loNode : toPane.getChildren())
-    {
-      if (loNode instanceof TextField)
-      {
-        ((TextField) loNode).setText(tcValue);
-      }
-      else if (loNode instanceof CheckBox)
-      {
-        ((CheckBox) loNode).setSelected(false);
-      }
-      else if (loNode instanceof Pane)
-      {
-        Misc.initializeTextForDataEntry((Pane) loNode, tcValue);
-      }
-
-    }
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  // From https://stackoverflow.com/questions/19804751/get-all-text-fields-values-and-id-in-javafx
-  public static void setEnabledForDataEntry(final Pane toPane, final boolean tlEnable)
-  {
-    for (final Node loNode : toPane.getChildren())
-    {
-      if (loNode instanceof TextField)
-      {
-        ((TextField) loNode).setEditable(tlEnable);
-      }
-      else if (loNode instanceof TextArea)
-      {
-        ((TextArea) loNode).setEditable(tlEnable);
-      }
-      else if (loNode instanceof CheckBox)
-      {
-        loNode.setDisable(!tlEnable);
-      }
-      else if (loNode instanceof Pane)
-      {
-        Misc.setEnabledForDataEntry((Pane) loNode, tlEnable);
-      }
     }
 
   }

@@ -48,7 +48,7 @@ public class TaxStatusList
   public int getIndex(final String tcKey)
   {
     int lnIndex = -1;
-    for (StringKeyItem loOption : this.faOptions)
+    for (final StringKeyItem loOption : this.faOptions)
     {
       if (loOption.getKey().equals(tcKey))
       {
@@ -58,6 +58,22 @@ public class TaxStatusList
     }
 
     return (lnIndex);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public StringKeyItem getItem(final String tcKey)
+  {
+    StringKeyItem loItem = null;
+    for (final StringKeyItem loOption : this.faOptions)
+    {
+      if (loOption.getKey().equals(tcKey))
+      {
+        loItem = loOption;
+        break;
+      }
+    }
+
+    return (loItem);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
