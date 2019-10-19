@@ -14,15 +14,15 @@ import com.beowurks.jequity.dao.hibernate.threads.TimerSymbolInfo;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
+import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
+import com.beowurks.jequity.view.textfield.PasswordFieldPlus;
+import com.beowurks.jequity.view.textfield.TextFieldPlus;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 
 import java.sql.Date;
@@ -36,25 +36,25 @@ public class OptionsController implements EventHandler<ActionEvent>
   @FXML
   private ComboBoxIntegerKey cboDriver;
   @FXML
-  private TextField txtHost;
+  private TextFieldPlus txtHost;
   @FXML
-  private TextField txtDatabase;
+  private TextFieldPlus txtDatabase;
   @FXML
-  private TextField txtUser;
+  private TextFieldPlus txtUser;
   @FXML
-  private PasswordField txtPassword;
+  private PasswordFieldPlus txtPassword;
   @FXML
   private Button btnDefault;
 
   @FXML
   private DatePickerPlus txtHistoricalStart;
   @FXML
-  private PasswordField txtAlphaVantageAPIKey;
+  private PasswordFieldPlus txtAlphaVantageAPIKey;
   @FXML
   private ComboBoxIntegerKey cboDailyDownloadInterval;
 
   @FXML
-  private CheckBox chkMigrationStatus;
+  private CheckBoxPlus chkMigrationStatus;
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
@@ -154,16 +154,6 @@ public class OptionsController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  // Unfortunately, I can't create an inherited class from TextField and override setEditable: it's a final method.
-  // Oh well. . . .
-  private void setEditable(final TextField toField, final boolean tlEditable)
-  {
-    toField.setEditable(tlEditable);
-
-    toField.setStyle(tlEditable ? "" : "-fx-background-color: lightgrey;");
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
   private void resetTextFields()
   {
     final IntegerKeyItem loItem = this.cboDriver.getSelectedItem();
@@ -172,9 +162,9 @@ public class OptionsController implements EventHandler<ActionEvent>
     final boolean llApacheDerby = lcDescription.equals(Constants.DRIVER_VALUE_DERBY);
     final boolean llEditable = !llApacheDerby;
 
-    this.setEditable(this.txtHost, llEditable);
-    this.setEditable(this.txtUser, llEditable);
-    this.setEditable(this.txtPassword, llEditable);
+    this.txtHost.setReadOnly(!llEditable);
+    this.txtUser.setReadOnly(!llEditable);
+    this.txtPassword.setReadOnly(!llEditable);
 
     if (!Main.isDevelopmentEnvironment())
     {

@@ -11,15 +11,23 @@ package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
-import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
+import com.beowurks.jequity.view.textarea.TextAreaPlus;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
+import com.beowurks.jequity.view.textfield.TextFieldPlus;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -106,14 +114,14 @@ abstract public class TabModifyController extends TabBaseController
   {
     for (final Node loNode : toParent.getChildren())
     {
-      if ((loNode instanceof TextField) || (loNode instanceof TextArea) || (loNode instanceof ComboBox))
+      if ((loNode instanceof TextFieldPlus) || (loNode instanceof TextAreaPlus) || (loNode instanceof ComboBox))
       {
         loNode.focusedProperty().addListener((obs, oldVal, newVal) ->
             TabModifyController.this.modifyRow());
       }
-      else if ((loNode instanceof CheckBox))
+      else if ((loNode instanceof CheckBoxPlus))
       {
-        // CheckBox can only be disabled, not readonly. So if you surround with a container
+        // CheckBoxPlus can only be disabled, not readonly. So if you surround with a container
         // the container can implement a mouse listener. Cool. . . .
         // However, there could be other components in an HBox.
         final Parent loParent = loNode.getParent();
@@ -246,7 +254,7 @@ abstract public class TabModifyController extends TabBaseController
     {
       if (loNode instanceof Control)
       {
-        this.setEditable((Control) loNode, tlModify);
+        this.setReadOnly((Control) loNode, !tlModify);
       }
       else if (loNode instanceof Pane)
       {
@@ -257,42 +265,38 @@ abstract public class TabModifyController extends TabBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  // Unfortunately, I can't create an inherited class from TextField and override setEditable: it's a final method.
-  // So I have to set the style here.
-  // Thinking about adding setReadOnly function.
-  protected void setEditable(final Control toField, final boolean tlEditable)
+  // Unfortunately, I can't create an inherited class from a Control and override setEditable: it's a final method.
+  // So I created a setReadOnly function.
+  private void setReadOnly(final Control toField, final boolean tlReadOnly)
   {
-    final String lcStyle = tlEditable ? "" : Constants.DISABLED_CONTROL_BACKGROUND;
-
-    if (toField instanceof TextField)
+    if (toField instanceof TextFieldPlus)
     {
-      ((TextField) toField).setEditable(tlEditable);
+      ((TextFieldPlus) toField).setReadOnly(tlReadOnly);
     }
     else if (toField instanceof ComboBoxStringKey)
     {
-      ((ComboBoxStringKey) toField).setReadOnly(!tlEditable);
+      ((ComboBoxStringKey) toField).setReadOnly(tlReadOnly);
     }
-    else if (toField instanceof TextArea)
+    else if (toField instanceof TextAreaPlus)
     {
-      final TextArea loTextArea = (TextArea) toField;
-      loTextArea.setEditable(tlEditable);
+      final TextAreaPlus loTextArea = (TextAreaPlus) toField;
+      loTextArea.setReadOnly(tlReadOnly);
     }
     else if (toField instanceof DatePickerPlus)
     {
       final DatePickerPlus loPicker = (DatePickerPlus) toField;
 
-      loPicker.setReadOnly(!tlEditable);
+      loPicker.setReadOnly(tlReadOnly);
     }
-    else if (toField instanceof CheckBox)
+    else if (toField instanceof CheckBoxPlus)
     {
-      toField.setDisable(!tlEditable);
+      ((CheckBoxPlus) toField).setReadOnly(tlReadOnly);
     }
     else if (!(toField instanceof Label) && !(toField instanceof Button) && !(toField instanceof Hyperlink))
     {
       System.err.println(String.format("Unknown class in TabModifyController.setEditable: %s", toField.getClass()));
     }
 
-    toField.setStyle(lcStyle);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

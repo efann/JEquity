@@ -8,51 +8,33 @@
 
 package com.beowurks.jequity.view.textfield;
 
+import com.beowurks.jequity.utility.Constants;
+import javafx.scene.control.TextField;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class NumberTextField extends TextFieldPlus
+public class TextFieldPlus extends TextField
 {
-  private final static String REGEX_NUMBER = "\\d{0,8}([\\.]\\d{0,6})?";
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public NumberTextField()
+  public TextFieldPlus()
   {
     super();
-
-    this.setupListeners();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public NumberTextField(final String tcText)
+  public TextFieldPlus(final String tcText)
   {
     super(tcText);
-
-    this.setupListeners();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void setupListeners()
+  public void setReadOnly(final boolean tlReadOnly)
   {
-    this.textProperty().addListener((observable, oldValue, newValue) ->
-    {
-      String lcValue = newValue;
+    this.setEditable(!tlReadOnly);
 
-      if (!lcValue.matches(NumberTextField.REGEX_NUMBER))
-      {
-        // Strip out all but the numbers and decimal point.
-        lcValue = lcValue.replaceAll("[^0-9.]", "");
-        // If now okay, then replace the text with the correct value.
-        if (lcValue.matches(NumberTextField.REGEX_NUMBER))
-        {
-          NumberTextField.this.setText(lcValue);
-        }
-        else
-        {
-          NumberTextField.this.setText(oldValue);
-        }
-      }
-    });
+    this.setStyle(tlReadOnly ? Constants.DISABLED_CONTROL_BACKGROUND : "");
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

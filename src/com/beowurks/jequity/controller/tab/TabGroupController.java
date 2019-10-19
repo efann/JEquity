@@ -14,12 +14,12 @@ import com.beowurks.jequity.dao.tableview.GroupProperty;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.table.TableViewPlus;
+import com.beowurks.jequity.view.textfield.TextFieldPlus;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -43,7 +43,7 @@ public class TabGroupController extends TabModifyController
   private TableColumn colDescription;
 
   @FXML
-  private TextField txtDescription;
+  private TextFieldPlus txtDescription;
 
   private GroupProperty foCurrentGroupProperty = null;
 

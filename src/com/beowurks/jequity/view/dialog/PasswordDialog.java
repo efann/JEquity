@@ -8,14 +8,13 @@
 
 package com.beowurks.jequity.view.dialog;
 
+import com.beowurks.jequity.view.textfield.PasswordFieldPlus;
 import javafx.application.Platform;
 import javafx.beans.NamedArg;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -27,7 +26,7 @@ public class PasswordDialog extends PasswordBaseDialog
 {
   private final GridPane foGrid;
   private final Label foLabel;
-  private final PasswordField foTextField;
+  private final PasswordFieldPlus foTextField;
 
   // ---------------------------------------------------------------------------------------------------------------------
   public PasswordDialog()
@@ -42,8 +41,8 @@ public class PasswordDialog extends PasswordBaseDialog
 
     final DialogPane loDialogPane = this.getDialogPane();
 
-    // -- TextField
-    this.foTextField = new PasswordField();
+    // -- PasswordFieldPlus
+    this.foTextField = new PasswordFieldPlus();
     this.foTextField.setText(tcDefaultValue);
     this.foTextField.setMaxWidth(Double.MAX_VALUE);
     GridPane.setHgrow(this.foTextField, Priority.ALWAYS);
@@ -68,13 +67,6 @@ public class PasswordDialog extends PasswordBaseDialog
       final ButtonData loButtonData = (dialogButton == null) ? null : dialogButton.getButtonData();
       return ((loButtonData == ButtonData.OK_DONE) ? this.foTextField.getText() : null);
     });
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-
-  public final TextField getEditor()
-  {
-    return (this.foTextField);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

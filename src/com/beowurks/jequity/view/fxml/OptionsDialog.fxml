@@ -8,8 +8,11 @@
   ~
   -->
 
+<?import com.beowurks.jequity.view.checkbox.CheckBoxPlus?>
 <?import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey?>
 <?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
+<?import com.beowurks.jequity.view.textfield.PasswordFieldPlus?>
+<?import com.beowurks.jequity.view.textfield.TextFieldPlus?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane stylesheets="@../css/Main.css"
@@ -22,13 +25,13 @@
           <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Driver"/>
           <ComboBoxIntegerKey fx:id="cboDriver" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Host"/>
-          <TextField fx:id="txtHost" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+          <TextFieldPlus fx:id="txtHost" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Database"/>
-          <TextField fx:id="txtDatabase" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+          <TextFieldPlus fx:id="txtDatabase" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="User"/>
-          <TextField fx:id="txtUser" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+          <TextFieldPlus fx:id="txtUser" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="Password"/>
-          <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+          <PasswordFieldPlus fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
           <Button fx:id="btnDefault" GridPane.columnIndex="1" GridPane.rowIndex="5" text="Default"/>
           <VBox GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2">
             <Label text="For any modifications to take effect, you must exit then restart JEquity."
@@ -42,13 +45,13 @@
           <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Daily Download Interval"/>
           <ComboBoxIntegerKey fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Alpha Vantage API Key"/>
-          <PasswordField fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+          <PasswordFieldPlus fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Default Historical Start Date"/>
           <DatePickerPlus fx:id="txtHistoricalStart" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
         </GridPane>
       </Tab>
       <Tab text="Miscellaneous" closable="false">
-        <CheckBox fx:id="chkMigrationStatus" text="Always Check Migration Status"/>
+        <CheckBoxPlus fx:id="chkMigrationStatus" text="Always Check Migration Status"/>
       </Tab>
     </TabPane>
   </center>

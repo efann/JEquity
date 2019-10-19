@@ -9,6 +9,8 @@ package com.beowurks.jequity.utility;
 
 import com.beowurks.jequity.controller.MainFormController;
 import com.beowurks.jequity.main.Main;
+import com.beowurks.jequity.view.textarea.TextAreaPlus;
+import com.beowurks.jequity.view.textfield.TextFieldPlus;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -21,8 +23,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
@@ -315,8 +315,8 @@ public final class Misc
     final PrintWriter loPrintWriter = new PrintWriter(loStringWriter);
     toException.printStackTrace(loPrintWriter);
 
-    final TextArea loTextArea = new TextArea(loStringWriter.toString());
-    loTextArea.setEditable(false);
+    final TextAreaPlus loTextArea = new TextAreaPlus(loStringWriter.toString());
+    loTextArea.setReadOnly(true);
     loTextArea.setWrapText(true);
     loTextArea.setMaxWidth(Double.MAX_VALUE);
     loTextArea.setMaxHeight(Double.MAX_VALUE);
@@ -681,7 +681,6 @@ public final class Misc
     }
   }
 
-
   // ---------------------------------------------------------------------------------------------------------------------
   // Unfortunately, WebView is a final class, so I can't create WebBrowser extends WebView. So. . . .
   // Anyway, from
@@ -764,7 +763,7 @@ public final class Misc
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  static public double getDoubleFromTextField(final TextField toField)
+  static public double getDoubleFromTextField(final TextFieldPlus toField)
   {
     double lnValue = 0.0;
     try

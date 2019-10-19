@@ -8,13 +8,13 @@
   ~
   -->
 
+<?import com.beowurks.jequity.view.checkbox.CheckBoxPlus?>
 <?import com.beowurks.jequity.view.combobox.ComboBoxStringKey?>
 <?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
@@ -29,7 +29,7 @@
     <DatePickerPlus fx:id="txtStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     <Label GridPane.columnIndex="2" GridPane.rowIndex="0" text="End Date"/>
     <DatePickerPlus fx:id="txtEnd" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-    <CheckBox fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+    <CheckBoxPlus fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
     <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
 
     <HyperlinkLabel fx:id="lnkAlphaVantageMessage" GridPane.columnIndex="0" GridPane.rowIndex="3"

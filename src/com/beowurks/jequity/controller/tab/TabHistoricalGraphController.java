@@ -19,6 +19,7 @@ import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.collections.FXCollections;
@@ -29,7 +30,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -65,7 +65,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private DatePickerPlus txtEnd;
 
   @FXML
-  private CheckBox chkUseToday;
+  private CheckBoxPlus chkUseToday;
 
   @FXML
   private HBox hboxSeriesVisibility;
@@ -90,7 +90,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private String fcCurrentSymbol = "";
   private String fcCurrentXML = "";
 
-  private CheckBox[] faSeriesVisibility;
+  private CheckBoxPlus[] faSeriesVisibility;
   private String[] faSeriesColors;
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -228,11 +228,11 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     }
 
     final int lnCount = this.faXYDataSeries.length;
-    this.faSeriesVisibility = new CheckBox[lnCount];
+    this.faSeriesVisibility = new CheckBoxPlus[lnCount];
 
     for (int i = 0; i < lnCount; ++i)
     {
-      final CheckBox loCheckBox = new CheckBox(this.faXYDataSeries[i].getName());
+      final CheckBoxPlus loCheckBox = new CheckBoxPlus(this.faXYDataSeries[i].getName());
       this.faSeriesVisibility[i] = loCheckBox;
 
       this.hboxSeriesVisibility.getChildren().add(loCheckBox);
@@ -524,9 +524,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       Main.getMainHostServices().showDocument(lcURL);
     }
     // This should come last.
-    else if (loSource instanceof CheckBox)
+    else if (loSource instanceof CheckBoxPlus)
     {
-      if (((CheckBox) loSource).getParent() == this.hboxSeriesVisibility)
+      if (((CheckBoxPlus) loSource).getParent() == this.hboxSeriesVisibility)
       {
         final StringBuilder loStyles = new StringBuilder();
         // Seems awkward, but it works.

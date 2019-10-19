@@ -24,10 +24,13 @@ import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
 import com.beowurks.jequity.view.cell.DoubleTableCell;
 import com.beowurks.jequity.view.cell.TaxStatusTableCell;
+import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
 import com.beowurks.jequity.view.table.TableViewPlus;
+import com.beowurks.jequity.view.textarea.TextAreaPlus;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.NumberTextField;
+import com.beowurks.jequity.view.textfield.TextFieldPlus;
 import com.beowurks.jequity.view.textfield.UpperCaseTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -35,12 +38,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
@@ -104,15 +104,15 @@ public class TabFinancialController extends TabModifyController implements Event
   //------------------------
 
   @FXML
-  private TextField txtDescription;
+  private TextFieldPlus txtDescription;
   @FXML
-  private TextField txtOwnership;
+  private TextFieldPlus txtOwnership;
   @FXML
-  private TextField txtAccount;
+  private TextFieldPlus txtAccount;
   @FXML
-  private TextField txtType;
+  private TextFieldPlus txtType;
   @FXML
-  private TextField txtCategory;
+  private TextFieldPlus txtCategory;
   @FXML
   private NumberTextField txtShares;
   @FXML
@@ -126,11 +126,11 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   private Hyperlink lnkSymbolURL;
   @FXML
-  private CheckBox chkRetirement;
+  private CheckBoxPlus chkRetirement;
   @FXML
   private ComboBoxStringKey cboTaxStatus;
   @FXML
-  private TextArea txtComments;
+  private TextAreaPlus txtComments;
 
   //------------------------
 
@@ -477,9 +477,9 @@ public class TabFinancialController extends TabModifyController implements Event
 
     final boolean llEmpty = this.txtSymbol.getText().isEmpty();
 
-    this.setEditable(this.txtDescription, tlModify && llEmpty);
-    this.setEditable(this.txtPrice, tlModify && llEmpty);
-    this.setEditable(this.txtDate, tlModify && llEmpty);
+    this.txtDescription.setReadOnly(!(tlModify && llEmpty));
+    this.txtPrice.setReadOnly(!(tlModify && llEmpty));
+    this.txtDate.setReadOnly(!(tlModify && llEmpty));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

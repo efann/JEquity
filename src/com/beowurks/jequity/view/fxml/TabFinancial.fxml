@@ -8,10 +8,13 @@
   ~
   -->
 
+<?import com.beowurks.jequity.view.checkbox.CheckBoxPlus?>
 <?import com.beowurks.jequity.view.combobox.ComboBoxStringKey?>
 <?import com.beowurks.jequity.view.table.TableViewPlus?>
+<?import com.beowurks.jequity.view.textarea.TextAreaPlus?>
 <?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
 <?import com.beowurks.jequity.view.textfield.NumberTextField?>
+<?import com.beowurks.jequity.view.textfield.TextFieldPlus?>
 <?import com.beowurks.jequity.view.textfield.UpperCaseTextField?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -47,22 +50,22 @@
       </HBox>
 
       <Label text="Description" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="RIGHT"/>
-      <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="450"
-                 maxWidth="450"/>
+      <TextFieldPlus fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="450"
+                     maxWidth="450"/>
 
       <Label text="Ownership" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="RIGHT"/>
-      <TextField fx:id="txtOwnership" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="150"
-                 maxWidth="150"/>
+      <TextFieldPlus fx:id="txtOwnership" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="150"
+                     maxWidth="150"/>
 
       <Label text="Account" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="RIGHT"/>
-      <TextField fx:id="txtAccount" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="150"
-                 maxWidth="150"/>
+      <TextFieldPlus fx:id="txtAccount" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="150"
+                     maxWidth="150"/>
       <Label text="Type" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="RIGHT"/>
-      <TextField fx:id="txtType" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="450" maxWidth="450"/>
+      <TextFieldPlus fx:id="txtType" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="450" maxWidth="450"/>
 
       <Label text="Category" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="RIGHT"/>
-      <TextField fx:id="txtCategory" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="450"
-                 maxWidth="450"/>
+      <TextFieldPlus fx:id="txtCategory" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="450"
+                     maxWidth="450"/>
 
       <Label text="Shares" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="RIGHT"/>
       <NumberTextField fx:id="txtShares" GridPane.columnIndex="1" GridPane.rowIndex="6" prefWidth="100"
@@ -81,7 +84,7 @@
         This HBox is necessary for a mouse listener set in TabModifyController.addModifyListener
       -->
       <HBox GridPane.columnIndex="1" GridPane.rowIndex="9">
-        <CheckBox fx:id="chkRetirement" text="Retirement Fund"/>
+        <CheckBoxPlus fx:id="chkRetirement" text="Retirement Fund"/>
       </HBox>
 
       <Label text="Tax Status" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.halignment="RIGHT"/>
@@ -89,7 +92,7 @@
 
       <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.halignment="RIGHT"
              GridPane.valignment="TOP"/>
-      <TextArea fx:id="txtComments" GridPane.columnIndex="1" GridPane.rowIndex="11" prefHeight="75"/>
+      <TextAreaPlus fx:id="txtComments" GridPane.columnIndex="1" GridPane.rowIndex="11" prefHeight="75"/>
 
       <HBox fx:id="boxSaveCancel" GridPane.columnIndex="1" GridPane.rowIndex="12">
         <Button fx:id="btnSave" text="Save"/>

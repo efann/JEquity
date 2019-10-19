@@ -8,14 +8,13 @@
 
 package com.beowurks.jequity.view.dialog;
 
+import com.beowurks.jequity.view.textfield.PasswordFieldPlus;
 import javafx.application.Platform;
 import javafx.beans.NamedArg;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -28,10 +27,10 @@ public class PasswordConfirmDialog extends PasswordBaseDialog
   private final GridPane foGrid;
 
   private final Label foLabel1;
-  private final PasswordField foTextField1;
+  private final PasswordFieldPlus foTextField1;
 
   private final Label foLabel2;
-  private final PasswordField foTextField2;
+  private final PasswordFieldPlus foTextField2;
 
   // ---------------------------------------------------------------------------------------------------------------------
   public PasswordConfirmDialog()
@@ -46,14 +45,14 @@ public class PasswordConfirmDialog extends PasswordBaseDialog
 
     final DialogPane loDialogPane = this.getDialogPane();
 
-    // -- TextField
-    this.foTextField1 = new PasswordField();
+    // -- PasswordFieldPlus
+    this.foTextField1 = new PasswordFieldPlus();
     this.foTextField1.setText(tcDefaultValue);
     this.foTextField1.setMaxWidth(Double.MAX_VALUE);
     GridPane.setHgrow(this.foTextField1, Priority.ALWAYS);
     GridPane.setFillWidth(this.foTextField1, true);
 
-    this.foTextField2 = new PasswordField();
+    this.foTextField2 = new PasswordFieldPlus();
     this.foTextField2.setText(tcDefaultValue);
     this.foTextField2.setMaxWidth(Double.MAX_VALUE);
     GridPane.setHgrow(this.foTextField2, Priority.ALWAYS);
@@ -89,12 +88,6 @@ public class PasswordConfirmDialog extends PasswordBaseDialog
     final String lcResults = (this.foTextField1.getText().compareTo(this.foTextField2.getText()) == 0) ? this.foTextField1.getText() : null;
 
     return (lcResults);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  public final TextField getEditor()
-  {
-    return (this.foTextField1);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
