@@ -13,7 +13,7 @@ import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
-import com.beowurks.jequity.view.combobox.ComboBoxPlus;
+import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
@@ -267,9 +267,9 @@ abstract public class TabModifyController extends TabBaseController
     {
       ((TextField) toField).setEditable(tlEditable);
     }
-    else if (toField instanceof ComboBoxPlus)
+    else if (toField instanceof ComboBoxStringKey)
     {
-      ((ComboBoxPlus) toField).setReadOnly(!tlEditable);
+      ((ComboBoxStringKey) toField).setReadOnly(!tlEditable);
     }
     else if (toField instanceof TextArea)
     {

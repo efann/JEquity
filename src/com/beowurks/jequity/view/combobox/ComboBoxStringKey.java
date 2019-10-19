@@ -5,38 +5,51 @@
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
  */
-package com.beowurks.jequity.dao.combobox;
+
+package com.beowurks.jequity.view.combobox;
+
+import com.beowurks.jequity.dao.combobox.StringKeyItem;
+import javafx.util.StringConverter;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class IntegerKeyItem
+// So I couldn't find a native way to disable the dropdown list on setEditable(false). And because
+// setEditable is final for Node, I can't override it. So I just created a setReadOnly function.
+public class ComboBoxStringKey<T> extends ComboBoxPlus<T>
 {
 
-  private final int fnKey;
-  private final String fcDescription;
-
   // ---------------------------------------------------------------------------------------------------------------------
-  // By the way, according to StackOverFlow, you shouldn't override toString as it causes problems down the road.
-  public IntegerKeyItem(final int tnKey, final String tcDescription)
+  protected void setupStringConverter()
   {
-    this.fnKey = tnKey;
-    this.fcDescription = tcDescription;
-  }
+    this.setConverter(new StringConverter<StringKeyItem>()
+    {
+      @Override
+      public String toString(final StringKeyItem toItem)
+      {
+        if (toItem == null)
+        {
+          return (null);
+        }
+        return (toItem.getDescription());
+      }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  public int getKey()
-  {
-    return (this.fnKey);
-  }
+      @Override
+      public StringKeyItem fromString(final String tcString)
+      {
+        if (tcString == null)
+        {
+          return (null);
+        }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  public String getDescription()
-  {
-    return (this.fcDescription);
-  }
+        return ((StringKeyItem) ComboBoxStringKey.this.getValue());
+      }
 
+    });
+
+  }
   // ---------------------------------------------------------------------------------------------------------------------
+
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

@@ -11,18 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/TaxStatusTableCell.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxPlus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxIntegerKey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxStringKey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/MainFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/ToolbarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/IntegerKeyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/IntegerKeyItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/StringKeyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/StringKeyItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/TaxStatusList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/combobox/TaxStatusList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSummaryTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSummaryTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Misc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/DoubleTableCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/cell/DoubleTableCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/StringKeyComboBoxFX.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/css/Main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/css/Main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxPlus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/combobox/ComboBoxPlus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Menu.fxml" afterDir="false" />
@@ -258,26 +256,26 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\dao\migration" />
-      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\images" />
-      <recent name="D:\IntelliJ\JEquity\src" />
-      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\fxml" />
-      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\dialog" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.beowurks.jequity.view.cell" />
-      <recent name="com.beowurks.jequity.dao.migration" />
-      <recent name="com.beowurks.jequity.view.chart" />
-      <recent name="com.beowurks.jequity.dao.web" />
-      <recent name="com.beowurks.jequity.dao.hibernate.threads" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\IntelliJ\JEquity\src" />
       <recent name="D:\IntelliJ\JEquity\libraries\drivers" />
       <recent name="D:\IntelliJ\JEquity\libraries\commons-io" />
       <recent name="D:\IntelliJ\JEquity\libraries\flyway" />
       <recent name="D:\IntelliJ\JEquity\libraries\jsoup" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.beowurks.jequity.view.combobox" />
+      <recent name="com.beowurks.jequity.view.cell" />
+      <recent name="com.beowurks.jequity.dao.migration" />
+      <recent name="com.beowurks.jequity.view.chart" />
+      <recent name="com.beowurks.jequity.dao.web" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\dao\migration" />
+      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\images" />
+      <recent name="D:\IntelliJ\JEquity\src" />
+      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\fxml" />
+      <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\dialog" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -686,6 +684,9 @@
       <workItem from="1571256804129" duration="6055000" />
       <workItem from="1571326035985" duration="15125000" />
       <workItem from="1571367863482" duration="25692000" />
+      <workItem from="1571454641713" duration="332000" />
+      <workItem from="1571456575885" duration="4295000" />
+      <workItem from="1571466267794" duration="21000" />
     </task>
     <servers />
   </component>

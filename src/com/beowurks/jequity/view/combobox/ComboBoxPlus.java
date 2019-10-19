@@ -8,23 +8,19 @@
 
 package com.beowurks.jequity.view.combobox;
 
-import com.beowurks.jequity.dao.combobox.StringKeyItem;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
-import javafx.util.StringConverter;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // So I couldn't find a native way to disable the dropdown list on setEditable(false). And because
 // setEditable is final for Node, I can't override it. So I just created a setReadOnly function.
-public class ComboBoxPlus<T> extends ComboBox
+abstract public class ComboBoxPlus<T> extends ComboBox
 {
   private EventHandler foOriginalShownEvent;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  // Though IntelliJ thinks this constructor is never called, it actually is.
   public ComboBoxPlus()
   {
     super();
@@ -33,43 +29,14 @@ public class ComboBoxPlus<T> extends ComboBox
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public ComboBoxPlus(final ObservableList<StringKeyItem> toItems)
-  {
-    super(toItems);
-
-    this.initializeComboBox();
-  }
+  abstract protected void setupStringConverter();
 
   // ---------------------------------------------------------------------------------------------------------------------
   private void initializeComboBox()
   {
     this.foOriginalShownEvent = this.getOnShown();
 
-    this.setConverter(new StringConverter<StringKeyItem>()
-    {
-      @Override
-      public String toString(final StringKeyItem toItem)
-      {
-        if (toItem == null)
-        {
-          return (null);
-        }
-        return toItem.getDescription();
-      }
-
-      @Override
-      public StringKeyItem fromString(final String tcString)
-      {
-        if (tcString == null)
-        {
-          return (null);
-        }
-
-        return ((StringKeyItem) ComboBoxPlus.this.getValue());
-      }
-
-    });
-
+    this.setupStringConverter();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

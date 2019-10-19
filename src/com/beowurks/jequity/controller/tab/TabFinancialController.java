@@ -25,7 +25,7 @@ import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
 import com.beowurks.jequity.view.cell.DoubleTableCell;
 import com.beowurks.jequity.view.cell.TaxStatusTableCell;
-import com.beowurks.jequity.view.combobox.ComboBoxPlus;
+import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
 import com.beowurks.jequity.view.table.TableViewPlus;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.NumberTextField;
@@ -129,7 +129,7 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   private CheckBox chkRetirement;
   @FXML
-  private ComboBoxPlus<StringKeyItem> cboTaxStatus;
+  private ComboBoxStringKey<StringKeyItem> cboTaxStatus;
   @FXML
   private TextArea txtComments;
 

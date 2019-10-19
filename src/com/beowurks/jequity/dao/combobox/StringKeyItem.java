@@ -12,7 +12,6 @@ package com.beowurks.jequity.dao.combobox;
 // ---------------------------------------------------------------------------------------------------------------------
 public class StringKeyItem
 {
-
   private final String fcKey;
   private final String fcDescription;
 

@@ -13,6 +13,7 @@ import com.beowurks.jequity.dao.hibernate.GroupEntity;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,7 +31,7 @@ import java.util.List;
 public class ToolbarController
 {
   @FXML
-  private ComboBox<IntegerKeyItem> cboGroup;
+  private ComboBoxIntegerKey<IntegerKeyItem> cboGroup;
 
   @FXML
   private Button btnUpdate;
@@ -39,7 +40,7 @@ public class ToolbarController
   private Button btnRefresh;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public ComboBox<IntegerKeyItem> getGroupComboBox()
+  public ComboBoxIntegerKey<IntegerKeyItem> getGroupComboBox()
   {
     return (this.cboGroup);
   }
