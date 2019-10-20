@@ -37,6 +37,7 @@ public class TimerSummaryTable
   {
     protected Boolean flRetirement;
     protected int fnTaxStatus;
+    protected String fcOwnership;
     protected String fcAccount;
     protected String fcType;
     protected String fcCategory;
@@ -110,6 +111,11 @@ public class TimerSummaryTable
         {
           this.setStyle("-fx-background-color: lightyellow;");
         }
+        else if (lcDescription.equals(Constants.SUMMARY_TABLE_OWNERSHIP))
+        {
+          loThis.fcCurrentStyle = "-fx-background-color: lightblue;";
+          this.setStyle(loThis.fcCurrentStyle + " -fx-font-weight: bold;");
+        }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_ACCOUNT))
         {
           loThis.fcCurrentStyle = "-fx-background-color: lightcyan;";
@@ -135,7 +141,7 @@ public class TimerSummaryTable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void scheduleDataRefresh(final String tcAccount, final String tcType, final String tcCategory)
+  public void scheduleDataRefresh(final String tcOwnership, final String tcAccount, final String tcType, final String tcCategory)
   {
     Misc.setStatusText(ProgressBar.INDETERMINATE_PROGRESS);
     Platform.runLater(() ->
@@ -157,17 +163,17 @@ public class TimerSummaryTable
           @Override
           public void run()
           {
-            TimerSummaryTable.this.refreshSummaryTable(tcAccount, tcType, tcCategory);
+            TimerSummaryTable.this.refreshSummaryTable(tcOwnership, tcAccount, tcType, tcCategory);
           }
         }, Constants.TIMER_SUMMARY_UPDATE_DELAY);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void refreshSummaryTable(final String tcAccount, final String tcType, final String tcCategory)
+  private void refreshSummaryTable(final String tcOwnership, final String tcAccount, final String tcType, final String tcCategory)
   {
     this.refreshSummaryList();
 
-    this.updateDataList(tcAccount, tcType, tcCategory);
+    this.updateDataList(tcOwnership, tcAccount, tcType, tcCategory);
 
     Platform.runLater(() ->
         this.foSummaryTable.setStyle("-fx-opacity: 1.0;"));
@@ -186,6 +192,7 @@ public class TimerSummaryTable
 
     for (final FinancialEntity loRow : loList)
     {
+      final String lcOwnership = loRow.getOwnership().trim();
       final String lcAccount = loRow.getAccount().trim();
       final String lcType = loRow.getType();
       final String lcCategory = loRow.getCategory();
@@ -196,6 +203,7 @@ public class TimerSummaryTable
 
       final SummarySubAmount loSumAmount = new SummarySubAmount();
 
+      loSumAmount.fcOwnership = lcOwnership;
       loSumAmount.fcAccount = lcAccount;
       loSumAmount.fcType = TimerSummaryTable.standardizeDelimitedString(lcType, true);
       loSumAmount.fcCategory = TimerSummaryTable.standardizeDelimitedString(lcCategory, true);
@@ -223,7 +231,7 @@ public class TimerSummaryTable
   }
 
   // -----------------------------------------------------------------------------
-  private void updateDataList(final String tcAccount, final String tcType, final String tcCategory)
+  private void updateDataList(final String tcOwnership, final String tcAccount, final String tcType, final String tcCategory)
   {
     final Vector<SummarySubList> loType = this.setSubListVector(tcType);
     final Vector<SummarySubList> loCategory = this.setSubListVector(tcCategory);
@@ -232,6 +240,7 @@ public class TimerSummaryTable
     double lnTotal = 0;
     double lnRetirement = 0;
     double lnNonRetirement = 0;
+    double lnOwnership = 0;
     double lnAccount = 0;
 
     final int lnTaxStatus = TaxStatusList.INSTANCE.getCount();
@@ -259,7 +268,12 @@ public class TimerSummaryTable
         laTaxStatus[loSumAmount.fnTaxStatus] += loSumAmount.fnSubTotal;
       }
 
-      if ((tcAccount != null) && (!tcAccount.isEmpty()) && (tcAccount.compareTo(loSumAmount.fcAccount) == 0))
+      if ((tcOwnership != null) && (!tcOwnership.isEmpty()) && (tcOwnership.compareToIgnoreCase(loSumAmount.fcOwnership) == 0))
+      {
+        lnOwnership += loSumAmount.fnSubTotal;
+      }
+
+      if ((tcAccount != null) && (!tcAccount.isEmpty()) && (tcAccount.compareToIgnoreCase(loSumAmount.fcAccount) == 0))
       {
         lnAccount += loSumAmount.fnSubTotal;
       }
@@ -297,6 +311,12 @@ public class TimerSummaryTable
     for (int i = 0; i < lnTaxStatus; ++i)
     {
       this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, TaxStatusList.INSTANCE.getDescription(i)), laTaxStatus[i]));
+    }
+
+    if ((tcOwnership != null) && (!tcOwnership.isEmpty()))
+    {
+      this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_OWNERSHIP));
+      this.foDataList.add(new SummaryProperty(tcOwnership, lnOwnership));
     }
 
     if ((tcAccount != null) && (!tcAccount.isEmpty()))

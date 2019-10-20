@@ -295,6 +295,7 @@ final public class Constants
 
   public final static String SUMMARY_TABLE_TAXSTATUS = "%s (Total)";
 
+  public final static String SUMMARY_TABLE_OWNERSHIP = "Ownership Total:";
   public final static String SUMMARY_TABLE_ACCOUNT = "Account Total:";
   public final static String SUMMARY_TABLE_TYPE = "Type Summaries:";
   public final static String SUMMARY_TABLE_CATEGORY = "Category Summaries:";

@@ -209,11 +209,12 @@ public class TabFinancialController extends TabModifyController implements Event
 
     TabFinancialController.this.updateComponentsContent(false);
 
+    final String lcOwnership = loCurrentRow.getOwnership();
     final String lcAccount = loCurrentRow.getAccount();
     final String lcCategory = loCurrentRow.getCategory();
     final String lcType = loCurrentRow.getType();
 
-    TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcAccount, lcType, lcCategory);
+    TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcOwnership, lcAccount, lcType, lcCategory);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -257,7 +258,7 @@ public class TabFinancialController extends TabModifyController implements Event
 
     loSession.close();
 
-    TimerSummaryTable.INSTANCE.scheduleDataRefresh(null, null, null);
+    TimerSummaryTable.INSTANCE.scheduleDataRefresh(null, null, null, null);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
