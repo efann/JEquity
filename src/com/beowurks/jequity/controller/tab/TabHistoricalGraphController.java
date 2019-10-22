@@ -49,12 +49,6 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 {
-  private final static int ALPHA_KEY_MASK_LIMIT = 4;
-  private final static String ALPHA_KEY_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s";
-
-  // You can test with this one.
-  private final static String ALPHA_DEMO_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo";
-
   @FXML
   private ComboBoxStringKey cboStocks;
 
@@ -141,8 +135,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   public String getAlphaVantageURL()
   {
     return (!Main.isDevelopmentEnvironment() ?
-        String.format(TabHistoricalGraphController.ALPHA_KEY_STRING, this.getSymbol(), "full", this.getAlphaVantageKey()) :
-        TabHistoricalGraphController.ALPHA_DEMO_STRING);
+        String.format(Constants.ALPHA_KEY_STRING, this.getSymbol(), "full", this.getAlphaVantageKey()) :
+        Constants.ALPHA_DEMO_STRING);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -270,9 +264,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final StringBuilder loMasked = new StringBuilder();
 
     final int lnLength = tcKey.length();
-    if (lnLength < TabHistoricalGraphController.ALPHA_KEY_MASK_LIMIT)
+    if (lnLength < Constants.ALPHA_KEY_MASK_LIMIT)
     {
-      loMasked.append("*".repeat(TabHistoricalGraphController.ALPHA_KEY_MASK_LIMIT));
+      loMasked.append("*".repeat(Constants.ALPHA_KEY_MASK_LIMIT));
 
       return (loMasked.toString());
     }
@@ -280,7 +274,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final char[] taChar = tcKey.toCharArray();
     for (int i = 0; i < lnLength; ++i)
     {
-      loMasked.append(i < (lnLength - TabHistoricalGraphController.ALPHA_KEY_MASK_LIMIT) ? '*' : taChar[i]);
+      loMasked.append(i < (lnLength - Constants.ALPHA_KEY_MASK_LIMIT) ? '*' : taChar[i]);
     }
 
     return (loMasked.toString());

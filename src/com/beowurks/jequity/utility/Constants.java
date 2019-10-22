@@ -30,9 +30,13 @@ final public class Constants
 
   public final static String TEMPORARY_STOCK_PATH = Misc.includeTrailingBackslash(Misc.includeTrailingBackslash(Constants.TEMPORARY_PATH) + "Stocks");
 
-  public final static String LOG_DOWNLOAD_STOCK_INFO = Constants.LOCAL_PATH + "DownloadStockInfo.log";
-  public final static String LOG_COMPRESS_TABLES = Constants.LOCAL_PATH + "CompressTables.log";
-  public final static String LOG_REGENERATE_VERIFY = Constants.LOCAL_PATH + "RegenerateVerify.log";
+  //************************************************************
+  // Used by Historical Graph Controller
+  public final static int ALPHA_KEY_MASK_LIMIT = 4;
+  public final static String ALPHA_KEY_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s";
+
+  // You can test with this one.
+  public final static String ALPHA_DEMO_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo";
 
   //************************************************************
   // Used by Sample Data
