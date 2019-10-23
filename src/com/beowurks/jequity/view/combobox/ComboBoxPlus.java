@@ -55,8 +55,16 @@ abstract public class ComboBoxPlus<T> extends ComboBox implements IReadOnly
   // https://stackoverflow.com/questions/58117745/disabling-javafx-combobox-input
   public void setReadOnly(final boolean tlReadOnly)
   {
-    this.setEditable(!tlReadOnly);
-    this.getEditor().setEditable(false);
+    // Do not use setEditable: when switching back and forth in edit mode,
+    // the displayed value remembers the last editable value, not the current one.
+    // But the key is correct.
+    // Bizarre.
+    this.setDisable(tlReadOnly);
+
+    if (this.getEditor().isEditable())
+    {
+      this.getEditor().setEditable(false);
+    }
 
     if (tlReadOnly)
     {

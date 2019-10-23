@@ -13,6 +13,7 @@ import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
+import com.beowurks.jequity.view.combobox.ComboBoxPlus;
 import com.beowurks.jequity.view.interfaces.IReadOnly;
 import com.beowurks.jequity.view.textarea.TextAreaPlus;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
@@ -22,7 +23,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -114,15 +114,19 @@ abstract public class TabModifyController extends TabBaseController
   {
     for (final Node loNode : toParent.getChildren())
     {
-      if ((loNode instanceof TextFieldPlus) || (loNode instanceof TextAreaPlus) || (loNode instanceof ComboBox))
+      if ((loNode instanceof TextFieldPlus) || (loNode instanceof TextAreaPlus))
       {
         loNode.focusedProperty().addListener((obs, oldVal, newVal) ->
             TabModifyController.this.modifyRow());
       }
-      else if ((loNode instanceof CheckBoxPlus))
+      else if ((loNode instanceof CheckBoxPlus) || (loNode instanceof ComboBoxPlus))
       {
-        // CheckBoxPlus can only be disabled, not readonly. So if you surround with a container
-        // the container can implement a mouse listener. Cool. . . .
+        // CheckBoxPlus can only be disabled, not readonly. So if you surround with a container,
+        //
+        // ComboBoxPlus should only be disabled, not readonly, as there's some weird bug. You can read
+        // more about the problem in its setReadOnly function.
+        //
+        // The container can implement a mouse listener. Cool. . . .
         // However, there could be other components in an HBox.
         final Parent loParent = loNode.getParent();
         if ((loParent instanceof HBox) || (loParent instanceof VBox))

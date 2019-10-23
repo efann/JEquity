@@ -434,9 +434,18 @@
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
-  https://stackoverflow.com/questions/21379865/how-to-hide-the-down-arrow-button-on-a-combobox-in-javafx
+  ComboBox
 */
 
+/* From https://stackoverflow.com/questions/30312325/javafx-disabled-element-styling */
+.combo-box:disabled,
+.combo-box:disabled > *
+{
+  -fx-opacity: 1.0;
+  -fx-text-fill: #444;
+}
+
+/* From https://stackoverflow.com/questions/21379865/how-to-hide-the-down-arrow-button-on-a-combobox-in-javafx */
 .hide-combo-box-arrow .arrow-button
 {
   -fx-opacity: 0.0;

@@ -88,7 +88,9 @@
       </HBox>
 
       <Label text="Tax Status" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.halignment="RIGHT"/>
-      <ComboBoxStringKey fx:id="cboTaxStatus" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+      <HBox GridPane.columnIndex="1" GridPane.rowIndex="10">
+        <ComboBoxStringKey fx:id="cboTaxStatus"/>
+      </HBox>
 
       <Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.halignment="RIGHT"
              GridPane.valignment="TOP"/>
