@@ -221,7 +221,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     final boolean llOkay = this.updateDataList("[" + lcJSONText.trim() + "]");
     if (llOkay)
     {
-      Misc.setStatusText("Successfully read " + lcSymbol + " historical information");
+      Misc.setStatusText("Successfully read & imported " + lcSymbol + " historical information");
     }
     else
     {
