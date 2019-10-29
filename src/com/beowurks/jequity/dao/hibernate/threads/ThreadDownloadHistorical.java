@@ -89,10 +89,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     if (this.downloadHistoricalFile())
     {
-      // Must be run in the JavaFX thread, duh.
-      // Otherwise, you get java.util.ConcurrentModificationException exceptions.
-      Platform.runLater(() ->
-          this.updateChart());
+      this.updateChart();
     }
 
   }
@@ -101,21 +98,13 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   private boolean updateChart()
   {
     final LineChart loChart = this.foTabHistoricalGraphController.getChart();
-
-    // BUG ALERT!!!!!!!!!!
-    // https://stackoverflow.com/questions/48995257/javafx-barchart-xaxis-labels-bad-positioning
-    // With a possible solution
-    // https://stackoverflow.com/questions/49589889/all-labels-at-the-same-position-in-xaxis-barchart-javafx
-    loChart.setAnimated(false);
-
     final int lnSize = loChart.getData().size();
-    for (int i = 0; i < lnSize; ++i)
+
+    // From https://stackoverflow.com/questions/28850211/performance-issue-with-javafx-linechart-with-65000-data-points
+    final ArrayList<XYChart.Data<String, Number>>[] laTempList = new ArrayList[lnSize];
+    for (int i = 0; i < lnSize; i++)
     {
-      final Object loSeries = loChart.getData().get(i);
-      if (loSeries instanceof XYChart.Series)
-      {
-        ((XYChart.Series) loSeries).getData().clear();
-      }
+      laTempList[i] = new ArrayList<>();
     }
 
     // By the way, I wanted to use the techniques found here;
@@ -128,49 +117,65 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       final int lnCount = loElement.faNumbers.length;
       for (int i = 0; i < lnCount; ++i)
       {
+        final XYChart.Data loData = new XYChart.Data<>(lcDate, loElement.faNumbers[i]);
+
+        laTempList[i].add(loData);
+      }
+    }
+
+    // Must be run in the JavaFX thread, duh.
+    // Otherwise, you get java.util.ConcurrentModificationException exceptions.
+    Platform.runLater(() ->
+    {
+      // BUG ALERT!!!!!!!!!!
+      // https://stackoverflow.com/questions/48995257/javafx-barchart-xaxis-labels-bad-positioning
+      // With a possible solution
+      // https://stackoverflow.com/questions/49589889/all-labels-at-the-same-position-in-xaxis-barchart-javafx
+      loChart.setAnimated(false);
+
+      for (int i = 0; i < lnSize; ++i)
+      {
+        final XYChart.Series loSeries = (XYChart.Series) loChart.getData().get(i);
+        loSeries.getData().clear();
+      }
+
+      for (int i = 0; i < lnSize; ++i)
+      {
+        final XYChart.Series loSeries = (XYChart.Series) loChart.getData().get(i);
+        loSeries.getData().addAll(laTempList[i]);
+      }
+
+      // From https://stackoverflow.com/questions/14615590/javafx-linechart-hover-values
+      //loop through data and add tooltip
+      //THIS MUST BE DONE AFTER ADDING THE DATA TO THE CHART!
+      for (int i = 0; i < lnSize; ++i)
+      {
         final Object loSeries = loChart.getData().get(i);
         if (loSeries instanceof XYChart.Series)
         {
-          final XYChart.Data loData = new XYChart.Data<>(lcDate, loElement.faNumbers[i]);
-          //loData.setNode(new HoveredNode(loElement.faNumbers[i]));
-
-          ((XYChart.Series) loSeries).getData().add(loData);
-
-        }
-      }
-
-    }
-
-    // From https://stackoverflow.com/questions/14615590/javafx-linechart-hover-values
-    //loop through data and add tooltip
-    //THIS MUST BE DONE AFTER ADDING THE DATA TO THE CHART!
-    for (int i = 0; i < lnSize; ++i)
-    {
-      final Object loSeries = loChart.getData().get(i);
-      if (loSeries instanceof XYChart.Series)
-      {
-        for (final Object loObject : ((XYChart.Series) loSeries).getData())
-        {
-          if (loObject instanceof XYChart.Data)
+          for (final Object loObject : ((XYChart.Series) loSeries).getData())
           {
-            final XYChart.Data loData = (XYChart.Data) loObject;
-
-            final Node loNode = loData.getNode();
-            if ((loNode != null) && (loNode instanceof StackPane))
+            if (loObject instanceof XYChart.Data)
             {
-              final StackPane loStackPane = (StackPane) loNode;
-              // From https://stackoverflow.com/questions/39658056/how-do-i-change-the-size-of-a-chart-symbol-in-a-javafx-scatter-chart
-              loStackPane.setPrefWidth(7);
-              loStackPane.setPrefHeight(7);
+              final XYChart.Data loData = (XYChart.Data) loObject;
 
-              final Tooltip loTooltip = new Tooltip("$ " + loData.getYValue());
-              loTooltip.setShowDelay(Duration.millis(0));
-              Tooltip.install(loStackPane, loTooltip);
+              final Node loNode = loData.getNode();
+              if ((loNode != null) && (loNode instanceof StackPane))
+              {
+                final StackPane loStackPane = (StackPane) loNode;
+                // From https://stackoverflow.com/questions/39658056/how-do-i-change-the-size-of-a-chart-symbol-in-a-javafx-scatter-chart
+                loStackPane.setPrefWidth(7);
+                loStackPane.setPrefHeight(7);
+
+                final Tooltip loTooltip = new Tooltip("$ " + loData.getYValue() + " (" + loData.getXValue() + ")");
+                loTooltip.setShowDelay(Duration.millis(0));
+                Tooltip.install(loStackPane, loTooltip);
+              }
             }
           }
         }
       }
-    }
+    });
 
     Misc.setStatusText(0.0);
 
