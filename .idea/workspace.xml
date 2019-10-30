@@ -11,9 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/install/install.install4j" beforeDir="false" afterPath="$PROJECT_DIR$/install/install.install4j" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -689,6 +687,7 @@
       <workItem from="1572386326313" duration="22000" />
       <workItem from="1572386390085" duration="4041000" />
       <workItem from="1572409154677" duration="313000" />
+      <workItem from="1572411690643" duration="70000" />
     </task>
     <servers />
   </component>
