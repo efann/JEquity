@@ -7,6 +7,7 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
+import com.beowurks.jequity.controller.tab.HistoricalStartDateInfo;
 import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
@@ -23,8 +24,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -50,6 +53,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   private TabHistoricalGraphController foTabHistoricalGraphController;
 
   private final DateTimeFormatter foXAxisFormat = DateTimeFormatter.ofPattern("MM-dd-yy");
+
+  private final DateTimeFormatter foMonthTrackerDateFormat = DateTimeFormatter.ofPattern("MMMMyyyy");
 
   // ---------------------------------------------------------------------------------------------------------------------
   private ThreadDownloadHistorical()
@@ -198,13 +203,13 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       // Highly recommended to set the userAgent.
       // Leave out data. I get errors when setting that parameter.
       lcJSONText = Jsoup.connect(lcURL)
-          .followRedirects(false)
-          .userAgent(Constants.getUserAgent())
-          .maxBodySize(0)
-          .timeout(Constants.WEB_TIME_OUT)
-          .ignoreContentType(true)
-          .execute()
-          .body();
+        .followRedirects(false)
+        .userAgent(Constants.getUserAgent())
+        .maxBodySize(0)
+        .timeout(Constants.WEB_TIME_OUT)
+        .ignoreContentType(true)
+        .execute()
+        .body();
 
     }
     catch (final Exception loErr)
@@ -251,7 +256,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       return (false);
     }
 
-    final LocalDate ldStart = this.foTabHistoricalGraphController.getStartDate();
+    final HistoricalStartDateInfo loDateInfo = this.foTabHistoricalGraphController.getStartDateInfo();
+    final LocalDate ldStart = loDateInfo.foLocalDate;
     final LocalDate ldEnd = this.foTabHistoricalGraphController.getEndDate();
 
     final Object loSeries = this.getSeries(laJSONInfo);
@@ -259,6 +265,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     {
       return (false);
     }
+
+    StringBuilder loTrackDatesUsed = new StringBuilder(",");
 
     final JSONObject loDates = (JSONObject) loSeries;
     final Iterator<String> loIterator = loDates.keys();
@@ -273,6 +281,52 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       loElement.foDate = LocalDate.parse(loDateKey);
 
       if ((loElement.foDate.isBefore(ldStart)) || (loElement.foDate.isAfter(ldEnd)))
+      {
+        continue;
+      }
+
+      boolean llOkay = false;
+
+      if (loElement.foDate.isEqual(ldStart))
+      {
+        llOkay = true;
+      }
+      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_DAY)
+      {
+        llOkay = true;
+      }
+      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_WEEK)
+      {
+        llOkay = (loElement.foDate.getDayOfWeek() == DayOfWeek.MONDAY);
+        String lcWeekYear = String.format("%2d%d", loElement.foDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR), loElement.foDate.getYear());
+
+        if (!llOkay)
+        {
+          // If not found, then use and add to the loTrackDatesUsed so that
+          // no more days of that particular week will be used.
+          llOkay = (loTrackDatesUsed.indexOf(lcWeekYear) == -1);
+        }
+
+        if (llOkay)
+        {
+          loTrackDatesUsed.append(lcWeekYear + ",");
+        }
+
+      }
+      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_MONTH)
+      {
+        //loElement.foDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+        String lcMonthYear = loElement.foDate.format(this.foMonthTrackerDateFormat);
+        // If not found, then use and add to the loTrackDatesUsed so that
+        // no more days of that particular month will be used.
+        llOkay = (loTrackDatesUsed.indexOf(lcMonthYear) == -1);
+        if (llOkay)
+        {
+          loTrackDatesUsed.append(lcMonthYear + ",");
+        }
+      }
+
+      if (!llOkay)
       {
         continue;
       }

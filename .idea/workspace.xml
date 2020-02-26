@@ -3,6 +3,7 @@
   <component name="AnalysisUIOptions">
     <option name="SPLITTER_PROPORTION" value="0.32747254" />
     <option name="ANALYZE_TEST_SOURCES" value="false" />
+    <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
@@ -11,21 +12,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/OptionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/OptionsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/HistoricalStartDateInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/AppProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/AboutDialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/MainForm.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/OptionsDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/OptionsDialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabFinancial.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabFinancial.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabGroup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabGroup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabReport.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabReport.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabSymbol.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabSymbol.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Toolbar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/Toolbar.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHistorical.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHistorical.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,9 +72,9 @@
       <list>
         <option value="CSS File" />
         <option value="FxmlFile" />
-        <option value="Class" />
         <option value="Kotlin Interface" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -212,6 +204,11 @@
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path" value="D:\IntelliJ\JEquity\libraries\json" />
     <property name="Downloaded.Files.Path.Enabled" value="true" />
@@ -243,12 +240,12 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3376988" />
     <property name="recentsLimit" value="5" />
     <property name="run.code.analysis.last.selected.profile" value="aBeowurks" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -273,28 +270,16 @@
       <recent name="D:\IntelliJ\JEquity\src\com\beowurks\jequity\view\dialog" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
-    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
-      <Host>localhost</Host>
-      <Port>5050</Port>
-    </configuration>
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" show_console_on_std_err="true" show_console_on_std_out="true">
       <option name="MAIN_CLASS_NAME" value="com.beowurks.jequity.main.Main" />
@@ -349,6 +334,7 @@
       <setting name="vmparams" value="" />
       <setting name="cmdLine" value="run-app" />
       <setting name="passParentEnv" value="true" />
+      <setting name="grailsApplicationRoot" value="" />
       <setting name="launchBrowser" value="true" />
       <setting name="launchBrowserUrl" value="" />
       <setting name="depsClasspath" value="false" />
@@ -702,7 +688,11 @@
       <workItem from="1572411690643" duration="70000" />
       <workItem from="1582655723735" duration="76000" />
       <workItem from="1582655932747" duration="8705000" />
-      <workItem from="1582680165976" duration="2073000" />
+      <workItem from="1582680165976" duration="2661000" />
+      <workItem from="1582743861862" duration="34000" />
+      <workItem from="1582744019596" duration="18000" />
+      <workItem from="1582744059001" duration="2000" />
+      <workItem from="1582744406799" duration="8283000" />
     </task>
     <servers />
   </component>
@@ -725,6 +715,40 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="711" y="417" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1582754009822">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="711" y="417" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582754009822" />
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1582757116551">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582757116551" />
+    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1582757116551">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582757116551" />
+    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1582757116551">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582757116551" />
+    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1582757116551">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582757116551" />
+    <state x="463" y="185" key="SettingsEditor" timestamp="1582751650581">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="463" y="185" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582751650581" />
+    <state x="667" y="296" width="586" height="488" key="find.popup" timestamp="1582755814983">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="667" y="296" width="586" height="488" key="find.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582755814983" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1582756184018">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582756184018" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

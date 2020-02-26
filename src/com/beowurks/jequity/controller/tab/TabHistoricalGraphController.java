@@ -41,6 +41,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.w3c.dom.Node;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -102,7 +103,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   {
     this.setupXYDataSeries();
     this.setupCheckboxes();
-    this.setupComboBoxesStatic();
+    this.setupComboBoxes();
     this.setupChart();
 
     this.setupListeners();
@@ -130,8 +131,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   public String getAlphaVantageURL()
   {
     return (!Main.isDevelopmentEnvironment() ?
-        String.format(Constants.ALPHA_KEY_STRING, this.getSymbol(), "full", this.getAlphaVantageKey()) :
-        Constants.ALPHA_DEMO_STRING);
+      String.format(Constants.ALPHA_KEY_STRING, this.getSymbol(), "full", this.getAlphaVantageKey()) :
+      Constants.ALPHA_DEMO_STRING);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -141,7 +142,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public LocalDate getStartDate()
+  public HistoricalStartDateInfo getStartDateInfo()
   {
     int lnIndex = this.cboRanges.getSelectedIndex();
     if (lnIndex < 0)
@@ -149,9 +150,39 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       lnIndex = 0;
     }
 
-    final int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
 
-    return (this.getEndDate().minusDays(lnDays));
+    final int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
+    LocalDate loStart = this.getEndDate().minusDays(lnDays);
+
+    final HistoricalStartDateInfo loDateInfo = new HistoricalStartDateInfo();
+    loDateInfo.fnDataDisplay = Constants.HISTORICAL_EVERY_DAY;
+    loDateInfo.foLocalDate = loStart;
+
+    // Get next start of the week or Monday.
+    if ((lnDays > Constants.HISTORICAL_1_YEAR) && (lnDays <= Constants.HISTORICAL_5_YEARS))
+    {
+      while (loStart.getDayOfWeek() != DayOfWeek.MONDAY)
+      {
+        loStart = loStart.plusDays(1);
+      }
+
+      loDateInfo.fnDataDisplay = Constants.HISTORICAL_EVERY_WEEK;
+      loDateInfo.foLocalDate = loStart;
+    }
+
+    // Get next start of the month.
+    if (lnDays > Constants.HISTORICAL_5_YEARS)
+    {
+      while (loStart.getDayOfMonth() != 1)
+      {
+        loStart = loStart.plusDays(1);
+      }
+
+      loDateInfo.fnDataDisplay = Constants.HISTORICAL_EVERY_MONTH;
+      loDateInfo.foLocalDate = loStart;
+    }
+
+    return (loDateInfo);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -170,7 +201,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void setupComboBoxesStatic()
+  // this.cboStocks is handeled by refreshData
+  private void setupComboBoxes()
   {
     this.cboRanges.getItems().clear();
     this.cboRanges.getItems().addAll(Constants.HISTORICAL_RANGE);
@@ -423,8 +455,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       final Transaction loTransaction = loSession.beginTransaction();
 
       final NativeQuery loQuery = loSession.createNativeQuery(lcSQL)
-          .setParameter("symbol", this.fcCurrentSymbol)
-          .setParameter("historicalinfo", lcXML);
+        .setParameter("symbol", this.fcCurrentSymbol)
+        .setParameter("historicalinfo", lcXML);
 
       loQuery.executeUpdate();
 
@@ -450,7 +482,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // the database servers.
     final String lcSQL = String.format("SELECT symbol, historicalinfo FROM %s WHERE symbol = :symbol", loHibernate.getTableSymbol());
     final NativeQuery loQuery = loSession.createNativeQuery(lcSQL)
-        .setParameter("symbol", lcKey);
+      .setParameter("symbol", lcKey);
 
     final List<Object[]> loList = loQuery.list();
 

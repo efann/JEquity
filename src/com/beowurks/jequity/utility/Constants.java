@@ -17,14 +17,14 @@ import com.beowurks.jequity.main.Main;
 final public class Constants
 {
   public final static String TEMPORARY_PATH = Misc.includeTrailingBackslash(Misc.includeTrailingBackslash(Misc
-      .includeTrailingBackslash(System.getProperty("java.io.tmpdir"))
-      + "Beowurks") + "JEquity");
+    .includeTrailingBackslash(System.getProperty("java.io.tmpdir"))
+    + "Beowurks") + "JEquity");
 
   public final static String LOCAL_PATH = Main.isDevelopmentEnvironment() ? Misc
-      .includeTrailingBackslash(System.getProperty("user.dir")) : Misc
-      .includeTrailingBackslash(Misc.includeTrailingBackslash(Misc
-          .includeTrailingBackslash(System.getProperty("user.home"))
-          + "Beowurks") + "JEquity");
+    .includeTrailingBackslash(System.getProperty("user.dir")) : Misc
+    .includeTrailingBackslash(Misc.includeTrailingBackslash(Misc
+      .includeTrailingBackslash(System.getProperty("user.home"))
+      + "Beowurks") + "JEquity");
 
   public final static String USER_NAME = System.getProperty("user.name");
 
@@ -71,17 +71,29 @@ final public class Constants
   public final static String XML_SYMBOL_ROOT_LABEL = "Historical";
   public final static String XML_SYMBOL_RECORD_LABEL = "symbol";
 
+  public final static int HISTORICAL_EVERY_DAY = 0;
+  public final static int HISTORICAL_EVERY_WEEK = 1;
+  public final static int HISTORICAL_EVERY_MONTH = 2;
+
+  public final static int HISTORICAL_5_DAYS = 5;
+  public final static int HISTORICAL_1_MONTH = 30;
+  public final static int HISTORICAL_3_MONTHS = 91;
+  public final static int HISTORICAL_6_MONTHS = 193;
+  public final static int HISTORICAL_1_YEAR = 365;
+  public final static int HISTORICAL_2_YEARS = 730;
+  public final static int HISTORICAL_5_YEARS = 1825;
+
   public final static IntegerKeyItem[] HISTORICAL_RANGE =
-      {
-          new IntegerKeyItem(5, "5 Day"),
-          new IntegerKeyItem(30, "1 Month (30 days)"),
-          new IntegerKeyItem(90, "3 Month (91 days)"),
-          new IntegerKeyItem(90, "6 Month (183 days)"),
-          new IntegerKeyItem(90, "1 Year (365 days)"),
-          new IntegerKeyItem(90, "2 Year (730 days)"),
-          new IntegerKeyItem(90, "5 Year (1825 days)"),
-          new IntegerKeyItem(90, "Maximum (All available data)")
-      };
+    {
+      new IntegerKeyItem(Constants.HISTORICAL_5_DAYS, String.format("%d Days", Constants.HISTORICAL_5_DAYS)),
+      new IntegerKeyItem(Constants.HISTORICAL_1_MONTH, String.format("1 Month (30 days)", Constants.HISTORICAL_1_MONTH)),
+      new IntegerKeyItem(Constants.HISTORICAL_3_MONTHS, String.format("3 Month (91 days)", Constants.HISTORICAL_3_MONTHS)),
+      new IntegerKeyItem(Constants.HISTORICAL_6_MONTHS, String.format("6 Month (183 days)", Constants.HISTORICAL_6_MONTHS)),
+      new IntegerKeyItem(Constants.HISTORICAL_1_YEAR, String.format("1 Year (%d days)", Constants.HISTORICAL_1_YEAR)),
+      new IntegerKeyItem(Constants.HISTORICAL_2_YEARS, String.format("2 Year (%d days)", Constants.HISTORICAL_2_YEARS)),
+      new IntegerKeyItem(Constants.HISTORICAL_5_YEARS, String.format("5 Year (%d days)", Constants.HISTORICAL_5_YEARS)),
+      new IntegerKeyItem(Integer.MAX_VALUE, "Maximum (All available data)")
+    };
 
 
   //************************************************************
@@ -128,23 +140,23 @@ final public class Constants
   public static final String DERBY_BOOT_PASSWORD = "Wolf*Sky1ine)&(DugBite";
 
   public final static String DERBY_PATH = (Main.isDevelopmentEnvironment()
-      ? (Misc.isWindows() ? "d:\\temp\\ApacheDerby.Dev\\" : System.getProperty("user.home") + "/ApacheDerby.Dev/")
-      : Constants.LOCAL_PATH) + "JEquityDB";
+    ? (Misc.isWindows() ? "d:\\temp\\ApacheDerby.Dev\\" : System.getProperty("user.home") + "/ApacheDerby.Dev/")
+    : Constants.LOCAL_PATH) + "JEquityDB";
 
   public final static IntegerKeyItem[] RDBMS_DRIVERS =
-      {
-          new IntegerKeyItem(Constants.DRIVER_KEY_DERBY, Constants.DRIVER_VALUE_DERBY),
-          new IntegerKeyItem(Constants.DRIVER_KEY_MYSQL5_PLUS, Constants.DRIVER_VALUE_MYSQL5_PLUS),
-          new IntegerKeyItem(Constants.DRIVER_KEY_POSTGRESQL9_PLUS, Constants.DRIVER_VALUE_POSTGRESQL9_PLUS)
-      };
+    {
+      new IntegerKeyItem(Constants.DRIVER_KEY_DERBY, Constants.DRIVER_VALUE_DERBY),
+      new IntegerKeyItem(Constants.DRIVER_KEY_MYSQL5_PLUS, Constants.DRIVER_VALUE_MYSQL5_PLUS),
+      new IntegerKeyItem(Constants.DRIVER_KEY_POSTGRESQL9_PLUS, Constants.DRIVER_VALUE_POSTGRESQL9_PLUS)
+    };
 
   public final static IntegerKeyItem[] DAILY_INTERVAL =
-      {
-          new IntegerKeyItem(60 * 60 * 1000, "Every Hour"),
-          new IntegerKeyItem(120 * 60 * 1000, "Every 2 Hours"),
-          new IntegerKeyItem(480 * 60 * 1000, "Every 4 Hours"),
-          new IntegerKeyItem(Constants.DAILY_INTERVAL_NEVER, "Never")
-      };
+    {
+      new IntegerKeyItem(60 * 60 * 1000, "Every Hour"),
+      new IntegerKeyItem(120 * 60 * 1000, "Every 2 Hours"),
+      new IntegerKeyItem(480 * 60 * 1000, "Every 4 Hours"),
+      new IntegerKeyItem(Constants.DAILY_INTERVAL_NEVER, "Never")
+    };
 
   // 1 second delay as it's in milliseconds.
   public final static int TIMER_SUMMARY_UPDATE_DELAY = 1000;
@@ -164,20 +176,20 @@ final public class Constants
   // Recommended to use multiple user agents.
   // And, yes, I want access private so force access through getUserAgent.
   private final static String[] USER_AGENTS =
-      {
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36",
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0",
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0",
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0",
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362",
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299",
-          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
-          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0",
-          "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko",
-          "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:57.0) Gecko/20100101 Firefox/57.0",
-          "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"
-      };
+    {
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299",
+      "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
+      "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0",
+      "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko",
+      "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:57.0) Gecko/20100101 Firefox/57.0",
+      "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"
+    };
 
   private static int fnTrackUserAgent = 0;
 
@@ -195,13 +207,13 @@ final public class Constants
   public final static String YAHOO_HISTORICAL_HOST = "ichart.finance.yahoo.com";
   public final static int YAHOO_HISTORICAL_PORT = 80;
   public final static String YAHOO_HISTORICAL_FILE = "/table.csv?s="
-      + Constants.YAHOO_SYMBOL + "&a="
-      + Constants.YAHOO_STARTMONTH + "&b="
-      + Constants.YAHOO_STARTDAY + "&c="
-      + Constants.YAHOO_STARTYEAR + "&d="
-      + Constants.YAHOO_ENDMONTH + "&e="
-      + Constants.YAHOO_ENDDAY + "&f="
-      + Constants.YAHOO_ENDYEAR + "&g=d&ignore=.csv";
+    + Constants.YAHOO_SYMBOL + "&a="
+    + Constants.YAHOO_STARTMONTH + "&b="
+    + Constants.YAHOO_STARTDAY + "&c="
+    + Constants.YAHOO_STARTYEAR + "&d="
+    + Constants.YAHOO_ENDMONTH + "&e="
+    + Constants.YAHOO_ENDDAY + "&f="
+    + Constants.YAHOO_ENDYEAR + "&g=d&ignore=.csv";
 
   public final static String YAHOO_SYMBOL_PROTOCOL = "http";
   // https://stackoverflow.com/questions/44292230/java-read-csv-file-from-the-web
@@ -210,60 +222,60 @@ final public class Constants
 
   public final static int YAHOO_SYMBOL_PORT = 80;
   public final static String YAHOO_SYMBOL_FILE = "/d/quotes.csv?s="
-      + Constants.YAHOO_SYMBOL + "&f=";
+    + Constants.YAHOO_SYMBOL + "&f=";
 
   public final static String[][] YAHOO_CODES =
+    {
       {
-          {
-              "s", "Symbol"
-          },
-          {
-              "n", "Name"
-          },
-          {
-              "l1", "Last Trade"
-          },
-          {
-              "p", "Previous Close"
-          },
-          {
-              "o", "Opened"
-          },
-          {
-              "t8", "1 yr Target Price"
-          },
-          {
-              "b", "Bid"
-          },
-          {
-              "a", "Ask"
-          },
-          {
-              "m", "Day's Range"
-          },
-          {
-              "w", "52 week Range"
-          },
-          {
-              "v", "Volume"
-          },
-          {
-              "a2", "Average Daily Volume"
-          },
-          {
-              "j1", "Market Capitalization"
-          },
-          {
-              "r", "P/E Ratio"
-          },
-          {
-              "e", "Earnings per Share"
-          },
-          {
-              "y", "Dividend Yield"
-          },
+        "s", "Symbol"
+      },
+      {
+        "n", "Name"
+      },
+      {
+        "l1", "Last Trade"
+      },
+      {
+        "p", "Previous Close"
+      },
+      {
+        "o", "Opened"
+      },
+      {
+        "t8", "1 yr Target Price"
+      },
+      {
+        "b", "Bid"
+      },
+      {
+        "a", "Ask"
+      },
+      {
+        "m", "Day's Range"
+      },
+      {
+        "w", "52 week Range"
+      },
+      {
+        "v", "Volume"
+      },
+      {
+        "a2", "Average Daily Volume"
+      },
+      {
+        "j1", "Market Capitalization"
+      },
+      {
+        "r", "P/E Ratio"
+      },
+      {
+        "e", "Earnings per Share"
+      },
+      {
+        "y", "Dividend Yield"
+      },
 
-      };
+    };
 
   public final static long BAD_DOWNLOAD = -1;
 
