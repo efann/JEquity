@@ -10,7 +10,6 @@
 
 <?import com.beowurks.jequity.view.checkbox.CheckBoxPlus?>
 <?import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey?>
-<?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
 <?import com.beowurks.jequity.view.textfield.PasswordFieldPlus?>
 <?import com.beowurks.jequity.view.textfield.TextFieldPlus?>
 <?import javafx.scene.control.*?>

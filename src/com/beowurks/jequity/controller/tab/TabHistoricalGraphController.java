@@ -10,7 +10,6 @@ package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.XMLTextReader;
 import com.beowurks.jequity.dao.XMLTextWriter;
-import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
@@ -150,7 +149,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       lnIndex = 0;
     }
 
-    int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
+    final int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
 
     return (this.getEndDate().minusDays(lnDays));
   }
@@ -178,7 +177,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.cboRanges.getSelectionModel().select(0);
   }
 
-    // ---------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------
   private void setupChart()
   {
     final StringBuilder loStyles = new StringBuilder();

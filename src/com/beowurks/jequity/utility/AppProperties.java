@@ -19,7 +19,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -383,7 +382,6 @@ public final class AppProperties extends BaseProperties
     this.setProperty(Constants.EXPORT_FILECHOOSER_FILENAME, tcValue);
   }
 
-  // -----------------------------------------------------------------------------------------------------------------------
   // -----------------------------------------------------------------------------------------------------------------------
   public int convertIndexToKey(final IntegerKeyItem[] taItems, final int tnIndex)
   {

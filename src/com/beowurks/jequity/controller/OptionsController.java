@@ -16,7 +16,6 @@ import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
-import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.PasswordFieldPlus;
 import com.beowurks.jequity.view.textfield.TextFieldPlus;
 import javafx.event.ActionEvent;
@@ -24,8 +23,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-
-import java.sql.Date;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

@@ -8,9 +8,8 @@
   ~
   -->
 
-<?import com.beowurks.jequity.view.checkbox.CheckBoxPlus?>
+<?import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey?>
 <?import com.beowurks.jequity.view.combobox.ComboBoxStringKey?>
-<?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -19,7 +18,6 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.HyperlinkLabel?>
-<?import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey?>
 <AnchorPane stylesheets="@../css/Main.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.beowurks.jequity.controller.tab.TabHistoricalGraphController">
