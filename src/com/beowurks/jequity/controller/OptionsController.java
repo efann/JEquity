@@ -47,8 +47,6 @@ public class OptionsController implements EventHandler<ActionEvent>
   private Button btnDefault;
 
   @FXML
-  private DatePickerPlus txtHistoricalStart;
-  @FXML
   private PasswordFieldPlus txtAlphaVantageAPIKey;
   @FXML
   private ComboBoxIntegerKey cboDailyDownloadInterval;
@@ -89,7 +87,6 @@ public class OptionsController implements EventHandler<ActionEvent>
     //***************************************
     // Stock Data tab
     loApp.setDailyIntervalKey(loApp.convertIndexToKey(loApp.getDailyIntervals(), this.cboDailyDownloadInterval.getSelectedIndex()));
-    loApp.setHistoricalStartDefault(Date.valueOf(this.txtHistoricalStart.getValue()));
     loApp.setAlphaVantageAPIKey(this.txtAlphaVantageAPIKey.getText().trim());
 
     // TimerSymbolInfo uses loApp.getDailyIntervalKey and loApp.getDailyStartKey
@@ -115,7 +112,6 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.txtPassword.setText(toApp.getConnectionPassword());
 
     this.txtAlphaVantageAPIKey.setText(toApp.getAlphaVantageAPIKey());
-    this.txtHistoricalStart.setValue(toApp.getHistoricalStartDefault().toLocalDate());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

@@ -280,20 +280,6 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public Date getHistoricalStartDefault()
-  {
-    final Date ldHistoricalStartDateDefault = Date.valueOf("2014-01-01");
-
-    return (this.getProperty(Constants.HISTORICAL_START_DEFAULT, ldHistoricalStartDateDefault));
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public Date getHistoricalStart(final String tcSymbol)
-  {
-    return (this.getProperty(Constants.HISTORICAL_START + tcSymbol, this.getHistoricalStartDefault()));
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
   public boolean getFlywayAlwaysCheck()
   {
     // When developing, sometimes I delete the entire databsae which will then need
@@ -376,18 +362,6 @@ public final class AppProperties extends BaseProperties
   public void setBackupRestoreFolder(final String tcValue)
   {
     this.setProperty(Constants.BACKUP_RESTORE_FOLDER, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setHistoricalStartDefault(final Date tdValue)
-  {
-    this.setProperty(Constants.HISTORICAL_START_DEFAULT, AppProperties.DATE_FORMAT.format(tdValue));
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setHistoricalStart(final String tcSymbol, final Date tdValue)
-  {
-    this.setProperty(Constants.HISTORICAL_START + tcSymbol, AppProperties.DATE_FORMAT.format(tdValue));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

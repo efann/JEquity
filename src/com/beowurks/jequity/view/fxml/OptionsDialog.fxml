@@ -46,8 +46,6 @@
           <ComboBoxIntegerKey fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
           <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Alpha Vantage API Key"/>
           <PasswordFieldPlus fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Default Historical Start Date"/>
-          <DatePickerPlus fx:id="txtHistoricalStart" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
         </GridPane>
       </Tab>
       <Tab text="Miscellaneous" closable="false">

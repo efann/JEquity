@@ -111,9 +111,6 @@ final public class Constants
   // DAILY_INTERVAL_KEY & DAILY_START_KEY by adding javafx to both.
   public final static String DAILY_INTERVAL_KEY = "daily.interval.key.javafx";
 
-  // And yes, HISTORICAL_START should end with a '.'.
-  public final static String HISTORICAL_START = "historical.start.";
-  public final static String HISTORICAL_START_DEFAULT = "historical.start.defaultvalueforstart";
   public final static String ALPHAVANTAGE_API_KEY = "alpha.vantage.api.key";
 
   public final static String FLYWAY_ALWAYS_CHECK = "flyway.always.check";
