@@ -124,19 +124,11 @@ public class OptionsController implements EventHandler<ActionEvent>
     final IntegerKeyItem[] laDrivers = toApp.getRDBMS_Types();
     final IntegerKeyItem[] laDailyIntervals = toApp.getDailyIntervals();
 
-    int lnLength = laDrivers.length;
     this.cboDriver.getItems().clear();
-    for (int i = 0; i < lnLength; ++i)
-    {
-      this.cboDriver.getItems().add(laDrivers[i]);
-    }
+    this.cboDriver.getItems().addAll(laDrivers);
 
-    lnLength = laDailyIntervals.length;
     this.cboDailyDownloadInterval.getItems().clear();
-    for (int i = 0; i < lnLength; ++i)
-    {
-      this.cboDailyDownloadInterval.getItems().add(laDailyIntervals[i]);
-    }
+    this.cboDailyDownloadInterval.getItems().addAll(laDailyIntervals);
 
     this.cboDriver.getSelectionModel().select(toApp.convertKeyToIndex(toApp.getRDBMS_Types(), toApp.getConnectionRDBMS_Key()));
     this.cboDailyDownloadInterval.getSelectionModel().select(toApp.convertKeyToIndex(laDailyIntervals, toApp.getDailyIntervalKey()));

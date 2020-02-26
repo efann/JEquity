@@ -71,9 +71,18 @@ final public class Constants
   public final static String XML_SYMBOL_ROOT_LABEL = "Historical";
   public final static String XML_SYMBOL_RECORD_LABEL = "symbol";
 
-  public final static String XML_SYMBOL_USE_TODAY = "chkUseToday";
-  public final static String XML_SYMBOL_START_DATE = "txtStart";
-  public final static String XML_SYMBOL_END_DATE = "txtEnd";
+  public final static IntegerKeyItem[] HISTORICAL_RANGE =
+      {
+          new IntegerKeyItem(5, "5 Day"),
+          new IntegerKeyItem(30, "1 Month (30 days)"),
+          new IntegerKeyItem(90, "3 Month (91 days)"),
+          new IntegerKeyItem(90, "6 Month (183 days)"),
+          new IntegerKeyItem(90, "1 Year (365 days)"),
+          new IntegerKeyItem(90, "2 Year (730 days)"),
+          new IntegerKeyItem(90, "5 Year (1825 days)"),
+          new IntegerKeyItem(90, "Maximum (All available data)")
+      };
+
 
   //************************************************************
   // Used by AppProperties

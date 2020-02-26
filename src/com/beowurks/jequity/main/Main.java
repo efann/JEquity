@@ -55,15 +55,16 @@ public class Main extends Application
   {
     try
     {
+      // Needs to be near the top: otherwise the Constant variables are initialized before
+      // APPLICATION_DEVELOPMENT is set.
+      Main.setDevelopment(this);
+
       Main.PRIMARY_STAGE = toPrimaryStage;
       Main.foHostService = this.getHostServices();
 
       Main.foMainLoader = new FXMLLoader(this.getClass().getResource("/com/beowurks/jequity/view/fxml/MainForm.fxml"));
 
-      // Needs to be near the top: otherwise the Constant variables are initialized before
-      // APPLICATION_DEVELOPMENT is set.
-      Main.initializeEnvironment(this);
-
+      Main.initializeEnvironment();
       toPrimaryStage.setTitle(Main.getApplicationFullName());
 
       toPrimaryStage.getIcons().add(new Image("/com/beowurks/jequity/view/images/JEquity.png"));
@@ -91,13 +92,8 @@ public class Main extends Application
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private static void initializeEnvironment(final Object toObject) throws IOException
+  private static void setDevelopment(final Object toObject)
   {
-    // loLoader.load must be run before obtaining the controller, which kind of makes sense.
-    Main.foMainBorderPane = Main.foMainLoader.load();
-
-    Main.foMainController = Main.foMainLoader.getController();
-
     // If you use Main.class.getClass instead of toObject in a static method,
     // you'll get something like Java Runtime Environment 1.8.0_144
     final String lcTitle = toObject.getClass().getPackage().getImplementationTitle();
@@ -110,6 +106,16 @@ public class Main extends Application
       Main.APPLICATION_TITLE = lcTitle;
       Main.APPLICATION_VERSION = lcVersion;
     }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private static void initializeEnvironment() throws IOException
+  {
+    // loLoader.load must be run before obtaining the controller, which kind of makes sense.
+    Main.foMainBorderPane = Main.foMainLoader.load();
+
+    Main.foMainController = Main.foMainLoader.getController();
 
     final Rectangle2D loPrimaryScreenBounds = Screen.getPrimary().getVisualBounds();
 

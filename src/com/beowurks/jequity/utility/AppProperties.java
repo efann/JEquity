@@ -115,6 +115,12 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public IntegerKeyItem[] getHistorical_Range()
+  {
+    return (Constants.HISTORICAL_RANGE);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public IntegerKeyItem[] getRDBMS_Types()
   {
     return (Constants.RDBMS_DRIVERS);

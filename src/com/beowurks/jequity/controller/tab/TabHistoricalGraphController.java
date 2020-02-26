@@ -10,6 +10,7 @@ package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.XMLTextReader;
 import com.beowurks.jequity.dao.XMLTextWriter;
+import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
@@ -20,8 +21,8 @@ import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
+import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
 import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
-import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,13 +54,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private ComboBoxStringKey cboStocks;
 
   @FXML
-  private DatePickerPlus txtStart;
-
-  @FXML
-  private DatePickerPlus txtEnd;
-
-  @FXML
-  private CheckBoxPlus chkUseToday;
+  private ComboBoxIntegerKey cboRanges;
 
   @FXML
   private HBox hboxSeriesVisibility;
@@ -108,6 +103,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   {
     this.setupXYDataSeries();
     this.setupCheckboxes();
+    this.setupComboBoxesStatic();
     this.setupChart();
 
     this.setupListeners();
@@ -142,20 +138,27 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   public LocalDate getEndDate()
   {
-    return (this.txtEnd.getValue());
+    return (LocalDate.now());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public LocalDate getStartDate()
   {
-    return (this.txtStart.getValue());
+    int lnIndex = this.cboRanges.getSelectedIndex();
+    if (lnIndex < 0)
+    {
+      lnIndex = 0;
+    }
+
+    int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
+
+    return (this.getEndDate().minusDays(lnDays));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupListeners()
   {
     this.btnAnalyze.setOnAction(this);
-    this.chkUseToday.setOnAction(this);
     this.cboStocks.setOnAction(this);
 
     this.lnkAlphaVantageMessage.setOnAction(this);
@@ -168,6 +171,14 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  private void setupComboBoxesStatic()
+  {
+    this.cboRanges.getItems().clear();
+    this.cboRanges.getItems().addAll(Constants.HISTORICAL_RANGE);
+    this.cboRanges.getSelectionModel().select(0);
+  }
+
+    // ---------------------------------------------------------------------------------------------------------------------
   private void setupChart()
   {
     final StringBuilder loStyles = new StringBuilder();
@@ -342,23 +353,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     return (loInitKeyItem);
   }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void updateEndDate(final LocalDate toDate)
-  {
-    final boolean llChecked = this.chkUseToday.isSelected();
-
-    this.txtEnd.setReadOnly(llChecked);
-
-    if (llChecked)
-    {
-      this.txtEnd.setValue(LocalDate.now());
-    }
-    else if (toDate != null)
-    {
-      this.txtEnd.setValue(toDate);
-    }
-  }
-
   // -----------------------------------------------------------------------------
   private void updateOnComboBoxSelect()
   {
@@ -372,7 +366,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       this.btnAnalyze.setDisable(true);
       final StringKeyItem loItem = this.cboStocks.getSelectedItem();
-
 
       this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%)", loItem.getDescription(), loItem.getKey()), true);
 
@@ -390,6 +383,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final XMLTextReader loReader = XMLTextReader.INSTANCE;
     if (!this.fcCurrentXML.isEmpty() && loReader.initializeXMLDocument(this.fcCurrentXML, false))
     {
+/*
       this.chkUseToday.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_USE_TODAY, true));
       // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
       final String lcStart = loReader.getString(Constants.XML_SYMBOL_START_DATE, LocalDate.now().toString());
@@ -397,12 +391,10 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
       final String lcEnd = loReader.getString(Constants.XML_SYMBOL_END_DATE, LocalDate.now().toString());
       this.updateEndDate(LocalDate.parse(lcEnd));
+      */
       return;
     }
 
-    this.chkUseToday.setSelected(true);
-    this.txtStart.setValue(AppProperties.INSTANCE.getHistoricalStartDefault().toLocalDate());
-    this.updateEndDate(null);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -414,11 +406,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     final Node loRecord = loTextWriter.appendNodeToRoot(Constants.XML_SYMBOL_RECORD_LABEL, (String) null, null);
 
+    /*
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_USE_TODAY, this.chkUseToday.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
     // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_START_DATE, this.txtStart.getValue().toString(), null);
     loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_END_DATE, this.txtEnd.getValue().toString(), null);
-
+*/
     final String lcXML = loTextWriter.generateXMLString(2);
 
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
@@ -501,10 +494,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     if (loSource.equals(this.btnAnalyze))
     {
       this.analyzeData();
-    }
-    else if (loSource.equals(this.chkUseToday))
-    {
-      this.updateEndDate(null);
     }
     else if (loSource.equals(this.cboStocks))
     {

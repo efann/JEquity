@@ -19,17 +19,14 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.HyperlinkLabel?>
+<?import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey?>
 <AnchorPane stylesheets="@../css/Main.css"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.beowurks.jequity.controller.tab.TabHistoricalGraphController">
 
   <GridPane fx:id="grdPaneHistorical" hgap="5" vgap="5" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
     <ComboBoxStringKey fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Start Date"/>
-    <DatePickerPlus fx:id="txtStart" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Label GridPane.columnIndex="2" GridPane.rowIndex="0" text="End Date"/>
-    <DatePickerPlus fx:id="txtEnd" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-    <CheckBoxPlus fx:id="chkUseToday" text="Use today for End Date" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+    <ComboBoxIntegerKey fx:id="cboRanges" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
 
     <HyperlinkLabel fx:id="lnkAlphaVantageMessage" GridPane.columnIndex="0" GridPane.rowIndex="3"
