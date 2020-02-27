@@ -94,7 +94,7 @@ public final class Misc
   public static boolean makeAllTemporaryDirectories()
   {
     return (Misc.makeDirectory(Constants.TEMPORARY_STOCK_PATH))
-        && (Misc.makeDirectory(Constants.TEMPORARY_PATH));
+      && (Misc.makeDirectory(Constants.TEMPORARY_PATH));
 
   }
 
@@ -691,31 +691,31 @@ public final class Misc
 
     // https://stackoverflow.com/questions/12540044/execute-a-task-after-the-webview-is-fully-loaded
     toWebView.getEngine().getLoadWorker().stateProperty().addListener(
-        (ObservableValue<? extends Worker.State> observable,
-         Worker.State oldValue,
-         Worker.State newValue) ->
+      (ObservableValue<? extends Worker.State> observable,
+       Worker.State oldValue,
+       Worker.State newValue) ->
+      {
+        if (newValue != Worker.State.SUCCEEDED)
         {
-          if (newValue != Worker.State.SUCCEEDED)
-          {
-            return;
-          }
+          return;
+        }
 
-          final NodeList loNodeList = toWebView.getEngine().getDocument().getElementsByTagName("a");
-          for (int i = 0; i < loNodeList.getLength(); i++)
+        final NodeList loNodeList = toWebView.getEngine().getDocument().getElementsByTagName("a");
+        for (int i = 0; i < loNodeList.getLength(); i++)
+        {
+          final org.w3c.dom.Node loNode = loNodeList.item(i);
+          final org.w3c.dom.events.EventTarget loEventTarget = (org.w3c.dom.events.EventTarget) loNode;
+          loEventTarget.addEventListener("click", toEvent ->
           {
-            final org.w3c.dom.Node loNode = loNodeList.item(i);
-            final org.w3c.dom.events.EventTarget loEventTarget = (org.w3c.dom.events.EventTarget) loNode;
-            loEventTarget.addEventListener("click", toEvent ->
-            {
-              final org.w3c.dom.events.EventTarget loCurrentTarget = toEvent.getCurrentTarget();
-              final org.w3c.dom.html.HTMLAnchorElement loAnchorElement = (org.w3c.dom.html.HTMLAnchorElement) loCurrentTarget;
-              final String lcHref = loAnchorElement.getHref();
+            final org.w3c.dom.events.EventTarget loCurrentTarget = toEvent.getCurrentTarget();
+            final org.w3c.dom.html.HTMLAnchorElement loAnchorElement = (org.w3c.dom.html.HTMLAnchorElement) loCurrentTarget;
+            final String lcHref = loAnchorElement.getHref();
 
-              toEvent.preventDefault();
-              Main.getMainHostServices().showDocument(lcHref);
-            }, false);
-          }
-        });
+            toEvent.preventDefault();
+            Main.getMainHostServices().showDocument(lcHref);
+          }, false);
+        }
+      });
   }
 
 

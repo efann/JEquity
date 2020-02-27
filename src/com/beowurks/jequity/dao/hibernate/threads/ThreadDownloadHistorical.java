@@ -24,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.IsoFields;
@@ -105,6 +104,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     final LineChart loChart = this.foTabHistoricalGraphController.getChart();
     final int lnSize = loChart.getData().size();
 
+    final StringBuilder loTrackDatesUsed = new StringBuilder(",");
+    final HistoricalStartDateInfo loDateInfo = this.foTabHistoricalGraphController.getStartDateInfo();
+
     // From https://stackoverflow.com/questions/28850211/performance-issue-with-javafx-linechart-with-65000-data-points
     final ArrayList<XYChart.Data<String, Number>>[] laTempList = new ArrayList[lnSize];
     for (int i = 0; i < lnSize; i++)
@@ -117,6 +119,42 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     // However, I was having round off problems where 1,566,566,566,566 was converted to 1,500,000,000,000.
     for (final DataElements loElement : this.foDataList)
     {
+      boolean llOkay = false;
+
+      if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_DAY)
+      {
+        llOkay = true;
+      }
+      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_WEEK)
+      {
+        final String lcMarker = String.format("%2d%d", loElement.foDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR), loElement.foDate.getYear());
+
+        // If not found, then use and add to the loTrackDatesUsed so that
+        // no more days of that particular week will be used.
+        llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
+        if (llOkay)
+        {
+          loTrackDatesUsed.append(lcMarker + ",");
+        }
+
+      }
+      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_MONTH)
+      {
+        final String lcMarker = loElement.foDate.format(this.foMonthTrackerDateFormat);
+        // If not found, then use and add to the loTrackDatesUsed so that
+        // no more days of that particular month will be used.
+        llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
+        if (llOkay)
+        {
+          loTrackDatesUsed.append(lcMarker + ",");
+        }
+      }
+
+      if (!llOkay)
+      {
+        continue;
+      }
+
       final String lcDate = this.foXAxisFormat.format(loElement.foDate);
       // Now add the elements to the particular line.
       final int lnCount = loElement.faNumbers.length;
@@ -257,7 +295,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     }
 
     final HistoricalStartDateInfo loDateInfo = this.foTabHistoricalGraphController.getStartDateInfo();
-    final LocalDate ldStart = loDateInfo.foLocalDate;
+    final LocalDate ldStart = loDateInfo.foLocalStartDate;
     final LocalDate ldEnd = this.foTabHistoricalGraphController.getEndDate();
 
     final Object loSeries = this.getSeries(laJSONInfo);
@@ -265,8 +303,6 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     {
       return (false);
     }
-
-    StringBuilder loTrackDatesUsed = new StringBuilder(",");
 
     final JSONObject loDates = (JSONObject) loSeries;
     final Iterator<String> loIterator = loDates.keys();
@@ -281,52 +317,6 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       loElement.foDate = LocalDate.parse(loDateKey);
 
       if ((loElement.foDate.isBefore(ldStart)) || (loElement.foDate.isAfter(ldEnd)))
-      {
-        continue;
-      }
-
-      boolean llOkay = false;
-
-      if (loElement.foDate.isEqual(ldStart))
-      {
-        llOkay = true;
-      }
-      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_DAY)
-      {
-        llOkay = true;
-      }
-      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_WEEK)
-      {
-        llOkay = (loElement.foDate.getDayOfWeek() == DayOfWeek.MONDAY);
-        String lcWeekYear = String.format("%2d%d", loElement.foDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR), loElement.foDate.getYear());
-
-        if (!llOkay)
-        {
-          // If not found, then use and add to the loTrackDatesUsed so that
-          // no more days of that particular week will be used.
-          llOkay = (loTrackDatesUsed.indexOf(lcWeekYear) == -1);
-        }
-
-        if (llOkay)
-        {
-          loTrackDatesUsed.append(lcWeekYear + ",");
-        }
-
-      }
-      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_MONTH)
-      {
-        //loElement.foDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
-        String lcMonthYear = loElement.foDate.format(this.foMonthTrackerDateFormat);
-        // If not found, then use and add to the loTrackDatesUsed so that
-        // no more days of that particular month will be used.
-        llOkay = (loTrackDatesUsed.indexOf(lcMonthYear) == -1);
-        if (llOkay)
-        {
-          loTrackDatesUsed.append(lcMonthYear + ",");
-        }
-      }
-
-      if (!llOkay)
       {
         continue;
       }

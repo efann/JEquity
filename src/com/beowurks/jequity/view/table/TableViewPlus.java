@@ -100,7 +100,7 @@ public class TableViewPlus<S> extends TableView
     else
     {
       Platform.runLater(() ->
-          this.foStatusMessage.setText(lcMessage));
+        this.foStatusMessage.setText(lcMessage));
     }
 
   }
@@ -146,15 +146,15 @@ public class TableViewPlus<S> extends TableView
       this.foTimerSearchReset = new Timer();
 
       this.foTimerSearchReset.schedule(
-          new TimerTask()
+        new TimerTask()
+        {
+          @Override
+          public void run()
           {
-            @Override
-            public void run()
-            {
-              TableViewPlus.this.resetKeySearch();
-              TableViewPlus.this.updateKeySearchMessage();
-            }
-          }, Constants.TIMER_TABLE_SEARCH_RESET);
+            TableViewPlus.this.resetKeySearch();
+            TableViewPlus.this.updateKeySearchMessage();
+          }
+        }, Constants.TIMER_TABLE_SEARCH_RESET);
 
 
       final String lcCharacter = toEvent.getCharacter();

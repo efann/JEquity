@@ -45,9 +45,9 @@ public class V3_4__Move_Financial_Data extends MigrationHelper
     }
 
     final String[] laTypeNames =
-        {
-            "TABLE"
-        };
+      {
+        "TABLE"
+      };
 
     final DatabaseMetaData loMetaData = this.foConnection.getMetaData();
 
@@ -77,7 +77,7 @@ public class V3_4__Move_Financial_Data extends MigrationHelper
         // Now move entire table into the Financial table.
         final StringBuilder loSQL = new StringBuilder();
         loSQL.append(String.format("INSERT INTO %s ", V3_4__Move_Financial_Data.FINANCIAL_TABLE))
-            .append("(groupid, description, symbol, account, type, category, shares, price, valuationdate, retirement, comments) ");
+          .append("(groupid, description, symbol, account, type, category, shares, price, valuationdate, retirement, comments) ");
 
         if (llIsRetirementChar)
         {

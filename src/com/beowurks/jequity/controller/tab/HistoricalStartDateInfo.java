@@ -15,7 +15,7 @@ import java.time.LocalDate;
 // ---------------------------------------------------------------------------------------------------------------------
 public class HistoricalStartDateInfo
 {
-  public LocalDate foLocalDate;
+  public LocalDate foLocalStartDate;
   public int fnDataDisplay;
 }
 // ---------------------------------------------------------------------------------------------------------------------

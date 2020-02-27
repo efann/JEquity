@@ -117,7 +117,7 @@ abstract public class TabModifyController extends TabBaseController
       if ((loNode instanceof TextFieldPlus) || (loNode instanceof TextAreaPlus))
       {
         loNode.focusedProperty().addListener((obs, oldVal, newVal) ->
-            TabModifyController.this.modifyRow());
+          TabModifyController.this.modifyRow());
       }
       else if ((loNode instanceof CheckBoxPlus) || (loNode instanceof ComboBoxPlus))
       {
@@ -132,13 +132,13 @@ abstract public class TabModifyController extends TabBaseController
         if ((loParent instanceof HBox) || (loParent instanceof VBox))
         {
           loParent.setOnMouseClicked(toEvent ->
-              TabModifyController.this.modifyRow());
+            TabModifyController.this.modifyRow());
         }
       }
       else if (loNode instanceof DatePickerPlus)
       {
         ((DatePickerPlus) loNode).getEditor().focusedProperty().addListener((obs, oldVal, newVal) ->
-            TabModifyController.this.modifyRow());
+          TabModifyController.this.modifyRow());
       }
       // Otherwise, do recursion.
       else if (loNode instanceof Pane)

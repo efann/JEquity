@@ -155,7 +155,7 @@ public class MainFormController implements EventHandler<ActionEvent>
     this.menuMainController.getMenuPrint().setOnAction(toActionEvent -> MainFormController.this.printReport());
 
     this.tabPane.getSelectionModel().selectedItemProperty().addListener(
-        (toObservableValue, toPrevious, toCurrent) -> this.refreshAllComponents(false)
+      (toObservableValue, toPrevious, toCurrent) -> this.refreshAllComponents(false)
     );
 
     this.toolbarMainController.getGroupComboBox().setOnAction(this);
@@ -195,7 +195,7 @@ public class MainFormController implements EventHandler<ActionEvent>
     else
     {
       Platform.runLater(() ->
-          this.refreshAllComponentsFunction(tlIncludeGroupComboBox));
+        this.refreshAllComponentsFunction(tlIncludeGroupComboBox));
     }
 
   }

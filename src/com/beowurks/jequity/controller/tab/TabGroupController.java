@@ -144,7 +144,7 @@ public class TabGroupController extends TabModifyController
     final String lcSQL = String.format("SELECT * FROM %s", HibernateUtil.INSTANCE.getTableGroup());
 
     final NativeQuery loQuery = toSession.createNativeQuery(lcSQL)
-        .addEntity(GroupEntity.class);
+      .addEntity(GroupEntity.class);
 
     return (loQuery);
   }

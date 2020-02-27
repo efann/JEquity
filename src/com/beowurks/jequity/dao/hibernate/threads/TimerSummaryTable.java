@@ -145,7 +145,7 @@ public class TimerSummaryTable
   {
     Misc.setStatusText(ProgressBar.INDETERMINATE_PROGRESS);
     Platform.runLater(() ->
-        this.foSummaryTable.setStyle("-fx-opacity: 0.25;"));
+      this.foSummaryTable.setStyle("-fx-opacity: 0.25;"));
 
     if (this.foTimer != null)
     {
@@ -158,14 +158,14 @@ public class TimerSummaryTable
     // http://stackoverflow.com/questions/10335784/restart-timer-in-java
     this.foTimer = new Timer();
     this.foTimer.schedule(
-        new TimerTask()
+      new TimerTask()
+      {
+        @Override
+        public void run()
         {
-          @Override
-          public void run()
-          {
-            TimerSummaryTable.this.refreshSummaryTable(tcOwnership, tcAccount, tcType, tcCategory);
-          }
-        }, Constants.TIMER_SUMMARY_UPDATE_DELAY);
+          TimerSummaryTable.this.refreshSummaryTable(tcOwnership, tcAccount, tcType, tcCategory);
+        }
+      }, Constants.TIMER_SUMMARY_UPDATE_DELAY);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -176,7 +176,7 @@ public class TimerSummaryTable
     this.updateDataList(tcOwnership, tcAccount, tcType, tcCategory);
 
     Platform.runLater(() ->
-        this.foSummaryTable.setStyle("-fx-opacity: 1.0;"));
+      this.foSummaryTable.setStyle("-fx-opacity: 1.0;"));
 
     Misc.setStatusText(0.0);
   }
@@ -224,8 +224,8 @@ public class TimerSummaryTable
 
     final String lcSQL = String.format("SELECT * FROM %s WHERE groupid = :groupid", loHibernate.getTableFinancial());
     final NativeQuery loQuery = toSession.createNativeQuery(lcSQL)
-        .addEntity(FinancialEntity.class)
-        .setParameter("groupid", loHibernate.getGroupID().intValue());
+      .addEntity(FinancialEntity.class)
+      .setParameter("groupid", loHibernate.getGroupID().intValue());
 
     return (loQuery);
   }

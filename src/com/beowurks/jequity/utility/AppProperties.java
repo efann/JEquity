@@ -180,7 +180,7 @@ public final class AppProperties extends BaseProperties
         final String lcFolder = this.getConnectionDatabase();
 
         lcURL.append("jdbc:derby:").append(lcFolder)
-            .append(";upgrade=true").append(";bootPassword=").append(this.getDerbyBootPassword());
+          .append(";upgrade=true").append(";bootPassword=").append(this.getDerbyBootPassword());
 
         final boolean llBrandNew = (!Files.isDirectory(Paths.get(lcFolder), LinkOption.NOFOLLOW_LINKS));
         if (!llBrandNew)
@@ -199,7 +199,7 @@ public final class AppProperties extends BaseProperties
         if (llBrandNew)
         {
           lcURL.append(";create=true")
-              .append(";dataEncryption=true");
+            .append(";dataEncryption=true");
         }
         break;
 

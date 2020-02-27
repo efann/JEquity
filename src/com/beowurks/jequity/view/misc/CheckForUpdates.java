@@ -78,12 +78,12 @@ public class CheckForUpdates implements Runnable
       {
         // Highly recommended to set the userAgent.
         loDoc = Jsoup.connect(lcURL)
-            .followRedirects(true)
-            .userAgent(Constants.getUserAgent())
-            .data("name", "jsoup")
-            .maxBodySize(0)
-            .timeout(Constants.WEB_TIME_OUT)
-            .get();
+          .followRedirects(true)
+          .userAgent(Constants.getUserAgent())
+          .data("name", "jsoup")
+          .maxBodySize(0)
+          .timeout(Constants.WEB_TIME_OUT)
+          .get();
       }
       catch (final Exception loErr)
       {
@@ -163,14 +163,14 @@ public class CheckForUpdates implements Runnable
 
     loHtml.append("<tr>");
     loHtml.append("<td>")
-        .append(Main.getApplicationName())
-        .append("</td>");
+      .append(Main.getApplicationName())
+      .append("</td>");
     loHtml.append("<td>")
-        .append(lcCurrentVersion)
-        .append("</td>");
+      .append(lcCurrentVersion)
+      .append("</td>");
     loHtml.append("<td>")
-        .append(this.fcAppVersion)
-        .append("</td>");
+      .append(this.fcAppVersion)
+      .append("</td>");
     loHtml.append("</tr>");
     loHtml.append("</table>");
     loHtml.append("</div>");
@@ -186,15 +186,15 @@ public class CheckForUpdates implements Runnable
     {
       loHtml.append("<b>You have the latest version installed</b>: ");
       loHtml.append(Main.getApplicationFullName())
-          .append("!");
+        .append("!");
     }
     else
     {
       loHtml.append("You should download &amp; install the latest version located at<br><a href='")
-          .append(this.fcAppFolder)
-          .append("'>")
-          .append(this.fcAppFolder)
-          .append("</a>");
+        .append(this.fcAppFolder)
+        .append("'>")
+        .append(this.fcAppFolder)
+        .append("</a>");
     }
 
     loHtml.append("</p>");

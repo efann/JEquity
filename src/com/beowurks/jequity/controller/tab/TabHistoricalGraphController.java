@@ -156,7 +156,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     final HistoricalStartDateInfo loDateInfo = new HistoricalStartDateInfo();
     loDateInfo.fnDataDisplay = Constants.HISTORICAL_EVERY_DAY;
-    loDateInfo.foLocalDate = loStart;
+    loDateInfo.foLocalStartDate = loStart;
 
     // Get next start of the week or Monday.
     if ((lnDays > Constants.HISTORICAL_1_YEAR) && (lnDays <= Constants.HISTORICAL_5_YEARS))
@@ -167,7 +167,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       }
 
       loDateInfo.fnDataDisplay = Constants.HISTORICAL_EVERY_WEEK;
-      loDateInfo.foLocalDate = loStart;
+      loDateInfo.foLocalStartDate = loStart;
     }
 
     // Get next start of the month.
@@ -179,7 +179,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       }
 
       loDateInfo.fnDataDisplay = Constants.HISTORICAL_EVERY_MONTH;
-      loDateInfo.foLocalDate = loStart;
+      loDateInfo.foLocalStartDate = loStart;
     }
 
     return (loDateInfo);

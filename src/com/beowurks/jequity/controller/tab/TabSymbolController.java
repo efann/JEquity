@@ -66,7 +66,7 @@ public class TabSymbolController extends TabBaseController
     for (final SymbolEntity loRow : loList)
     {
       this.foDataList.add(new SymbolProperty(loRow.getSymbol(), loRow.getDescription(), loRow.getLastTrade(), loRow.getTradeTime(),
-          loRow.getComments(), loRow.getHistoricalInfo()));
+        loRow.getComments(), loRow.getHistoricalInfo()));
     }
 
     if (this.tblSymbol.getItems() != this.foDataList)
@@ -126,7 +126,7 @@ public class TabSymbolController extends TabBaseController
     final String lcSQL = String.format("SELECT * FROM %s", HibernateUtil.INSTANCE.getTableSymbol());
 
     final NativeQuery loQuery = toSession.createNativeQuery(lcSQL)
-        .addEntity(SymbolEntity.class);
+      .addEntity(SymbolEntity.class);
 
     return (loQuery);
   }

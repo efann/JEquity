@@ -208,13 +208,13 @@ public final class HibernateUtil
     if (this.isMySQL())
     {
       lcTable = String.format("%s%s%s",
-          this.fcQuoteOpen, this.foTableList.get(toTableKey), this.fcQuoteClose);
+        this.fcQuoteOpen, this.foTableList.get(toTableKey), this.fcQuoteClose);
     }
     else
     {
       lcTable = String.format("%s%s%s.%s%s%s",
-          this.fcQuoteOpen, Constants.FLYWAY_JEQUITY_SCHEMA, this.fcQuoteClose,
-          this.fcQuoteOpen, this.foTableList.get(toTableKey), this.fcQuoteClose);
+        this.fcQuoteOpen, Constants.FLYWAY_JEQUITY_SCHEMA, this.fcQuoteClose,
+        this.fcQuoteOpen, this.foTableList.get(toTableKey), this.fcQuoteClose);
     }
 
     return (lcTable);
@@ -333,7 +333,7 @@ public final class HibernateUtil
         final String lcDelete = String.format("DELETE FROM %s WHERE groupid = :groupid", this.getTableFinancial());
 
         final NativeQuery loDelete = loSession.createNativeQuery(lcDelete)
-            .setParameter("groupid", loGroupEntity.getGroupID());
+          .setParameter("groupid", loGroupEntity.getGroupID());
 
         loDelete.executeUpdate();
 
@@ -433,11 +433,11 @@ public final class HibernateUtil
     final Session loSession = this.getSession();
 
     final String lcSQL = String.format("SELECT {g.*}, {f.*} FROM %s g, %s f WHERE g.GROUPID = f.GROUPID ORDER BY g.GROUPID, f.DESCRIPTION ",
-        this.getTableGroup(), this.getTableFinancial());
+      this.getTableGroup(), this.getTableFinancial());
 
     final NativeQuery loQuery = loSession.createNativeQuery(lcSQL)
-        .addEntity("g", GroupEntity.class)
-        .addEntity("f", FinancialEntity.class);
+      .addEntity("g", GroupEntity.class)
+      .addEntity("f", FinancialEntity.class);
 
     Misc.stringToFileText(this.generateXMLString(loQuery.list()), loFile.getPath());
 

@@ -77,12 +77,12 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
       {
         // Highly recommended to set the userAgent.
         loDoc = Jsoup.connect(lcDailyURL)
-            .followRedirects(false)
-            .userAgent(Constants.getUserAgent())
-            .data("name", "jsoup")
-            .maxBodySize(0)
-            .timeout(Constants.WEB_TIME_OUT)
-            .get();
+          .followRedirects(false)
+          .userAgent(Constants.getUserAgent())
+          .data("name", "jsoup")
+          .maxBodySize(0)
+          .timeout(Constants.WEB_TIME_OUT)
+          .get();
       }
       catch (final Exception loErr)
       {

@@ -122,8 +122,8 @@ public class XMLTextWriter
     {
       loNode = null;
       Misc.errorMessage(
-          "There was an error in appending node to the root.\nREMEMBER: no spaces, etc in Tag names.\n\n"
-              + loErr.getMessage());
+        "There was an error in appending node to the root.\nREMEMBER: no spaces, etc in Tag names.\n\n"
+          + loErr.getMessage());
     }
 
     return (loNode);
@@ -182,8 +182,8 @@ public class XMLTextWriter
     {
       loNode = null;
       Misc.errorMessage(
-          "There was an error in appending node to another node.\nREMEMBER: no spaces, etc in Tag names.\n\n"
-              + loErr.getMessage());
+        "There was an error in appending node to another node.\nREMEMBER: no spaces, etc in Tag names.\n\n"
+          + loErr.getMessage());
     }
 
     return (loNode);
@@ -215,8 +215,8 @@ public class XMLTextWriter
     {
       this.foRoot = null;
       Misc.errorMessage(
-          "There was an error in creating the Root Node.\nREMEMBER: no spaces, etc in Tag names.\n\n"
-              + loErr.getMessage());
+        "There was an error in creating the Root Node.\nREMEMBER: no spaces, etc in Tag names.\n\n"
+          + loErr.getMessage());
     }
 
     return (this.foRoot);
@@ -260,12 +260,12 @@ public class XMLTextWriter
     catch (final TransformerConfigurationException loErr)
     {
       Misc.errorMessage("There was a Transformer Configuration Exception in generating an XML string.\n\n"
-          + loErr.getMessage());
+        + loErr.getMessage());
     }
     catch (final TransformerFactoryConfigurationError loErr)
     {
       Misc.errorMessage("There was a Transformer Factory Configuration Error in generating an XML string.\n\n"
-          + loErr.getMessage());
+        + loErr.getMessage());
     }
     catch (final TransformerException loErr)
     {

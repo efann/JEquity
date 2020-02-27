@@ -230,8 +230,8 @@ public class TabFinancialController extends TabModifyController implements Event
     for (final FinancialEntity loRow : loList)
     {
       this.foDataList.add(new FinancialProperty(loRow.getGroupID(), loRow.getFinancialID(), loRow.getDescription(), loRow.getAccount(),
-          loRow.getType(), loRow.getCategory(), loRow.getShares(), loRow.getPrice(), loRow.getValuationDate(), loRow.getRetirement(), loRow.getOwnership(),
-          loRow.getTaxStatus(), loRow.getSymbol(), loRow.getComments()));
+        loRow.getType(), loRow.getCategory(), loRow.getShares(), loRow.getPrice(), loRow.getValuationDate(), loRow.getRetirement(), loRow.getOwnership(),
+        loRow.getTaxStatus(), loRow.getSymbol(), loRow.getComments()));
     }
 
     if (this.tblFinancial.getItems() != this.foDataList)
@@ -323,8 +323,8 @@ public class TabFinancialController extends TabModifyController implements Event
 
     final String lcSQL = String.format("SELECT * FROM %s WHERE groupid = :groupid", loHibernate.getTableFinancial());
     final NativeQuery loQuery = toSession.createNativeQuery(lcSQL)
-        .addEntity(FinancialEntity.class)
-        .setParameter("groupid", loHibernate.getGroupID().intValue());
+      .addEntity(FinancialEntity.class)
+      .setParameter("groupid", loHibernate.getGroupID().intValue());
 
     return (loQuery);
   }
@@ -379,8 +379,8 @@ public class TabFinancialController extends TabModifyController implements Event
       if (llSaved)
       {
         final FinancialProperty loNewRecord = new FinancialProperty(loNewEntity.getGroupID(), loNewEntity.getFinancialID(), loNewEntity.getDescription(), loNewEntity.getAccount(),
-            loNewEntity.getType(), loNewEntity.getCategory(), loNewEntity.getShares(), loNewEntity.getPrice(), loNewEntity.getValuationDate(), loNewEntity.getRetirement(), loNewEntity.getOwnership(),
-            loNewEntity.getTaxStatus(), loNewEntity.getSymbol(), loNewEntity.getComments());
+          loNewEntity.getType(), loNewEntity.getCategory(), loNewEntity.getShares(), loNewEntity.getPrice(), loNewEntity.getValuationDate(), loNewEntity.getRetirement(), loNewEntity.getOwnership(),
+          loNewEntity.getTaxStatus(), loNewEntity.getSymbol(), loNewEntity.getComments());
 
         this.foDataList.add(loNewRecord);
         this.tblFinancial.getSelectionModel().select(loNewRecord);
@@ -462,7 +462,7 @@ public class TabFinancialController extends TabModifyController implements Event
     }
 
     SingleSymbolInfo.INSTANCE.setInformation(this.txtSymbol.getText(), this.txtSymbol,
-        this.txtDescription, this.txtPrice, this.txtDate, this.btnSave);
+      this.txtDescription, this.txtPrice, this.txtDate, this.btnSave);
 
     if (this.findFocused() == null)
     {

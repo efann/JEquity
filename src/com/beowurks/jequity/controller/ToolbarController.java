@@ -77,7 +77,7 @@ public class ToolbarController
       final Session loSession = loHibernate.getSession();
 
       final NativeQuery loQuery = loSession.createNativeQuery("SELECT * FROM " + loHibernate.getTableGroup())
-          .addEntity(GroupEntity.class);
+        .addEntity(GroupEntity.class);
 
       final List<GroupEntity> loList = loQuery.list();
       for (final GroupEntity loRow : loList)

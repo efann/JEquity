@@ -51,14 +51,14 @@ public class TimerSymbolInfo
     // http://stackoverflow.com/questions/10335784/restart-timer-in-java
     this.foTimer = new Timer();
     this.foTimer.scheduleAtFixedRate(
-        new TimerTask()
+      new TimerTask()
+      {
+        @Override
+        public void run()
         {
-          @Override
-          public void run()
-          {
-            ThreadDownloadSymbolInfo.INSTANCE.start(false);
-          }
-        }, lnDelay, lnDelay);
+          ThreadDownloadSymbolInfo.INSTANCE.start(false);
+        }
+      }, lnDelay, lnDelay);
   }
 
 // ---------------------------------------------------------------------------------------------------------------------

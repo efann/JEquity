@@ -58,12 +58,12 @@ public class PageScraping implements Runnable
       {
         // Highly recommended to set the userAgent.
         loDoc = Jsoup.connect(PageScraping.CONFIG_URL + "?" + System.currentTimeMillis())
-            .followRedirects(true)
-            .userAgent(Constants.getUserAgent())
-            .data("name", "jsoup")
-            .maxBodySize(0)
-            .timeout(Constants.WEB_TIME_OUT)
-            .get();
+          .followRedirects(true)
+          .userAgent(Constants.getUserAgent())
+          .data("name", "jsoup")
+          .maxBodySize(0)
+          .timeout(Constants.WEB_TIME_OUT)
+          .get();
       }
       catch (final Exception loErr)
       {

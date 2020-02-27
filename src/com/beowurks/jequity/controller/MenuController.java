@@ -278,8 +278,8 @@ public class MenuController
       catch (final IOException loErr)
       {
         Misc.errorMessage(String.format("There was a problem downloading %s.\n\n%s\n\nPlease try again later.",
-            Constants.SAMPLE_DATA_URL,
-            loErr.getMessage()));
+          Constants.SAMPLE_DATA_URL,
+          loErr.getMessage()));
       }
     }
 
@@ -430,11 +430,11 @@ public class MenuController
     final Session loSession = loHibernate.getSession();
 
     final String lcSQL = String.format("SELECT {g.*}, {f.*} FROM %s g, %s f WHERE g.GROUPID = f.GROUPID ORDER BY g.GROUPID, f.DESCRIPTION ",
-        loHibernate.getTableGroup(), loHibernate.getTableFinancial());
+      loHibernate.getTableGroup(), loHibernate.getTableFinancial());
 
     final NativeQuery loQuery = loSession.createNativeQuery(lcSQL)
-        .addEntity("g", GroupEntity.class)
-        .addEntity("f", FinancialEntity.class);
+      .addEntity("g", GroupEntity.class)
+      .addEntity("f", FinancialEntity.class);
 
     this.generateFile(loQuery, toCSVFile);
 

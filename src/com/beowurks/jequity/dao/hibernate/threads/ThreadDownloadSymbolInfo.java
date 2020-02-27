@@ -104,11 +104,11 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
       try
       {
         final String lcDelete = String.format("DELETE FROM %s WHERE symbol NOT IN (SELECT DISTINCT symbol FROM %s WHERE symbol <> ' ')",
-            lcSymbolTable, lcFinancialTable);
+          lcSymbolTable, lcFinancialTable);
         final String lcInsert = String.format("INSERT INTO %s (Symbol) SELECT DISTINCT f.symbol FROM %s "
-                + "f LEFT JOIN %s "
-                + "s ON f.symbol = s.symbol WHERE (s.symbol IS NULL) AND (f.symbol <> ' ')",
-            lcSymbolTable, lcFinancialTable, lcSymbolTable);
+            + "f LEFT JOIN %s "
+            + "s ON f.symbol = s.symbol WHERE (s.symbol IS NULL) AND (f.symbol <> ' ')",
+          lcSymbolTable, lcFinancialTable, lcSymbolTable);
 
         loStatement = toConnection.createStatement();
 
@@ -146,7 +146,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
     final String lcSQL = String.format("SELECT * FROM %s ORDER BY symbol", loHibernate.getTableSymbol());
     final NativeQuery loQuery = loSession.createNativeQuery(lcSQL)
-        .addEntity(SymbolEntity.class);
+      .addEntity(SymbolEntity.class);
 
     final List<SymbolEntity> loList = loQuery.list();
 
@@ -171,12 +171,12 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
         {
           // Highly recommended to set the userAgent.
           loDoc = Jsoup.connect(lcDailyURL)
-              .followRedirects(false)
-              .userAgent(Constants.getUserAgent())
-              .data("name", "jsoup")
-              .maxBodySize(0)
-              .timeout(Constants.WEB_TIME_OUT)
-              .get();
+            .followRedirects(false)
+            .userAgent(Constants.getUserAgent())
+            .data("name", "jsoup")
+            .maxBodySize(0)
+            .timeout(Constants.WEB_TIME_OUT)
+            .get();
         }
         catch (final Exception loErr)
         {
