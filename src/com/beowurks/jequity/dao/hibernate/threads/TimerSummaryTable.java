@@ -61,8 +61,6 @@ public class TimerSummaryTable
 
   private TableViewPlus foSummaryTable;
 
-  private String fcCurrentStyle = "";
-
   // ---------------------------------------------------------------------------------------------------------------------
   private TimerSummaryTable()
   {
@@ -98,42 +96,35 @@ public class TimerSummaryTable
         final TimerSummaryTable loThis = TimerSummaryTable.this;
         final String lcDescription = toItem.getSummaryDescription();
 
+        // Fixed the issues with row highlighting.
         if (lcDescription.equals(Constants.SUMMARY_TABLE_TOTAL))
         {
-          this.setStyle("-fx-background-color: wheat;");
+          this.getStyleClass().add("SummaryTableTotal");
         }
         else if ((lcDescription.equals(Constants.SUMMARY_TABLE_RETIREMENT)) || (lcDescription.equals(Constants.SUMMARY_TABLE_NON_RETIREMENT)))
         {
-          this.setStyle("-fx-background-color: white;");
+          this.getStyleClass().add("SummaryTableRetirements");
         }
         // Tax Status
         else if ((lcDescription.startsWith("Tax")) && (lcDescription.contains("(Total)")))
         {
-          this.setStyle("-fx-background-color: lightyellow;");
+          this.getStyleClass().add("SummaryTaxStatus");
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_OWNERSHIP))
         {
-          loThis.fcCurrentStyle = "-fx-background-color: lightblue;";
-          this.setStyle(loThis.fcCurrentStyle + " -fx-font-weight: bold;");
+          this.getStyleClass().add("SummaryTableOwnership");
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_ACCOUNT))
         {
-          loThis.fcCurrentStyle = "-fx-background-color: lightcyan;";
-          this.setStyle(loThis.fcCurrentStyle + " -fx-font-weight: bold;");
+          this.getStyleClass().add("SummaryTableAccount");
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_TYPE))
         {
-          loThis.fcCurrentStyle = "-fx-background-color: lightgray;";
-          this.setStyle(loThis.fcCurrentStyle + " -fx-font-weight: bold;");
+          this.getStyleClass().add("SummaryTableType");
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_CATEGORY))
         {
-          loThis.fcCurrentStyle = "-fx-background-color: white;";
-          this.setStyle(loThis.fcCurrentStyle + " -fx-font-weight: bold;");
-        }
-        else
-        {
-          this.setStyle(loThis.fcCurrentStyle);
+          this.getStyleClass().add("SummaryTableCategory");
         }
       }
     });

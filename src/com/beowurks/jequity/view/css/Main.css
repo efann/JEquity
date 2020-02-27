@@ -6,6 +6,13 @@
  *
 */
 
+/*
+  Here's an example file: https://gist.github.com/tmazeika/c90c03c645d18722ddb0
+  caspian.css
+
+  I just found the css files. They're in lib\javafx.controls.jar in the folder path of com\sun\javafx\scene\control\skin\
+*/
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
   Menu Items
@@ -186,10 +193,61 @@
   -fx-alignment: center-right;
 }
 
-/* For the empty rows in tblSummary */
-#tblSummary .table-row-cell
+.table-row-cell:selected
 {
-  -fx-background-color: #EEEEEE;
+  -fx-background-color: steelblue;
+}
+
+.table-row-cell:selected .text,
+.table-row-cell:filled:selected .text
+{
+  -fx-fill: white;
+}
+
+.SummaryTableTotal
+{
+  -fx-background-color: wheat;
+  -fx-text-fill: black;
+}
+
+.SummaryTableRetirements
+{
+  -fx-background-color: white;
+  -fx-text-fill: black;
+}
+
+.SummaryTaxStatus
+{
+  -fx-background-color: lightyellow;
+  -fx-text-fill: black;
+}
+
+.SummaryTableOwnership
+{
+  -fx-background-color: lightblue;
+  -fx-text-fill: black;
+  -fx-font-weight: bold;
+}
+
+.SummaryTableAccount
+{
+  -fx-background-color: lightcyan;
+  -fx-text-fill: black;
+  -fx-font-weight: bold;
+}
+
+.SummaryTableType
+{
+  -fx-background-color: lightgray;
+  -fx-text-fill: black;
+  -fx-font-weight: bold;
+}
+
+.SummaryTableCategory
+{
+  -fx-background-color: white;
+  -fx-text-fill: black;
+  -fx-font-weight: bold;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
