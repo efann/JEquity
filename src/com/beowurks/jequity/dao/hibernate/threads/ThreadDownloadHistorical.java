@@ -233,7 +233,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   // ---------------------------------------------------------------------------------------------------------------------
   private boolean downloadHistoricalFile()
   {
-    Misc.setStatusText("Downloading the historical data. . . .");
+    Misc.setStatusText("Starting the process for historical data. . . .");
 
     final String lcSymbol = this.fcSymbol;
     final String lcURL = this.foTabHistoricalGraphController.getAlphaVantageURL();
@@ -247,6 +247,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     if (loJSONFile.exists())
     {
+      Misc.setStatusText("Reading the historical data from the cache. . . .");
+
       try
       {
         lcJSONText = FileUtils.readFileToString(loJSONFile, Charset.defaultCharset());
@@ -258,6 +260,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     }
     else
     {
+      Misc.setStatusText("Downloading the historical data. . . .");
+
       try
       {
         // Highly recommended to set the userAgent.
@@ -281,6 +285,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     if (lcJSONText == null)
     {
+      // Just in case the file was created.
+      FileUtils.deleteQuietly(loJSONFile);
+
       final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid. If so, try again.", lcURL, lcSymbol);
 
       // Display both messages, so at least one of them is noticed.
@@ -297,6 +304,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     }
     else
     {
+      // If unable to read, then, if the file exists, the file is corrupt.
+      FileUtils.deleteQuietly(loJSONFile);
+
       Misc.setStatusText("Unable to read from Alpha Vantage for " + lcSymbol + " historical information", 0.0);
     }
 
