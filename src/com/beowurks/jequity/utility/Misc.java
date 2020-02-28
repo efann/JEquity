@@ -116,32 +116,6 @@ public final class Misc
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public static void deleteFilesInFolder(final String tcFolder)
-  {
-    final File loTemp = new File(tcFolder);
-    final File[] laFiles = loTemp.listFiles();
-
-    if (laFiles == null)
-    {
-      return;
-    }
-
-    for (final File loFile : laFiles)
-    {
-      if (loFile.isFile())
-      {
-        try
-        {
-          loFile.delete();
-        }
-        catch (final SecurityException ignored)
-        {
-        }
-      }
-    }
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
   // This routine is used to read text files in a Jar file.
   public static String getURIFileContents(final String tcURIPath)
   {

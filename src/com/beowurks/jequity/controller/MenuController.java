@@ -38,10 +38,9 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Optional;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -444,17 +443,6 @@ public class MenuController
   // ---------------------------------------------------------------------------------------------------------------------
   private void generateFile(final NativeQuery toQuery, final File toFileName)
   {
-    PrintWriter loPrintWriter = null;
-    try
-    {
-      loPrintWriter = new PrintWriter(toFileName);
-    }
-    catch (final FileNotFoundException loErr)
-    {
-      Misc.showStackTraceInMessage(loErr, "Error in Creating File");
-      return;
-    }
-
     final String lcSeparator = "\t";
     final String lcEOL = System.getProperty("line.separator");
 
@@ -534,8 +522,15 @@ public class MenuController
       loContent.append(lcEOL);
     }
 
-    loPrintWriter.write(loContent.toString());
-    loPrintWriter.close();
+    try
+    {
+      FileUtils.writeStringToFile(toFileName, loContent.toString(), Charset.defaultCharset());
+    }
+    catch (final IOException loErr)
+    {
+      Misc.showStackTraceInMessage(loErr, "Error in Creating File");
+      return;
+    }
 
     Misc.infoMessage(String.format("%s has been saved in tab-delimited format.", toFileName.getPath()));
 

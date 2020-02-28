@@ -245,7 +245,7 @@
 
 .SummaryTableCategory
 {
-  -fx-background-color: white;
+  -fx-background-color: lightgray;
   -fx-text-fill: black;
   -fx-font-weight: bold;
 }
