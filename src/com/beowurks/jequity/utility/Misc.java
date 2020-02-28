@@ -93,9 +93,9 @@ public final class Misc
   // ---------------------------------------------------------------------------------------------------------------------
   public static boolean makeAllTemporaryDirectories()
   {
-    return (Misc.makeDirectory(Constants.TEMPORARY_STOCK_PATH))
-      && (Misc.makeDirectory(Constants.TEMPORARY_PATH));
-
+    return ((Misc.makeDirectory(Constants.TEMPORARY_PATH))
+      && (Misc.makeDirectory(Constants.TEMPORARY_STOCK_PATH))
+      && (Misc.makeDirectory(Constants.TEMPORARY_HISTORICAL_PATH)));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -105,8 +105,9 @@ public final class Misc
   {
     try
     {
-      FileUtils.deleteDirectory(new File(Constants.TEMPORARY_PATH));
       FileUtils.deleteDirectory(new File(Constants.TEMPORARY_STOCK_PATH));
+      FileUtils.deleteDirectory(new File(Constants.TEMPORARY_HISTORICAL_PATH));
+      FileUtils.deleteDirectory(new File(Constants.TEMPORARY_PATH));
     }
     catch (final IOException loErr)
     {
@@ -562,31 +563,6 @@ public final class Misc
     Misc.flShutdownStarted = true;
 
     Platform.exit();
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  // This only works with text files . . . as the name implies.
-  static public void stringToFileText(final String tcExpression, final String tcFileName)
-  {
-    PrintWriter loPrintWriter = null;
-    try
-    {
-      final FileWriter loFileWriter = new FileWriter(tcFileName);
-      loPrintWriter = new PrintWriter(loFileWriter);
-
-      loPrintWriter.print(tcExpression);
-    }
-    catch (final IOException loErr)
-    {
-      loErr.printStackTrace();
-    }
-    finally
-    {
-      if (loPrintWriter != null)
-      {
-        loPrintWriter.close();
-      }
-    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

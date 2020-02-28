@@ -12,6 +12,7 @@ import com.beowurks.jequity.dao.migration.FlywayMigration;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
+import org.apache.commons.io.FileUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,6 +25,8 @@ import org.hibernate.query.NativeQuery;
 import org.w3c.dom.Node;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 
@@ -439,7 +442,14 @@ public final class HibernateUtil
       .addEntity("g", GroupEntity.class)
       .addEntity("f", FinancialEntity.class);
 
-    Misc.stringToFileText(this.generateXMLString(loQuery.list()), loFile.getPath());
+    try
+    {
+      FileUtils.writeStringToFile(loFile, this.generateXMLString(loQuery.list()), Charset.defaultCharset());
+    }
+    catch (final IOException loErr)
+    {
+      Misc.showStackTraceInMessage(loErr, String.format("Error Saving %s", loFile.getPath()));
+    }
 
     loSession.close();
   }

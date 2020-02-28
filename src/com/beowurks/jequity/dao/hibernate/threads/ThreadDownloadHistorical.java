@@ -19,11 +19,15 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.IsoFields;
@@ -54,6 +58,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   private final DateTimeFormatter foXAxisFormat = DateTimeFormatter.ofPattern("MM-dd-yy");
 
   private final DateTimeFormatter foMonthTrackerDateFormat = DateTimeFormatter.ofPattern("MMMMyyyy");
+  private final DateTimeFormatter foHistoricalFileDateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
 
   // ---------------------------------------------------------------------------------------------------------------------
   private ThreadDownloadHistorical()
@@ -233,26 +238,45 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     final String lcSymbol = this.fcSymbol;
     final String lcURL = this.foTabHistoricalGraphController.getAlphaVantageURL();
 
+    final String lcJSONFile = String.format("%s%s-%s.json", Constants.TEMPORARY_HISTORICAL_PATH, lcSymbol, LocalDate.now().format(this.foHistoricalFileDateFormat));
+    final File loJSONFile = new File(lcJSONFile);
+
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
     String lcJSONText = null;
-    try
-    {
-      // Highly recommended to set the userAgent.
-      // Leave out data. I get errors when setting that parameter.
-      lcJSONText = Jsoup.connect(lcURL)
-        .followRedirects(false)
-        .userAgent(Constants.getUserAgent())
-        .maxBodySize(0)
-        .timeout(Constants.WEB_TIME_OUT)
-        .ignoreContentType(true)
-        .execute()
-        .body();
 
-    }
-    catch (final Exception loErr)
+    if (loJSONFile.exists())
     {
-      lcJSONText = null;
+      try
+      {
+        lcJSONText = FileUtils.readFileToString(loJSONFile, Charset.defaultCharset());
+      }
+      catch (final IOException loErr)
+      {
+        lcJSONText = null;
+      }
+    }
+    else
+    {
+      try
+      {
+        // Highly recommended to set the userAgent.
+        // Leave out data. I get errors when setting that parameter.
+        lcJSONText = Jsoup.connect(lcURL)
+          .followRedirects(false)
+          .userAgent(Constants.getUserAgent())
+          .maxBodySize(0)
+          .timeout(Constants.WEB_TIME_OUT)
+          .ignoreContentType(true)
+          .execute()
+          .body();
+
+        FileUtils.writeStringToFile(loJSONFile, lcJSONText, Charset.defaultCharset());
+      }
+      catch (final Exception loErr)
+      {
+        lcJSONText = null;
+      }
     }
 
     if (lcJSONText == null)

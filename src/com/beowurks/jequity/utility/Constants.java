@@ -29,6 +29,7 @@ final public class Constants
   public final static String USER_NAME = System.getProperty("user.name");
 
   public final static String TEMPORARY_STOCK_PATH = Misc.includeTrailingBackslash(Misc.includeTrailingBackslash(Constants.TEMPORARY_PATH) + "Stocks");
+  public final static String TEMPORARY_HISTORICAL_PATH = Misc.includeTrailingBackslash(Misc.includeTrailingBackslash(Constants.TEMPORARY_PATH) + "Historical");
 
   //************************************************************
   // Used by Historical Graph Controller
