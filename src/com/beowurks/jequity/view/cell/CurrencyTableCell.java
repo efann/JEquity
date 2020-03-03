@@ -10,7 +10,6 @@ package com.beowurks.jequity.view.cell;
 
 import com.beowurks.jequity.utility.Misc;
 import javafx.scene.control.TableCell;
-import javafx.scene.paint.Color;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -33,11 +32,28 @@ public class CurrencyTableCell extends TableCell<Object, Double>
 
     if ((tnItem == null) || tlEmpty)
     {
+      this.setText(null);
       return;
     }
 
     this.setText(Misc.getCurrencyFormat().format(tnItem));
-    this.setTextFill((tnItem >= 0) ? Color.BLACK : Color.RED);
+    if (tnItem >= 0)
+    {
+      if (this.getStyleClass().indexOf("FinancialTableNegative") != -1)
+      {
+        this.getStyleClass().remove("FinancialTableNegative");
+      }
+      this.getStyleClass().add("FinancialTablePositive");
+    }
+    else
+    {
+      if (this.getStyleClass().indexOf("FinancialTablePositive") != -1)
+      {
+        this.getStyleClass().remove("FinancialTablePositive");
+      }
+      this.getStyleClass().add("FinancialTableNegative");
+    }
+
   }
   // ---------------------------------------------------------------------------------------------------------------------
 
