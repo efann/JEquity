@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2019, Beowurks
+ * Copyright(c) 2008-2020, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
@@ -8,30 +8,36 @@
 
 package com.beowurks.jequity.view.cell;
 
-import com.beowurks.jequity.utility.Misc;
+import javafx.scene.control.TableCell;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-// From http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
-public class IntegerTableCell extends NumberTableCell<Object, Integer>
+public class NumberTableCell<S, T> extends TableCell<S, T>
 {
+  private final static String NEGATIVE_VALUE_STYLE = "FinancialTableNegative";
+  private final static String POSITIVE_VALUE_STYLE = "FinancialTablePositive";
+
   // ---------------------------------------------------------------------------------------------------------------------
-
-  @Override
-  protected void updateItem(final Integer tnItem, final boolean tlEmpty)
+  protected void setStyleClass(final Number tnValue)
   {
-    super.updateItem(tnItem, tlEmpty);
-
-
-    if ((tnItem == null) || tlEmpty)
+    if (tnValue.doubleValue() >= 0.0)
     {
-      this.setText(null);
-      return;
+      if (this.getStyleClass().indexOf(NumberTableCell.NEGATIVE_VALUE_STYLE) != -1)
+      {
+        this.getStyleClass().remove(NumberTableCell.NEGATIVE_VALUE_STYLE);
+      }
+      this.getStyleClass().add(NumberTableCell.POSITIVE_VALUE_STYLE);
+    }
+    else
+    {
+      if (this.getStyleClass().indexOf(NumberTableCell.POSITIVE_VALUE_STYLE) != -1)
+      {
+        this.getStyleClass().remove(NumberTableCell.POSITIVE_VALUE_STYLE);
+      }
+      this.getStyleClass().add(NumberTableCell.NEGATIVE_VALUE_STYLE);
     }
 
-    this.setText(Misc.getIntegerFormat().format(tnItem));
-    this.setStyleClass(tnItem);
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

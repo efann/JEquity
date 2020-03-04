@@ -9,13 +9,12 @@
 package com.beowurks.jequity.view.cell;
 
 import com.beowurks.jequity.utility.Misc;
-import javafx.scene.control.TableCell;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // From http://code.makery.ch/blog/javafx-8-tableview-cell-renderer/
-public class CurrencyTableCell extends TableCell<Object, Double>
+public class CurrencyTableCell extends NumberTableCell<Object, Double>
 {
   // ---------------------------------------------------------------------------------------------------------------------
   public CurrencyTableCell()
@@ -24,7 +23,6 @@ public class CurrencyTableCell extends TableCell<Object, Double>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-
   @Override
   protected void updateItem(final Double tnItem, final boolean tlEmpty)
   {
@@ -37,22 +35,7 @@ public class CurrencyTableCell extends TableCell<Object, Double>
     }
 
     this.setText(Misc.getCurrencyFormat().format(tnItem));
-    if (tnItem >= 0)
-    {
-      if (this.getStyleClass().indexOf("FinancialTableNegative") != -1)
-      {
-        this.getStyleClass().remove("FinancialTableNegative");
-      }
-      this.getStyleClass().add("FinancialTablePositive");
-    }
-    else
-    {
-      if (this.getStyleClass().indexOf("FinancialTablePositive") != -1)
-      {
-        this.getStyleClass().remove("FinancialTablePositive");
-      }
-      this.getStyleClass().add("FinancialTableNegative");
-    }
+    this.setStyleClass(tnItem);
 
   }
   // ---------------------------------------------------------------------------------------------------------------------
