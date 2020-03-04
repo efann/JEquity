@@ -13,7 +13,7 @@ package com.beowurks.jequity.view.textfield;
 // ---------------------------------------------------------------------------------------------------------------------
 public class NumberTextField extends TextFieldPlus
 {
-  private final static String REGEX_NUMBER = "\\d{0,8}([\\.]\\d{0,6})?";
+  private final static String REGEX_NUMBER = "^[-+]?\\d{0,8}([\\.]\\d{0,6})?";
 
   // ---------------------------------------------------------------------------------------------------------------------
   public NumberTextField()
