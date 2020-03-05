@@ -53,6 +53,15 @@ public class TimerSummaryTable
 
   public static final TimerSummaryTable INSTANCE = new TimerSummaryTable();
 
+  private final static String SUMMARY_TOTAL = "SummaryTableTotal";
+  private final static String SUMMARY_RETIREMENT = "SummaryTableRetirements";
+  private final static String SUMMARY_TAX = "SummaryTaxStatus";
+  private final static String SUMMARY_OWNER = "SummaryTableOwnership";
+  private final static String SUMMARY_ACCOUNT = "SummaryTableAccount";
+  private final static String SUMMARY_TYPE = "SummaryTableType";
+  private final static String SUMMARY_CATEGORY = "SummaryTableCategory";
+  private final static String SUMMARY_REGULAR = "SummaryTableRegular";
+
   private final Vector<SummarySubAmount> foSummaryList = new Vector<>();
 
   private Timer foTimer = null;
@@ -90,44 +99,76 @@ public class TimerSummaryTable
         if (toItem == null)
         {
           this.setStyle("");
+          this.getStyleClass().clear();
           return;
         }
 
-        final TimerSummaryTable loThis = TimerSummaryTable.this;
+        final ObservableList<String> loStyle = this.getStyleClass();
         final String lcDescription = toItem.getSummaryDescription();
 
         // Fixed the issues with row highlighting.
         if (lcDescription.equals(Constants.SUMMARY_TABLE_TOTAL))
         {
-          this.getStyleClass().add("SummaryTableTotal");
+          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_TOTAL) == -1)
+          {
+            loStyle.add(TimerSummaryTable.SUMMARY_TOTAL);
+          }
         }
         else if ((lcDescription.equals(Constants.SUMMARY_TABLE_RETIREMENT)) || (lcDescription.equals(Constants.SUMMARY_TABLE_NON_RETIREMENT)))
         {
-          this.getStyleClass().add("SummaryTableRetirements");
+          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_RETIREMENT) == -1)
+          {
+            loStyle.add(TimerSummaryTable.SUMMARY_RETIREMENT);
+          }
         }
         // Tax Status
         else if ((lcDescription.startsWith("Tax")) && (lcDescription.contains("(Total)")))
         {
-          this.getStyleClass().add("SummaryTaxStatus");
+          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_TAX) == -1)
+          {
+            loStyle.add(TimerSummaryTable.SUMMARY_TAX);
+          }
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_OWNERSHIP))
         {
-          this.getStyleClass().add("SummaryTableOwnership");
+          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_OWNER) == -1)
+          {
+            loStyle.add(TimerSummaryTable.SUMMARY_OWNER);
+          }
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_ACCOUNT))
         {
-          this.getStyleClass().add("SummaryTableAccount");
+          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_ACCOUNT) == -1)
+          {
+            loStyle.add(TimerSummaryTable.SUMMARY_ACCOUNT);
+          }
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_TYPE))
         {
-          this.getStyleClass().add("SummaryTableType");
+          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_TYPE) == -1)
+          {
+            loStyle.add(TimerSummaryTable.SUMMARY_TYPE);
+          }
         }
         else if (lcDescription.equals(Constants.SUMMARY_TABLE_CATEGORY))
         {
-          this.getStyleClass().add("SummaryTableCategory");
+          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_CATEGORY) == -1)
+          {
+            loStyle.add(TimerSummaryTable.SUMMARY_CATEGORY);
+          }
+        }
+        // This is key: otherwise, some non-visible cell (till you scroll) might get assigned
+        // one of the above styles. Weird.
+        else
+        {
+          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_REGULAR) == -1)
+          {
+            loStyle.add(TimerSummaryTable.SUMMARY_REGULAR);
+          }
         }
       }
     });
+
 
   }
 

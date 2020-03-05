@@ -193,6 +193,10 @@
   -fx-alignment: center-right;
 }
 
+/*
+  By the way, from modena.css, each row in the table is a table-row-cell. Inside a table-row-cell
+  is any number of table-cell.
+*/
 .table-row-cell:selected
 {
   -fx-background-color: steelblue;
@@ -204,60 +208,62 @@
   -fx-fill: white;
 }
 
-.SummaryTableTotal
-{
-  -fx-background-color: wheat;
-  -fx-text-fill: black;
-}
-
 .SummaryTableRetirements
 {
   -fx-background-color: white;
-  -fx-text-fill: black;
 }
 
 .SummaryTaxStatus
 {
   -fx-background-color: lightyellow;
-  -fx-text-fill: black;
 }
 
-.SummaryTableOwnership
+.SummaryTableRetirements .text,
+.SummaryTaxStatus .text
 {
-  -fx-background-color: lightblue;
-  -fx-text-fill: black;
-  -fx-font-weight: bold;
+  -fx-fill: black;
 }
 
-.SummaryTableAccount
-{
-  -fx-background-color: lightcyan;
-  -fx-text-fill: black;
-  -fx-font-weight: bold;
-}
-
-.SummaryTableType
-{
-  -fx-background-color: lightgray;
-  -fx-text-fill: black;
-  -fx-font-weight: bold;
-}
-
+.SummaryTableTotal,
+.SummaryTableOwnership,
+.SummaryTableAccount,
+.SummaryTableType,
 .SummaryTableCategory
 {
   -fx-background-color: lightgray;
-  -fx-text-fill: black;
+}
+
+.SummaryTableTotal .text,
+.SummaryTableOwnership .text,
+.SummaryTableAccount .text,
+.SummaryTableType .text,
+.SummaryTableCategory .text
+{
+  -fx-fill: black;
   -fx-font-weight: bold;
+  -fx-font-style: italic;
 }
 
-.FinancialTablePositive
+.SummaryTableRegular
 {
-  -fx-text-fill: black;
+  -fx-background-color: white;
 }
 
-.FinancialTableNegative
+.SummaryTableRegular .text
 {
-  -fx-text-fill: red;
+  -fx-fill: black;
+  -fx-font-weight: null;
+  -fx-font-style: null;
+}
+
+.FinancialTablePositive .text
+{
+  -fx-fill: black;
+}
+
+.FinancialTableNegative .text
+{
+  -fx-fill: red;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
