@@ -68,12 +68,12 @@
                      maxWidth="450"/>
 
       <Label text="Shares" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="RIGHT"/>
-      <NumberTextField fx:id="txtShares" GridPane.columnIndex="1" GridPane.rowIndex="6" prefWidth="100"
-                       maxWidth="100"/>
+      <NumberTextField fx:id="txtShares" GridPane.columnIndex="1" GridPane.rowIndex="6" prefWidth="125"
+                       maxWidth="125"/>
 
       <Label text="Price, $" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.halignment="RIGHT"/>
       <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7">
-        <NumberTextField fx:id="txtPrice" prefWidth="100" maxWidth="100"/>
+        <NumberTextField fx:id="txtPrice" prefWidth="125" maxWidth="125"/>
         <Label fx:id="lblTotal"/>
       </HBox>
 

@@ -8,6 +8,8 @@
 
 package com.beowurks.jequity.view.textfield;
 
+import java.text.NumberFormat;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -15,11 +17,14 @@ public class NumberTextField extends TextFieldPlus
 {
   private final static String REGEX_NUMBER = "^[-+]?\\d{0,8}([\\.]\\d{0,6})?";
 
+  private NumberFormat foNumberTextFormat;
+
   // ---------------------------------------------------------------------------------------------------------------------
   public NumberTextField()
   {
     super();
 
+    this.setupFormatters();
     this.setupListeners();
   }
 
@@ -28,20 +33,36 @@ public class NumberTextField extends TextFieldPlus
   {
     super(tcText);
 
+    this.setupFormatters();
     this.setupListeners();
+  }
+
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected void setupFormatters()
+  {
+    this.foNumberTextFormat = NumberFormat.getNumberInstance();
+    // In the regex expression, REGEX_NUMBER, the max decimal is 6.
+    this.foNumberTextFormat.setMaximumFractionDigits(6);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupListeners()
   {
+    // This listener occurs when typing in the field or when setting to a complete
+    // value, like when scrolling through the grid. Sometimes, a number is passed, like
+    // -1.3423477784501E7 which is -13423477.784501.
     this.textProperty().addListener((observable, oldValue, newValue) ->
     {
       String lcValue = newValue;
 
       if (!lcValue.matches(NumberTextField.REGEX_NUMBER))
       {
-        // Strip out all but the numbers and decimal point.
-        lcValue = lcValue.replaceAll("[^0-9.]", "");
+        lcValue = this.foNumberTextFormat.format(Double.parseDouble(lcValue));
+
+        // Strip out all but the numbers, decimal point and minus sign.
+        lcValue = lcValue.replaceAll("[^\\d.-]", "");
+
         // If now okay, then replace the text with the correct value.
         if (lcValue.matches(NumberTextField.REGEX_NUMBER))
         {
