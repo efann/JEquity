@@ -23,10 +23,12 @@ import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
 import com.beowurks.jequity.view.cell.DoubleTableCell;
+import com.beowurks.jequity.view.cell.StringCurrencyTableCell;
 import com.beowurks.jequity.view.cell.TaxStatusTableCell;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
 import com.beowurks.jequity.view.table.TableViewPlus;
+import com.beowurks.jequity.view.tablerow.SummaryTableRow;
 import com.beowurks.jequity.view.textarea.TextAreaPlus;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.NumberTextField;
@@ -310,8 +312,12 @@ public class TabFinancialController extends TabModifyController implements Event
     this.colSummaryDescription.setCellValueFactory(new PropertyValueFactory<SummaryProperty, String>("summarydescription"));
     this.colSummaryAmount.setCellValueFactory(new PropertyValueFactory<SummaryProperty, String>("summaryamount"));
 
+    this.colSummaryAmount.setCellFactory(tc -> new StringCurrencyTableCell());
+
     this.colSummaryDescription.setSortable(false);
     this.colSummaryAmount.setSortable(false);
+
+    this.tblSummary.setRowFactory(loTable -> new SummaryTableRow());
 
     this.tblSummary.getItems().clear();
   }

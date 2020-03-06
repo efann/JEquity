@@ -8,54 +8,47 @@
 
 package com.beowurks.jequity.view.cell;
 
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableCell;
-
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class NumberTableCell<S, T> extends TableCell<S, T>
+// This class could be currency or blank or some text. It's used in the Amount, $ column of the Summary Table.
+public class StringCurrencyTableCell extends NumberTableCell<Object, String>
 {
-  private final static String NEGATIVE_VALUE_STYLE = "FinancialTableNegative";
-  private final static String POSITIVE_VALUE_STYLE = "FinancialTablePositive";
-
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void setStyleClass(final Number tnValue)
+  public StringCurrencyTableCell()
   {
-    if (tnValue.doubleValue() >= 0.0)
-    {
-      this.removeClass(NumberTableCell.NEGATIVE_VALUE_STYLE);
-      this.addClass(NumberTableCell.POSITIVE_VALUE_STYLE);
-    }
-    else
-    {
-      this.removeClass(NumberTableCell.POSITIVE_VALUE_STYLE);
-      this.addClass(NumberTableCell.NEGATIVE_VALUE_STYLE);
-    }
-
+    super();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void removeClass(final String tcClass)
+  @Override
+  protected void updateItem(final String tcItem, final boolean tlEmpty)
   {
-    final ObservableList<String> loClasses = this.getStyleClass();
+    super.updateItem(tcItem, tlEmpty);
 
-    if (loClasses.indexOf(tcClass) != -1)
+    if ((tcItem == null) || tlEmpty)
     {
-      loClasses.remove(tcClass);
+      this.setText("");
+      return;
     }
 
-  }
+    this.setText(tcItem);
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void addClass(final String tcClass)
-  {
-    final ObservableList<String> loClasses = this.getStyleClass();
+    // Strip out all but the numbers, decimal point and minus sign.
+    final String lcClean = tcItem.replaceAll("[^\\d.-]", "");
 
-    if (loClasses.indexOf(tcClass) == -1)
+    Double lnValue = 1.0;
+    try
     {
-      loClasses.add(tcClass);
+      lnValue = Double.parseDouble(lcClean);
     }
+    catch (final NumberFormatException loErr)
+    {
+      // Just set to a non-negative value
+      lnValue = 1.0;
+    }
+
+    this.setStyleClass(lnValue);
 
   }
   // ---------------------------------------------------------------------------------------------------------------------

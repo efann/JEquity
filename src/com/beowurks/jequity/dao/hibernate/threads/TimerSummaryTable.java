@@ -18,7 +18,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TableRow;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -84,91 +83,6 @@ public class TimerSummaryTable
     {
       this.foSummaryTable.setItems(this.foDataList);
     }
-
-    if (this.foSummaryTable.getRowFactory() != null)
-    {
-      return;
-    }
-
-    this.foSummaryTable.setRowFactory(loTable -> new TableRow<SummaryProperty>()
-    {
-      @Override
-      public void updateItem(final SummaryProperty toItem, final boolean tlEmpty)
-      {
-        super.updateItem(toItem, tlEmpty);
-        if (toItem == null)
-        {
-          this.setStyle("");
-          this.getStyleClass().clear();
-          return;
-        }
-
-        final ObservableList<String> loStyle = this.getStyleClass();
-        final String lcDescription = toItem.getSummaryDescription();
-
-        // Fixed the issues with row highlighting.
-        if (lcDescription.equals(Constants.SUMMARY_TABLE_TOTAL))
-        {
-          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_TOTAL) == -1)
-          {
-            loStyle.add(TimerSummaryTable.SUMMARY_TOTAL);
-          }
-        }
-        else if ((lcDescription.equals(Constants.SUMMARY_TABLE_RETIREMENT)) || (lcDescription.equals(Constants.SUMMARY_TABLE_NON_RETIREMENT)))
-        {
-          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_RETIREMENT) == -1)
-          {
-            loStyle.add(TimerSummaryTable.SUMMARY_RETIREMENT);
-          }
-        }
-        // Tax Status
-        else if ((lcDescription.startsWith("Tax")) && (lcDescription.contains("(Total)")))
-        {
-          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_TAX) == -1)
-          {
-            loStyle.add(TimerSummaryTable.SUMMARY_TAX);
-          }
-        }
-        else if (lcDescription.equals(Constants.SUMMARY_TABLE_OWNERSHIP))
-        {
-          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_OWNER) == -1)
-          {
-            loStyle.add(TimerSummaryTable.SUMMARY_OWNER);
-          }
-        }
-        else if (lcDescription.equals(Constants.SUMMARY_TABLE_ACCOUNT))
-        {
-          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_ACCOUNT) == -1)
-          {
-            loStyle.add(TimerSummaryTable.SUMMARY_ACCOUNT);
-          }
-        }
-        else if (lcDescription.equals(Constants.SUMMARY_TABLE_TYPE))
-        {
-          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_TYPE) == -1)
-          {
-            loStyle.add(TimerSummaryTable.SUMMARY_TYPE);
-          }
-        }
-        else if (lcDescription.equals(Constants.SUMMARY_TABLE_CATEGORY))
-        {
-          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_CATEGORY) == -1)
-          {
-            loStyle.add(TimerSummaryTable.SUMMARY_CATEGORY);
-          }
-        }
-        // This is key: otherwise, some non-visible cell (till you scroll) might get assigned
-        // one of the above styles. Weird.
-        else
-        {
-          if (loStyle.indexOf(TimerSummaryTable.SUMMARY_REGULAR) == -1)
-          {
-            loStyle.add(TimerSummaryTable.SUMMARY_REGULAR);
-          }
-        }
-      }
-    });
-
 
   }
 
