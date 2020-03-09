@@ -15,7 +15,7 @@ import java.text.NumberFormat;
 // ---------------------------------------------------------------------------------------------------------------------
 public class NumberTextField extends TextFieldPlus
 {
-  private final static String REGEX_NUMBER = "^[-+]?\\d{0,8}([\\.]\\d{0,6})?";
+  private final static String REGEX_NUMBER = "^[-+]?\\d{0,8}([.]\\d{0,6})?";
 
   private NumberFormat foNumberTextFormat;
 
@@ -58,10 +58,19 @@ public class NumberTextField extends TextFieldPlus
 
       if (!lcValue.matches(NumberTextField.REGEX_NUMBER))
       {
-        lcValue = this.foNumberTextFormat.format(Double.parseDouble(lcValue));
-
         // Strip out all but the numbers, decimal point and minus sign.
         lcValue = lcValue.replaceAll("[^\\d.-]", "");
+
+        double lnValue = 0.0;
+        try
+        {
+          lnValue = Double.parseDouble(lcValue);
+          lcValue = this.foNumberTextFormat.format(lnValue);
+        }
+        catch (NumberFormatException loErr)
+        {
+          lcValue = oldValue;
+        }
 
         // If now okay, then replace the text with the correct value.
         if (lcValue.matches(NumberTextField.REGEX_NUMBER))
