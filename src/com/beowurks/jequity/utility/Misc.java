@@ -732,12 +732,10 @@ public final class Misc
   {
     final List<String> laFontNames = Font.getFamilies();
 
-    final int lnFonts = laFontNames.size();
-
-    for (int i = 0; i < lnFonts; ++i)
+    for (final String laFontName : laFontNames)
     {
       // Font family names appear to be case-sensitive as they are returned in proper title case.
-      if (laFontNames.get(i).equals(tcFontFamily))
+      if (laFontName.equals(tcFontFamily))
       {
         return (true);
       }

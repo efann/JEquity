@@ -67,7 +67,7 @@ public class NumberTextField extends TextFieldPlus
           lnValue = Double.parseDouble(lcValue);
           lcValue = this.foNumberTextFormat.format(lnValue);
         }
-        catch (NumberFormatException loErr)
+        catch (final NumberFormatException loErr)
         {
           lcValue = oldValue;
         }

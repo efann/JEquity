@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 // The schema is set in the configuration file. This way, the schema can be specific
 // to the database. For example, MySQL doesn't have a schema in the traditional sense:
@@ -126,27 +127,27 @@ public class SymbolEntity implements Serializable
 
     final SymbolEntity that = (SymbolEntity) o;
 
-    if (this.description != null ? !this.description.equals(that.description) : that.description != null)
+    if (!Objects.equals(this.description, that.description))
     {
       return (false);
     }
-    if (this.lasttrade != null ? !this.lasttrade.equals(that.lasttrade) : that.lasttrade != null)
+    if (!Objects.equals(this.lasttrade, that.lasttrade))
     {
       return (false);
     }
-    if (this.symbol != null ? !this.symbol.equals(that.symbol) : that.symbol != null)
+    if (!Objects.equals(this.symbol, that.symbol))
     {
       return (false);
     }
-    if (this.tradetime != null ? !this.tradetime.equals(that.tradetime) : that.tradetime != null)
+    if (!Objects.equals(this.tradetime, that.tradetime))
     {
       return (false);
     }
-    if (this.comments != null ? !this.comments.equals(that.comments) : that.comments != null)
+    if (!Objects.equals(this.comments, that.comments))
     {
       return (false);
     }
-    return this.historicalinfo != null ? this.historicalinfo.equals(that.historicalinfo) : that.historicalinfo == null;
+    return Objects.equals(this.historicalinfo, that.historicalinfo);
   }
 
   @Override

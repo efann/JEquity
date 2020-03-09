@@ -193,10 +193,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     this.lnkAlphaVantageMessage.setOnAction(this);
 
-    final int lnCount = this.faSeriesVisibility.length;
-    for (int i = 0; i < lnCount; ++i)
+    for (final CheckBoxPlus loCheckBoxPlus : this.faSeriesVisibility)
     {
-      this.faSeriesVisibility[i].setOnAction(this);
+      loCheckBoxPlus.setOnAction(this);
     }
   }
 
@@ -388,9 +387,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private void updateOnComboBoxSelect()
   {
     final int lnCount = this.faSeriesVisibility.length;
-    for (int i = 0; i < lnCount; ++i)
+    for (final CheckBoxPlus loCheckBoxPlus : this.faSeriesVisibility)
     {
-      this.faSeriesVisibility[i].setSelected(true);
+      loCheckBoxPlus.setSelected(true);
     }
 
     if (!this.readXML())

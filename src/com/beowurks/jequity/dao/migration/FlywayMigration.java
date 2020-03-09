@@ -134,7 +134,7 @@ public final class FlywayMigration
       loResultSet = toConfiguration.getDataSource().getConnection().getMetaData().getTables(null, null, Constants.FLYWAY_LEGACY_SCHEMA_HISTORY_TABLE, null);
       llLegacyFound = loResultSet.next();
     }
-    catch (final java.sql.SQLException loErr)
+    catch (final java.sql.SQLException ignored)
     {
     }
     finally

@@ -23,6 +23,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
 // The schema is set in the configuration file. This way, the schema can be specific
 // to the database. For example, MySQL doesn't have a schema in the traditional sense:
@@ -246,59 +247,59 @@ public class FinancialEntity implements Serializable
 
     final FinancialEntity that = (FinancialEntity) toObject;
 
-    if (this.account != null ? !this.account.equals(that.account) : that.account != null)
+    if (!Objects.equals(this.account, that.account))
     {
       return (false);
     }
-    if (this.category != null ? !this.category.equals(that.category) : that.category != null)
+    if (!Objects.equals(this.category, that.category))
     {
       return (false);
     }
-    if (this.comments != null ? !this.comments.equals(that.comments) : that.comments != null)
+    if (!Objects.equals(this.comments, that.comments))
     {
       return (false);
     }
-    if (this.description != null ? !this.description.equals(that.description) : that.description != null)
+    if (!Objects.equals(this.description, that.description))
     {
       return (false);
     }
-    if (this.financialid != null ? !this.financialid.equals(that.financialid) : that.financialid != null)
+    if (!Objects.equals(this.financialid, that.financialid))
     {
       return (false);
     }
-    if (this.groupid != null ? !this.groupid.equals(that.groupid) : that.groupid != null)
+    if (!Objects.equals(this.groupid, that.groupid))
     {
       return (false);
     }
-    if (this.price != null ? !this.price.equals(that.price) : that.price != null)
+    if (!Objects.equals(this.price, that.price))
     {
       return (false);
     }
-    if (this.retirement != null ? !this.retirement.equals(that.retirement) : that.retirement != null)
+    if (!Objects.equals(this.retirement, that.retirement))
     {
       return (false);
     }
-    if (this.ownership != null ? !this.ownership.equals(that.ownership) : that.ownership != null)
+    if (!Objects.equals(this.ownership, that.ownership))
     {
       return (false);
     }
-    if (this.taxstatus != null ? !this.taxstatus.equals(that.taxstatus) : that.taxstatus != null)
+    if (!Objects.equals(this.taxstatus, that.taxstatus))
     {
       return (false);
     }
-    if (this.shares != null ? !this.shares.equals(that.shares) : that.shares != null)
+    if (!Objects.equals(this.shares, that.shares))
     {
       return (false);
     }
-    if (this.symbol != null ? !this.symbol.equals(that.symbol) : that.symbol != null)
+    if (!Objects.equals(this.symbol, that.symbol))
     {
       return (false);
     }
-    if (this.type != null ? !this.type.equals(that.type) : that.type != null)
+    if (!Objects.equals(this.type, that.type))
     {
       return (false);
     }
-    return this.valuationdate != null ? this.valuationdate.equals(that.valuationdate) : that.valuationdate == null;
+    return Objects.equals(this.valuationdate, that.valuationdate);
   }
 
   @Override

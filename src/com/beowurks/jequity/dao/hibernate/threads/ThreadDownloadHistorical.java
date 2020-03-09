@@ -388,11 +388,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   // ---------------------------------------------------------------------------------------------------------------------
   private Object getSeries(final JSONArray taJSONInfo)
   {
-    final Iterator<Object> loIterator = taJSONInfo.iterator();
 
-    while (loIterator.hasNext())
+    for (final Object loElement : taJSONInfo)
     {
-      final Object loElement = loIterator.next();
       if (loElement instanceof JSONObject)
       {
         final JSONObject loTopObject = (JSONObject) loElement;

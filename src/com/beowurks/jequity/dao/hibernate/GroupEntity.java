@@ -22,6 +22,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Objects;
 
 // The schema is set in the configuration file. This way, the schema can be specific
 // to the database. For example, MySQL doesn't have a schema in the traditional sense:
@@ -76,11 +77,11 @@ public class GroupEntity implements Serializable
 
     final GroupEntity that = (GroupEntity) toObject;
 
-    if (this.description != null ? !this.description.equals(that.description) : that.description != null)
+    if (!Objects.equals(this.description, that.description))
     {
       return (false);
     }
-    return this.groupid != null ? this.groupid.equals(that.groupid) : that.groupid == null;
+    return (Objects.equals(this.groupid, that.groupid));
   }
 
   @Override
