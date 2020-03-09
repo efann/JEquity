@@ -224,7 +224,8 @@ public class ThreadRestore extends ThreadBase implements Runnable
             }
           }
 
-          Misc.setStatusText(String.format("Restoring %s: %s. . . .", lcGroupDescription, loEntity.getDescription()), lnRow / lnRows);
+          // By using a primitive double case, I'm getting rid of the 'integer division in floating-point context' warning.
+          Misc.setStatusText(String.format("Restoring %s: %s. . . .", lcGroupDescription, loEntity.getDescription()), lnRow / (double) lnRows);
 
           loPreparedStatement.setInt(1, loEntity.getGroupID());
           loPreparedStatement.setString(2, loEntity.getDescription());

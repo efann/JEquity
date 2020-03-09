@@ -248,15 +248,14 @@ public class MainFormController implements EventHandler<ActionEvent>
       }
       else
       {
-        final StringBuilder lcMessage = new StringBuilder();
-        lcMessage.append(String.format("Your %s system is missing the %s font.\n", System.getProperty("os.name"), lcFont));
-        lcMessage.append("By the way, this font is standard on Windows and Mac OS X.\n");
-        lcMessage.append("If you're using Linux, try running the following commands:\n\n");
-        lcMessage.append("\tsudo apt install ttf-mscorefonts-installer\n");
-        lcMessage.append("\tsudo fc-cache -f -v\n\n");
-        lcMessage.append("Or google 'ubuntu install arial' or 'linux install arial'");
+        final String lcMessage = String.format("Your %s system is missing the %s font.\n", System.getProperty("os.name"), lcFont) +
+          "By the way, this font is standard on Windows and Mac OS X.\n" +
+          "If you're using Linux, try running the following commands:\n\n" +
+          "\tsudo apt install ttf-mscorefonts-installer\n" +
+          "\tsudo fc-cache -f -v\n\n" +
+          "Or google 'ubuntu install arial' or 'linux install arial'";
 
-        Misc.errorMessage(lcMessage.toString());
+        Misc.errorMessage(lcMessage);
       }
     }
     else if (loCurrentTab == this.tabHistorical)

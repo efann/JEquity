@@ -139,7 +139,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
         llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
         if (llOkay)
         {
-          loTrackDatesUsed.append(lcMarker + ",");
+          loTrackDatesUsed.append(lcMarker).append(",");
         }
 
       }
@@ -151,7 +151,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
         llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
         if (llOkay)
         {
-          loTrackDatesUsed.append(lcMarker + ",");
+          loTrackDatesUsed.append(lcMarker).append(",");
         }
       }
 

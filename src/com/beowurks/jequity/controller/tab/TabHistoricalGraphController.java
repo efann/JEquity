@@ -386,7 +386,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // -----------------------------------------------------------------------------
   private void updateOnComboBoxSelect()
   {
-    final int lnCount = this.faSeriesVisibility.length;
     for (final CheckBoxPlus loCheckBoxPlus : this.faSeriesVisibility)
     {
       loCheckBoxPlus.setSelected(true);
