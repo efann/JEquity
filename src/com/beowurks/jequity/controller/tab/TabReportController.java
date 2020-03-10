@@ -23,7 +23,6 @@ import org.hibernate.jdbc.Work;
 
 import javax.swing.SwingUtilities;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -51,7 +50,7 @@ public class TabReportController
     loSession.doWork(new Work()
     {
       @Override
-      public void execute(final Connection toConnection) throws SQLException
+      public void execute(final Connection toConnection)
       {
         try
         {

@@ -246,7 +246,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
             final XYChart.Data loData = (XYChart.Data) loObject;
 
             final javafx.scene.Node loNode = loData.getNode();
-            if ((loNode != null) && (loNode instanceof StackPane))
+            // No need to also check for null as that won't be an instance of StackPane.
+            if (loNode instanceof StackPane)
             {
               final StackPane loStackPane = (StackPane) loNode;
               // From https://stackoverflow.com/questions/39658056/how-do-i-change-the-size-of-a-chart-symbol-in-a-javafx-scatter-chart
@@ -481,7 +482,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       this.btnAnalyze.setDisable(true);
       final StringKeyItem loItem = this.cboStocks.getSelectedItem();
 
-      this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%)", loItem.getDescription(), loItem.getKey()), true);
+      this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%s)", loItem.getDescription(), loItem.getKey()), true);
 
       return;
     }

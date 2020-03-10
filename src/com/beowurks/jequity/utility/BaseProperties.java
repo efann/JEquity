@@ -42,12 +42,7 @@ public class BaseProperties
   private String fcFileName;
   private String fcDirectory;
   private String fcFullName;
-  private String fcLockFullName;
   private String fcHeader;
-
-  private boolean flLockActive = false;
-
-  private File foLockFile = null;
 
   private String fcKey = null;
 
@@ -97,7 +92,6 @@ public class BaseProperties
     this.flDisplayErrors = tlDisplayErrors;
 
     this.fcFullName = Misc.includeTrailingBackslash(tcDirectory) + this.fcFileName;
-    this.fcLockFullName = this.fcFullName + ".lck";
 
     if (tlReadProperties)
     {
@@ -122,64 +116,6 @@ public class BaseProperties
     {
       llOkay = false;
       Misc.infoMessage(loErr.getMessage());
-    }
-
-    return (llOkay);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  public boolean createLock()
-  {
-    boolean llOkay = true;
-
-    if (!this.flLockActive)
-    {
-      this.foLockFile = new File(this.fcLockFullName);
-      this.foLockFile.deleteOnExit();
-
-      try
-      {
-        llOkay = this.foLockFile.createNewFile();
-      }
-      catch (final IOException loErr)
-      {
-        llOkay = false;
-      }
-
-      this.flLockActive = llOkay;
-    }
-
-    return (llOkay);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  public boolean releaseLock()
-  {
-    boolean llOkay = true;
-
-    if (this.flLockActive)
-    {
-      if (this.foLockFile != null)
-      {
-        if (this.foLockFile.exists())
-        {
-          try
-          {
-            this.foLockFile.delete();
-          }
-          catch (final SecurityException ignored)
-          {
-          }
-        }
-
-        llOkay = !this.foLockFile.exists();
-        if (llOkay)
-        {
-          this.foLockFile = null;
-        }
-      }
-
-      this.flLockActive = !llOkay;
     }
 
     return (llOkay);

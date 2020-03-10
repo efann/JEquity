@@ -75,7 +75,7 @@ abstract public class MigrationHelper extends BaseJavaMigration
   }
 
   // -----------------------------------------------------------------------------
-  private String convertSQL(final String tcSQL) throws Exception
+  private String convertSQL(final String tcSQL)
   {
     final boolean llMySQL = this.isMySQL();
 

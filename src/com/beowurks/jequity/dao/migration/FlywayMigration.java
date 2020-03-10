@@ -153,19 +153,19 @@ public final class FlywayMigration
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected boolean isMySQL() throws Exception
+  protected boolean isMySQL()
   {
     return (this.foWhichDatabase.isMySQL());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected boolean isApacheDerby() throws Exception
+  protected boolean isApacheDerby()
   {
     return (this.foWhichDatabase.isApacheDerby());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected boolean isPostgreSQL() throws Exception
+  protected boolean isPostgreSQL()
   {
     return (this.foWhichDatabase.isPostgreSQL());
   }

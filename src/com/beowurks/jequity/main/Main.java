@@ -51,7 +51,7 @@ public class Main extends Application
 
   // ---------------------------------------------------------------------------------------------------------------------
   @Override
-  public void start(final Stage toPrimaryStage) throws Exception
+  public void start(final Stage toPrimaryStage)
   {
     try
     {

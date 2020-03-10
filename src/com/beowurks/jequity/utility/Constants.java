@@ -87,9 +87,9 @@ final public class Constants
   public final static IntegerKeyItem[] HISTORICAL_RANGE =
     {
       new IntegerKeyItem(Constants.HISTORICAL_5_DAYS, String.format("%d Days", Constants.HISTORICAL_5_DAYS)),
-      new IntegerKeyItem(Constants.HISTORICAL_1_MONTH, String.format("1 Month (30 days)", Constants.HISTORICAL_1_MONTH)),
-      new IntegerKeyItem(Constants.HISTORICAL_3_MONTHS, String.format("3 Month (91 days)", Constants.HISTORICAL_3_MONTHS)),
-      new IntegerKeyItem(Constants.HISTORICAL_6_MONTHS, String.format("6 Month (183 days)", Constants.HISTORICAL_6_MONTHS)),
+      new IntegerKeyItem(Constants.HISTORICAL_1_MONTH, String.format("1 Month (%d days)", Constants.HISTORICAL_1_MONTH)),
+      new IntegerKeyItem(Constants.HISTORICAL_3_MONTHS, String.format("3 Month (%d days)", Constants.HISTORICAL_3_MONTHS)),
+      new IntegerKeyItem(Constants.HISTORICAL_6_MONTHS, String.format("6 Month (%d days)", Constants.HISTORICAL_6_MONTHS)),
       new IntegerKeyItem(Constants.HISTORICAL_1_YEAR, String.format("1 Year (%d days)", Constants.HISTORICAL_1_YEAR)),
       new IntegerKeyItem(Constants.HISTORICAL_2_YEARS, String.format("2 Year (%d days)", Constants.HISTORICAL_2_YEARS)),
       new IntegerKeyItem(Constants.HISTORICAL_5_YEARS, String.format("5 Year (%d days)", Constants.HISTORICAL_5_YEARS)),

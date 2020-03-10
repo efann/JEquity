@@ -296,10 +296,10 @@ abstract public class TabModifyController extends TabBaseController
       }
       else if (loNode instanceof Pane)
       {
-        final Node loNodeRecursion = (this.findFocusedComponent((Pane) loNode));
+        final Control loNodeRecursion = (this.findFocusedComponent((Pane) loNode));
         if (loNodeRecursion != null)
         {
-          return ((Control) loNodeRecursion);
+          return (loNodeRecursion);
         }
       }
     }
