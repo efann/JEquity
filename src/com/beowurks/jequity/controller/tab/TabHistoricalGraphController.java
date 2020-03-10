@@ -33,8 +33,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import org.controlsfx.control.HyperlinkLabel;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -104,7 +107,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.setupXYDataSeries();
     this.setupCheckboxes();
     this.setupComboBoxes();
-    this.setupChart();
+    this.initializeChart();
 
     this.setupListeners();
   }
@@ -122,9 +125,21 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public CheckBoxPlus[] getCheckBoxesForSeriesVisibility()
+  {
+    return (this.faSeriesVisibility);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public String getSymbol()
   {
     return (this.fcCurrentSymbol);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public XYChart.Series<String, Double>[] getDataSeries()
+  {
+    return (this.faXYDataSeries);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -186,6 +201,77 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public void refreshChart()
+  {
+    final StringBuilder loStyles = new StringBuilder();
+    // Seems awkward to remove data and then re-add, but it works. There's not a setVisible()
+    // for each series.
+    final ObservableList<XYChart.Series> loData = this.chtLineChart.getData();
+    loData.clear();
+    final int lnLength = this.faSeriesVisibility.length;
+    for (int i = 0; i < lnLength; ++i)
+    {
+      if (this.faSeriesVisibility[i].isSelected())
+      {
+        loData.add(this.faXYDataSeries[i]);
+        final int lnSize = loData.size();
+        loStyles.append(this.getChartColorString(lnSize, this.faSeriesColors[i]));
+      }
+    }
+
+    if (loStyles.length() > 0)
+    {
+      this.chtLineChart.setStyle(loStyles.toString());
+    }
+
+    this.updateChartTooltips();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateChartTooltips()
+  {
+    // From https://stackoverflow.com/questions/14615590/javafx-linechart-hover-values
+    // loop through data and add tooltip
+    // THIS MUST BE DONE AFTER ADDING THE DATA TO THE CHART!
+    final int lnSeriesCount = this.chtLineChart.getData().size();
+    for (int i = 0; i < lnSeriesCount; ++i)
+    {
+      final Object loSeries = this.chtLineChart.getData().get(i);
+      if (loSeries instanceof XYChart.Series)
+      {
+        for (final Object loObject : ((XYChart.Series) loSeries).getData())
+        {
+          if (loObject instanceof XYChart.Data)
+          {
+            final XYChart.Data loData = (XYChart.Data) loObject;
+
+            final javafx.scene.Node loNode = loData.getNode();
+            if ((loNode != null) && (loNode instanceof StackPane))
+            {
+              final StackPane loStackPane = (StackPane) loNode;
+              // From https://stackoverflow.com/questions/39658056/how-do-i-change-the-size-of-a-chart-symbol-in-a-javafx-scatter-chart
+              loStackPane.setPrefWidth(7);
+              loStackPane.setPrefHeight(7);
+
+              // The uninstall just uses the node parameter, so you can just pass null:
+              //    public static void uninstall(Node node, Tooltip t) {
+              //      BEHAVIOR.uninstall(node);
+              //    }
+              Tooltip.uninstall(loStackPane, null);
+
+              final Tooltip loTooltip = new Tooltip("$ " + loData.getYValue() + " (" + loData.getXValue() + ")");
+
+              loTooltip.setShowDelay(Duration.millis(0));
+              Tooltip.install(loStackPane, loTooltip);
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   private void setupListeners()
   {
     this.btnAnalyze.setOnAction(this);
@@ -209,7 +295,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void setupChart()
+  private void initializeChart()
   {
     final StringBuilder loStyles = new StringBuilder();
     for (final XYChart.Series loSeries : this.faXYDataSeries)
@@ -241,7 +327,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.faXYDataSeries[3].setName("Close");
     this.faXYDataSeries[4] = new XYChart.Series();
     this.faXYDataSeries[4].setName("Adj Close");
-
 
     // From modena.css at https://gist.github.com/maxd/63691840fc372f22f470
     // which define CHART_COLOR_1 through CHART_COLOR_8
@@ -540,25 +625,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       if (((CheckBoxPlus) loSource).getParent() == this.hboxSeriesVisibility)
       {
-        final StringBuilder loStyles = new StringBuilder();
-        // Seems awkward, but it works.
-        final ObservableList<XYChart.Series> loData = this.chtLineChart.getData();
-        loData.clear();
-        final int lnLength = this.faSeriesVisibility.length;
-        for (int i = 0; i < lnLength; ++i)
-        {
-          if (this.faSeriesVisibility[i].isSelected())
-          {
-            loData.add(this.faXYDataSeries[i]);
-            final int lnSize = loData.size();
-            loStyles.append(this.getChartColorString(lnSize, this.faSeriesColors[i]));
-          }
-        }
-
-        if (loStyles.length() > 0)
-        {
-          this.chtLineChart.setStyle(loStyles.toString());
-        }
+        this.refreshChart();
       }
     }
 

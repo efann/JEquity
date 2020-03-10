@@ -12,13 +12,9 @@ import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -107,16 +103,17 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   private boolean updateChart()
   {
     final LineChart loChart = this.foTabHistoricalGraphController.getChart();
-    final int lnSize = loChart.getData().size();
+    final XYChart.Series<String, Double>[] laDataSeries = this.foTabHistoricalGraphController.getDataSeries();
+    final int lnDataSeriesTotal = laDataSeries.length;
 
     final StringBuilder loTrackDatesUsed = new StringBuilder(",");
     final HistoricalStartDateInfo loDateInfo = this.foTabHistoricalGraphController.getStartDateInfo();
 
     // From https://stackoverflow.com/questions/28850211/performance-issue-with-javafx-linechart-with-65000-data-points
-    final ArrayList<XYChart.Data<String, Number>>[] laTempList = new ArrayList[lnSize];
-    for (int i = 0; i < lnSize; i++)
+    final ArrayList<XYChart.Data<String, Double>>[] laPlotPoints = new ArrayList[lnDataSeriesTotal];
+    for (int i = 0; i < lnDataSeriesTotal; i++)
     {
-      laTempList[i] = new ArrayList<>();
+      laPlotPoints[i] = new ArrayList<>();
     }
 
     // By the way, I wanted to use the techniques found here;
@@ -167,7 +164,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       {
         final XYChart.Data loData = new XYChart.Data<>(lcDate, loElement.faNumbers[i]);
 
-        laTempList[i].add(loData);
+        laPlotPoints[i].add(loData);
       }
     }
 
@@ -181,48 +178,15 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       // https://stackoverflow.com/questions/49589889/all-labels-at-the-same-position-in-xaxis-barchart-javafx
       loChart.setAnimated(false);
 
-      for (int i = 0; i < lnSize; ++i)
+      // Update all of the series, whether they are visible or not.
+      // Important, as the refreshChart assumes that they are complete when toggling the CheckBoxes.
+      for (int i = 0; i < lnDataSeriesTotal; ++i)
       {
-        final XYChart.Series loSeries = (XYChart.Series) loChart.getData().get(i);
-        loSeries.getData().clear();
+        laDataSeries[i].getData().clear();
+        laDataSeries[i].getData().addAll(laPlotPoints[i]);
       }
 
-      for (int i = 0; i < lnSize; ++i)
-      {
-        final XYChart.Series loSeries = (XYChart.Series) loChart.getData().get(i);
-        loSeries.getData().addAll(laTempList[i]);
-      }
-
-      // From https://stackoverflow.com/questions/14615590/javafx-linechart-hover-values
-      //loop through data and add tooltip
-      //THIS MUST BE DONE AFTER ADDING THE DATA TO THE CHART!
-      for (int i = 0; i < lnSize; ++i)
-      {
-        final Object loSeries = loChart.getData().get(i);
-        if (loSeries instanceof XYChart.Series)
-        {
-          for (final Object loObject : ((XYChart.Series) loSeries).getData())
-          {
-            if (loObject instanceof XYChart.Data)
-            {
-              final XYChart.Data loData = (XYChart.Data) loObject;
-
-              final Node loNode = loData.getNode();
-              if ((loNode != null) && (loNode instanceof StackPane))
-              {
-                final StackPane loStackPane = (StackPane) loNode;
-                // From https://stackoverflow.com/questions/39658056/how-do-i-change-the-size-of-a-chart-symbol-in-a-javafx-scatter-chart
-                loStackPane.setPrefWidth(7);
-                loStackPane.setPrefHeight(7);
-
-                final Tooltip loTooltip = new Tooltip("$ " + loData.getYValue() + " (" + loData.getXValue() + ")");
-                loTooltip.setShowDelay(Duration.millis(0));
-                Tooltip.install(loStackPane, loTooltip);
-              }
-            }
-          }
-        }
-      }
+      this.foTabHistoricalGraphController.refreshChart();
     });
 
     Misc.setStatusText(0.0);
