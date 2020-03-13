@@ -12,9 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/JEquity.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/JEquity.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/install.install4j" beforeDir="false" afterPath="$PROJECT_DIR$/install/install.install4j" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,7 +229,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1533248145686" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/Temp/7zOC54EC0A5/modena.css" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libraries/commons-math3-3.6.1/commons-math3-3.6.1.jar!/" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -239,7 +238,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3376988" />
     <property name="recentsLimit" value="5" />
@@ -707,6 +706,8 @@
       <workItem from="1583517696135" duration="286000" />
       <workItem from="1583773451705" duration="24014000" />
       <workItem from="1583881718981" duration="133000" />
+      <workItem from="1584050920365" duration="408000" />
+      <workItem from="1584106555170" duration="2492000" />
     </task>
     <servers />
   </component>
@@ -743,30 +744,30 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="711" y="417" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583858612745" />
-    <state x="740" y="298" key="FileChooserDialogImpl" timestamp="1582833477916">
+    <state x="740" y="298" key="FileChooserDialogImpl" timestamp="1584110548099">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="740" y="298" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582833477916" />
-    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1583864015075">
+    <state x="740" y="298" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584110548099" />
+    <state width="933" height="277" key="GridCell.Tab.0.bottom" timestamp="1584051102385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583864015075" />
-    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1583864015075">
+    <state width="933" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584051102385" />
+    <state width="933" height="277" key="GridCell.Tab.0.center" timestamp="1584051102384">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583864015075" />
-    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1583864015075">
+    <state width="933" height="277" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584051102384" />
+    <state width="933" height="277" key="GridCell.Tab.0.left" timestamp="1584051102384">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583864015075" />
-    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1583864015075">
+    <state width="933" height="277" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584051102384" />
+    <state width="933" height="277" key="GridCell.Tab.0.right" timestamp="1584051102385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583864015075" />
-    <state x="463" y="185" key="SettingsEditor" timestamp="1583333857036">
+    <state width="933" height="277" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584051102385" />
+    <state x="463" y="185" key="SettingsEditor" timestamp="1584110566861">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="463" y="185" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583333857036" />
+    <state x="463" y="185" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584110566861" />
     <state x="612" y="158" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1582832869795">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
