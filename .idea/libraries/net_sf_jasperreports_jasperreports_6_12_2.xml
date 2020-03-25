@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="net.sf.jasperreports:jasperreports:6.12.2" type="repository">
+    <properties maven-id="net.sf.jasperreports:jasperreports:6.12.2" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/jasperreports-6.12.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-beanutils-1.9.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-collections-3.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-digester-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-collections4-4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/itext-2.1.7.js7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/bcprov-jdk15on-1.62.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/jcommon-1.0.23.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/jfreechart-1.0.19.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/ecj-4.4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/castor-xml-1.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/castor-core-1.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-lang3-3.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/javax.inject-1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/jackson-core-2.10.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/jackson-databind-2.10.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/jackson-annotations-2.10.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

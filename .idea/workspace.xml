@@ -12,8 +12,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/net_sf_jasperreports_jasperreports_6_12_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/JEquity.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/JEquity.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jasper_reports.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/arial.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/barcode4j-2.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-anim.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-awt-util.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-bridge.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-css.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-dom.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-ext.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-gvt.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-parser.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-script.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-svg-dom.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-svggen.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-util.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/batik-xml.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/castor-1.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/commons-beanutils-1.8.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/commons-collections-2.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/commons-digester-2.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/commons-logging-1.1.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/dom4j-1.6.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/geronimo-stax-api_1.0_spec-1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/itext-2.1.7.js1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/jackson-annotations-2.0.5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/jackson-core-2.0.5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/jackson-databind-2.0.5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/jasperreports-4.8.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/jcommon-1.0.15.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/jdtcore-3.1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/jfreechart-1.0.12.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/poi-3.7.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/poi-ooxml-3.7.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/poi-ooxml-schemas-3.7.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/stax-api-1.0.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/xml-apis-1.3.02.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/xml-apis-ext.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libraries/jasper-reports/xmlbeans-2.3.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/JRViewerBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/Summary.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/jasperreports/Summary.jasper" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +249,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path" value="D:\IntelliJ\JEquity\libraries\json" />
+    <property name="Downloaded.Files.Path" value="D:\IntelliJ\JEquity\libraries\jasperreports.6.12.2" />
     <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
@@ -707,7 +749,11 @@
       <workItem from="1583773451705" duration="24014000" />
       <workItem from="1583881718981" duration="133000" />
       <workItem from="1584050920365" duration="408000" />
-      <workItem from="1584106555170" duration="2492000" />
+      <workItem from="1584106555170" duration="3091000" />
+      <workItem from="1584553043115" duration="227000" />
+      <workItem from="1584553324199" duration="599000" />
+      <workItem from="1585158930082" duration="3744000" />
+      <workItem from="1585169665523" duration="263000" />
     </task>
     <servers />
   </component>
@@ -740,6 +786,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="765" y="259" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583297604219" />
+    <state x="690" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1585169879556">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="690" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585169879556" />
     <state x="711" y="417" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1583858612745">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -748,26 +798,30 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="740" y="298" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584110548099" />
-    <state width="933" height="277" key="GridCell.Tab.0.bottom" timestamp="1584051102385">
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1585169934331">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="933" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584051102385" />
-    <state width="933" height="277" key="GridCell.Tab.0.center" timestamp="1584051102384">
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585169934331" />
+    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1585169934331">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="933" height="277" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584051102384" />
-    <state width="933" height="277" key="GridCell.Tab.0.left" timestamp="1584051102384">
+    <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585169934331" />
+    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1585169934330">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="933" height="277" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584051102384" />
-    <state width="933" height="277" key="GridCell.Tab.0.right" timestamp="1584051102385">
+    <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585169934330" />
+    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1585169934331">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="933" height="277" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584051102385" />
-    <state x="463" y="185" key="SettingsEditor" timestamp="1584110566861">
+    <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585169934331" />
+    <state x="463" y="185" key="SettingsEditor" timestamp="1585162525655">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="463" y="185" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584110566861" />
+    <state x="463" y="185" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585162525655" />
+    <state x="687" y="509" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1585162407079">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="687" y="509" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585162407079" />
     <state x="612" y="158" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1582832869795">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

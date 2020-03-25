@@ -9,7 +9,6 @@
 package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
-import com.beowurks.jequity.view.jasperreports.JRViewerBase;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import net.sf.jasperreports.engine.JRException;
@@ -18,6 +17,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 
@@ -34,7 +34,6 @@ public class TabReportController
   private SwingNode rptSwingNode;
 
   private JasperPrint foJPSummary;
-  private JRViewerBase foJRViewerSummary;
 
   // ---------------------------------------------------------------------------------------------------------------------
   public void refreshReport(final boolean tlShowPrintDialog)
@@ -68,15 +67,9 @@ public class TabReportController
 
           loThis.foJPSummary = JasperFillManager.fillReport(loJasperReport, loHashMap, toConnection);
 
-          if (loThis.foJRViewerSummary == null)
-          {
-            loThis.foJRViewerSummary = new JRViewerBase(loThis.foJPSummary);
-            loThis.rptSwingNode.setContent(loThis.foJRViewerSummary);
-          }
-          else
-          {
-            loThis.foJRViewerSummary.loadReport(loThis.foJPSummary);
-          }
+          // No longer a loJRViewerSummary.loadReport(loThis.foJPSummary) function
+          final JRViewer loJRViewerSummary = new JRViewer(loThis.foJPSummary);
+          loThis.rptSwingNode.setContent(loJRViewerSummary);
 
           if (tlShowPrintDialog)
           {
