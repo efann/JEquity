@@ -9,6 +9,7 @@
 package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
+import com.beowurks.jequity.utility.Misc;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import net.sf.jasperreports.engine.JRException;
@@ -78,7 +79,7 @@ public class TabReportController
         }
         catch (final JRException loErr)
         {
-          loErr.printStackTrace();
+          Misc.showStackTraceInMessage(loErr, "Error in Report");
         }
       }
     });
