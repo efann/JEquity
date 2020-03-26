@@ -15,6 +15,8 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.HyperlinkLabel?>
@@ -31,23 +33,43 @@
                     style="-fx-font-weight: bold;"/>
   </GridPane>
 
-  <Label fx:id="lblTitleMessage" AnchorPane.topAnchor="160.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+  <Label fx:id="lblTitleMessage" AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
          maxWidth="Infinity" alignment="CENTER"
          text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
 
-  <!-- And, yes, make sure that createSymbols is set to true so that the Tooltips will work. -->
-  <LineChart fx:id="chtLineChart" AnchorPane.topAnchor="180.0" AnchorPane.bottomAnchor="20.0"
-             AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" createSymbols="true">
-    <effect>
-      <DropShadow color="GRAY" height="70" width="70"/>
-    </effect>
-    <xAxis>
-      <CategoryAxis side="BOTTOM" label="Date"/>
-    </xAxis>
-    <yAxis>
-      <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
-    </yAxis>
-  </LineChart>
+  <TabPane fx:id="taGraphPane" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
+           AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+
+    <Tab fx:id="tabData" text="Data" closable="false">
+
+      <!-- And, yes, make sure that createSymbols is set to true so that the Tooltips will work. -->
+      <LineChart fx:id="chtLineChartData" createSymbols="true">
+        <effect>
+          <DropShadow color="GRAY" height="70" width="70"/>
+        </effect>
+        <xAxis>
+          <CategoryAxis side="BOTTOM" label="Date"/>
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
+        </yAxis>
+      </LineChart>
+    </Tab>
+    <Tab fx:id="tabTrends" text="Trends" closable="false">
+      <LineChart fx:id="chtLineChartTrends" createSymbols="true">
+        <effect>
+          <DropShadow color="GRAY" height="70" width="70"/>
+        </effect>
+        <xAxis>
+          <CategoryAxis side="BOTTOM" label="Date"/>
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
+        </yAxis>
+      </LineChart>
+    </Tab>
+  </TabPane>
+
   <HBox fx:id="hboxSeriesVisibility" style="-fx-alignment: center" spacing="20" AnchorPane.BottomAnchor="0.0"
         AnchorPane.leftAnchor="10.0"
         AnchorPane.rightAnchor="10.0">

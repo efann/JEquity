@@ -72,11 +72,15 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private HyperlinkLabel lnkAlphaVantageMessage;
 
   @FXML
-  private LineChart chtLineChart;
+  private LineChart chtLineChartData;
+
+  @FXML
+  private LineChart chtLineChartTrends;
 
   private final ObservableList<GroupProperty> foDataList = FXCollections.observableArrayList();
 
-  private XYChart.Series<String, Double>[] faXYDataSeries;
+  private XYChart.Series<String, Double>[] faXYDataSeriesData;
+  private XYChart.Series<String, Double>[] faXYDataSeriesTrends;
 
   private String fcCurrentDescription = "";
   private String fcCurrentSymbol = "";
@@ -107,7 +111,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.setupXYDataSeries();
     this.setupCheckboxes();
     this.setupComboBoxes();
-    this.initializeChart();
+    this.initializeCharts();
 
     this.setupListeners();
   }
@@ -119,9 +123,15 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public LineChart getChart()
+  public LineChart getChartData()
   {
-    return (this.chtLineChart);
+    return (this.chtLineChartData);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public LineChart getChartTrends()
+  {
+    return (this.chtLineChartTrends);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -137,9 +147,15 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public XYChart.Series<String, Double>[] getDataSeries()
+  public XYChart.Series<String, Double>[] getDataSeriesData()
   {
-    return (this.faXYDataSeries);
+    return (this.faXYDataSeriesData);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public XYChart.Series<String, Double>[] getDataSeriesTrends()
+  {
+    return (this.faXYDataSeriesTrends);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -164,7 +180,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       lnIndex = 0;
     }
-
 
     final int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
     LocalDate loStart = this.getEndDate().minusDays(lnDays);
@@ -201,19 +216,26 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void refreshChart()
+  public void refreshCharts()
   {
+    // If you don't setAnimated(false), with an empty chart, you will receive an
+    //   Exception in thread "JavaFX Application Thread" java.lang.IllegalArgumentException: Duplicate series added
+    // Solution in https://stackoverflow.com/questions/32151435/javafx-duplicate-series-added
+    this.chtLineChartData.setAnimated(false);
+
     final StringBuilder loStyles = new StringBuilder();
     // Seems awkward to remove data and then re-add, but it works. There's not a setVisible()
     // for each series.
-    final ObservableList<XYChart.Series> loData = this.chtLineChart.getData();
+    final ObservableList<XYChart.Series> loData = this.chtLineChartData.getData();
+
     loData.clear();
-    final int lnLength = this.faSeriesVisibility.length;
-    for (int i = 0; i < lnLength; ++i)
+
+    final int lnCheckBoxesLength = this.faSeriesVisibility.length;
+    for (int i = 0; i < lnCheckBoxesLength; ++i)
     {
       if (this.faSeriesVisibility[i].isSelected())
       {
-        loData.add(this.faXYDataSeries[i]);
+        loData.add(this.faXYDataSeriesData[i]);
         final int lnSize = loData.size();
         loStyles.append(this.getChartColorString(lnSize, this.faSeriesColors[i]));
       }
@@ -221,7 +243,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     if (loStyles.length() > 0)
     {
-      this.chtLineChart.setStyle(loStyles.toString());
+      this.chtLineChartData.setStyle(loStyles.toString());
     }
 
     this.updateChartTooltips();
@@ -230,13 +252,20 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void updateChartTooltips()
   {
+    this.updateTooltips(this.chtLineChartData);
+    this.updateTooltips(this.chtLineChartTrends);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateTooltips(LineChart toChart)
+  {
     // From https://stackoverflow.com/questions/14615590/javafx-linechart-hover-values
     // loop through data and add tooltip
     // THIS MUST BE DONE AFTER ADDING THE DATA TO THE CHART!
-    final int lnSeriesCount = this.chtLineChart.getData().size();
+    final int lnSeriesCount = toChart.getData().size();
     for (int i = 0; i < lnSeriesCount; ++i)
     {
-      final Object loSeries = this.chtLineChart.getData().get(i);
+      final Object loSeries = toChart.getData().get(i);
       if (loSeries instanceof XYChart.Series)
       {
         for (final Object loObject : ((XYChart.Series) loSeries).getData())
@@ -296,19 +325,40 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void initializeChart()
+  private void initializeCharts()
   {
-    final StringBuilder loStyles = new StringBuilder();
-    for (final XYChart.Series loSeries : this.faXYDataSeries)
+    if (this.faSeriesColors.length < this.faXYDataSeriesTrends.length)
     {
-      this.chtLineChart.getData().add(loSeries);
-      final int lnSize = this.chtLineChart.getData().size();
+      System.err.println("this.faSeriesColors.length < this.faXYDataSeriesTrends.length. PLEASE CORRECT.");
+      return;
+    }
+
+    final StringBuilder loStyles = new StringBuilder();
+    for (final XYChart.Series loSeries : this.faXYDataSeriesData)
+    {
+      this.chtLineChartData.getData().add(loSeries);
+      final int lnSize = this.chtLineChartData.getData().size();
       loStyles.append(this.getChartColorString(lnSize, this.faSeriesColors[lnSize - 1]));
     }
 
     if (loStyles.length() > 0)
     {
-      this.chtLineChart.setStyle(loStyles.toString());
+      this.chtLineChartData.setStyle(loStyles.toString());
+    }
+
+    // Reset.
+    loStyles.setLength(0);
+
+    for (final XYChart.Series loSeries : this.faXYDataSeriesTrends)
+    {
+      this.chtLineChartTrends.getData().add(loSeries);
+      final int lnSize = this.chtLineChartTrends.getData().size();
+      loStyles.append(this.getChartColorString(lnSize, this.faSeriesColors[lnSize - 1]));
+    }
+
+    if (loStyles.length() > 0)
+    {
+      this.chtLineChartTrends.setStyle(loStyles.toString());
     }
 
   }
@@ -316,25 +366,34 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupXYDataSeries()
   {
-    this.faXYDataSeries = new XYChart.Series[5];
+    this.faXYDataSeriesData = new XYChart.Series[5];
 
-    this.faXYDataSeries[0] = new XYChart.Series();
-    this.faXYDataSeries[0].setName("Open");
-    this.faXYDataSeries[1] = new XYChart.Series();
-    this.faXYDataSeries[1].setName("High");
-    this.faXYDataSeries[2] = new XYChart.Series();
-    this.faXYDataSeries[2].setName("Low");
-    this.faXYDataSeries[3] = new XYChart.Series();
-    this.faXYDataSeries[3].setName("Close");
-    this.faXYDataSeries[4] = new XYChart.Series();
-    this.faXYDataSeries[4].setName("Adj Close");
+    this.faXYDataSeriesData[0] = new XYChart.Series();
+    this.faXYDataSeriesData[0].setName("Open");
+    this.faXYDataSeriesData[1] = new XYChart.Series();
+    this.faXYDataSeriesData[1].setName("High");
+    this.faXYDataSeriesData[2] = new XYChart.Series();
+    this.faXYDataSeriesData[2].setName("Low");
+    this.faXYDataSeriesData[3] = new XYChart.Series();
+    this.faXYDataSeriesData[3].setName("Close");
+    this.faXYDataSeriesData[4] = new XYChart.Series();
+    this.faXYDataSeriesData[4].setName("Adj Close");
 
+    //*****
+    this.faXYDataSeriesTrends = new XYChart.Series[2];
+
+    this.faXYDataSeriesTrends[0] = new XYChart.Series();
+    this.faXYDataSeriesTrends[0].setName("Least Squares");
+    this.faXYDataSeriesTrends[1] = new XYChart.Series();
+    this.faXYDataSeriesTrends[1].setName("Non-Cubic Spline");
+
+    //*****
     // From modena.css at https://gist.github.com/maxd/63691840fc372f22f470
     // which define CHART_COLOR_1 through CHART_COLOR_8
     this.faSeriesColors = new String[5];
-    this.faSeriesColors[0] = "#f3622d";
-    this.faSeriesColors[1] = "#fba71b";
-    this.faSeriesColors[2] = "#57b757";
+    this.faSeriesColors[0] = "#57b757";
+    this.faSeriesColors[1] = "#f3622d";
+    this.faSeriesColors[2] = "#fba71b";
     this.faSeriesColors[3] = "#41a9c9";
     this.faSeriesColors[4] = "#4258c9";
   }
@@ -342,18 +401,18 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupCheckboxes()
   {
-    if (this.faXYDataSeries == null)
+    if (this.faXYDataSeriesData == null)
     {
       System.err.println("EROR: setupCheckboxes muse be called after setupXYDataSeries");
       return;
     }
 
-    final int lnCount = this.faXYDataSeries.length;
+    final int lnCount = this.faXYDataSeriesData.length;
     this.faSeriesVisibility = new CheckBoxPlus[lnCount];
 
     for (int i = 0; i < lnCount; ++i)
     {
-      final CheckBoxPlus loCheckBox = new CheckBoxPlus(this.faXYDataSeries[i].getName());
+      final CheckBoxPlus loCheckBox = new CheckBoxPlus(this.faXYDataSeriesData[i].getName());
       this.faSeriesVisibility[i] = loCheckBox;
 
       this.hboxSeriesVisibility.getChildren().add(loCheckBox);
@@ -626,7 +685,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       if (((CheckBoxPlus) loSource).getParent() == this.hboxSeriesVisibility)
       {
-        this.refreshChart();
+        this.refreshCharts();
       }
     }
 

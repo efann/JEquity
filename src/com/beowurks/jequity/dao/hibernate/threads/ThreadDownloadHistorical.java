@@ -76,7 +76,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     }
 
     this.foTabHistoricalGraphController = toTabHistoricalGraphController;
-    this.chtLineChart = this.foTabHistoricalGraphController.getChart();
+    this.chtLineChart = this.foTabHistoricalGraphController.getChartData();
     this.fcSymbol = this.foTabHistoricalGraphController.getSymbol();
 
     this.foThread = new Thread(this);
@@ -102,8 +102,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   // ---------------------------------------------------------------------------------------------------------------------
   private boolean updateChart()
   {
-    final LineChart loChart = this.foTabHistoricalGraphController.getChart();
-    final XYChart.Series<String, Double>[] laDataSeries = this.foTabHistoricalGraphController.getDataSeries();
+    final LineChart loChart = this.foTabHistoricalGraphController.getChartData();
+    final XYChart.Series<String, Double>[] laDataSeries = this.foTabHistoricalGraphController.getDataSeriesData();
     final int lnDataSeriesTotal = laDataSeries.length;
 
     final StringBuilder loTrackDatesUsed = new StringBuilder(",");
@@ -186,7 +186,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
         laDataSeries[i].getData().addAll(laPlotPoints[i]);
       }
 
-      this.foTabHistoricalGraphController.refreshChart();
+      this.foTabHistoricalGraphController.refreshCharts();
     });
 
     Misc.setStatusText(0.0);

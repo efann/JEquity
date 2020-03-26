@@ -26,7 +26,7 @@
     </VBox>
   </top>
   <center>
-    <TabPane fx:id="tabPane">
+    <TabPane fx:id="tabMainPane">
       <Tab fx:id="tabFinancial" text="Financial" closable="false">
         <fx:include source="TabFinancial.fxml" fx:id="tabFinancialMain"/>
       </Tab>

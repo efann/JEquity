@@ -80,7 +80,7 @@ public class MainFormController implements EventHandler<ActionEvent>
   //********************************************************************************
 
   @FXML
-  private TabPane tabPane;
+  private TabPane tabMainPane;
 
   @FXML
   private Tab tabFinancial;
@@ -154,7 +154,7 @@ public class MainFormController implements EventHandler<ActionEvent>
 
     this.menuMainController.getMenuPrint().setOnAction(toActionEvent -> MainFormController.this.printReport());
 
-    this.tabPane.getSelectionModel().selectedItemProperty().addListener(
+    this.tabMainPane.getSelectionModel().selectedItemProperty().addListener(
       (toObservableValue, toPrevious, toCurrent) -> this.refreshAllComponents(false)
     );
 
@@ -172,7 +172,7 @@ public class MainFormController implements EventHandler<ActionEvent>
   {
     this.flShowPrintDialog = true;
 
-    final SingleSelectionModel<Tab> loSelection = this.tabPane.getSelectionModel();
+    final SingleSelectionModel<Tab> loSelection = this.tabMainPane.getSelectionModel();
     if (loSelection.getSelectedItem() == this.tabReports)
     {
       this.refreshAllComponentsFunction(false);
@@ -221,7 +221,7 @@ public class MainFormController implements EventHandler<ActionEvent>
 
     HibernateUtil.INSTANCE.setGroupID(loGroupID);
 
-    final Tab loCurrentTab = this.tabPane.getSelectionModel().getSelectedItem();
+    final Tab loCurrentTab = this.tabMainPane.getSelectionModel().getSelectedItem();
 
     if (loCurrentTab == this.tabFinancial)
     {
