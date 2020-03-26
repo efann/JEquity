@@ -176,6 +176,10 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       // https://stackoverflow.com/questions/48995257/javafx-barchart-xaxis-labels-bad-positioning
       // With a possible solution
       // https://stackoverflow.com/questions/49589889/all-labels-at-the-same-position-in-xaxis-barchart-javafx
+      //
+      // By the way, you could create a LineChartPlus which sets animate to false. However, I had problems with FXML files
+      // as I couldn't create default constructor and setAnimated is called in different spots of JavaFX code. So I just
+      // set when needed.
       loChart.setAnimated(false);
 
       // Update all of the series, whether they are visible or not.

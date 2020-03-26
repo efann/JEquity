@@ -221,6 +221,10 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // If you don't setAnimated(false), with an empty chart, you will receive an
     //   Exception in thread "JavaFX Application Thread" java.lang.IllegalArgumentException: Duplicate series added
     // Solution in https://stackoverflow.com/questions/32151435/javafx-duplicate-series-added
+    //
+    // By the way, you could create a LineChartPlus which sets animate to false. However, I had problems with FXML files
+    // as I couldn't create default constructor and setAnimated is called in different spots of JavaFX code. So I just
+    // set when needed.
     this.chtLineChartData.setAnimated(false);
 
     final StringBuilder loStyles = new StringBuilder();
