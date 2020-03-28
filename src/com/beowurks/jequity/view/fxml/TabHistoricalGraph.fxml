@@ -38,7 +38,8 @@
          text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
 
   <TabPane fx:id="taGraphPane" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
-           AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+           AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+           style="-fx-border-color: lightgray; -fx-border-width: 1; -fx-border-style: solid;">
 
     <Tab fx:id="tabData" text="Data" closable="false">
 
@@ -56,17 +57,23 @@
       </LineChart>
     </Tab>
     <Tab fx:id="tabTrends" text="Trends" closable="false">
-      <LineChart fx:id="chtLineChartTrends" createSymbols="true">
-        <effect>
-          <DropShadow color="GRAY" height="70" width="70"/>
-        </effect>
-        <xAxis>
-          <CategoryAxis side="BOTTOM" label="Date"/>
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
-        </yAxis>
-      </LineChart>
+      <VBox>
+        <Label fx:id="lblWarning" maxWidth="Infinity" alignment="CENTER"
+               text="Do not use for financial planning. People nor technology can predict the future. Ever."
+               style="-fx-font-weight: bold;"/>
+
+        <LineChart fx:id="chtLineChartTrends" createSymbols="true">
+          <effect>
+            <DropShadow color="GRAY" height="70" width="70"/>
+          </effect>
+          <xAxis>
+            <CategoryAxis side="BOTTOM" label="Date"/>
+          </xAxis>
+          <yAxis>
+            <NumberAxis side="LEFT" label="Dollars, $" forceZeroInRange="false"/>
+          </yAxis>
+        </LineChart>
+      </VBox>
     </Tab>
   </TabPane>
 
