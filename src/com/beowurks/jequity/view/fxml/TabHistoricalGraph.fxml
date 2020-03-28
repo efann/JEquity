@@ -37,9 +37,8 @@
          maxWidth="Infinity" alignment="CENTER"
          text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
 
-  <TabPane fx:id="taGraphPane" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
-           AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
-           style="-fx-border-color: lightgray; -fx-border-width: 1; -fx-border-style: solid;">
+  <TabPane fx:id="tabGraphPane" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
+           AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
 
     <Tab fx:id="tabData" text="Data" closable="false">
 
@@ -59,8 +58,7 @@
     <Tab fx:id="tabTrends" text="Trends" closable="false">
       <VBox>
         <Label fx:id="lblWarning" maxWidth="Infinity" alignment="CENTER"
-               text="Do not use for financial planning. People nor technology can predict the future. Ever."
-               style="-fx-font-weight: bold;"/>
+               text="Do not use for financial planning. People nor technology can predict the future. Ever."/>
 
         <LineChart fx:id="chtLineChartTrends" createSymbols="true">
           <effect>

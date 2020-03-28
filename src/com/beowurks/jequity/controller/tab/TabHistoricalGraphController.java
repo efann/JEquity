@@ -261,7 +261,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void updateTooltips(LineChart toChart)
+  private void updateTooltips(final LineChart toChart)
   {
     // From https://stackoverflow.com/questions/14615590/javafx-linechart-hover-values
     // loop through data and add tooltip
