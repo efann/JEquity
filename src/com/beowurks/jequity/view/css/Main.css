@@ -494,8 +494,9 @@
   -fx-pref-width: Infinity;
 }
 
-#lblWarning
+#lblHistoricalWarning
 {
+  -fx-font-size: 1.2em;
   -fx-font-weight: bold;
 }
 

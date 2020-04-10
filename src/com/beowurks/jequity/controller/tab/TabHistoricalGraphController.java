@@ -167,13 +167,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public LocalDate getEndDate()
-  {
-    return (LocalDate.now());
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  public HistoricalStartDateInfo getStartDateInfo()
+  public HistoricalDateInfo getHistoricalDateInfo()
   {
     int lnIndex = this.cboRanges.getSelectedIndex();
     if (lnIndex < 0)
@@ -181,11 +175,14 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       lnIndex = 0;
     }
 
-    final int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
-    LocalDate loStart = this.getEndDate().minusDays(lnDays);
+    final LocalDate loCurrent = LocalDate.now();
+    final HistoricalDateInfo loDateInfo = new HistoricalDateInfo();
+    loDateInfo.foLocalEndDateData = loCurrent;
 
-    final HistoricalStartDateInfo loDateInfo = new HistoricalStartDateInfo();
-    loDateInfo.fnDataDisplay = Constants.HISTORICAL_EVERY_DAY;
+    final int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
+    LocalDate loStart = loCurrent.minusDays(lnDays);
+
+    loDateInfo.fnDisplaySequenceData = Constants.HISTORICAL_EVERY_DAY;
     loDateInfo.foLocalStartDate = loStart;
 
     // Get next start of the week or Monday.
@@ -196,7 +193,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         loStart = loStart.plusDays(1);
       }
 
-      loDateInfo.fnDataDisplay = Constants.HISTORICAL_EVERY_WEEK;
+      loDateInfo.fnDisplaySequenceData = Constants.HISTORICAL_EVERY_WEEK;
       loDateInfo.foLocalStartDate = loStart;
     }
 
@@ -208,7 +205,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         loStart = loStart.plusDays(1);
       }
 
-      loDateInfo.fnDataDisplay = Constants.HISTORICAL_EVERY_MONTH;
+      loDateInfo.fnDisplaySequenceData = Constants.HISTORICAL_EVERY_MONTH;
       loDateInfo.foLocalStartDate = loStart;
     }
 

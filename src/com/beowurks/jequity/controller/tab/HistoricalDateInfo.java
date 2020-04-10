@@ -13,10 +13,16 @@ import java.time.LocalDate;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class HistoricalStartDateInfo
+public class HistoricalDateInfo
 {
+  // Start date is the same for both Data and Trends
   public LocalDate foLocalStartDate;
-  public int fnDataDisplay;
+
+  public int fnDisplaySequenceData;
+  public LocalDate foLocalEndDateData;
+
+  public int fnDisplaySequenceTrends;
+  public LocalDate foLocalEndDateTrends;
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

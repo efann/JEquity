@@ -7,7 +7,7 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
-import com.beowurks.jequity.controller.tab.HistoricalStartDateInfo;
+import com.beowurks.jequity.controller.tab.HistoricalDateInfo;
 import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
@@ -94,20 +94,20 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     if (this.downloadHistoricalFile())
     {
-      this.updateChart();
+      this.updateChartData();
     }
 
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private boolean updateChart()
+  private boolean updateChartData()
   {
     final LineChart loChart = this.foTabHistoricalGraphController.getChartData();
     final XYChart.Series<String, Double>[] laDataSeries = this.foTabHistoricalGraphController.getDataSeriesData();
     final int lnDataSeriesTotal = laDataSeries.length;
 
     final StringBuilder loTrackDatesUsed = new StringBuilder(",");
-    final HistoricalStartDateInfo loDateInfo = this.foTabHistoricalGraphController.getStartDateInfo();
+    final HistoricalDateInfo loDateInfo = this.foTabHistoricalGraphController.getHistoricalDateInfo();
 
     // From https://stackoverflow.com/questions/28850211/performance-issue-with-javafx-linechart-with-65000-data-points
     final ArrayList<XYChart.Data<String, Double>>[] laPlotPoints = new ArrayList[lnDataSeriesTotal];
@@ -123,11 +123,11 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     {
       boolean llOkay = false;
 
-      if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_DAY)
+      if (loDateInfo.fnDisplaySequenceData == Constants.HISTORICAL_EVERY_DAY)
       {
         llOkay = true;
       }
-      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_WEEK)
+      else if (loDateInfo.fnDisplaySequenceData == Constants.HISTORICAL_EVERY_WEEK)
       {
         final String lcMarker = String.format("%2d%d", loElement.foDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR), loElement.foDate.getYear());
 
@@ -140,7 +140,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
         }
 
       }
-      else if (loDateInfo.fnDataDisplay == Constants.HISTORICAL_EVERY_MONTH)
+      else if (loDateInfo.fnDisplaySequenceData == Constants.HISTORICAL_EVERY_MONTH)
       {
         final String lcMarker = loElement.foDate.format(this.foMonthTrackerDateFormat);
         // If not found, then use and add to the loTrackDatesUsed so that
@@ -296,10 +296,10 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       return (false);
     }
 
-    final HistoricalStartDateInfo loDateInfo = this.foTabHistoricalGraphController.getStartDateInfo();
+    final HistoricalDateInfo loDateInfo = this.foTabHistoricalGraphController.getHistoricalDateInfo();
     final LocalDate ldStart = loDateInfo.foLocalStartDate;
-    final LocalDate ldEnd = this.foTabHistoricalGraphController.getEndDate();
-
+    final LocalDate ldEnd =loDateInfo.foLocalEndDateData;
+      
     final Object loSeries = this.getSeries(laJSONInfo);
     if (loSeries == null)
     {
