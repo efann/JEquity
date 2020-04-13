@@ -83,8 +83,7 @@ final public class Constants
   public final static int HISTORICAL_1_YEAR = 365;
   public final static int HISTORICAL_2_YEARS = 730;
   public final static int HISTORICAL_5_YEARS = 1825;
-  // Most of the data appears to go back around 20 years so 25 should be more than enough.
-  public final static int HISTORICAL_25_YEARS = 9125;
+  public final static int HISTORICAL_MAX_YEARS = Integer.MAX_VALUE;
 
   public final static IntegerKeyItem[] HISTORICAL_RANGE =
     {
@@ -95,7 +94,7 @@ final public class Constants
       new IntegerKeyItem(Constants.HISTORICAL_1_YEAR, String.format("1 Year (%d days)", Constants.HISTORICAL_1_YEAR)),
       new IntegerKeyItem(Constants.HISTORICAL_2_YEARS, String.format("2 Year (%d days)", Constants.HISTORICAL_2_YEARS)),
       new IntegerKeyItem(Constants.HISTORICAL_5_YEARS, String.format("5 Year (%d days)", Constants.HISTORICAL_5_YEARS)),
-      new IntegerKeyItem(Constants.HISTORICAL_25_YEARS, "Maximum (All available data)")
+      new IntegerKeyItem(Constants.HISTORICAL_MAX_YEARS, "Maximum (All available data)")
     };
 
 
