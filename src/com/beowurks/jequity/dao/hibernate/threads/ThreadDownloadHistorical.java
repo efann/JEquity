@@ -298,8 +298,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     final HistoricalDateInfo loDateInfo = this.foTabHistoricalGraphController.getHistoricalDateInfo();
     final LocalDate ldStart = loDateInfo.foLocalStartDate;
-    final LocalDate ldEnd =loDateInfo.foLocalEndDateData;
-      
+    final LocalDate ldEnd = loDateInfo.foLocalEndDateData;
+
     final Object loSeries = this.getSeries(laJSONInfo);
     if (loSeries == null)
     {

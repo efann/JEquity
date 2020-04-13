@@ -13,11 +13,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/HistoricalStartDateInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/HistoricalDateInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabHistoricalGraphController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHistorical.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/ThreadDownloadHistorical.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/css/Main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/css/Main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/view/fxml/TabHistoricalGraph.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/utility/Constants.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,9 +62,6 @@
     </breakpoint_any>
     <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -207,7 +202,6 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -247,7 +241,7 @@
     <property name="project.structure.side.proportion" value="0.3376988" />
     <property name="recentsLimit" value="5" />
     <property name="run.code.analysis.last.selected.profile" value="aBeowurks" />
-    <property name="settings.editor.selected.configurable" value="copyright.filetypes.ActionScript" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -352,7 +346,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+    <configuration default="true" type="JetRunConfigurationType">
       <module name="JEquityFX" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -365,7 +359,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <option name="filePath" />
       <option name="vmParameters" />
       <option name="alternativeJrePath" />
@@ -724,25 +718,28 @@
       <workItem from="1585409822243" duration="898000" />
       <workItem from="1585431040174" duration="305000" />
       <workItem from="1585680217514" duration="3631000" />
-      <workItem from="1586376043613" duration="7987000" />
+      <workItem from="1586376043613" duration="8579000" />
+      <workItem from="1586803396486" duration="79000" />
+      <workItem from="1586803587432" duration="11000" />
+      <workItem from="1586804027701" duration="93000" />
+      <workItem from="1586804232190" duration="4694000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
@@ -773,26 +770,26 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="740" y="298" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1584110548099" />
-    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1586543537940">
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1586813987506">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586543537940" />
-    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1586543537939">
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586813987506" />
+    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1586813987506">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586543537939" />
-    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1586543537939">
+    <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586813987506" />
+    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1586813987506">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586543537939" />
-    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1586543537939">
+    <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586813987506" />
+    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1586813987506">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586543537939" />
-    <state x="463" y="185" key="SettingsEditor" timestamp="1585162525655">
+    <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586813987506" />
+    <state x="463" y="185" key="SettingsEditor" timestamp="1586804300520">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="463" y="185" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585162525655" />
+    <state x="463" y="185" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586804300520" />
     <state x="687" y="509" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1585162407079">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -805,10 +802,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="667" y="296" width="586" height="488" key="find.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585254833414" />
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1585246792393">
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1586813589719">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585246792393" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1586813589719" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

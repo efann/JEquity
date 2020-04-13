@@ -46,6 +46,7 @@ import org.w3c.dom.Node;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -175,11 +176,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       lnIndex = 0;
     }
 
+    final int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
+
     final LocalDate loCurrent = LocalDate.now();
     final HistoricalDateInfo loDateInfo = new HistoricalDateInfo();
     loDateInfo.foLocalEndDateData = loCurrent;
 
-    final int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
     LocalDate loStart = loCurrent.minusDays(lnDays);
 
     loDateInfo.fnDisplaySequenceData = Constants.HISTORICAL_EVERY_DAY;
@@ -207,7 +209,11 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
       loDateInfo.fnDisplaySequenceData = Constants.HISTORICAL_EVERY_MONTH;
       loDateInfo.foLocalStartDate = loStart;
+
     }
+
+    final long lnDaysDiffence = Math.min(ChronoUnit.DAYS.between(loStart, loCurrent), Constants.HISTORICAL_5_YEARS);
+    loDateInfo.foLocalEndDateTrends = loCurrent.plusDays(lnDaysDiffence);
 
     return (loDateInfo);
   }
