@@ -202,9 +202,11 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       laPlotPoints[i] = new ArrayList<>();
     }
 
-    LocalDate loTrack = loDateInfo.foLocalStartDate;
+    // Start with the 1st date of the data set, not the start date of loDateInfo. This will ensure matching
+    // the displayed start date of ChartData.
+    LocalDate loTrack = this.foDataList.get(0).foDate;
     final LocalDate loEnd = loDateInfo.foLocalEndDateTrends;
-    while (loTrack.compareTo(loEnd) <= 0)
+    while (!loTrack.isAfter(loEnd))
     {
       boolean llOkay = false;
 

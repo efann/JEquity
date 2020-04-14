@@ -182,9 +182,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final HistoricalDateInfo loDateInfo = new HistoricalDateInfo();
     loDateInfo.foLocalEndDateData = loCurrent;
 
-    // 1-1-1998 is a good start for the max data. No need for more than 22 years of data. And, actually, most
-    // of the data starts around the year 2000.
-    LocalDate loStart = (lnDays != Constants.HISTORICAL_MAX_YEARS) ? loCurrent.minusDays(lnDays) : LocalDate.of(1998, 1, 1);
+    LocalDate loStart = loCurrent.minusDays(lnDays);
 
     loDateInfo.fnDisplaySequenceData = Constants.HISTORICAL_EVERY_DAY;
     loDateInfo.fnDisplaySequenceTrends = Constants.HISTORICAL_EVERY_DAY;

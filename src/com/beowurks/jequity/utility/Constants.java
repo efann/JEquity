@@ -81,9 +81,11 @@ final public class Constants
   public final static int HISTORICAL_3_MONTHS = 91;
   public final static int HISTORICAL_6_MONTHS = 193;
   public final static int HISTORICAL_1_YEAR = 365;
-  public final static int HISTORICAL_2_YEARS = 730;
-  public final static int HISTORICAL_5_YEARS = 1825;
-  public final static int HISTORICAL_MAX_YEARS = Integer.MAX_VALUE;
+  public final static int HISTORICAL_2_YEARS = 2 * Constants.HISTORICAL_1_YEAR;
+  public final static int HISTORICAL_5_YEARS = 5 * Constants.HISTORICAL_1_YEAR;
+  // The data tends to go back around 20 years, so 40 years should cover everything. By the way,
+  // in this case, the start date will be the earliest in the actual data.
+  public final static int HISTORICAL_MAX_YEARS = 40 * Constants.HISTORICAL_1_YEAR;
 
   public final static IntegerKeyItem[] HISTORICAL_RANGE =
     {
