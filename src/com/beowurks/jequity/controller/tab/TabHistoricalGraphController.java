@@ -187,6 +187,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     LocalDate loStart = (lnDays != Constants.HISTORICAL_MAX_YEARS) ? loCurrent.minusDays(lnDays) : LocalDate.of(1998, 1, 1);
 
     loDateInfo.fnDisplaySequenceData = Constants.HISTORICAL_EVERY_DAY;
+    loDateInfo.fnDisplaySequenceTrends = Constants.HISTORICAL_EVERY_DAY;
+
     loDateInfo.foLocalStartDate = loStart;
 
     // Get next start of the week or Monday.
@@ -211,17 +213,37 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
       loDateInfo.fnDisplaySequenceData = Constants.HISTORICAL_EVERY_MONTH;
       loDateInfo.foLocalStartDate = loStart;
-
     }
 
     final long lnDaysDiffence = Math.min(ChronoUnit.DAYS.between(loStart, loCurrent), Constants.HISTORICAL_5_YEARS);
+
+    if ((lnDaysDiffence > Constants.HISTORICAL_1_YEAR) && (lnDaysDiffence <= Constants.HISTORICAL_5_YEARS))
+    {
+      loDateInfo.fnDisplaySequenceTrends = Constants.HISTORICAL_EVERY_WEEK;
+    }
+
+    if (lnDays > Constants.HISTORICAL_5_YEARS)
+    {
+      loDateInfo.fnDisplaySequenceTrends = Constants.HISTORICAL_EVERY_MONTH;
+    }
+
     loDateInfo.foLocalEndDateTrends = loCurrent.plusDays(lnDaysDiffence);
+
 
     return (loDateInfo);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public void refreshCharts()
+  {
+    this.refreshChartData();
+    this.refreshChartTrends();
+
+    this.updateChartTooltips();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void refreshChartData()
   {
     // If you don't setAnimated(false), with an empty chart, you will receive an
     //   Exception in thread "JavaFX Application Thread" java.lang.IllegalArgumentException: Duplicate series added
@@ -255,7 +277,40 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       this.chtLineChartData.setStyle(loStyles.toString());
     }
 
-    this.updateChartTooltips();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void refreshChartTrends()
+  {
+    // If you don't setAnimated(false), with an empty chart, you will receive an
+    //   Exception in thread "JavaFX Application Thread" java.lang.IllegalArgumentException: Duplicate series added
+    // Solution in https://stackoverflow.com/questions/32151435/javafx-duplicate-series-added
+    //
+    // By the way, you could create a LineChartPlus which sets animate to false. However, I had problems with FXML files
+    // as I couldn't create default constructor and setAnimated is called in different spots of JavaFX code. So I just
+    // set when needed.
+    this.chtLineChartTrends.setAnimated(false);
+
+    final StringBuilder loStyles = new StringBuilder();
+    // Seems awkward to remove data and then re-add, but it works. There's not a setVisible()
+    // for each series.
+    final ObservableList<XYChart.Series> loData = this.chtLineChartTrends.getData();
+
+    loData.clear();
+
+    final int lnLength = this.faXYDataSeriesTrends.length;
+    for (int i = 0; i < lnLength; ++i)
+    {
+      loData.add(this.faXYDataSeriesTrends[i]);
+      final int lnSize = loData.size();
+      loStyles.append(this.getChartColorString(lnSize, this.faSeriesColors[i]));
+    }
+
+    if (loStyles.length() > 0)
+    {
+      this.chtLineChartTrends.setStyle(loStyles.toString());
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

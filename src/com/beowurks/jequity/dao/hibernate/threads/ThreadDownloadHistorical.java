@@ -24,6 +24,7 @@ import org.jsoup.Jsoup;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.IsoFields;
@@ -95,6 +96,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     if (this.downloadHistoricalFile())
     {
       this.updateChartData();
+      this.updateChartTrends();
     }
 
   }
@@ -184,6 +186,106 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
       // Update all of the series, whether they are visible or not.
       // Important, as the refreshChart assumes that they are complete when toggling the CheckBoxes.
+      for (int i = 0; i < lnDataSeriesTotal; ++i)
+      {
+        laDataSeries[i].getData().clear();
+        laDataSeries[i].getData().addAll(laPlotPoints[i]);
+      }
+
+      this.foTabHistoricalGraphController.refreshCharts();
+    });
+
+    Misc.setStatusText(0.0);
+
+    return (true);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private boolean updateChartTrends()
+  {
+    final LineChart loChart = this.foTabHistoricalGraphController.getChartTrends();
+    final XYChart.Series<String, Double>[] laDataSeries = this.foTabHistoricalGraphController.getDataSeriesTrends();
+    final int lnDataSeriesTotal = laDataSeries.length;
+
+    final StringBuilder loTrackDatesUsed = new StringBuilder(",");
+    final HistoricalDateInfo loDateInfo = this.foTabHistoricalGraphController.getHistoricalDateInfo();
+
+    // From https://stackoverflow.com/questions/28850211/performance-issue-with-javafx-linechart-with-65000-data-points
+    final ArrayList<XYChart.Data<String, Double>>[] laPlotPoints = new ArrayList[lnDataSeriesTotal];
+    for (int i = 0; i < lnDataSeriesTotal; i++)
+    {
+      laPlotPoints[i] = new ArrayList<>();
+    }
+
+    final LocalDate loTrack = loDateInfo.foLocalStartDate;
+    final LocalDate loEnd = loDateInfo.foLocalEndDateTrends;
+    while (loTrack.compareTo(loEnd) <= 0)
+    {
+      boolean llOkay = false;
+
+      // Continue only if not a weekend date.
+      if ((loTrack.getDayOfWeek() != DayOfWeek.SATURDAY) && (loTrack.getDayOfWeek() != DayOfWeek.SUNDAY))
+      {
+        if (loDateInfo.fnDisplaySequenceTrends == Constants.HISTORICAL_EVERY_DAY)
+        {
+          llOkay = true;
+        }
+        else if (loDateInfo.fnDisplaySequenceTrends == Constants.HISTORICAL_EVERY_WEEK)
+        {
+          final String lcMarker = String.format("%2d%d", loTrack.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR), loTrack.getYear());
+
+          // If not found, then use and add to the loTrackDatesUsed so that
+          // no more days of that particular week will be used.
+          llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
+          if (llOkay)
+          {
+            loTrackDatesUsed.append(lcMarker).append(",");
+          }
+        }
+        else if (loDateInfo.fnDisplaySequenceTrends == Constants.HISTORICAL_EVERY_MONTH)
+        {
+          final String lcMarker = loTrack.format(this.foMonthTrackerDateFormat);
+          // If not found, then use and add to the loTrackDatesUsed so that
+          // no more days of that particular month will be used.
+          llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
+          if (llOkay)
+          {
+            loTrackDatesUsed.append(lcMarker).append(",");
+          }
+        }
+      }
+
+      if (llOkay)
+      {
+        final String lcDate = this.foXAxisFormat.format(loTrack);
+        // Now add the elements to the particular line.
+        for (int i = 0; i < lnDataSeriesTotal; ++i)
+        {
+          // No calculations just yet.
+          final XYChart.Data loData = new XYChart.Data<>(lcDate, i);
+
+          laPlotPoints[i].add(loData);
+        }
+      }
+
+      loTrack.plusDays(1);
+    }
+
+    // Must be run in the JavaFX thread, duh.
+    // Otherwise, you get java.util.ConcurrentModificationException exceptions.
+    Platform.runLater(() ->
+    {
+      // BUG ALERT!!!!!!!!!!
+      // https://stackoverflow.com/questions/48995257/javafx-barchart-xaxis-labels-bad-positioning
+      // With a possible solution
+      // https://stackoverflow.com/questions/49589889/all-labels-at-the-same-position-in-xaxis-barchart-javafx
+      //
+      // By the way, you could create a LineChartPlus which sets animate to false. However, I had problems with FXML files
+      // as I couldn't create default constructor and setAnimated is called in different spots of JavaFX code. So I just
+      // set when needed.
+      loChart.setAnimated(false);
+
+      // Update all of the series, whether they are visible or not.
       for (int i = 0; i < lnDataSeriesTotal; ++i)
       {
         laDataSeries[i].getData().clear();
