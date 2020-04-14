@@ -97,6 +97,14 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     {
       this.updateChartData();
       this.updateChartTrends();
+
+      // Must be run in the JavaFX thread, duh.
+      // Otherwise, you get java.util.ConcurrentModificationException exceptions.
+      Platform.runLater(() ->
+      {
+        this.foTabHistoricalGraphController.refreshCharts();
+      });
+
     }
 
   }
@@ -170,30 +178,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       }
     }
 
-    // Must be run in the JavaFX thread, duh.
-    // Otherwise, you get java.util.ConcurrentModificationException exceptions.
-    Platform.runLater(() ->
-    {
-      // BUG ALERT!!!!!!!!!!
-      // https://stackoverflow.com/questions/48995257/javafx-barchart-xaxis-labels-bad-positioning
-      // With a possible solution
-      // https://stackoverflow.com/questions/49589889/all-labels-at-the-same-position-in-xaxis-barchart-javafx
-      //
-      // By the way, you could create a LineChartPlus which sets animate to false. However, I had problems with FXML files
-      // as I couldn't create default constructor and setAnimated is called in different spots of JavaFX code. So I just
-      // set when needed.
-      loChart.setAnimated(false);
-
-      // Update all of the series, whether they are visible or not.
-      // Important, as the refreshChart assumes that they are complete when toggling the CheckBoxes.
-      for (int i = 0; i < lnDataSeriesTotal; ++i)
-      {
-        laDataSeries[i].getData().clear();
-        laDataSeries[i].getData().addAll(laPlotPoints[i]);
-      }
-
-      this.foTabHistoricalGraphController.refreshCharts();
-    });
+    this.resetDataSeries(loChart, laDataSeries, laPlotPoints);
 
     Misc.setStatusText(0.0);
 
@@ -217,7 +202,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       laPlotPoints[i] = new ArrayList<>();
     }
 
-    final LocalDate loTrack = loDateInfo.foLocalStartDate;
+    LocalDate loTrack = loDateInfo.foLocalStartDate;
     final LocalDate loEnd = loDateInfo.foLocalEndDateTrends;
     while (loTrack.compareTo(loEnd) <= 0)
     {
@@ -262,14 +247,27 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
         for (int i = 0; i < lnDataSeriesTotal; ++i)
         {
           // No calculations just yet.
-          final XYChart.Data loData = new XYChart.Data<>(lcDate, i);
+          final XYChart.Data loData = new XYChart.Data<>(lcDate, i + 12);
 
           laPlotPoints[i].add(loData);
         }
       }
 
-      loTrack.plusDays(1);
+      loTrack = loTrack.plusDays(1);
     }
+
+    this.resetDataSeries(loChart, laDataSeries, laPlotPoints);
+
+    Misc.setStatusText(0.0);
+
+    return (true);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void resetDataSeries(final LineChart toChart, final XYChart.Series<String, Double>[] taDataSeries,
+                               final ArrayList<XYChart.Data<String, Double>>[] taPlotPoints)
+  {
+    final int lnDataSeriesTotal = taDataSeries.length;
 
     // Must be run in the JavaFX thread, duh.
     // Otherwise, you get java.util.ConcurrentModificationException exceptions.
@@ -283,21 +281,16 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       // By the way, you could create a LineChartPlus which sets animate to false. However, I had problems with FXML files
       // as I couldn't create default constructor and setAnimated is called in different spots of JavaFX code. So I just
       // set when needed.
-      loChart.setAnimated(false);
+      toChart.setAnimated(false);
 
       // Update all of the series, whether they are visible or not.
       for (int i = 0; i < lnDataSeriesTotal; ++i)
       {
-        laDataSeries[i].getData().clear();
-        laDataSeries[i].getData().addAll(laPlotPoints[i]);
+        taDataSeries[i].getData().clear();
+        taDataSeries[i].getData().addAll(taPlotPoints[i]);
       }
 
-      this.foTabHistoricalGraphController.refreshCharts();
     });
-
-    Misc.setStatusText(0.0);
-
-    return (true);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
