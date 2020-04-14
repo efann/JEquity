@@ -6,24 +6,17 @@
  *
  */
 
-package com.beowurks.jequity.controller.tab;
+package com.beowurks.jequity.dao.hibernate.threads;
 
 import java.time.LocalDate;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class HistoricalDateInfo
+public class JSONDataElements
 {
-  // Start date is the same for both Data and Trends. However, it is only used by Data
-  // as Trends uses the start of the actual data.
-  public LocalDate foLocalStartDate;
-
-  public int fnDisplaySequenceData;
-  public LocalDate foLocalEndDateData;
-
-  public int fnDisplaySequenceTrends;
-  public LocalDate foLocalEndDateTrends;
+  public LocalDate foDate;
+  public final double[] faNumbers = new double[5];
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

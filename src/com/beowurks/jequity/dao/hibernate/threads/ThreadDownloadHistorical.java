@@ -9,6 +9,7 @@ package com.beowurks.jequity.dao.hibernate.threads;
 
 import com.beowurks.jequity.controller.tab.HistoricalDateInfo;
 import com.beowurks.jequity.controller.tab.TabHistoricalGraphController;
+import com.beowurks.jequity.utility.Calculations;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
@@ -40,15 +41,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   public static final ThreadDownloadHistorical INSTANCE = new ThreadDownloadHistorical();
 
   private String fcSymbol;
-  private LineChart<String, Number> chtLineChart;
 
-  private class DataElements
-  {
-    LocalDate foDate;
-    final double[] faNumbers = new double[5];
-  }
-
-  private final ArrayList<DataElements> foDataList = new ArrayList<>();
+  private final ArrayList<JSONDataElements> foJSONDataList = new ArrayList<>();
 
   private TabHistoricalGraphController foTabHistoricalGraphController;
 
@@ -77,7 +71,6 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     }
 
     this.foTabHistoricalGraphController = toTabHistoricalGraphController;
-    this.chtLineChart = this.foTabHistoricalGraphController.getChartData();
     this.fcSymbol = this.foTabHistoricalGraphController.getSymbol();
 
     this.foThread = new Thread(this);
@@ -110,7 +103,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private boolean updateChartData()
+  private void updateChartData()
   {
     final LineChart loChart = this.foTabHistoricalGraphController.getChartData();
     final XYChart.Series<String, Double>[] laDataSeries = this.foTabHistoricalGraphController.getDataSeriesData();
@@ -129,7 +122,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     // By the way, I wanted to use the techniques found here;
     // From https://stackoverflow.com/questions/46987823/javafx-line-chart-with-date-axis
     // However, I was having round off problems where 1,566,566,566,566 was converted to 1,500,000,000,000.
-    for (final DataElements loElement : this.foDataList)
+    for (final JSONDataElements loElement : this.foJSONDataList)
     {
       boolean llOkay = false;
 
@@ -182,11 +175,10 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     Misc.setStatusText(0.0);
 
-    return (true);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private boolean updateChartTrends()
+  private void updateChartTrends()
   {
     final LineChart loChart = this.foTabHistoricalGraphController.getChartTrends();
     final XYChart.Series<String, Double>[] laDataSeries = this.foTabHistoricalGraphController.getDataSeriesTrends();
@@ -202,10 +194,15 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       laPlotPoints[i] = new ArrayList<>();
     }
 
+    Calculations.INSTANCE.refreshDataPoints(this.foJSONDataList, this.foTabHistoricalGraphController.getCheckBoxesForSeriesVisibility());
+
     // Start with the 1st date of the data set, not the start date of loDateInfo. This will ensure matching
     // the displayed start date of ChartData.
-    LocalDate loTrack = this.foDataList.get(0).foDate;
+    LocalDate loTrack = this.foJSONDataList.get(0).foDate;
     final LocalDate loEnd = loDateInfo.foLocalEndDateTrends;
+    // lnCountWeekDays will be 1-based.
+    int lnCountWeekDays = 0;
+
     while (!loTrack.isAfter(loEnd))
     {
       boolean llOkay = false;
@@ -213,6 +210,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       // Continue only if not a weekend date.
       if ((loTrack.getDayOfWeek() != DayOfWeek.SATURDAY) && (loTrack.getDayOfWeek() != DayOfWeek.SUNDAY))
       {
+        ++lnCountWeekDays;
+
         if (loDateInfo.fnDisplaySequenceTrends == Constants.HISTORICAL_EVERY_DAY)
         {
           llOkay = true;
@@ -249,7 +248,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
         for (int i = 0; i < lnDataSeriesTotal; ++i)
         {
           // No calculations just yet.
-          final XYChart.Data loData = new XYChart.Data<>(lcDate, i + 12);
+          final XYChart.Data loData = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueRegression(lnCountWeekDays - 1));
 
           laPlotPoints[i].add(loData);
         }
@@ -262,7 +261,6 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     Misc.setStatusText(0.0);
 
-    return (true);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -362,7 +360,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       return (false);
     }
 
-    final boolean llOkay = this.updateDataList("[" + lcJSONText.trim() + "]");
+    final boolean llOkay = this.updateJSONDataList("[" + lcJSONText.trim() + "]");
     if (llOkay)
     {
       Misc.setStatusText("Successfully read & imported " + lcSymbol + " historical information");
@@ -379,10 +377,10 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private boolean updateDataList(final String tcJSONText)
+  private boolean updateJSONDataList(final String tcJSONText)
   {
     JSONArray laJSONInfo = null;
-    this.foDataList.clear();
+    this.foJSONDataList.clear();
     try
     {
       laJSONInfo = new JSONArray(tcJSONText);
@@ -411,7 +409,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       final String loDateKey = loIterator.next();
       final Object loValues = loDates.get(loDateKey);
 
-      final DataElements loElement = new DataElements();
+      final JSONDataElements loElement = new JSONDataElements();
 
       loElement.foDate = LocalDate.parse(loDateKey);
 
@@ -442,10 +440,10 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
       }
 
-      this.foDataList.add(loElement);
+      this.foJSONDataList.add(loElement);
     }
 
-    this.foDataList.sort(Comparator.comparing(o -> o.foDate));
+    this.foJSONDataList.sort(Comparator.comparing(o -> o.foDate));
 
     return (true);
   }
