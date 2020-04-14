@@ -280,35 +280,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void refreshChartTrends()
   {
-    // If you don't setAnimated(false), with an empty chart, you will receive an
-    //   Exception in thread "JavaFX Application Thread" java.lang.IllegalArgumentException: Duplicate series added
-    // Solution in https://stackoverflow.com/questions/32151435/javafx-duplicate-series-added
-    //
-    // By the way, you could create a LineChartPlus which sets animate to false. However, I had problems with FXML files
-    // as I couldn't create default constructor and setAnimated is called in different spots of JavaFX code. So I just
-    // set when needed.
-    this.chtLineChartTrends.setAnimated(false);
-
-    final StringBuilder loStyles = new StringBuilder();
-    // Seems awkward to remove data and then re-add, but it works. There's not a setVisible()
-    // for each series.
-    final ObservableList<XYChart.Series> loData = this.chtLineChartTrends.getData();
-
-    loData.clear();
-
-    final int lnLength = this.faXYDataSeriesTrends.length;
-    for (int i = 0; i < lnLength; ++i)
-    {
-      loData.add(this.faXYDataSeriesTrends[i]);
-      final int lnSize = loData.size();
-      loStyles.append(this.getChartColorString(lnSize, this.faSeriesColors[i]));
-    }
-
-    if (loStyles.length() > 0)
-    {
-      this.chtLineChartTrends.setStyle(loStyles.toString());
-    }
-
+    // The chart trends need to be re-calculated and re-drawn each time. In other words,
+    // chart trends are dynamic; chart data is not.
+    ThreadDownloadHistorical.INSTANCE.updateChartTrends();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

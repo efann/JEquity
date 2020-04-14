@@ -178,7 +178,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void updateChartTrends()
+  public void updateChartTrends()
   {
     final LineChart loChart = this.foTabHistoricalGraphController.getChartTrends();
     final XYChart.Series<String, Double>[] laDataSeries = this.foTabHistoricalGraphController.getDataSeriesTrends();
@@ -379,8 +379,10 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   // ---------------------------------------------------------------------------------------------------------------------
   private boolean updateJSONDataList(final String tcJSONText)
   {
-    JSONArray laJSONInfo = null;
     this.foJSONDataList.clear();
+
+    JSONArray laJSONInfo = null;
+
     try
     {
       laJSONInfo = new JSONArray(tcJSONText);
