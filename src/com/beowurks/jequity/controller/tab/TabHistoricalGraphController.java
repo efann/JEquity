@@ -13,6 +13,7 @@ import com.beowurks.jequity.dao.XMLTextWriter;
 import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
+import com.beowurks.jequity.dao.hibernate.threads.JSONDataElements;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadHistorical;
 import com.beowurks.jequity.dao.tableview.GroupProperty;
 import com.beowurks.jequity.main.Main;
@@ -23,6 +24,7 @@ import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
 import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,7 +49,10 @@ import org.w3c.dom.Node;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.IsoFields;
+import java.util.ArrayList;
 import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -83,6 +88,10 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
   private XYChart.Series<String, Double>[] faXYDataSeriesData;
   private XYChart.Series<String, Double>[] faXYDataSeriesTrends;
+
+  private final DateTimeFormatter foMonthTrackerDateFormat = DateTimeFormatter.ofPattern("MMMMyyyy");
+
+  private final DateTimeFormatter foXAxisFormat = DateTimeFormatter.ofPattern("MM-dd-yy");
 
   private String fcCurrentDescription = "";
   private String fcCurrentSymbol = "";
@@ -233,16 +242,16 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void refreshCharts()
+  public void redrawCharts()
   {
-    this.refreshChartData();
-    this.refreshChartTrends();
+    this.redrawChartData();
+    this.redrawChartTrends();
 
     this.updateChartTooltips();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void refreshChartData()
+  private void redrawChartData()
   {
     // If you don't setAnimated(false), with an empty chart, you will receive an
     //   Exception in thread "JavaFX Application Thread" java.lang.IllegalArgumentException: Duplicate series added
@@ -279,7 +288,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void refreshChartTrends()
+  private void redrawChartTrends()
   {
     // If you don't setAnimated(false), with an empty chart, you will receive an
     //   Exception in thread "JavaFX Application Thread" java.lang.IllegalArgumentException: Duplicate series added
@@ -294,6 +303,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // chart trends are dynamic; chart data is not.
     Calculations.INSTANCE.refreshDataPoints(ThreadDownloadHistorical.INSTANCE);
 
+    // Recalculate the series just in case.
     final XYChart.Series<String, Double> loRegressionSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_REGRESS];
     final int lnSize = loRegressionSeries.getData().size();
     for (int i = 0; i < lnSize; ++i)
@@ -309,12 +319,202 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final ObservableList<XYChart.Series> loData = this.chtLineChartTrends.getData();
     loData.clear();
 
-    final int lnLength = this.faXYDataSeriesTrends.length;
-    for (int i = 0; i < lnLength; ++i)
+    for (final XYChart.Series<String, Double> laXYDataSeriesTrend : this.faXYDataSeriesTrends)
     {
-      loData.add(this.faXYDataSeriesTrends[i]);
+      loData.add(laXYDataSeriesTrend);
     }
 
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void recreateChartData()
+  {
+    final LineChart loChart = this.getChartData();
+    final XYChart.Series<String, Double>[] laDataSeries = this.getDataSeriesData();
+    final int lnDataSeriesTotal = laDataSeries.length;
+
+    final StringBuilder loTrackDatesUsed = new StringBuilder(",");
+    final HistoricalDateInfo loDateInfo = this.getHistoricalDateInfo();
+
+    // From https://stackoverflow.com/questions/28850211/performance-issue-with-javafx-linechart-with-65000-data-points
+    final ArrayList<XYChart.Data<String, Double>>[] laPlotPoints = new ArrayList[lnDataSeriesTotal];
+    for (int i = 0; i < lnDataSeriesTotal; i++)
+    {
+      laPlotPoints[i] = new ArrayList<>();
+    }
+
+    final ArrayList<JSONDataElements> loJSONDataList = ThreadDownloadHistorical.INSTANCE.getJSONDataList();
+    // By the way, I wanted to use the techniques found here;
+    // From https://stackoverflow.com/questions/46987823/javafx-line-chart-with-date-axis
+    // However, I was having round off problems where 1,566,566,566,566 was converted to 1,500,000,000,000.
+    for (final JSONDataElements loElement : loJSONDataList)
+    {
+      boolean llOkay = false;
+
+      if (loDateInfo.fnDisplaySequenceData == Constants.HISTORICAL_EVERY_DAY)
+      {
+        llOkay = true;
+      }
+      else if (loDateInfo.fnDisplaySequenceData == Constants.HISTORICAL_EVERY_WEEK)
+      {
+        final String lcMarker = String.format("%2d%d", loElement.foDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR), loElement.foDate.getYear());
+
+        // If not found, then use and add to the loTrackDatesUsed so that
+        // no more days of that particular week will be used.
+        llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
+        if (llOkay)
+        {
+          loTrackDatesUsed.append(lcMarker).append(",");
+        }
+
+      }
+      else if (loDateInfo.fnDisplaySequenceData == Constants.HISTORICAL_EVERY_MONTH)
+      {
+        final String lcMarker = loElement.foDate.format(this.foMonthTrackerDateFormat);
+        // If not found, then use and add to the loTrackDatesUsed so that
+        // no more days of that particular month will be used.
+        llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
+        if (llOkay)
+        {
+          loTrackDatesUsed.append(lcMarker).append(",");
+        }
+      }
+
+      if (!llOkay)
+      {
+        continue;
+      }
+
+      final String lcDate = this.foXAxisFormat.format(loElement.foDate);
+      // Now add the elements to the particular line.
+      final int lnCount = loElement.faNumbers.length;
+      for (int i = 0; i < lnCount; ++i)
+      {
+        final XYChart.Data loData = new XYChart.Data<>(lcDate, loElement.faNumbers[i]);
+
+        laPlotPoints[i].add(loData);
+      }
+    }
+
+    this.resetDataSeries(loChart, laDataSeries, laPlotPoints);
+
+    Misc.setStatusText(0.0);
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void recreateChartTrends()
+  {
+    final LineChart loChart = this.getChartTrends();
+    final XYChart.Series<String, Double>[] laDataSeries = this.getDataSeriesTrends();
+    final int lnDataSeriesTotal = laDataSeries.length;
+
+    final StringBuilder loTrackDatesUsed = new StringBuilder(",");
+    final HistoricalDateInfo loDateInfo = this.getHistoricalDateInfo();
+
+    // From https://stackoverflow.com/questions/28850211/performance-issue-with-javafx-linechart-with-65000-data-points
+    final ArrayList<XYChart.Data<String, Double>>[] laPlotPoints = new ArrayList[lnDataSeriesTotal];
+    for (int i = 0; i < lnDataSeriesTotal; i++)
+    {
+      laPlotPoints[i] = new ArrayList<>();
+    }
+
+    final ThreadDownloadHistorical loThreadHistorical = ThreadDownloadHistorical.INSTANCE;
+    Calculations.INSTANCE.refreshDataPoints(loThreadHistorical);
+
+    // Start with the 1st date of the data set, not the start date of loDateInfo. This will ensure matching
+    // the displayed start date of ChartData.
+    LocalDate loTrack = loThreadHistorical.getJSONDataList().get(0).foDate;
+    final LocalDate loEnd = loDateInfo.foLocalEndDateTrends;
+    // lnCountWeekDays are 1-based as are the Calculations.
+    int lnCountWeekDays = 0;
+
+    while (!loTrack.isAfter(loEnd))
+    {
+      boolean llOkay = false;
+
+      // Continue only if not a weekend date.
+      if ((loTrack.getDayOfWeek() != DayOfWeek.SATURDAY) && (loTrack.getDayOfWeek() != DayOfWeek.SUNDAY))
+      {
+        ++lnCountWeekDays;
+
+        if (loDateInfo.fnDisplaySequenceTrends == Constants.HISTORICAL_EVERY_DAY)
+        {
+          llOkay = true;
+        }
+        else if (loDateInfo.fnDisplaySequenceTrends == Constants.HISTORICAL_EVERY_WEEK)
+        {
+          final String lcMarker = String.format("%2d%d", loTrack.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR), loTrack.getYear());
+
+          // If not found, then use and add to the loTrackDatesUsed so that
+          // no more days of that particular week will be used.
+          llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
+          if (llOkay)
+          {
+            loTrackDatesUsed.append(lcMarker).append(",");
+          }
+        }
+        else if (loDateInfo.fnDisplaySequenceTrends == Constants.HISTORICAL_EVERY_MONTH)
+        {
+          final String lcMarker = loTrack.format(this.foMonthTrackerDateFormat);
+          // If not found, then use and add to the loTrackDatesUsed so that
+          // no more days of that particular month will be used.
+          llOkay = (loTrackDatesUsed.indexOf(lcMarker) == -1);
+          if (llOkay)
+          {
+            loTrackDatesUsed.append(lcMarker).append(",");
+          }
+        }
+      }
+
+      if (llOkay)
+      {
+        final String lcDate = this.foXAxisFormat.format(loTrack);
+        // Now add the elements to the particular line.
+        // Remember: lnCountWeekDays is 1-based as are the Calculations.
+        final XYChart.Data loData = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueRegression(lnCountWeekDays));
+        loData.setExtraValue(lnCountWeekDays);
+
+        laPlotPoints[Constants.HISTORICAL_TRENDS_REGRESS].add(loData);
+      }
+
+      loTrack = loTrack.plusDays(1);
+    }
+
+    this.resetDataSeries(loChart, laDataSeries, laPlotPoints);
+
+    Misc.setStatusText(0.0);
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void resetDataSeries(final LineChart toChart, final XYChart.Series<String, Double>[] taDataSeries,
+                               final ArrayList<XYChart.Data<String, Double>>[] taPlotPoints)
+  {
+    final int lnDataSeriesTotal = taDataSeries.length;
+
+    // Must be run in the JavaFX thread, duh.
+    // Otherwise, you get java.util.ConcurrentModificationException exceptions.
+    Platform.runLater(() ->
+    {
+      // BUG ALERT!!!!!!!!!!
+      // https://stackoverflow.com/questions/48995257/javafx-barchart-xaxis-labels-bad-positioning
+      // With a possible solution
+      // https://stackoverflow.com/questions/49589889/all-labels-at-the-same-position-in-xaxis-barchart-javafx
+      //
+      // By the way, you could create a LineChartPlus which sets animate to false. However, I had problems with FXML files
+      // as I couldn't create default constructor and setAnimated is called in different spots of JavaFX code. So I just
+      // set when needed.
+      toChart.setAnimated(false);
+
+      // Update all of the series, whether they are visible or not.
+      for (int i = 0; i < lnDataSeriesTotal; ++i)
+      {
+        taDataSeries[i].getData().clear();
+        taDataSeries[i].getData().addAll(taPlotPoints[i]);
+      }
+
+    });
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -753,7 +953,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       if (((CheckBoxPlus) loSource).getParent() == this.hboxSeriesVisibility)
       {
-        this.refreshCharts();
+        this.redrawCharts();
       }
     }
 

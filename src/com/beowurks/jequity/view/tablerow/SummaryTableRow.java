@@ -89,7 +89,7 @@ public class SummaryTableRow extends TableRow<SummaryProperty>
   {
     final ObservableList<String> loClasses = this.getStyleClass();
 
-    if (loClasses.indexOf(tcClass) == -1)
+    if (!loClasses.contains(tcClass))
     {
       loClasses.add(tcClass);
     }

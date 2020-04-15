@@ -40,10 +40,7 @@ public class NumberTableCell<S, T> extends TableCell<S, T>
   {
     final ObservableList<String> loClasses = this.getStyleClass();
 
-    if (loClasses.indexOf(tcClass) != -1)
-    {
-      loClasses.remove(tcClass);
-    }
+    loClasses.remove(tcClass);
 
   }
 
@@ -52,7 +49,7 @@ public class NumberTableCell<S, T> extends TableCell<S, T>
   {
     final ObservableList<String> loClasses = this.getStyleClass();
 
-    if (loClasses.indexOf(tcClass) == -1)
+    if (!loClasses.contains(tcClass))
     {
       loClasses.add(tcClass);
     }
