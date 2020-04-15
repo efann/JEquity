@@ -530,7 +530,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private Double getDataAverageValue(final ArrayList<JSONDataElements> loJSONDateRangeList, final LocalDate toDate)
   {
-    if (toDate == null)
+    if ((loJSONDateRangeList == null) || (toDate == null))
     {
       return (null);
     }
