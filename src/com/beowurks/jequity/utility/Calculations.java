@@ -33,14 +33,14 @@ public class Calculations
   // ---------------------------------------------------------------------------------------------------------------------
   public void refreshDataPoints(final ThreadDownloadHistorical toThreadDownloadHistorical)
   {
-    final ArrayList<JSONDataElements> loJSONDataList = toThreadDownloadHistorical.getJSONDataList();
+    final ArrayList<JSONDataElements> loJSONDateRangeList = toThreadDownloadHistorical.getJSONDateRangeList();
     final CheckBoxPlus[] laCheckBoxPlus = toThreadDownloadHistorical.getTabHistoricalGraphController().getCheckBoxesForSeriesVisibility();
 
     this.foSimpleRegression.clear();
 
     // 1-based index.
     int lnIndex = 1;
-    for (final JSONDataElements loElement : loJSONDataList)
+    for (final JSONDataElements loElement : loJSONDateRangeList)
     {
       double lnValue = 0.0;
       int lnDivisor = 0;

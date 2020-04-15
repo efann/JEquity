@@ -37,7 +37,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
   private String fcSymbol;
 
-  private final ArrayList<JSONDataElements> foJSONDataList = new ArrayList<>();
+  private final ArrayList<JSONDataElements> foJSONDateRangeList = new ArrayList<>();
 
   private TabHistoricalGraphController foTabHistoricalGraphController;
 
@@ -79,9 +79,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public ArrayList<JSONDataElements> getJSONDataList()
+  public ArrayList<JSONDataElements> getJSONDateRangeList()
   {
-    return (this.foJSONDataList);
+    return (this.foJSONDateRangeList);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       return (false);
     }
 
-    final boolean llOkay = this.updateJSONDataList("[" + lcJSONText.trim() + "]");
+    final boolean llOkay = this.updateJSONDateRangeList("[" + lcJSONText.trim() + "]");
     if (llOkay)
     {
       Misc.setStatusText("Successfully read & imported " + lcSymbol + " historical information");
@@ -187,9 +187,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private boolean updateJSONDataList(final String tcJSONText)
+  private boolean updateJSONDateRangeList(final String tcJSONText)
   {
-    this.foJSONDataList.clear();
+    this.foJSONDateRangeList.clear();
 
     JSONArray laJSONInfo = null;
 
@@ -252,10 +252,10 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
       }
 
-      this.foJSONDataList.add(loElement);
+      this.foJSONDateRangeList.add(loElement);
     }
 
-    this.foJSONDataList.sort(Comparator.comparing(o -> o.foDate));
+    this.foJSONDateRangeList.sort(Comparator.comparing(o -> o.foDate));
 
     return (true);
   }
