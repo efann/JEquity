@@ -13,6 +13,7 @@ package com.beowurks.jequity.utility;
 // ---------------------------------------------------------------------------------------------------------------------
 
 import com.beowurks.jequity.dao.hibernate.threads.JSONDataElements;
+import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadHistorical;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
@@ -30,20 +31,24 @@ public class Calculations
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void refreshDataPoints(final ArrayList<JSONDataElements> toJSONDataList, final CheckBoxPlus[] taCheckBoxPlus)
+  public void refreshDataPoints(final ThreadDownloadHistorical toThreadDownloadHistorical)
   {
+    final ArrayList<JSONDataElements> loJSONDataList = toThreadDownloadHistorical.getJSONDataList();
+    final CheckBoxPlus[] laCheckBoxPlus = toThreadDownloadHistorical.getTabHistoricalGraphController().getCheckBoxesForSeriesVisibility();
+
     this.foSimpleRegression.clear();
 
-    int lnIndex = 0;
-    for (final JSONDataElements loElement : toJSONDataList)
+    // 1-based index.
+    int lnIndex = 1;
+    for (final JSONDataElements loElement : loJSONDataList)
     {
       double lnValue = 0.0;
       int lnDivisor = 0;
 
-      final int lnCheckBoxesLength = taCheckBoxPlus.length;
+      final int lnCheckBoxesLength = laCheckBoxPlus.length;
       for (int i = 0; i < lnCheckBoxesLength; ++i)
       {
-        if (taCheckBoxPlus[i].isSelected())
+        if (laCheckBoxPlus[i].isSelected())
         {
           ++lnDivisor;
           lnValue += loElement.faNumbers[i];

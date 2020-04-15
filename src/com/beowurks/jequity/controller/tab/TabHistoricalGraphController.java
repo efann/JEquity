@@ -17,6 +17,7 @@ import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadHistorical;
 import com.beowurks.jequity.dao.tableview.GroupProperty;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
+import com.beowurks.jequity.utility.Calculations;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
@@ -280,9 +281,40 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void refreshChartTrends()
   {
+    // If you don't setAnimated(false), with an empty chart, you will receive an
+    //   Exception in thread "JavaFX Application Thread" java.lang.IllegalArgumentException: Duplicate series added
+    // Solution in https://stackoverflow.com/questions/32151435/javafx-duplicate-series-added
+    //
+    // By the way, you could create a LineChartPlus which sets animate to false. However, I had problems with FXML files
+    // as I couldn't create default constructor and setAnimated is called in different spots of JavaFX code. So I just
+    // set when needed.
+    this.chtLineChartTrends.setAnimated(false);
+
     // The chart trends need to be re-calculated and re-drawn each time. In other words,
     // chart trends are dynamic; chart data is not.
-    ThreadDownloadHistorical.INSTANCE.updateChartTrends();
+    Calculations.INSTANCE.refreshDataPoints(ThreadDownloadHistorical.INSTANCE);
+
+    final XYChart.Series<String, Double> loRegressionSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_REGRESS];
+    final int lnSize = loRegressionSeries.getData().size();
+    for (int i = 0; i < lnSize; ++i)
+    {
+      final XYChart.Data<String, Double> loData = loRegressionSeries.getData().get(i);
+      final Object loValue = loData.getExtraValue();
+      final int lnDay = (loValue instanceof Integer) ? (Integer) loValue : 0;
+      loData.setYValue(Calculations.INSTANCE.getYValueRegression(lnDay));
+    }
+
+    // Seems awkward to remove data and then re-add, but it works. There's not a setVisible()
+    // for each series.
+    final ObservableList<XYChart.Series> loData = this.chtLineChartTrends.getData();
+    loData.clear();
+
+    final int lnLength = this.faXYDataSeriesTrends.length;
+    for (int i = 0; i < lnLength; ++i)
+    {
+      loData.add(this.faXYDataSeriesTrends[i]);
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

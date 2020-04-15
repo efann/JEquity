@@ -81,6 +81,18 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public TabHistoricalGraphController getTabHistoricalGraphController()
+  {
+    return (this.foTabHistoricalGraphController);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public ArrayList<JSONDataElements> getJSONDataList()
+  {
+    return (this.foJSONDataList);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   @Override
   public void run()
   {
@@ -178,7 +190,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void updateChartTrends()
+  private void updateChartTrends()
   {
     final LineChart loChart = this.foTabHistoricalGraphController.getChartTrends();
     final XYChart.Series<String, Double>[] laDataSeries = this.foTabHistoricalGraphController.getDataSeriesTrends();
@@ -194,13 +206,13 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       laPlotPoints[i] = new ArrayList<>();
     }
 
-    Calculations.INSTANCE.refreshDataPoints(this.foJSONDataList, this.foTabHistoricalGraphController.getCheckBoxesForSeriesVisibility());
+    Calculations.INSTANCE.refreshDataPoints(this);
 
     // Start with the 1st date of the data set, not the start date of loDateInfo. This will ensure matching
     // the displayed start date of ChartData.
     LocalDate loTrack = this.foJSONDataList.get(0).foDate;
     final LocalDate loEnd = loDateInfo.foLocalEndDateTrends;
-    // lnCountWeekDays will be 1-based.
+    // lnCountWeekDays are 1-based as are the Calculations.
     int lnCountWeekDays = 0;
 
     while (!loTrack.isAfter(loEnd))
@@ -245,13 +257,11 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       {
         final String lcDate = this.foXAxisFormat.format(loTrack);
         // Now add the elements to the particular line.
-        for (int i = 0; i < lnDataSeriesTotal; ++i)
-        {
-          // No calculations just yet.
-          final XYChart.Data loData = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueRegression(lnCountWeekDays - 1));
+        // Remember: lnCountWeekDays is 1-based as are the Calculations.
+        final XYChart.Data loData = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueRegression(lnCountWeekDays));
+        loData.setExtraValue(lnCountWeekDays);
 
-          laPlotPoints[i].add(loData);
-        }
+        laPlotPoints[Constants.HISTORICAL_TRENDS_REGRESS].add(loData);
       }
 
       loTrack = loTrack.plusDays(1);

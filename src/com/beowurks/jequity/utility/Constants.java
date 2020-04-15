@@ -99,6 +99,9 @@ final public class Constants
       new IntegerKeyItem(Constants.HISTORICAL_MAX_YEARS, "Maximum (All available data)")
     };
 
+  public final static int HISTORICAL_TRENDS_REGRESS = 0;
+  public final static int HISTORICAL_TRENDS_NON_CUBIC = 1;
+
 
   //************************************************************
   // Used by AppProperties
