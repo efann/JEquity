@@ -22,6 +22,7 @@ import org.apache.commons.math3.transform.FastFourierTransformer;
 import org.apache.commons.math3.transform.TransformType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Calculations
 {
@@ -34,8 +35,6 @@ public class Calculations
   private Complex[] foComplex;
 
   private double[] faAvgValues;
-
-  private double fnRealFactor;
 
   // ---------------------------------------------------------------------------------------------------------------------
   private Calculations()
@@ -59,6 +58,33 @@ public class Calculations
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  // y = intercept + slope * x
+  public double getYValueRegression(final double tnXValue)
+  {
+    return (this.foSimpleRegression.getIntercept() + (this.foSimpleRegression.getSlope() * tnXValue));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // 0-based.
+  public double getYValueFFT(final int tnXValue)
+  {
+    final int lnIndex = tnXValue % this.faAvgValues.length;
+
+    final double lnReal = (this.foComplex[lnIndex].getReal());
+
+//    return (Math.sqrt(Math.pow(this.foComplex[tnXValue].getReal(), 2) + Math.pow(this.foComplex[tnXValue].getImaginary(), 2)));
+
+    return (lnReal);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // 0-based.
+  public double getYValueAverage(final int tnXValue)
+  {
+    return (this.faAvgValues[tnXValue]);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   private void resetAverageArray(final ArrayList<JSONDataElements> toJSONDateRangeList, final CheckBoxPlus[] taCheckBoxPlus)
   {
     this.faAvgValues = new double[toJSONDateRangeList.size()];
@@ -79,7 +105,8 @@ public class Calculations
         }
       }
 
-      this.faAvgValues[lnIndex++] = (lnDivisor != 0) ? (lnValue / (double) lnDivisor) : 0.0;
+      this.faAvgValues[lnIndex] = (lnDivisor != 0) ? (lnValue / (double) lnDivisor) : 0.0;
+      lnIndex++;
     }
   }
 
@@ -89,60 +116,42 @@ public class Calculations
     final int lnLength = this.faAvgValues.length;
     for (int i = 0; i < lnLength; ++i)
     {
-      // 1-based index.
-      this.foSimpleRegression.addData(i + 1, this.faAvgValues[i]);
+      this.foSimpleRegression.addData(i, this.faAvgValues[i]);
     }
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   private void refreshFFT()
   {
-    final int lnPowerOfTwo = this.nextPowerOfTwo(this.faAvgValues.length);
+    final int lnAvgLength = this.faAvgValues.length;
+    final int lnPowerOfTwo = this.nextPowerOfTwo(lnAvgLength);
 
     final double[] laFFTData = new double[lnPowerOfTwo];
+    Arrays.fill(laFFTData, 0.0);
 
-    this.fnRealFactor = 2.0 / (double)lnPowerOfTwo;
-    for (int i = 0; i < lnPowerOfTwo; ++i)
+    for (int i = 0; i < lnAvgLength; ++i)
     {
-      laFFTData[i] = 0.0;
+      if (i < lnAvgLength - 2)
+      {
+        laFFTData[i] = (this.faAvgValues[i] + this.faAvgValues[i + 1] + this.faAvgValues[i + 2]) / 3.0;
+      }
+      else
+      {
+        laFFTData[i] = this.faAvgValues[i];
+      }
+
     }
 
-    final int lnLength = this.faAvgValues.length;
-    for (int i = 0; i < lnLength; ++i)
-    {
-      final double lnValue = 0.0;
-      final int lnDivisor = 0;
+    this.foComplex = this.foFFTransformer.transform(laFFTData, TransformType.FORWARD);
 
-      // 0-based index.
-      laFFTData[i] = this.faAvgValues[i];
+    final int lnComplex = this.foComplex.length;
+    for (int i = lnAvgLength; i < lnComplex; ++i)
+    {
+      this.foComplex[i] = new Complex(0.0);
     }
 
-    this.foComplex = this.foFFTransformer.transform(laFFTData, TransformType.INVERSE);
-  }
+    this.foComplex = this.foFFTransformer.transform(this.foComplex, TransformType.INVERSE);
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  // y = intercept + slope * x
-  // 1-based
-  public double getYValueRegression(final double tnXValue)
-  {
-    return (this.foSimpleRegression.getIntercept() + (this.foSimpleRegression.getSlope() * tnXValue));
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  // 0-based.
-  public double getYValueFFT(final int tnXValue)
-  {
-    final int lnLimit = this.foComplex.length;
-    int lnIndex = tnXValue;
-    while (lnIndex >= lnLimit)
-    {
-      lnIndex -= lnLimit;
-    }
-
-    final double lnReal = (this.foComplex[lnIndex].getReal());
-
-    return (lnReal * this.fnRealFactor);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

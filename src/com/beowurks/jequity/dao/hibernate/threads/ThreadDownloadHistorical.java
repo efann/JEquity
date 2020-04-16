@@ -98,7 +98,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       // Must be run in the JavaFX thread, duh.
       // Otherwise, you get java.util.ConcurrentModificationException exceptions.
       Platform.runLater(() ->
-        this.foTabHistoricalGraphController.redrawCharts());
+        this.foTabHistoricalGraphController.redrawCharts(false));
     }
 
   }

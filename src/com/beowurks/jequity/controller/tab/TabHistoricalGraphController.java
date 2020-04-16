@@ -243,10 +243,10 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void redrawCharts()
+  public void redrawCharts(final boolean tlRecalculate)
   {
     this.redrawChartData();
-    this.redrawChartTrends();
+    this.redrawChartTrends(tlRecalculate);
 
     this.updateChartTooltips();
   }
@@ -289,7 +289,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void redrawChartTrends()
+  private void redrawChartTrends(final boolean tlRecalculate)
   {
     // If you don't setAnimated(false), with an empty chart, you will receive an
     //   Exception in thread "JavaFX Application Thread" java.lang.IllegalArgumentException: Duplicate series added
@@ -300,40 +300,52 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // set when needed.
     this.chtLineChartTrends.setAnimated(false);
 
-    final ThreadDownloadHistorical loThreadHistorical = ThreadDownloadHistorical.INSTANCE;
-    final ArrayList<JSONDataElements> loJSONDateRangeList = loThreadHistorical.getJSONDateRangeList();
-
-    // The chart trends need to be re-calculated and re-drawn each time. In other words,
-    // chart trends are dynamic; chart data is not.
-    Calculations.INSTANCE.refreshAll(loThreadHistorical);
-
-    // Recalculate the series just in case.
-    final XYChart.Series<String, Double> loRegressionSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_REGRESS];
-    final int lnSizeReg = loRegressionSeries.getData().size();
-    for (int i = 0; i < lnSizeReg; ++i)
+    if (tlRecalculate)
     {
-      final XYChart.Data<String, Double> loData = loRegressionSeries.getData().get(i);
-      final Object loExtra = loData.getExtraValue();
-      final int lnDay = (loExtra instanceof DataExtraValue) ? ((DataExtraValue) loExtra).fnCountWeekDays : 0;
-      loData.setYValue(Calculations.INSTANCE.getYValueRegression(lnDay));
-    }
+      final ThreadDownloadHistorical loThreadHistorical = ThreadDownloadHistorical.INSTANCE;
+      final ArrayList<JSONDataElements> loJSONDateRangeList = loThreadHistorical.getJSONDateRangeList();
 
-    // Recalculate the series just in case.
-    final XYChart.Series<String, Double> loRawDataSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA];
-    final int lnSizeRaw = loRawDataSeries.getData().size();
-    for (int i = 0; i < lnSizeRaw; ++i)
-    {
-      final XYChart.Data<String, Double> loData = loRawDataSeries.getData().get(i);
-      final Object loExtra = loData.getExtraValue();
-      final LocalDate loDay = (loExtra instanceof DataExtraValue) ? ((DataExtraValue) loExtra).foDate : null;
+      // The chart trends need to be re-calculated and re-drawn each time. In other words,
+      // chart trends are dynamic; chart data is not.
+      Calculations.INSTANCE.refreshAll(loThreadHistorical);
 
-      // getDataAverageValue returns null for loDay == null
-      final Double loAvg = this.getDataAverageValue(loJSONDateRangeList, loDay);
-      if (loAvg == null)
+      // Recalculate the series just in case.
+      final XYChart.Series<String, Double> loRegressionSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_REGRESS];
+      final int lnSizeReg = loRegressionSeries.getData().size();
+      for (int i = 0; i < lnSizeReg; ++i)
       {
-        continue;
+        final XYChart.Data<String, Double> loData = loRegressionSeries.getData().get(i);
+        final Object loExtra = loData.getExtraValue();
+        if (loExtra instanceof DataExtraValue)
+        {
+          final int lnDay = ((DataExtraValue) loExtra).fnCountWeekDays;
+          loData.setYValue(Calculations.INSTANCE.getYValueRegression(lnDay));
+        }
       }
-      loData.setYValue(loAvg);
+
+      final XYChart.Series<String, Double> loRawDataSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA];
+      final int lnSizeRaw = loRawDataSeries.getData().size();
+      for (int i = 0; i < lnSizeRaw; ++i)
+      {
+        final XYChart.Data<String, Double> loData = loRawDataSeries.getData().get(i);
+        final Object loExtra = loData.getExtraValue();
+        if (loExtra instanceof DataExtraValue)
+        {
+          final LocalDate loDay = ((DataExtraValue) loExtra).foDate;
+
+          // Averages and FFT must match a date.
+          final Integer lnDateIndex = this.getDateIndex(loJSONDateRangeList, loDay);
+          if (lnDateIndex != null)
+          {
+            final Double loAvg = Calculations.INSTANCE.getYValueAverage(lnDateIndex);
+            if (loAvg != null)
+            {
+              loData.setYValue(loAvg);
+            }
+          }
+
+        }
+      }
     }
 
     // Seems awkward to remove data and then re-add, but it works. There's not a setVisible()
@@ -453,8 +465,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     LocalDate loTrackDate = loJSONDateRangeList.get(0).foDate;
     final LocalDate loLastRawDataDate = loJSONDateRangeList.get(loJSONDateRangeList.size() - 1).foDate;
     final LocalDate loEnd = loDateInfo.foLocalEndDateTrends;
-    // lnCountWeekDays are 1-based as are the Calculations.
-    int lnCountWeekDays = 0;
+    // lnCountWeekDays are 0-based as are the Calculations.
+    int lnCountWeekDays = -1;
 
     while (!loTrackDate.isAfter(loEnd))
     {
@@ -503,25 +515,28 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         loExtra.fnCountWeekDays = lnCountWeekDays;
 
         // Now add the elements to the particular line.
-        // Remember: lnCountWeekDays is 1-based as are the Calculations.
         final XYChart.Data loDataReg = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueRegression(lnCountWeekDays));
 
         loDataReg.setExtraValue(loExtra);
 
         laPlotPoints[Constants.HISTORICAL_TRENDS_REGRESS].add(loDataReg);
 
-        final Double loAvg = this.getDataAverageValue(loJSONDateRangeList, loTrackDate);
-        if (loAvg != null)
+        // Averages and FFT must match a date.
+        final Integer lnDateIndex = this.getDateIndex(loJSONDateRangeList, loTrackDate);
+        if (lnDateIndex != null)
         {
-          final XYChart.Data loDataAvg = new XYChart.Data<>(lcDate, (loAvg != null) ? loAvg.doubleValue() : 0.0);
-          loDataAvg.setExtraValue(loExtra);
-          laPlotPoints[Constants.HISTORICAL_TRENDS_RAW_DATA].add(loDataAvg);
-        }
+          final Double loAvg = Calculations.INSTANCE.getYValueAverage(lnDateIndex);
+          if (loAvg != null)
+          {
+            final XYChart.Data loDataAvg = new XYChart.Data<>(lcDate, (loAvg != null) ? loAvg.doubleValue() : 0.0);
+            loDataAvg.setExtraValue(loExtra);
+            laPlotPoints[Constants.HISTORICAL_TRENDS_RAW_DATA].add(loDataAvg);
+          }
 
-        // FFT is 0-based.
-        final XYChart.Data loDataFFT = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueFFT(lnCountWeekDays - 1));
-        loDataFFT.setExtraValue(loExtra);
-        laPlotPoints[Constants.HISTORICAL_TRENDS_NON_CUBIC].add(loDataFFT);
+          final XYChart.Data loDataFFT = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueFFT(lnDateIndex));
+          loDataFFT.setExtraValue(loExtra);
+          laPlotPoints[Constants.HISTORICAL_TRENDS_NON_CUBIC].add(loDataFFT);
+        }
       }
 
       loTrackDate = loTrackDate.plusDays(1);
@@ -533,43 +548,25 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private Double getDataAverageValue(final ArrayList<JSONDataElements> loJSONDateRangeList, final LocalDate toDate)
+  private Integer getDateIndex(final ArrayList<JSONDataElements> loJSONDateRangeList, final LocalDate toDate)
   {
     if ((loJSONDateRangeList == null) || (toDate == null))
     {
       return (null);
     }
 
-    Double loAverage = null;
+    int lnDateTrack = 0;
     for (final JSONDataElements loElement : loJSONDateRangeList)
     {
       if (loElement.foDate.isEqual(toDate))
       {
-        loAverage = 0.0;
-        final CheckBoxPlus[] laCheckBoxPlus = this.getCheckBoxesForSeriesVisibility();
-        // 1-based index.
-        double lnValue = 0.0;
-        int lnDivisor = 0;
-
-        final int lnCheckBoxesLength = laCheckBoxPlus.length;
-        for (int i = 0; i < lnCheckBoxesLength; ++i)
-        {
-          if (laCheckBoxPlus[i].isSelected())
-          {
-            ++lnDivisor;
-            lnValue += loElement.faNumbers[i];
-          }
-        }
-        if (lnDivisor != 0)
-        {
-          loAverage = lnValue / (double) lnDivisor;
-        }
-        break;
-
+        return (lnDateTrack);
       }
+
+      ++lnDateTrack;
     }
 
-    return (loAverage);
+    return (null);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -758,9 +755,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.faSeriesColors = new String[5];
     this.faSeriesColors[0] = "#57b757";
     this.faSeriesColors[1] = "#f3622d";
-    this.faSeriesColors[2] = "#fba71b";
-    this.faSeriesColors[3] = "#41a9c9";
-    this.faSeriesColors[4] = "#4258c9";
+    this.faSeriesColors[2] = "#4258c9";
+    this.faSeriesColors[3] = "#fba71b";
+    this.faSeriesColors[4] = "#41a9c9";
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -1050,7 +1047,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       if (((CheckBoxPlus) loSource).getParent() == this.hboxSeriesVisibility)
       {
-        this.redrawCharts();
+        this.redrawCharts(true);
       }
     }
 
