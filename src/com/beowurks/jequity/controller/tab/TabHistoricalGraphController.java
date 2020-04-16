@@ -305,8 +305,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     // The chart trends need to be re-calculated and re-drawn each time. In other words,
     // chart trends are dynamic; chart data is not.
-    Calculations.INSTANCE.refreshRegression(loThreadHistorical);
-    Calculations.INSTANCE.refreshFFT(loThreadHistorical);
+    Calculations.INSTANCE.refreshAll(loThreadHistorical);
 
     // Recalculate the series just in case.
     final XYChart.Series<String, Double> loRegressionSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_REGRESS];
@@ -445,8 +444,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     final ThreadDownloadHistorical loThreadHistorical = ThreadDownloadHistorical.INSTANCE;
 
-    Calculations.INSTANCE.refreshRegression(loThreadHistorical);
-    Calculations.INSTANCE.refreshFFT(loThreadHistorical);
+    Calculations.INSTANCE.refreshAll(loThreadHistorical);
 
     final ArrayList<JSONDataElements> loJSONDateRangeList = loThreadHistorical.getJSONDateRangeList();
 

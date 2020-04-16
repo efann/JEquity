@@ -33,13 +33,17 @@ public class Calculations
 
   private Complex[] foComplex;
 
+  private double[] faAvgValues;
+
+  private double fnRealFactor;
+
   // ---------------------------------------------------------------------------------------------------------------------
   private Calculations()
   {
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void refreshRegression(final ThreadDownloadHistorical toThreadDownloadHistorical)
+  public void refreshAll(final ThreadDownloadHistorical toThreadDownloadHistorical)
   {
     this.foSimpleRegression.clear();
 
@@ -48,72 +52,73 @@ public class Calculations
       return;
     }
 
-    final ArrayList<JSONDataElements> loJSONDateRangeList = toThreadDownloadHistorical.getJSONDateRangeList();
-    final CheckBoxPlus[] laCheckBoxPlus = toThreadDownloadHistorical.getTabHistoricalGraphController().getCheckBoxesForSeriesVisibility();
+    this.resetAverageArray(toThreadDownloadHistorical.getJSONDateRangeList(), toThreadDownloadHistorical.getTabHistoricalGraphController().getCheckBoxesForSeriesVisibility());
 
-    // 1-based index.
-    int lnIndex = 1;
-    for (final JSONDataElements loElement : loJSONDateRangeList)
+    this.refreshRegression();
+    this.refreshFFT();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void resetAverageArray(final ArrayList<JSONDataElements> toJSONDateRangeList, final CheckBoxPlus[] taCheckBoxPlus)
+  {
+    this.faAvgValues = new double[toJSONDateRangeList.size()];
+
+    int lnIndex = 0;
+    for (final JSONDataElements loElement : toJSONDateRangeList)
     {
       double lnValue = 0.0;
       int lnDivisor = 0;
 
-      final int lnCheckBoxesLength = laCheckBoxPlus.length;
+      final int lnCheckBoxesLength = taCheckBoxPlus.length;
       for (int i = 0; i < lnCheckBoxesLength; ++i)
       {
-        if (laCheckBoxPlus[i].isSelected())
+        if (taCheckBoxPlus[i].isSelected())
         {
           ++lnDivisor;
           lnValue += loElement.faNumbers[i];
         }
       }
 
-      this.foSimpleRegression.addData(lnIndex, (lnDivisor != 0) ? (lnValue / (double) lnDivisor) : lnValue);
-      ++lnIndex;
+      this.faAvgValues[lnIndex++] = (lnDivisor != 0) ? (lnValue / (double) lnDivisor) : 0.0;
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void refreshRegression()
+  {
+    final int lnLength = this.faAvgValues.length;
+    for (int i = 0; i < lnLength; ++i)
+    {
+      // 1-based index.
+      this.foSimpleRegression.addData(i + 1, this.faAvgValues[i]);
     }
 
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void refreshFFT(final ThreadDownloadHistorical toThreadDownloadHistorical)
+  private void refreshFFT()
   {
-    if (toThreadDownloadHistorical.getTabHistoricalGraphController() == null)
-    {
-      return;
-    }
+    final int lnPowerOfTwo = this.nextPowerOfTwo(this.faAvgValues.length);
 
-    final ArrayList<JSONDataElements> loJSONDateRangeList = toThreadDownloadHistorical.getJSONDateRangeList();
-    final CheckBoxPlus[] laCheckBoxPlus = toThreadDownloadHistorical.getTabHistoricalGraphController().getCheckBoxesForSeriesVisibility();
-
-    final int lnPowerOfTwo = this.getPowerOfTwo(loJSONDateRangeList.size());
     final double[] laFFTData = new double[lnPowerOfTwo];
 
+    this.fnRealFactor = 2.0 / (double)lnPowerOfTwo;
     for (int i = 0; i < lnPowerOfTwo; ++i)
     {
       laFFTData[i] = 0.0;
     }
 
-    // 0-based index.
-    int lnIndex = 0;
-    for (final JSONDataElements loElement : loJSONDateRangeList)
+    final int lnLength = this.faAvgValues.length;
+    for (int i = 0; i < lnLength; ++i)
     {
-      double lnValue = 0.0;
-      int lnDivisor = 0;
+      final double lnValue = 0.0;
+      final int lnDivisor = 0;
 
-      final int lnCheckBoxesLength = laCheckBoxPlus.length;
-      for (int i = 0; i < lnCheckBoxesLength; ++i)
-      {
-        if (laCheckBoxPlus[i].isSelected())
-        {
-          ++lnDivisor;
-          lnValue += loElement.faNumbers[i];
-        }
-      }
-
-      laFFTData[lnIndex++] = (lnDivisor != 0) ? (lnValue / (double) lnDivisor) : lnValue;
+      // 0-based index.
+      laFFTData[i] = this.faAvgValues[i];
     }
 
-    this.foComplex = this.foFFTransformer.transform(laFFTData, TransformType.FORWARD);
+    this.foComplex = this.foFFTransformer.transform(laFFTData, TransformType.INVERSE);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -135,12 +140,14 @@ public class Calculations
       lnIndex -= lnLimit;
     }
 
-    return (this.foComplex[lnIndex].getReal());
+    final double lnReal = (this.foComplex[lnIndex].getReal());
+
+    return (lnReal * this.fnRealFactor);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/5242533/fast-way-to-find-exponent-of-nearest-superior-power-of-2
-  private int getPowerOfTwo(final int tnValue)
+  private int nextPowerOfTwo(final int tnValue)
   {
     int lnPowerOfTwo = tnValue;
     if (lnPowerOfTwo != Integer.highestOneBit(lnPowerOfTwo))
