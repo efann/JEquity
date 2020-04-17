@@ -37,6 +37,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -78,6 +80,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
   @FXML
   private HyperlinkLabel lnkAlphaVantageMessage;
+
+  @FXML
+  private Spinner<Integer> spnSmoothing;
 
   @FXML
   private LineChart chtLineChartData;
@@ -123,6 +128,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.setupXYDataSeries();
     this.setupCheckboxes();
     this.setupComboBoxes();
+    this.setupSpinners();
     this.initializeCharts();
 
     this.setupListeners();
@@ -156,6 +162,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   public String getSymbol()
   {
     return (this.fcCurrentSymbol);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public int getSmoothingValue()
+  {
+    return (this.spnSmoothing.getValue());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -323,6 +335,29 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         }
       }
 
+      final XYChart.Series<String, Double> loFFTDataSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT];
+      final int lnSizeFFT = loFFTDataSeries.getData().size();
+      for (int i = 0; i < lnSizeFFT; ++i)
+      {
+        final XYChart.Data<String, Double> loData = loFFTDataSeries.getData().get(i);
+        final Object loExtra = loData.getExtraValue();
+        if (loExtra instanceof DataExtraValue)
+        {
+          final LocalDate loDay = ((DataExtraValue) loExtra).foDate;
+
+          // Averages and FFT must match a date.
+          final Integer lnDateIndex = this.getDateIndex(loJSONDateRangeList, loDay);
+          if (lnDateIndex != null)
+          {
+            final Double loFFT = Calculations.INSTANCE.getYValueFFT(lnDateIndex);
+            if (loFFT != null)
+            {
+              loData.setYValue(loFFT);
+            }
+          }
+        }
+      }
+
       final XYChart.Series<String, Double> loRawDataSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA];
       final int lnSizeRaw = loRawDataSeries.getData().size();
       for (int i = 0; i < lnSizeRaw; ++i)
@@ -343,7 +378,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
               loData.setYValue(loAvg);
             }
           }
-
         }
       }
     }
@@ -535,7 +569,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
           final XYChart.Data loDataFFT = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueFFT(lnDateIndex));
           loDataFFT.setExtraValue(loExtra);
-          laPlotPoints[Constants.HISTORICAL_TRENDS_NON_CUBIC].add(loDataFFT);
+          laPlotPoints[Constants.HISTORICAL_TRENDS_FFT].add(loDataFFT);
         }
       }
 
@@ -671,6 +705,20 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       loCheckBoxPlus.setOnAction(this);
     }
+
+    this.spnSmoothing.getValueFactory().valueProperty().addListener((toObserved, toOldValue, toNewValue) ->
+    {
+      this.redrawCharts(true);
+    });
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // this.cboStocks is handeled by refreshData
+  private void setupSpinners()
+  {
+    this.spnSmoothing.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 50));
+    this.spnSmoothing.getValueFactory().setValue(5);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -743,8 +791,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_REGRESS] = new XYChart.Series();
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_REGRESS].setName("Regression");
 
-    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_NON_CUBIC] = new XYChart.Series();
-    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_NON_CUBIC].setName("Non-Cubic Spline");
+    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT] = new XYChart.Series();
+    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT].setName("Fourier Transform");
 
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA] = new XYChart.Series();
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA].setName("Raw Data Avg");
@@ -754,8 +802,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // which define CHART_COLOR_1 through CHART_COLOR_8
     this.faSeriesColors = new String[5];
     this.faSeriesColors[0] = "#57b757";
-    this.faSeriesColors[1] = "#f3622d";
-    this.faSeriesColors[2] = "#4258c9";
+    this.faSeriesColors[1] = "#4258c9";
+    this.faSeriesColors[2] = "#f3622d";
     this.faSeriesColors[3] = "#fba71b";
     this.faSeriesColors[4] = "#41a9c9";
   }
@@ -1027,6 +1075,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   public void handle(final ActionEvent toEvent)
   {
     final Object loSource = toEvent.getSource();
+
     if (loSource.equals(this.btnAnalyze))
     {
       this.analyzeData();

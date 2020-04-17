@@ -458,7 +458,9 @@
 
 .combo-box,
 .button,
-.check-box
+.check-box,
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button
 {
   -fx-cursor: hand;
 }

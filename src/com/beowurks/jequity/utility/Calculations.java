@@ -36,6 +36,9 @@ public class Calculations
 
   private double[] faAvgValues;
 
+  // Yes, I want this as an integer so that I can compare to 0.
+  private int fnSmoothing;
+
   // ---------------------------------------------------------------------------------------------------------------------
   private Calculations()
   {
@@ -50,6 +53,8 @@ public class Calculations
     {
       return;
     }
+
+    this.fnSmoothing = toThreadDownloadHistorical.getTabHistoricalGraphController().getSmoothingValue();
 
     this.resetAverageArray(toThreadDownloadHistorical.getJSONDateRangeList(), toThreadDownloadHistorical.getTabHistoricalGraphController().getCheckBoxesForSeriesVisibility());
 
@@ -70,11 +75,7 @@ public class Calculations
   {
     final int lnIndex = tnXValue % this.faAvgValues.length;
 
-    final double lnReal = (this.foComplex[lnIndex].getReal());
-
-//    return (Math.sqrt(Math.pow(this.foComplex[tnXValue].getReal(), 2) + Math.pow(this.foComplex[tnXValue].getImaginary(), 2)));
-
-    return (lnReal);
+    return (this.foComplex[lnIndex].getReal());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -131,27 +132,34 @@ public class Calculations
 
     for (int i = 0; i < lnAvgLength; ++i)
     {
-      if (i < lnAvgLength - 2)
-      {
-        laFFTData[i] = (this.faAvgValues[i] + this.faAvgValues[i + 1] + this.faAvgValues[i + 2]) / 3.0;
-      }
-      else
-      {
-        laFFTData[i] = this.faAvgValues[i];
-      }
-
+      laFFTData[i] = this.faAvgValues[i];
     }
 
     this.foComplex = this.foFFTransformer.transform(laFFTData, TransformType.FORWARD);
 
     final int lnComplex = this.foComplex.length;
-    for (int i = lnAvgLength; i < lnComplex; ++i)
+    double lnAverage = 0.0;
+    for (int i = 0; i < lnComplex; ++i)
     {
-      this.foComplex[i] = new Complex(0.0);
+      final double lnFrequency = Math.sqrt(Math.pow(this.foComplex[i].getReal(), 2) + Math.pow(this.foComplex[i].getImaginary(), 2));
+      lnAverage += lnFrequency;
+    }
+
+    lnAverage /= lnComplex;
+
+    final double lnSmoothing = (this.fnSmoothing != 0) ? this.fnSmoothing : 5;
+
+    for (int i = 0; i < lnComplex; ++i)
+    {
+      final double lnTest = Math.sqrt(Math.pow(this.foComplex[i].getReal(), 2) + Math.pow(this.foComplex[i].getImaginary(), 2));
+
+      if (lnTest < (lnAverage / lnSmoothing))
+      {
+        this.foComplex[i] = new Complex(0.0);
+      }
     }
 
     this.foComplex = this.foFFTransformer.transform(this.foComplex, TransformType.INVERSE);
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
