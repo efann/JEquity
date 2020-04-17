@@ -32,7 +32,7 @@ public class Calculations
 
   private final FastFourierTransformer foFFTransformer = new FastFourierTransformer(DftNormalization.STANDARD);
 
-  private Complex[] foComplex;
+  private Complex[] foComplexFFT;
 
   private double[] faAvgValues;
 
@@ -59,14 +59,16 @@ public class Calculations
     this.resetAverageArray(toThreadDownloadHistorical.getJSONDateRangeList(), toThreadDownloadHistorical.getTabHistoricalGraphController().getCheckBoxesForSeriesVisibility());
 
     this.refreshRegression();
+    // Regression must be done before FFT as FFT uses the Regression results.
     this.refreshFFT();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   // y = intercept + slope * x
-  public double getYValueRegression(final double tnXValue)
+  public double getYValueRegression(final int tnXValue)
   {
-    return (this.foSimpleRegression.getIntercept() + (this.foSimpleRegression.getSlope() * tnXValue));
+    final double lnXValue = tnXValue;
+    return (this.foSimpleRegression.getIntercept() + (this.foSimpleRegression.getSlope() * lnXValue));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -75,7 +77,8 @@ public class Calculations
   {
     final int lnIndex = tnXValue % this.faAvgValues.length;
 
-    return (this.foComplex[lnIndex].getReal());
+    // You should use lnIndex for foComplexFFT. However, getYValueRegression should use the actual tnXValue.
+    return (this.foComplexFFT[lnIndex].getReal() + this.getYValueRegression(tnXValue));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -132,16 +135,19 @@ public class Calculations
 
     for (int i = 0; i < lnAvgLength; ++i)
     {
-      laFFTData[i] = this.faAvgValues[i];
+      // By substracting the regression value before running through FFT, the data is smoothed. I guess
+      // some noise is also removed by regression calculations.
+      // Plus I can now use the values in laFFTData to calculate future values.
+      laFFTData[i] = this.faAvgValues[i] - this.getYValueRegression(i);
     }
 
-    this.foComplex = this.foFFTransformer.transform(laFFTData, TransformType.FORWARD);
+    this.foComplexFFT = this.foFFTransformer.transform(laFFTData, TransformType.FORWARD);
 
-    final int lnComplex = this.foComplex.length;
+    final int lnComplex = this.foComplexFFT.length;
     double lnAverage = 0.0;
     for (int i = 0; i < lnComplex; ++i)
     {
-      final double lnFrequency = Math.sqrt(Math.pow(this.foComplex[i].getReal(), 2) + Math.pow(this.foComplex[i].getImaginary(), 2));
+      final double lnFrequency = Math.sqrt(Math.pow(this.foComplexFFT[i].getReal(), 2) + Math.pow(this.foComplexFFT[i].getImaginary(), 2));
       lnAverage += lnFrequency;
     }
 
@@ -151,15 +157,16 @@ public class Calculations
 
     for (int i = 0; i < lnComplex; ++i)
     {
-      final double lnTest = Math.sqrt(Math.pow(this.foComplex[i].getReal(), 2) + Math.pow(this.foComplex[i].getImaginary(), 2));
+      final double lnTest = Math.sqrt(Math.pow(this.foComplexFFT[i].getReal(), 2) + Math.pow(this.foComplexFFT[i].getImaginary(), 2));
 
+      // Now removing insignificant noise, I hope.
       if (lnTest < (lnAverage / lnSmoothing))
       {
-        this.foComplex[i] = new Complex(0.0);
+        this.foComplexFFT[i] = new Complex(0.0);
       }
     }
 
-    this.foComplex = this.foFFTransformer.transform(this.foComplex, TransformType.INVERSE);
+    this.foComplexFFT = this.foFFTransformer.transform(this.foComplexFFT, TransformType.INVERSE);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

@@ -343,40 +343,28 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         final Object loExtra = loData.getExtraValue();
         if (loExtra instanceof DataExtraValue)
         {
-          final LocalDate loDay = ((DataExtraValue) loExtra).foDate;
-
-          // Averages and FFT must match a date.
-          final Integer lnDateIndex = this.getDateIndex(loJSONDateRangeList, loDay);
-          if (lnDateIndex != null)
+          final int lnDateIndex = ((DataExtraValue) loExtra).fnCountWeekDays;
+          final Double loFFT = Calculations.INSTANCE.getYValueFFT(lnDateIndex);
+          if (loFFT != null)
           {
-            final Double loFFT = Calculations.INSTANCE.getYValueFFT(lnDateIndex);
-            if (loFFT != null)
-            {
-              loData.setYValue(loFFT);
-            }
+            loData.setYValue(loFFT);
           }
         }
       }
 
-      final XYChart.Series<String, Double> loRawDataSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA];
-      final int lnSizeRaw = loRawDataSeries.getData().size();
-      for (int i = 0; i < lnSizeRaw; ++i)
+      final XYChart.Series<String, Double> loRawDataAvgSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA_AVG];
+      final int lnSizeRawAvg = loRawDataAvgSeries.getData().size();
+      for (int i = 0; i < lnSizeRawAvg; ++i)
       {
-        final XYChart.Data<String, Double> loData = loRawDataSeries.getData().get(i);
+        final XYChart.Data<String, Double> loData = loRawDataAvgSeries.getData().get(i);
         final Object loExtra = loData.getExtraValue();
         if (loExtra instanceof DataExtraValue)
         {
-          final LocalDate loDay = ((DataExtraValue) loExtra).foDate;
-
-          // Averages and FFT must match a date.
-          final Integer lnDateIndex = this.getDateIndex(loJSONDateRangeList, loDay);
-          if (lnDateIndex != null)
+          final int lnDateIndex = ((DataExtraValue) loExtra).fnCountWeekDays;
+          final Double loAvg = Calculations.INSTANCE.getYValueAverage(lnDateIndex);
+          if (loAvg != null)
           {
-            final Double loAvg = Calculations.INSTANCE.getYValueAverage(lnDateIndex);
-            if (loAvg != null)
-            {
-              loData.setYValue(loAvg);
-            }
+            loData.setYValue(loAvg);
           }
         }
       }
@@ -497,8 +485,10 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // Start with the 1st date of the data set, not the start date of loDateInfo. This will ensure matching
     // the displayed start date of ChartData.
     LocalDate loTrackDate = loJSONDateRangeList.get(0).foDate;
-    final LocalDate loLastRawDataDate = loJSONDateRangeList.get(loJSONDateRangeList.size() - 1).foDate;
     final LocalDate loEnd = loDateInfo.foLocalEndDateTrends;
+
+    final LocalDate loLastRawDataDate = loJSONDateRangeList.get(loJSONDateRangeList.size() - 1).foDate;
+
     // lnCountWeekDays are 0-based as are the Calculations.
     int lnCountWeekDays = -1;
 
@@ -544,31 +534,55 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       {
         final String lcDate = this.foXAxisFormat.format(loTrackDate);
 
-        final DataExtraValue loExtra = new DataExtraValue();
-        loExtra.foDate = loTrackDate;
-        loExtra.fnCountWeekDays = lnCountWeekDays;
+        // By the way, you need separate DataExtraValue variables. Otherwise, if you change
+        // a DataExtraValue variable anywhere in the below code, it changes in the other dataseries elements linked to it.
+        // Duh.
+        final DataExtraValue loExtraReg = new DataExtraValue();
+        loExtraReg.foDate = loTrackDate;
+        loExtraReg.fnCountWeekDays = lnCountWeekDays;
 
         // Now add the elements to the particular line.
         final XYChart.Data loDataReg = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueRegression(lnCountWeekDays));
-
-        loDataReg.setExtraValue(loExtra);
-
+        loDataReg.setExtraValue(loExtraReg);
         laPlotPoints[Constants.HISTORICAL_TRENDS_REGRESS].add(loDataReg);
 
         // Averages and FFT must match a date.
+        // However, after the end date, FFT can match the Regression dates.
         final Integer lnDateIndex = this.getDateIndex(loJSONDateRangeList, loTrackDate);
         if (lnDateIndex != null)
         {
-          final Double loAvg = Calculations.INSTANCE.getYValueAverage(lnDateIndex);
-          if (loAvg != null)
-          {
-            final XYChart.Data loDataAvg = new XYChart.Data<>(lcDate, (loAvg != null) ? loAvg.doubleValue() : 0.0);
-            loDataAvg.setExtraValue(loExtra);
-            laPlotPoints[Constants.HISTORICAL_TRENDS_RAW_DATA].add(loDataAvg);
-          }
+          final double lnAverage = Calculations.INSTANCE.getYValueAverage(lnDateIndex);
+          final DataExtraValue loExtraAvg = new DataExtraValue();
+          loExtraAvg.foDate = loTrackDate;
+          // Needs to match the index for the average array, not the actual weekday number, as we're
+          // accessing actual, not calculated data.
+          loExtraAvg.fnCountWeekDays = lnDateIndex;
 
-          final XYChart.Data loDataFFT = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueFFT(lnDateIndex));
-          loDataFFT.setExtraValue(loExtra);
+          final XYChart.Data loDataAvg = new XYChart.Data<>(lcDate, lnAverage);
+          loDataAvg.setExtraValue(loExtraAvg);
+          laPlotPoints[Constants.HISTORICAL_TRENDS_RAW_DATA_AVG].add(loDataAvg);
+        }
+
+        int lnFFTDateIndex = -1;
+        if (lnDateIndex != null)
+        {
+          lnFFTDateIndex = lnDateIndex;
+        }
+        else if (loTrackDate.isAfter(loLastRawDataDate))
+        {
+          lnFFTDateIndex = lnCountWeekDays;
+        }
+
+        if (lnFFTDateIndex != -1)
+        {
+          final DataExtraValue loExtraFFT = new DataExtraValue();
+          loExtraFFT.foDate = loTrackDate;
+          // Needs to match the index for the average array, not the actual weekday number, as we're
+          // accessing actual, not calculated data.
+          loExtraFFT.fnCountWeekDays = lnFFTDateIndex;
+
+          final XYChart.Data loDataFFT = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueFFT(lnFFTDateIndex));
+          loDataFFT.setExtraValue(loExtraFFT);
           laPlotPoints[Constants.HISTORICAL_TRENDS_FFT].add(loDataFFT);
         }
       }
@@ -714,11 +728,10 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  // this.cboStocks is handeled by refreshData
   private void setupSpinners()
   {
-    this.spnSmoothing.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 50));
-    this.spnSmoothing.getValueFactory().setValue(5);
+    this.spnSmoothing.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
+    this.spnSmoothing.getValueFactory().setValue(1);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -794,8 +807,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT] = new XYChart.Series();
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT].setName("Fourier Transform");
 
-    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA] = new XYChart.Series();
-    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA].setName("Raw Data Avg");
+    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA_AVG] = new XYChart.Series();
+    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA_AVG].setName("Raw Data Avg");
 
     //*****
     // From modena.css at https://gist.github.com/maxd/63691840fc372f22f470
