@@ -43,15 +43,18 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
   private final DateTimeFormatter foHistoricalFileDateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
 
+  private boolean flRecreateCharts = true;
+
   // ---------------------------------------------------------------------------------------------------------------------
   private ThreadDownloadHistorical()
   {
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public boolean start(final boolean tlDisplayMessage, final TabHistoricalGraphController toTabHistoricalGraphController)
+  public boolean start(final boolean tlDisplayMessage, final TabHistoricalGraphController toTabHistoricalGraphController, final boolean tlRecreateCharts)
   {
     this.flDisplayDialogMessage = tlDisplayMessage;
+    this.flRecreateCharts = tlRecreateCharts;
 
     if ((this.foThread != null) && (this.foThread.isAlive()))
     {
@@ -88,18 +91,25 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   @Override
   public void run()
   {
-    Misc.setStatusText(ProgressBar.INDETERMINATE_PROGRESS);
-
-    if (this.downloadHistoricalFile())
+    if (this.flRecreateCharts)
     {
-      this.foTabHistoricalGraphController.recreateChartData();
-      this.foTabHistoricalGraphController.recreateChartTrends();
-
-      // Must be run in the JavaFX thread, duh.
-      // Otherwise, you get java.util.ConcurrentModificationException exceptions.
-      Platform.runLater(() ->
-        this.foTabHistoricalGraphController.redrawCharts(false));
+      Misc.setStatusText(ProgressBar.INDETERMINATE_PROGRESS);
+      
+      if (this.downloadHistoricalFile())
+      {
+        this.foTabHistoricalGraphController.recreateChartData();
+        this.foTabHistoricalGraphController.recreateChartTrends();
+      }
+      else
+      {
+        return;
+      }
     }
+
+    // Must be run in the JavaFX thread, duh.
+    // Otherwise, you get java.util.ConcurrentModificationException exceptions.
+    Platform.runLater(() ->
+      this.foTabHistoricalGraphController.redrawCharts(!this.flRecreateCharts));
 
   }
 

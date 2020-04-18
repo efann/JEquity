@@ -587,7 +587,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     this.writeXML();
 
-    ThreadDownloadHistorical.INSTANCE.start(true, this);
+    ThreadDownloadHistorical.INSTANCE.start(true, this, true);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -1110,7 +1110,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     }
     else if (loSource.equals(this.cboSmoothing))
     {
-      this.redrawCharts(true);
+      ThreadDownloadHistorical.INSTANCE.start(true, this, false);
     }
     else if (loSource instanceof Hyperlink)
     {
@@ -1124,7 +1124,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       if (((CheckBoxPlus) loSource).getParent() == this.hboxSeriesVisibility)
       {
-        this.redrawCharts(true);
+        ThreadDownloadHistorical.INSTANCE.start(true, this, false);
       }
     }
 
