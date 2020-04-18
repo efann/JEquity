@@ -147,6 +147,7 @@ public class Calculations
     double lnAverage = 0.0;
     for (int i = 0; i < lnComplex; ++i)
     {
+      // From https://coderanch.com/t/618633/java/Basic-FFT-identify-frequency
       final double lnFrequency = Math.sqrt(Math.pow(this.foComplexFFT[i].getReal(), 2) + Math.pow(this.foComplexFFT[i].getImaginary(), 2));
       lnAverage += lnFrequency;
     }
@@ -160,6 +161,7 @@ public class Calculations
       final double lnTest = Math.sqrt(Math.pow(this.foComplexFFT[i].getReal(), 2) + Math.pow(this.foComplexFFT[i].getImaginary(), 2));
 
       // Now removing insignificant noise, I hope.
+      // From https://stackoverflow.com/questions/20618804/how-to-smooth-a-curve-in-the-right-way
       if (lnTest < (lnAverage / lnSmoothing))
       {
         this.foComplexFFT[i] = new Complex(0.0);

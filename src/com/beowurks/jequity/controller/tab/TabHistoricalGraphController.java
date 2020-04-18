@@ -135,12 +135,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public ComboBox<StringKeyItem> getComboBox()
-  {
-    return (this.cboStocks);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
   public LineChart getChartData()
   {
     return (this.chtLineChartData);
@@ -330,7 +324,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         final Object loExtra = loData.getExtraValue();
         if (loExtra instanceof DataExtraValue)
         {
-          final int lnDay = ((DataExtraValue) loExtra).fnCountWeekDays;
+          final int lnDay = ((DataExtraValue) loExtra).getWeekDays();
           loData.setYValue(Calculations.INSTANCE.getYValueRegression(lnDay));
         }
       }
@@ -343,7 +337,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         final Object loExtra = loData.getExtraValue();
         if (loExtra instanceof DataExtraValue)
         {
-          final int lnDateIndex = ((DataExtraValue) loExtra).fnCountWeekDays;
+          final int lnDateIndex = ((DataExtraValue) loExtra).getWeekDays();
           final Double loFFT = Calculations.INSTANCE.getYValueFFT(lnDateIndex);
           if (loFFT != null)
           {
@@ -360,7 +354,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         final Object loExtra = loData.getExtraValue();
         if (loExtra instanceof DataExtraValue)
         {
-          final int lnDateIndex = ((DataExtraValue) loExtra).fnCountWeekDays;
+          final int lnDateIndex = ((DataExtraValue) loExtra).getWeekDays();
           final Double loAvg = Calculations.INSTANCE.getYValueAverage(lnDateIndex);
           if (loAvg != null)
           {
@@ -537,9 +531,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         // By the way, you need separate DataExtraValue variables. Otherwise, if you change
         // a DataExtraValue variable anywhere in the below code, it changes in the other dataseries elements linked to it.
         // Duh.
-        final DataExtraValue loExtraReg = new DataExtraValue();
-        loExtraReg.foDate = loTrackDate;
-        loExtraReg.fnCountWeekDays = lnCountWeekDays;
+        final DataExtraValue loExtraReg = new DataExtraValue(loTrackDate, lnCountWeekDays);
 
         // Now add the elements to the particular line.
         final XYChart.Data loDataReg = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueRegression(lnCountWeekDays));
@@ -552,11 +544,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         if (lnDateIndex != null)
         {
           final double lnAverage = Calculations.INSTANCE.getYValueAverage(lnDateIndex);
-          final DataExtraValue loExtraAvg = new DataExtraValue();
-          loExtraAvg.foDate = loTrackDate;
           // Needs to match the index for the average array, not the actual weekday number, as we're
           // accessing actual, not calculated data.
-          loExtraAvg.fnCountWeekDays = lnDateIndex;
+          final DataExtraValue loExtraAvg = new DataExtraValue(loTrackDate, lnDateIndex);
 
           final XYChart.Data loDataAvg = new XYChart.Data<>(lcDate, lnAverage);
           loDataAvg.setExtraValue(loExtraAvg);
@@ -575,11 +565,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
         if (lnFFTDateIndex != -1)
         {
-          final DataExtraValue loExtraFFT = new DataExtraValue();
-          loExtraFFT.foDate = loTrackDate;
           // Needs to match the index for the average array, not the actual weekday number, as we're
           // accessing actual, not calculated data.
-          loExtraFFT.fnCountWeekDays = lnFFTDateIndex;
+          final DataExtraValue loExtraFFT = new DataExtraValue(loTrackDate, lnFFTDateIndex);
 
           final XYChart.Data loDataFFT = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueFFT(lnFFTDateIndex));
           loDataFFT.setExtraValue(loExtraFFT);
@@ -896,7 +884,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  synchronized public StringKeyItem refreshData()
+  synchronized public void refreshData()
   {
     // Just in case, the key has been modified in the Options dialog.
     this.refreshLabels();
@@ -937,18 +925,21 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // Reset before selection occurs so that the relevant select actions take place.
     loCombo.setOnAction(loActionHandler);
 
+    int lnSelected = -1;
     if (loSelectItem != null)
     {
-      loCombo.setValue(loSelectItem);
       loCombo.getSelectionModel().select(loSelectItem);
+      System.err.println(loCombo.getSelectionModel().getSelectedIndex());
     }
     else
     {
-      loCombo.setValue(loInitKeyItem);
       loCombo.getSelectionModel().select(loInitKeyItem);
     }
 
-    return (loInitKeyItem);
+    lnSelected = loCombo.getSelectionModel().getSelectedIndex();
+
+    loCombo.getSelectionModel().select(lnSelected);
+
   }
 
   // -----------------------------------------------------------------------------
