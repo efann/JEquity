@@ -40,7 +40,8 @@
 
   </GridPane>
 
-  <Label fx:id="lblTitleMessage" AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+  <Label fx:id="lblStockTitleMessage" AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="10.0"
+         AnchorPane.rightAnchor="10.0"
          maxWidth="Infinity" alignment="CENTER"
          text="Select a stock then press the Analyze button"/>
 

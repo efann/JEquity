@@ -79,7 +79,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private Button btnAnalyze;
 
   @FXML
-  private Label lblTitleMessage;
+  private Label lblStockTitleMessage;
 
   @FXML
   private HyperlinkLabel lnkAlphaVantageMessage;
@@ -242,6 +242,16 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.redrawChartTrends(tlRecalculate);
 
     this.updateChartTooltips();
+
+    // Okay, if I don't request focus, then the following happens:
+    //  1) If a new stock has been selected, then setStockTitleMessage is called which sets text of the stock title label.
+    //  2) For some reason, then, the charts will not display their updates, until the user either clicks the JEquity window (anywhere)
+    //     or clicks on some other application, which causes JEquity to lose focus.
+    // By the way, if setStockTitleMessage is not called, say when clicking the Smoothing combobox or one of the series Check Boxes,
+    // the charts update just fine.
+    // Weird.
+    this.chtLineChartData.requestFocus();
+    this.chtLineChartTrends.requestFocus();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -979,12 +989,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       final StringKeyItem loItem = this.cboStocks.getSelectedItem();
 
-      this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%s)", loItem.getDescription(), loItem.getKey()), true);
+      this.setStockTitleMessage(String.format("Unable to obtain the setup data for %s (%s)", loItem.getDescription(), loItem.getKey()), true);
 
       return;
     }
 
-    this.setTitleMessage(String.format("%s (%s)", this.fcCurrentDescription, this.fcCurrentSymbol), false);
+    this.setStockTitleMessage(String.format("%s (%s)", this.fcCurrentDescription, this.fcCurrentSymbol), false);
     this.updateComponentsFromXML();
   }
 
@@ -1081,10 +1091,13 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void setTitleMessage(final String tcTitle, final boolean tlError)
+  private void setStockTitleMessage(final String tcTitle, final boolean tlError)
   {
-    this.lblTitleMessage.setText(tcTitle);
-    this.lblTitleMessage.setTextFill(tlError ? Color.RED : Color.BLACK);
+    Platform.runLater(() ->
+    {
+      this.lblStockTitleMessage.setText(tcTitle);
+      this.lblStockTitleMessage.setTextFill(tlError ? Color.RED : Color.BLACK);
+    });
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

@@ -94,7 +94,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     if (this.flRecreateCharts)
     {
       Misc.setStatusText(ProgressBar.INDETERMINATE_PROGRESS);
-      
+
       if (this.downloadHistoricalFile())
       {
         this.foTabHistoricalGraphController.recreateChartData();
