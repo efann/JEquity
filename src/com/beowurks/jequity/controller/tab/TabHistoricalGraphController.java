@@ -11,6 +11,7 @@ package com.beowurks.jequity.controller.tab;
 import com.beowurks.jequity.dao.XMLTextReader;
 import com.beowurks.jequity.dao.XMLTextWriter;
 import com.beowurks.jequity.dao.combobox.DoubleKeyItem;
+import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
@@ -595,6 +596,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       return;
     }
 
+    this.updateOnComboBoxSelect();
+
     this.writeXML();
 
     ThreadDownloadHistorical.INSTANCE.start(true, this, true);
@@ -994,7 +997,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       return;
     }
 
-    this.setStockTitleMessage(String.format("%s (%s)", this.fcCurrentDescription, this.fcCurrentSymbol), false);
+    final Object loPeriod = this.cboRanges.getSelectionModel().getSelectedItem();
+    final String lcPeriod = (loPeriod instanceof IntegerKeyItem) ? ((IntegerKeyItem) loPeriod).getDescription() : "";
+    this.setStockTitleMessage(String.format("%s (%s): %s", this.fcCurrentDescription, this.fcCurrentSymbol, lcPeriod), false);
     this.updateComponentsFromXML();
   }
 
@@ -1115,7 +1120,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     if (loSource.equals(this.btnAnalyze))
     {
-      this.updateOnComboBoxSelect();
       this.analyzeData();
     }
     else if (loSource.equals(this.cboSmoothing))
