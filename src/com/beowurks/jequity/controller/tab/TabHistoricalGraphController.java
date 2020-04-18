@@ -1093,11 +1093,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void setStockTitleMessage(final String tcTitle, final boolean tlError)
   {
-    Platform.runLater(() ->
-    {
-      this.lblStockTitleMessage.setText(tcTitle);
-      this.lblStockTitleMessage.setTextFill(tlError ? Color.RED : Color.BLACK);
-    });
+    this.lblStockTitleMessage.setText(tcTitle);
+    this.lblStockTitleMessage.setTextFill(tlError ? Color.RED : Color.BLACK);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
