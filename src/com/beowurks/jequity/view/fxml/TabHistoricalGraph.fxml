@@ -68,7 +68,7 @@
     <Tab fx:id="tabTrends" text="Trends" closable="false">
       <VBox>
         <Label fx:id="lblHistoricalWarning" maxWidth="Infinity" alignment="CENTER"
-               text="Do not use for financial planning. People nor technology can predict the future. Ever."/>
+               text="Do not use for financial planning or investing. People nor technology can predict the future. Ever."/>
 
         <LineChart fx:id="chtLineChartTrends" createSymbols="true">
           <effect>

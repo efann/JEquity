@@ -890,11 +890,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.refreshLabels();
 
     final ComboBox<StringKeyItem> loCombo = this.cboStocks;
+    final StringKeyItem loSelectItem = loCombo.getSelectionModel().getSelectedItem();
+    final String lcSelectKey = (loSelectItem != null) ? loSelectItem.getKey() : "";
+
     // Save the onAction event then set to null so nothing happens when rebuilding the list.
     final EventHandler<ActionEvent> loActionHandler = loCombo.getOnAction();
     loCombo.setOnAction(null);
-
-    final StringKeyItem loSelectItem = loCombo.getSelectionModel().getSelectedItem();
 
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = loHibernate.getSession();
@@ -906,11 +907,23 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     final List<SymbolEntity> loList = loQuery.list();
 
+    StringKeyItem loMatchItem = null;
     for (final SymbolEntity loRow : loList)
     {
       final String lcID = loRow.getSymbol().trim();
       final StringKeyItem loKeyItem = new StringKeyItem(lcID, loRow.getDescription());
       loStringKeys.add(loKeyItem);
+
+      if (loMatchItem != null)
+      {
+        continue;
+      }
+
+      if (loKeyItem.getKey().equals(lcSelectKey))
+      {
+        loMatchItem = loKeyItem;
+      }
+
     }
     loSession.close();
 
@@ -920,19 +933,11 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // Reset before selection occurs so that the relevant select actions take place.
     loCombo.setOnAction(loActionHandler);
 
-    if (loSelectItem != null)
+    if (loMatchItem != null)
     {
-      // For some reason, loCombo.getSelectionModel().select(loSelectItem) just never
-      // works.
-      final int lnLength = loCombo.getItems().size();
-      for (int i = 0; i < lnLength; ++i)
-      {
-        if (loCombo.getItems().get(i).getKey().equals(loSelectItem.getKey()))
-        {
-          loCombo.getSelectionModel().select(i);
-          break;
-        }
-      }
+      // Must match an existing item object in the list. loSelectedItem object
+      // doesn't exist in the new list.
+      loCombo.getSelectionModel().select(loMatchItem);
     }
     else
     {
