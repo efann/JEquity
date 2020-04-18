@@ -36,8 +36,7 @@ public class Calculations
 
   private double[] faAvgValues;
 
-  // Yes, I want this as an integer so that I can compare to 0.
-  private int fnSmoothing;
+  private double fnSmoothing;
 
   // ---------------------------------------------------------------------------------------------------------------------
   private Calculations()
@@ -141,6 +140,7 @@ public class Calculations
       laFFTData[i] = this.faAvgValues[i] - this.getYValueRegression(i);
     }
 
+    // Convert data to frequencies.
     this.foComplexFFT = this.foFFTransformer.transform(laFFTData, TransformType.FORWARD);
 
     final int lnComplex = this.foComplexFFT.length;
@@ -154,7 +154,7 @@ public class Calculations
 
     lnAverage /= lnComplex;
 
-    final double lnSmoothing = (this.fnSmoothing != 0) ? this.fnSmoothing : 5;
+    final double lnSmoothing = this.fnSmoothing;
 
     for (int i = 0; i < lnComplex; ++i)
     {
@@ -162,12 +162,13 @@ public class Calculations
 
       // Now removing insignificant noise, I hope.
       // From https://stackoverflow.com/questions/20618804/how-to-smooth-a-curve-in-the-right-way
-      if (lnTest < (lnAverage / lnSmoothing))
+      if ((lnSmoothing > 0.0) && (lnTest < (lnAverage * lnSmoothing)))
       {
         this.foComplexFFT[i] = new Complex(0.0);
       }
     }
 
+    // Now convert altered frequency data back to normal data.
     this.foComplexFFT = this.foFFTransformer.transform(this.foComplexFFT, TransformType.INVERSE);
   }
 

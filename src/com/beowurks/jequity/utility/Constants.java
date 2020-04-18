@@ -7,6 +7,7 @@
  */
 package com.beowurks.jequity.utility;
 
+import com.beowurks.jequity.dao.combobox.DoubleKeyItem;
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.main.Main;
 
@@ -83,6 +84,7 @@ final public class Constants
   public final static int HISTORICAL_1_YEAR = 365;
   public final static int HISTORICAL_2_YEARS = 2 * Constants.HISTORICAL_1_YEAR;
   public final static int HISTORICAL_5_YEARS = 5 * Constants.HISTORICAL_1_YEAR;
+  public final static int HISTORICAL_10_YEARS = 10 * Constants.HISTORICAL_1_YEAR;
   // The data tends to go back around 20 years, so 40 years should cover everything. By the way,
   // in this case, the start date will be the earliest in the actual data.
   public final static int HISTORICAL_MAX_YEARS = 40 * Constants.HISTORICAL_1_YEAR;
@@ -96,7 +98,35 @@ final public class Constants
       new IntegerKeyItem(Constants.HISTORICAL_1_YEAR, String.format("1 Year (%d days)", Constants.HISTORICAL_1_YEAR)),
       new IntegerKeyItem(Constants.HISTORICAL_2_YEARS, String.format("2 Year (%d days)", Constants.HISTORICAL_2_YEARS)),
       new IntegerKeyItem(Constants.HISTORICAL_5_YEARS, String.format("5 Year (%d days)", Constants.HISTORICAL_5_YEARS)),
+      new IntegerKeyItem(Constants.HISTORICAL_10_YEARS, String.format("10 Year (%d days)", Constants.HISTORICAL_10_YEARS)),
       new IntegerKeyItem(Constants.HISTORICAL_MAX_YEARS, "Maximum (All available data)")
+    };
+
+
+  public final static DoubleKeyItem[] HISTORICAL_SMOOTH_COEFFICIENTS =
+    {
+      new DoubleKeyItem(0.0, "None"),
+      new DoubleKeyItem(0.1, "0.1"),
+      new DoubleKeyItem(0.2, "0.2"),
+      new DoubleKeyItem(0.3, "0.3"),
+      new DoubleKeyItem(0.4, "0.4"),
+      new DoubleKeyItem(0.5, "0.5"),
+      new DoubleKeyItem(0.6, "0.6"),
+      new DoubleKeyItem(0.7, "0.7"),
+      new DoubleKeyItem(0.8, "0.8"),
+      new DoubleKeyItem(0.9, "0.9"),
+      new DoubleKeyItem(0.9, "0.9"),
+      new DoubleKeyItem(1.0, "Default"),
+      new DoubleKeyItem(1.1, "1.1"),
+      new DoubleKeyItem(1.2, "1.2"),
+      new DoubleKeyItem(1.3, "1.3"),
+      new DoubleKeyItem(1.4, "1.4"),
+      new DoubleKeyItem(1.5, "1.5"),
+      new DoubleKeyItem(1.6, "1.6"),
+      new DoubleKeyItem(1.7, "1.7"),
+      new DoubleKeyItem(1.8, "1.8"),
+      new DoubleKeyItem(1.9, "1.9"),
+      new DoubleKeyItem(2.0, "2.0"),
     };
 
   public final static int HISTORICAL_TRENDS_REGRESS = 0;

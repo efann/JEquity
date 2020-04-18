@@ -10,6 +10,7 @@ package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.dao.XMLTextReader;
 import com.beowurks.jequity.dao.XMLTextWriter;
+import com.beowurks.jequity.dao.combobox.DoubleKeyItem;
 import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
@@ -23,6 +24,7 @@ import com.beowurks.jequity.utility.Calculations;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
+import com.beowurks.jequity.view.combobox.ComboBoxDoubleKey;
 import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
 import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
 import javafx.application.Platform;
@@ -37,8 +39,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -70,6 +70,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private ComboBoxIntegerKey cboRanges;
 
   @FXML
+  private ComboBoxDoubleKey cboSmoothing;
+
+  @FXML
   private HBox hboxSeriesVisibility;
 
   @FXML
@@ -80,9 +83,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
   @FXML
   private HyperlinkLabel lnkAlphaVantageMessage;
-
-  @FXML
-  private Spinner<Integer> spnSmoothing;
 
   @FXML
   private LineChart chtLineChartData;
@@ -107,20 +107,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private String[] faSeriesColors;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void analyzeData()
-  {
-    if (!this.isAlphaVantageKeySet())
-    {
-      Misc.errorMessage("Your Alpha Vantage key has not been set yet.");
-      return;
-    }
-
-    this.writeXML();
-
-    ThreadDownloadHistorical.INSTANCE.start(true, this);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method
   @FXML
   public void initialize()
@@ -128,7 +114,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.setupXYDataSeries();
     this.setupCheckboxes();
     this.setupComboBoxes();
-    this.setupSpinners();
     this.initializeCharts();
 
     this.setupListeners();
@@ -159,9 +144,11 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public int getSmoothingValue()
+  public double getSmoothingValue()
   {
-    return (this.spnSmoothing.getValue());
+    final DoubleKeyItem loItem = (DoubleKeyItem) this.cboSmoothing.getSelectionModel().getSelectedItem();
+
+    return ((loItem != null) ? loItem.getKey() : 0.0);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -584,6 +571,43 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  private void analyzeData()
+  {
+    if (!this.isAlphaVantageKeySet())
+    {
+      Misc.errorMessage("Your Alpha Vantage key has not been set yet.");
+      return;
+    }
+
+    if (!this.isAtLeastOneSeriesVisible())
+    {
+      Misc.errorMessage("At least one of the series must be visible before analyzing.");
+      return;
+    }
+
+    this.writeXML();
+
+    ThreadDownloadHistorical.INSTANCE.start(true, this);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private boolean isAtLeastOneSeriesVisible()
+  {
+    final int lnCount = this.faSeriesVisibility.length;
+
+    for (int i = 0; i < lnCount; ++i)
+    {
+      if (this.faSeriesVisibility[i].isSelected())
+      {
+        return (true);
+      }
+    }
+
+    return (false);
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   private Integer getDateIndex(final ArrayList<JSONDataElements> loJSONDateRangeList, final LocalDate toDate)
   {
     if ((loJSONDateRangeList == null) || (toDate == null))
@@ -699,7 +723,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   private void setupListeners()
   {
     this.btnAnalyze.setOnAction(this);
-    this.cboStocks.setOnAction(this);
+    this.cboSmoothing.setOnAction(this);
 
     this.lnkAlphaVantageMessage.setOnAction(this);
 
@@ -708,18 +732,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       loCheckBoxPlus.setOnAction(this);
     }
 
-    this.spnSmoothing.getValueFactory().valueProperty().addListener((toObserved, toOldValue, toNewValue) ->
-    {
-      this.redrawCharts(true);
-    });
-
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void setupSpinners()
-  {
-    this.spnSmoothing.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
-    this.spnSmoothing.getValueFactory().setValue(1);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -729,6 +741,18 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.cboRanges.getItems().clear();
     this.cboRanges.getItems().addAll(Constants.HISTORICAL_RANGE);
     this.cboRanges.getSelectionModel().select(0);
+
+    this.cboSmoothing.getItems().clear();
+    this.cboSmoothing.getItems().addAll(Constants.HISTORICAL_SMOOTH_COEFFICIENTS);
+    for (final Object loItem : this.cboSmoothing.getItems())
+    {
+      if (((DoubleKeyItem) loItem).getKey() == 1.0)
+      {
+        this.cboSmoothing.getSelectionModel().select(loItem);
+        break;
+      }
+    }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -824,6 +848,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     for (int i = 0; i < lnCount; ++i)
     {
       final CheckBoxPlus loCheckBox = new CheckBoxPlus(this.faXYDataSeriesData[i].getName());
+      loCheckBox.setSelected(true);
       this.faSeriesVisibility[i] = loCheckBox;
 
       this.hboxSeriesVisibility.getChildren().add(loCheckBox);
@@ -886,10 +911,11 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   synchronized public void refreshData()
   {
-    // Just in case, the key has been modified in the Options dialog.
+    // Just in case, the AlphaVantage key has been modified in the Options dialog.
     this.refreshLabels();
 
     final ComboBox<StringKeyItem> loCombo = this.cboStocks;
+
     final StringKeyItem loSelectItem = loCombo.getSelectionModel().getSelectedItem();
     final String lcSelectKey = (loSelectItem != null) ? loSelectItem.getKey() : "";
 
@@ -949,14 +975,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // -----------------------------------------------------------------------------
   private void updateOnComboBoxSelect()
   {
-    for (final CheckBoxPlus loCheckBoxPlus : this.faSeriesVisibility)
-    {
-      loCheckBoxPlus.setSelected(true);
-    }
-
     if (!this.readXML())
     {
-      this.btnAnalyze.setDisable(true);
       final StringKeyItem loItem = this.cboStocks.getSelectedItem();
 
       this.setTitleMessage(String.format("Unable to obtain the setup data for %s (%s)", loItem.getDescription(), loItem.getKey()), true);
@@ -965,7 +985,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     }
 
     this.setTitleMessage(String.format("%s (%s)", this.fcCurrentDescription, this.fcCurrentSymbol), false);
-    this.btnAnalyze.setDisable(false);
     this.updateComponentsFromXML();
   }
 
@@ -1086,11 +1105,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     if (loSource.equals(this.btnAnalyze))
     {
+      this.updateOnComboBoxSelect();
       this.analyzeData();
     }
-    else if (loSource.equals(this.cboStocks))
+    else if (loSource.equals(this.cboSmoothing))
     {
-      this.updateOnComboBoxSelect();
+      this.redrawCharts(true);
     }
     else if (loSource instanceof Hyperlink)
     {

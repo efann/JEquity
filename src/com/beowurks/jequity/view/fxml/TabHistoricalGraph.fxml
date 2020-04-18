@@ -8,6 +8,7 @@
   ~
   -->
 
+<?import com.beowurks.jequity.view.combobox.ComboBoxDoubleKey?>
 <?import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey?>
 <?import com.beowurks.jequity.view.combobox.ComboBoxStringKey?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -15,7 +16,6 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.effect.DropShadow?>
@@ -34,10 +34,7 @@
                     style="-fx-font-weight: bold;"/>
 
     <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="3">
-      <!--
-        Concerning initialization, read https://medium.com/@joshwickham/creating-an-integer-spinner-in-javafx-f8fda8d12ae5
-      -->
-      <Spinner fx:id="spnSmoothing" minWidth="60" maxWidth="60"/>
+      <ComboBoxDoubleKey fx:id="cboSmoothing"/>
       <Label alignment="CENTER_LEFT" text="FFT Smoothing Coefficient"/>
     </HBox>
 
@@ -45,7 +42,7 @@
 
   <Label fx:id="lblTitleMessage" AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
          maxWidth="Infinity" alignment="CENTER"
-         text="Stocks (DOES NOT WORK YET as Yahoo pulled plug on data)"/>
+         text="Select a stock then press the Analyze button"/>
 
   <TabPane fx:id="tabGraphPane" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="20.0"
            AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
