@@ -904,7 +904,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     final ObservableList<StringKeyItem> loStringKeys = FXCollections.observableArrayList();
 
-    StringKeyItem loInitKeyItem = null;
     final List<SymbolEntity> loList = loQuery.list();
 
     for (final SymbolEntity loRow : loList)
@@ -912,10 +911,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       final String lcID = loRow.getSymbol().trim();
       final StringKeyItem loKeyItem = new StringKeyItem(lcID, loRow.getDescription());
       loStringKeys.add(loKeyItem);
-      if (loInitKeyItem == null)
-      {
-        loInitKeyItem = loKeyItem;
-      }
     }
     loSession.close();
 
@@ -925,20 +920,24 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // Reset before selection occurs so that the relevant select actions take place.
     loCombo.setOnAction(loActionHandler);
 
-    int lnSelected = -1;
     if (loSelectItem != null)
     {
-      loCombo.getSelectionModel().select(loSelectItem);
-      System.err.println(loCombo.getSelectionModel().getSelectedIndex());
+      // For some reason, loCombo.getSelectionModel().select(loSelectItem) just never
+      // works.
+      final int lnLength = loCombo.getItems().size();
+      for (int i = 0; i < lnLength; ++i)
+      {
+        if (loCombo.getItems().get(i).getKey().equals(loSelectItem.getKey()))
+        {
+          loCombo.getSelectionModel().select(i);
+          break;
+        }
+      }
     }
     else
     {
-      loCombo.getSelectionModel().select(loInitKeyItem);
+      loCombo.getSelectionModel().select(0);
     }
-
-    lnSelected = loCombo.getSelectionModel().getSelectedIndex();
-
-    loCombo.getSelectionModel().select(lnSelected);
 
   }
 
