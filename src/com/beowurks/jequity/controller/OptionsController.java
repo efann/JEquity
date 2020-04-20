@@ -18,6 +18,7 @@ import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
 import com.beowurks.jequity.view.textfield.PasswordFieldPlus;
 import com.beowurks.jequity.view.textfield.TextFieldPlus;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -114,8 +115,8 @@ public class OptionsController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupComboBoxes(final AppProperties toApp)
   {
-    final IntegerKeyItem[] laDrivers = toApp.getRDBMS_Types();
-    final IntegerKeyItem[] laDailyIntervals = toApp.getDailyIntervals();
+    final ObservableList<IntegerKeyItem> laDrivers = toApp.getRDBMS_Types();
+    final ObservableList<IntegerKeyItem> laDailyIntervals = toApp.getDailyIntervals();
 
     this.cboDriver.getItems().clear();
     this.cboDriver.getItems().addAll(laDrivers);

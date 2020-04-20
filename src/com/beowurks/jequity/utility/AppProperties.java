@@ -10,6 +10,7 @@ package com.beowurks.jequity.utility;
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.view.dialog.PasswordDialog;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ProgressBar;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
@@ -114,19 +115,13 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public IntegerKeyItem[] getHistorical_Range()
-  {
-    return (Constants.HISTORICAL_RANGE);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public IntegerKeyItem[] getRDBMS_Types()
+  public ObservableList<IntegerKeyItem> getRDBMS_Types()
   {
     return (Constants.RDBMS_DRIVERS);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public IntegerKeyItem[] getDailyIntervals()
+  public ObservableList<IntegerKeyItem> getDailyIntervals()
   {
     return (Constants.DAILY_INTERVAL);
   }
@@ -244,7 +239,7 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------------------------------------------------
   public int getConnectionRDBMS_Key()
   {
-    return (this.getProperty(Constants.CONNECTION_RDBMS_KEY, Constants.RDBMS_DRIVERS[0].getKey()));
+    return (this.getProperty(Constants.CONNECTION_RDBMS_KEY, Constants.RDBMS_DRIVERS.get(0).getKey()));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -252,7 +247,7 @@ public final class AppProperties extends BaseProperties
   {
     // Due to the fact that I keep increasing the minimum time, I'm just insuring that the latest minimum value
     // is returned.
-    final int lnMinimumKeyValue = Constants.DAILY_INTERVAL[0].getKey();
+    final int lnMinimumKeyValue = Constants.DAILY_INTERVAL.get(0).getKey();
     final int lnKey = Integer.max(this.getProperty(Constants.DAILY_INTERVAL_KEY, lnMinimumKeyValue), lnMinimumKeyValue);
 
     return (lnKey);
@@ -269,7 +264,7 @@ public final class AppProperties extends BaseProperties
   {
     final int lnIndex = this.convertKeyToIndex(this.getRDBMS_Types(), this.getConnectionRDBMS_Key());
 
-    return (Constants.RDBMS_DRIVERS[lnIndex].toString());
+    return (Constants.RDBMS_DRIVERS.get(lnIndex).toString());
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -383,7 +378,7 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public int convertIndexToKey(final IntegerKeyItem[] taItems, final int tnIndex)
+  public int convertIndexToKey(final ObservableList<IntegerKeyItem> taItems, final int tnIndex)
   {
     int lnIndex = tnIndex;
 
@@ -392,23 +387,23 @@ public final class AppProperties extends BaseProperties
       lnIndex = 0;
     }
 
-    if (lnIndex >= taItems.length)
+    if (lnIndex >= taItems.size())
     {
-      lnIndex = taItems.length - 1;
+      lnIndex = taItems.size() - 1;
     }
 
-    return (taItems[lnIndex].getKey());
+    return (taItems.get(lnIndex).getKey());
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public int convertKeyToIndex(final IntegerKeyItem[] taItems, final int tnKey)
+  public int convertKeyToIndex(final ObservableList<IntegerKeyItem> taItems, final int tnKey)
   {
-    final int lnLength = taItems.length;
+    final int lnLength = taItems.size();
 
     int lnValue = 0;
     for (int i = 0; i < lnLength; ++i)
     {
-      if (taItems[i].getKey() == tnKey)
+      if (taItems.get(i).getKey() == tnKey)
       {
         lnValue = i;
         break;

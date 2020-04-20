@@ -181,7 +181,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       lnIndex = 0;
     }
 
-    final int lnDays = Constants.HISTORICAL_RANGE[lnIndex].getKey();
+    final int lnDays = Constants.HISTORICAL_RANGE.get(lnIndex).getKey();
 
     final LocalDate loCurrent = LocalDate.now();
     final HistoricalDateInfo loDateInfo = new HistoricalDateInfo();
