@@ -33,7 +33,6 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-logging-1.1.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-collections4-4.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasperreports.6.12.2/itext-2.1.7.js7.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasperreports.6.12.2/bcprov-jdk15on-1.62.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasperreports.6.12.2/jcommon-1.0.23.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasperreports.6.12.2/jfreechart-1.0.19.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/jasperreports.6.12.2/ecj-4.4.2.jar" path-in-jar="/" />

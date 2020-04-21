@@ -1,6 +1,10 @@
 <component name="libraryTable">
   <library name="net.sf.jasperreports:jasperreports:6.12.2" type="repository">
-    <properties maven-id="net.sf.jasperreports:jasperreports:6.12.2" />
+    <properties maven-id="net.sf.jasperreports:jasperreports:6.12.2">
+      <exclude>
+        <dependency maven-id="org.bouncycastle:bcprov-jdk15on" />
+      </exclude>
+    </properties>
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/jasperreports-6.12.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-beanutils-1.9.4.jar!/" />
@@ -9,7 +13,6 @@
       <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-logging-1.1.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/commons-collections4-4.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/itext-2.1.7.js7.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/bcprov-jdk15on-1.62.jar!/" />
       <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/jcommon-1.0.23.jar!/" />
       <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/jfreechart-1.0.19.jar!/" />
       <root url="jar://$PROJECT_DIR$/libraries/jasperreports.6.12.2/ecj-4.4.2.jar!/" />
