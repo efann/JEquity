@@ -70,6 +70,7 @@ public class Main extends Application
       toPrimaryStage.getIcons().add(new Image("/com/beowurks/jequity/view/images/JEquity.png"));
       toPrimaryStage.setScene(new Scene(Main.foMainBorderPane));
       toPrimaryStage.show();
+
     }
     catch (final IOException loErr)
     {
@@ -79,6 +80,7 @@ public class Main extends Application
       // Then you will see the output of printStackTrace.
       loErr.printStackTrace();
     }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -134,8 +136,42 @@ public class Main extends Application
         // Always call with the parameter is true when initializing. Otherwise certain
         // variables will not be properly initialized.
         Main.getController().refreshAllComponents(true);
+
+        Main.libraryCheck();
       }
     });
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private static void libraryCheck()
+  {
+    // Not to be obsessive, but this library really caused problems with the self-executable jar file due to the fact
+    // that this library was already signed.
+    // These classes currently exist and, hopefully in future versions, one of them will still exist.
+    final String[] taClasses = {"org.bouncycastle.jcajce.provider.config.ProviderConfiguration",
+      "org.bouncycastle.util.Arrays",
+      "org.bouncycastle.util.Strings",
+      "org.bouncycastle.crypto.BlockCipher"
+    };
+
+    final int lnCount = taClasses.length;
+    boolean llExists = false;
+    for (int i = 0; i < lnCount; ++i)
+    {
+      if (Misc.isClassAvailable(taClasses[i]))
+      {
+        llExists = true;
+        break;
+      }
+    }
+
+    if (llExists)
+    {
+      // This should only happen when developing, and I accidently re-included the bouncy castle library,
+      // currently bcprov-jdk15on-1.62.jar, back into the jasper reports bundle.
+      Misc.errorMessage("The Bouncy Castle java library has been accidently re-added to this project.\n\nNotify the developer to remove this library.");
+    }
 
   }
 
