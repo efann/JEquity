@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.5" transformSequenceNumber="8">
   <directoryPresets config="D:/OneDrive/Downloads/Certificates/Apple/DeveloperCertificates.p12" />
-  <application name="JEquity" applicationId="3320-6753-1790-7084" mediaDir="D:/temp/install4j/JEquity/media" shortName="JEquity" publisher="Beowurks" publisherWeb="https://www.beowurks.com/applications/single/JEquity" version="2020.0.2.180" convertDotsToUnderscores="false" macVolumeId="704ca49a6335aefd" javaMinVersion="12" javaMaxVersion="12">
+  <application name="JEquity" applicationId="3320-6753-1790-7084" mediaDir="D:/temp/install4j/JEquity/media" shrinkRuntime="false" shortName="JEquity" publisher="Beowurks" publisherWeb="https://www.beowurks.com/applications/single/JEquity" version="2020.0.2.180" convertDotsToUnderscores="false" macVolumeId="704ca49a6335aefd" javaMinVersion="12" javaMaxVersion="12">
     <languages>
       <principalLanguage id="en" customLocalizationFile="D:/IntelliJ/JEquity/install/English.utf8" />
     </languages>
