@@ -170,7 +170,7 @@ public class Main extends Application
     {
       // This should only happen when developing, and I accidently re-included the bouncy castle library,
       // currently bcprov-jdk15on-1.62.jar, back into the jasper reports bundle.
-      Misc.errorMessage("The Bouncy Castle java library has been accidently re-added to this project.\n\nNotify the developer to exclude, not remove, from this library. There's in option in Projects | Libraries | Classes: a funny looking + sign.");
+      Misc.errorMessage("The Bouncy Castle java library has been re-added to this project.\n\nNotify the developer to exclude, not remove, from this library. The exclude option may be found in Projects | Libraries | Classes: a funny looking + sign.");
     }
 
   }

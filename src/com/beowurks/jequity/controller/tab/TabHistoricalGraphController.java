@@ -877,11 +877,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     if (this.isAlphaVantageKeySet())
     {
-      lcMessage.append(String.format("Your Alpha Vantage key, %s, is set for downloading historical data. For more information, visit [https://www.alphavantage.co/documentation/].", this.maskKey(this.getAlphaVantageKey())));
+      lcMessage.append(String.format("Your Alpha Vantage key, %s, is set for downloading historical data.\nFor more information, visit [https://www.alphavantage.co/documentation/].", this.maskKey(this.getAlphaVantageKey())));
     }
     else
     {
-      lcMessage.append(String.format("Visit [https://www.alphavantage.co/] and get your free API key for downloading historical data. Then save key under %s.", Misc.isMacintosh() ? "Preferences... | Stock Data" : "Tools | Options... | Stock Data"));
+      // The 2nd line indents past the URL link. Weird.
+      lcMessage.append(String.format("Visit [https://www.alphavantage.co/] and get your free API key for downloading historical data.\nThen save key under %s.", Misc.isMacintosh() ? "Preferences... | Stock Data" : "Tools | Options... | Stock Data"));
     }
 
     this.lnkAlphaVantageMessage.setText(lcMessage.toString());

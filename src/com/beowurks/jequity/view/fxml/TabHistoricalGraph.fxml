@@ -25,17 +25,23 @@
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.beowurks.jequity.controller.tab.TabHistoricalGraphController">
 
-  <GridPane fx:id="grdPaneHistorical" hgap="5" vgap="5" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0">
-    <ComboBoxStringKey fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <ComboBoxIntegerKey fx:id="cboRanges" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+  <GridPane fx:id="grdPaneHistorical" hgap="5" vgap="5" AnchorPane.topAnchor="5.0"
+            AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+    <columnConstraints>
+      <ColumnConstraints percentWidth="65"/>
+      <ColumnConstraints percentWidth="25"/>
+      <ColumnConstraints percentWidth="10" halignment="RIGHT"/>
+    </columnConstraints>
+    <ComboBoxStringKey fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <ComboBoxIntegerKey fx:id="cboRanges" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <Button fx:id="btnAnalyze" text="Analyze" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
 
-    <HyperlinkLabel fx:id="lnkAlphaVantageMessage" GridPane.columnIndex="0" GridPane.rowIndex="3"
+    <HyperlinkLabel fx:id="lnkAlphaVantageMessage" GridPane.columnIndex="0" GridPane.rowIndex="1"
                     style="-fx-font-weight: bold;"/>
 
-    <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <ComboBoxDoubleKey fx:id="cboSmoothing"/>
-      <Label alignment="CENTER_LEFT" text="FFT Smoothing Coefficient"/>
+      <Label text="Smoothing Coefficient"/>
     </HBox>
 
   </GridPane>
@@ -51,7 +57,8 @@
     <Tab fx:id="tabData" text="Data" closable="false">
 
       <!-- And, yes, make sure that createSymbols is set to true so that the Tooltips will work. -->
-      <LineChart fx:id="chtLineChartData" createSymbols="true">
+      <LineChart fx:id="chtLineChartData" createSymbols="true" AnchorPane.leftAnchor="1" AnchorPane.rightAnchor="1"
+                 AnchorPane.topAnchor="1" AnchorPane.bottomAnchor="1">
         <effect>
           <DropShadow color="GRAY" height="70" width="70"/>
         </effect>
@@ -68,7 +75,8 @@
         <Label fx:id="lblHistoricalWarning" maxWidth="Infinity" alignment="CENTER"
                text="Do not use for financial planning or investing. People nor technology can predict the future. Ever."/>
 
-        <LineChart fx:id="chtLineChartTrends" createSymbols="true">
+        <LineChart fx:id="chtLineChartTrends" createSymbols="true" AnchorPane.leftAnchor="1" AnchorPane.rightAnchor="1"
+                   AnchorPane.topAnchor="1" AnchorPane.bottomAnchor="1">
           <effect>
             <DropShadow color="GRAY" height="70" width="70"/>
           </effect>
