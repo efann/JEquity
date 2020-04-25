@@ -57,6 +57,11 @@ public class Calculations
 
     this.resetAverageArray(toThreadDownloadHistorical.getJSONDateRangeList(), toThreadDownloadHistorical.getTabHistoricalGraphController().getCheckBoxesForSeriesVisibility());
 
+    if (this.faAvgValues.length == 0)
+    {
+      return;
+    }
+
     this.refreshRegression();
     // Regression must be done before FFT as FFT uses the Regression results.
     this.refreshFFT();

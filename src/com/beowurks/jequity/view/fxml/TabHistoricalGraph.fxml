@@ -28,8 +28,8 @@
   <GridPane fx:id="grdPaneHistorical" hgap="5" vgap="5" AnchorPane.topAnchor="5.0"
             AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
     <columnConstraints>
-      <ColumnConstraints percentWidth="65"/>
-      <ColumnConstraints percentWidth="25"/>
+      <ColumnConstraints percentWidth="70"/>
+      <ColumnConstraints percentWidth="20"/>
       <ColumnConstraints percentWidth="10" halignment="RIGHT"/>
     </columnConstraints>
     <ComboBoxStringKey fx:id="cboStocks" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
@@ -39,10 +39,7 @@
     <HyperlinkLabel fx:id="lnkAlphaVantageMessage" GridPane.columnIndex="0" GridPane.rowIndex="1"
                     style="-fx-font-weight: bold;"/>
 
-    <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
-      <ComboBoxDoubleKey fx:id="cboSmoothing"/>
-      <Label text="Smoothing Coefficient"/>
-    </HBox>
+    <ComboBoxDoubleKey fx:id="cboSmoothing" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
   </GridPane>
 
