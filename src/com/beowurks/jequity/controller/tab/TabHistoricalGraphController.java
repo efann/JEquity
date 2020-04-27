@@ -881,8 +881,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     }
     else
     {
-      // The 2nd line indents past the URL link. Weird.
-      lcMessage.append(String.format("Visit [https://www.alphavantage.co/] and get your free API key for downloading historical data.\nThen save key under %s.", Misc.isMacintosh() ? "Preferences... | Stock Data" : "Tools | Options... | Stock Data"));
+      // The 2nd line indents past the URL link. Weird. So place the newline before the URL link.
+      lcMessage.append(String.format("Get your free API key for downloading historical data at\n[https://www.alphavantage.co/]. Then save key under %s.", Misc.isMacintosh() ? "Preferences... | Stock Data" : "Tools | Options... | Stock Data"));
     }
 
     this.lnkAlphaVantageMessage.setText(lcMessage.toString());
