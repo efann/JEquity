@@ -190,7 +190,7 @@ public class MenuController
   @FXML
   private void showHelp()
   {
-    final String lcURL = "https://1drv.ms/b/s!Ak4RMu0v512Wgcl3vwvZXv4bmqL3uA?e=HQwrDs";
+    final String lcURL = "https://www.beowurks.com/documentation/JEquity";
     Main.getMainHostServices().showDocument(lcURL);
   }
 
