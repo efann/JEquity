@@ -128,7 +128,7 @@ final public class Constants
   );
 
   public final static int HISTORICAL_TRENDS_REGRESS = 0;
-  public final static int HISTORICAL_TRENDS_FFT = 1;
+  public final static int HISTORICAL_TRENDS_FFT_SEASONAL = 1;
   public final static int HISTORICAL_TRENDS_RAW_DATA_AVG = 2;
 
   //************************************************************

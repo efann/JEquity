@@ -327,16 +327,16 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
         }
       }
 
-      final XYChart.Series<String, Double> loFFTDataSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT];
-      final int lnSizeFFT = loFFTDataSeries.getData().size();
+      final XYChart.Series<String, Double> loFFTSeasonalDataSeries = this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT_SEASONAL];
+      final int lnSizeFFT = loFFTSeasonalDataSeries.getData().size();
       for (int i = 0; i < lnSizeFFT; ++i)
       {
-        final XYChart.Data<String, Double> loData = loFFTDataSeries.getData().get(i);
+        final XYChart.Data<String, Double> loData = loFFTSeasonalDataSeries.getData().get(i);
         final Object loExtra = loData.getExtraValue();
         if (loExtra instanceof DataExtraValue)
         {
           final int lnDateIndex = ((DataExtraValue) loExtra).getWeekDays();
-          final Double loFFT = Calculations.INSTANCE.getYValueFFT(lnDateIndex);
+          final Double loFFT = Calculations.INSTANCE.getYValueFFTSeasonal(lnDateIndex);
           if (loFFT != null)
           {
             loData.setYValue(loFFT);
@@ -551,25 +551,25 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
           laPlotPoints[Constants.HISTORICAL_TRENDS_RAW_DATA_AVG].add(loDataAvg);
         }
 
-        int lnFFTDateIndex = -1;
+        int lnFFTSeasonalDateIndex = -1;
         if (lnDateIndex != null)
         {
-          lnFFTDateIndex = lnDateIndex;
+          lnFFTSeasonalDateIndex = lnDateIndex;
         }
         else if (loTrackDate.isAfter(loLastRawDataDate))
         {
-          lnFFTDateIndex = lnCountWeekDays;
+          lnFFTSeasonalDateIndex = lnCountWeekDays;
         }
 
-        if (lnFFTDateIndex != -1)
+        if (lnFFTSeasonalDateIndex != -1)
         {
           // Needs to match the index for the average array, not the actual weekday number, as we're
           // accessing actual, not calculated data.
-          final DataExtraValue loExtraFFT = new DataExtraValue(loTrackDate, lnFFTDateIndex);
+          final DataExtraValue loExtraFFTSeasonal = new DataExtraValue(loTrackDate, lnFFTSeasonalDateIndex);
 
-          final XYChart.Data loDataFFT = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueFFT(lnFFTDateIndex));
-          loDataFFT.setExtraValue(loExtraFFT);
-          laPlotPoints[Constants.HISTORICAL_TRENDS_FFT].add(loDataFFT);
+          final XYChart.Data loDataFFTSeasonal = new XYChart.Data<>(lcDate, Calculations.INSTANCE.getYValueFFTSeasonal(lnFFTSeasonalDateIndex));
+          loDataFFTSeasonal.setExtraValue(loExtraFFTSeasonal);
+          laPlotPoints[Constants.HISTORICAL_TRENDS_FFT_SEASONAL].add(loDataFFTSeasonal);
         }
       }
 
@@ -829,8 +829,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_REGRESS] = new XYChart.Series();
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_REGRESS].setName("Regression");
 
-    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT] = new XYChart.Series();
-    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT].setName("Fourier Transform");
+    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT_SEASONAL] = new XYChart.Series();
+    this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_FFT_SEASONAL].setName("Seasonal");
 
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA_AVG] = new XYChart.Series();
     this.faXYDataSeriesTrends[Constants.HISTORICAL_TRENDS_RAW_DATA_AVG].setName("Raw Data Avg");

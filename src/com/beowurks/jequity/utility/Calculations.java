@@ -32,7 +32,7 @@ public class Calculations
 
   private final FastFourierTransformer foFFTransformer = new FastFourierTransformer(DftNormalization.STANDARD);
 
-  private Complex[] foComplexFFT;
+  private Complex[] foComplexFFTSeasonal;
 
   private double[] faAvgValues;
 
@@ -63,8 +63,8 @@ public class Calculations
     }
 
     this.refreshRegression();
-    // Regression must be done before FFT as FFT uses the Regression results.
-    this.refreshFFT();
+    // Regression must be done before FFTSeasonal as FFTSeasonal uses the Regression results.
+    this.refreshFFTSeasonal();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -77,12 +77,12 @@ public class Calculations
 
   // ---------------------------------------------------------------------------------------------------------------------
   // 0-based.
-  public double getYValueFFT(final int tnXValue)
+  public double getYValueFFTSeasonal(final int tnXValue)
   {
     final int lnIndex = tnXValue % this.faAvgValues.length;
 
-    // You should use lnIndex for foComplexFFT. However, getYValueRegression should use the actual tnXValue.
-    return (this.foComplexFFT[lnIndex].getReal() + this.getYValueRegression(tnXValue));
+    // You should use lnIndex for foComplexFFTSeasonal. However, getYValueRegression should use the actual tnXValue.
+    return (this.foComplexFFTSeasonal[lnIndex].getReal() + this.getYValueRegression(tnXValue));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -129,31 +129,31 @@ public class Calculations
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void refreshFFT()
+  private void refreshFFTSeasonal()
   {
     final int lnAvgLength = this.faAvgValues.length;
     final int lnPowerOfTwo = this.nextPowerOfTwo(lnAvgLength);
 
-    final double[] laFFTData = new double[lnPowerOfTwo];
-    Arrays.fill(laFFTData, 0.0);
+    final double[] laFFTSeasonalData = new double[lnPowerOfTwo];
+    Arrays.fill(laFFTSeasonalData, 0.0);
 
     for (int i = 0; i < lnAvgLength; ++i)
     {
       // By substracting the regression value before running through FFT, the data is smoothed. I guess
       // some noise is also removed by regression calculations.
-      // Plus I can now use the values in laFFTData to calculate future values.
-      laFFTData[i] = this.faAvgValues[i] - this.getYValueRegression(i);
+      // Plus I can now use the values in laFFTSeasonalData to calculate future values.
+      laFFTSeasonalData[i] = this.faAvgValues[i] - this.getYValueRegression(i);
     }
 
     // Convert data to frequencies.
-    this.foComplexFFT = this.foFFTransformer.transform(laFFTData, TransformType.FORWARD);
+    this.foComplexFFTSeasonal = this.foFFTransformer.transform(laFFTSeasonalData, TransformType.FORWARD);
 
-    final int lnComplex = this.foComplexFFT.length;
+    final int lnComplex = this.foComplexFFTSeasonal.length;
     double lnAverage = 0.0;
     for (int i = 0; i < lnComplex; ++i)
     {
       // From https://coderanch.com/t/618633/java/Basic-FFT-identify-frequency
-      final double lnFrequency = Math.sqrt(Math.pow(this.foComplexFFT[i].getReal(), 2) + Math.pow(this.foComplexFFT[i].getImaginary(), 2));
+      final double lnFrequency = Math.sqrt(Math.pow(this.foComplexFFTSeasonal[i].getReal(), 2) + Math.pow(this.foComplexFFTSeasonal[i].getImaginary(), 2));
       lnAverage += lnFrequency;
     }
 
@@ -163,18 +163,18 @@ public class Calculations
 
     for (int i = 0; i < lnComplex; ++i)
     {
-      final double lnTest = Math.sqrt(Math.pow(this.foComplexFFT[i].getReal(), 2) + Math.pow(this.foComplexFFT[i].getImaginary(), 2));
+      final double lnTest = Math.sqrt(Math.pow(this.foComplexFFTSeasonal[i].getReal(), 2) + Math.pow(this.foComplexFFTSeasonal[i].getImaginary(), 2));
 
       // Now removing insignificant noise, I hope.
       // From https://stackoverflow.com/questions/20618804/how-to-smooth-a-curve-in-the-right-way
       if ((lnSmoothing > 0.0) && (lnTest < (lnAverage * lnSmoothing)))
       {
-        this.foComplexFFT[i] = new Complex(0.0);
+        this.foComplexFFTSeasonal[i] = new Complex(0.0);
       }
     }
 
     // Now convert altered frequency data back to normal data.
-    this.foComplexFFT = this.foFFTransformer.transform(this.foComplexFFT, TransformType.INVERSE);
+    this.foComplexFFTSeasonal = this.foFFTransformer.transform(this.foComplexFFTSeasonal, TransformType.INVERSE);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
