@@ -28,7 +28,7 @@
     <!--
         MainFormController takes care of their actions
     -->
-    <MenuItem fx:id="menuPrint" text="Print..."/>
+    <MenuItem fx:id="menuPrint" text="Print..." accelerator="Shortcut+P"/>
     <SeparatorMenuItem/>
     <MenuItem fx:id="menuExport" text="Export..." onAction="#exportData"/>
     <SeparatorMenuItem/>
@@ -52,7 +52,7 @@
     <MenuItem fx:id="menuSampleData" text="Sample Data..." onAction="#downloadSampleData"/>
   </Menu>
   <Menu text="Help">
-    <MenuItem fx:id="menuHelp" text="Help" onAction="#showHelp"/>
+    <MenuItem fx:id="menuHelp" text="Help" onAction="#showHelp" accelerator="F1"/>
     <SeparatorMenuItem/>
     <MenuItem fx:id="menuCredits" text="Credits" onAction="#showCredits"/>
     <MenuItem fx:id="menuCheckForUpdates" text="Check for Updates..." onAction="#showUpdates"/>

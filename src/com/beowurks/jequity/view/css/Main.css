@@ -47,6 +47,14 @@
   -fx-graphic: url("../images/printer1.png");
 }
 
+/*
+  From https://stackoverflow.com/questions/43991889/add-icon-to-menuitem-in-javafx-by-css
+*/
+#menuPrint .accelerator-text
+{
+  -fx-graphic: none;
+}
+
 #menuExport > .label
 {
   -fx-graphic: url("../images/filesaveas.png");
@@ -97,6 +105,14 @@
 #menuHelp > .label
 {
   -fx-graphic: url("../images/help.png");
+}
+
+/*
+  From https://stackoverflow.com/questions/43991889/add-icon-to-menuitem-in-javafx-by-css
+*/
+#menuHelp .accelerator-text
+{
+  -fx-graphic: none;
 }
 
 #menuCredits > .label
