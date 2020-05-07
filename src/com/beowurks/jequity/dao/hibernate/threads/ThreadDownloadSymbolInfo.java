@@ -244,7 +244,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     final Timestamp loTimestamp = new Timestamp(loDate.getTime());
     toSymbol.setTradeTime(loTimestamp);
 
-    toSymbol.setComments(String.format("Pulled from %s", PageScraping.INSTANCE.getDailyStockURL(lcSymbol)));
+    toSymbol.setComments(String.format("Source reference: %s", PageScraping.INSTANCE.getDailyStockURL(lcSymbol)));
 
     Transaction loTransaction = null;
     try
