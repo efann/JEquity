@@ -35,9 +35,9 @@
     <MenuItem fx:id="menuExit" text="Exit" onAction="#exitApplication"/>
   </Menu>
   <Menu text="Edit">
-    <MenuItem text="Copy"/>
-    <MenuItem text="Cut"/>
-    <MenuItem text="Paste"/>
+    <MenuItem fx:id="menuCopy" text="Copy" accelerator="Shortcut+C"/>
+    <MenuItem fx:id="menuCut" text="Cut" accelerator="Shortcut+X"/>
+    <MenuItem fx:id="menuPaste" text="Paste" accelerator="Shortcut+V"/>
   </Menu>
   <Menu text="Data">
     <!--
