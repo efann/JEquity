@@ -66,6 +66,36 @@
 }
 
 /*
+  Edit
+*/
+
+#menuCopy > .label
+{
+  -fx-graphic: url("../images/editcopy.png");
+}
+
+#menuCut > .label
+{
+  -fx-graphic: url("../images/editcut.png");
+}
+
+#menuPaste > .label
+{
+  -fx-graphic: url("../images/editpaste.png");
+}
+
+/*
+  From https://stackoverflow.com/questions/43991889/add-icon-to-menuitem-in-javafx-by-css
+*/
+#menuCopy .accelerator-text,
+#menuCut .accelerator-text,
+#menuPaste .accelerator-text
+{
+  -fx-graphic: none;
+}
+
+
+/*
   Data
 */
 
