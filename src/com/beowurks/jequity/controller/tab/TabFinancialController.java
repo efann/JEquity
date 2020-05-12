@@ -450,7 +450,7 @@ public class TabFinancialController extends TabModifyController implements Event
     this.txtDate.setValue(llUseEmptyFields ? LocalDate.now() : loProp.getValuationDate().toLocalDate());
     this.txtSymbol.setText(llUseEmptyFields ? "" : loProp.getSymbol().trim());
     this.chkRetirement.setSelected(!llUseEmptyFields && loProp.getRetirement());
-    this.cboTaxStatus.setValue(TaxStatusList.INSTANCE.getItem(loProp.getTaxStatus()));
+    this.cboTaxStatus.setValue(TaxStatusList.INSTANCE.getItem(llUseEmptyFields ? TaxStatusList.INSTANCE.getList().get(0).getKey() : loProp.getTaxStatus()));
 
     this.txtComments.setText(llUseEmptyFields ? "" : loProp.getComments());
   }

@@ -158,6 +158,12 @@ abstract public class TabModifyController extends TabBaseController
   // ---------------------------------------------------------------------------------------------------------------------
   protected void createRow()
   {
+    if (Misc.countGroupRecords() == 0)
+    {
+      Misc.errorMessage("You first need to create a Group by clicking the Create button in the Group tab, entering a Description, and then pressing Save.");
+      return;
+    }
+
     this.flCreatingRow = true;
 
     this.updateComponentsContent(true);
@@ -170,6 +176,12 @@ abstract public class TabModifyController extends TabBaseController
   // ---------------------------------------------------------------------------------------------------------------------
   protected boolean cloneRow(final Object toCurrentProperty)
   {
+    if (Misc.countGroupRecords() == 0)
+    {
+      Misc.errorMessage("You first need to create a Group by clicking the Create button in the Group tab, entering a Description, and then pressing Save.");
+      return (false);
+    }
+
     if (toCurrentProperty == null)
     {
       Misc.errorMessage("You need to select a record before cloning it.");

@@ -116,7 +116,6 @@ public class ToolbarController
     return ((loKeyItemInit != null) ? loKeyItemInit.getKey() : Constants.UNINITIALIZED);
   }
 
-
   // ---------------------------------------------------------------------------------------------------------------------
 
 }

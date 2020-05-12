@@ -8,6 +8,7 @@
 package com.beowurks.jequity.utility;
 
 import com.beowurks.jequity.controller.MainFormController;
+import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.view.textarea.TextAreaPlus;
 import com.beowurks.jequity.view.textfield.TextFieldPlus;
@@ -29,6 +30,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.w3c.dom.NodeList;
 
 import javax.swing.SwingUtilities;
@@ -758,6 +761,36 @@ public final class Misc
       return (false);
     }
   }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public static Long countGroupRecords()
+  {
+    Long lnCount = 0L;
+    // An error should not occur here; however, I always want the ComboBox action reset afterwards
+    // just in case.
+    try
+    {
+      final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
+      final Session loSession = loHibernate.getSession();
+
+      final Object loValue = loSession.createSQLQuery("SELECT COUNT(*) FROM " + loHibernate.getTableGroup()).uniqueResult();
+
+      if (loValue instanceof Number)
+      {
+        lnCount = ((Number) loValue).longValue();
+      }
+
+      loSession.close();
+
+    }
+    catch (final HibernateException loErr)
+    {
+      Misc.showStackTraceInMessage(loErr, "From Misc.countGroupRecords");
+    }
+
+    return (lnCount);
+  }
+
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------
