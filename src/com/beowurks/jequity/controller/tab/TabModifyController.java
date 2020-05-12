@@ -11,6 +11,7 @@ package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
+import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxPlus;
@@ -156,12 +157,15 @@ abstract public class TabModifyController extends TabBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void createRow()
+  protected void createRow(final boolean tlCheckGroupRecords)
   {
-    if (Misc.countGroupRecords() == 0)
+    if (tlCheckGroupRecords)
     {
-      Misc.errorMessage("You first need to create a Group by clicking the Create button in the Group tab, entering a Description, and then pressing Save.");
-      return;
+      if (Misc.countGroupRecords() == 0)
+      {
+        Misc.errorMessage(Constants.NO_GROUPS_EXIST_YET);
+        return;
+      }
     }
 
     this.flCreatingRow = true;
@@ -174,12 +178,15 @@ abstract public class TabModifyController extends TabBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected boolean cloneRow(final Object toCurrentProperty)
+  protected boolean cloneRow(final Object toCurrentProperty, final boolean tlCheckGroupRecords)
   {
-    if (Misc.countGroupRecords() == 0)
+    if (tlCheckGroupRecords)
     {
-      Misc.errorMessage("You first need to create a Group by clicking the Create button in the Group tab, entering a Description, and then pressing Save.");
-      return (false);
+      if (Misc.countGroupRecords() == 0)
+      {
+        Misc.errorMessage(Constants.NO_GROUPS_EXIST_YET);
+        return (false);
+      }
     }
 
     if (toCurrentProperty == null)

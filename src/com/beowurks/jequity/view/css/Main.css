@@ -548,6 +548,12 @@
   -fx-font-weight: bold;
 }
 
+#lblSystemMessage
+{
+  -fx-font-size: 1.1em;
+  -fx-font-weight: bold;
+}
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
   From https://stackoverflow.com/questions/30631179/hide-calendar-button-on-datepicker

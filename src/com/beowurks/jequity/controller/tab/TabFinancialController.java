@@ -162,8 +162,8 @@ public class TabFinancialController extends TabModifyController implements Event
     this.btnSave.setOnAction(toActionEvent -> TabFinancialController.this.saveRow());
     this.btnCancel.setOnAction(toActionEvent -> TabFinancialController.this.cancelRow());
 
-    this.btnCreate.setOnAction(toActionEvent -> TabFinancialController.this.createRow());
-    this.btnClone.setOnAction(toActionEvent -> TabFinancialController.this.cloneRow(this.foCurrentFinancialProperty));
+    this.btnCreate.setOnAction(toActionEvent -> TabFinancialController.this.createRow(true));
+    this.btnClone.setOnAction(toActionEvent -> TabFinancialController.this.cloneRow(this.foCurrentFinancialProperty, true));
     this.btnRemove.setOnAction(toActionEvent -> TabFinancialController.this.removeRow());
 
     this.txtShares.textProperty().addListener((observable, oldValue, newValue) -> this.updateTotalLabel());

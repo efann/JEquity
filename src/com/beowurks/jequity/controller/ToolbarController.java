@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -37,6 +38,9 @@ public class ToolbarController
 
   @FXML
   private Button btnRefresh;
+
+  @FXML
+  private Label lblSystemMessage;
 
   // ---------------------------------------------------------------------------------------------------------------------
   public ComboBoxIntegerKey getGroupComboBox()
@@ -116,6 +120,11 @@ public class ToolbarController
     return ((loKeyItemInit != null) ? loKeyItemInit.getKey() : Constants.UNINITIALIZED);
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void setSystemMessage(final String tcMessage)
+  {
+    this.lblSystemMessage.setText(tcMessage);
+  }
   // ---------------------------------------------------------------------------------------------------------------------
 
 }

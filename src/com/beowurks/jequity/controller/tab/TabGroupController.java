@@ -66,8 +66,8 @@ public class TabGroupController extends TabModifyController
     this.btnSave.setOnAction(toActionEvent -> TabGroupController.this.saveRow());
     this.btnCancel.setOnAction(toActionEvent -> TabGroupController.this.cancelRow());
 
-    this.btnCreate.setOnAction(toActionEvent -> TabGroupController.this.createRow());
-    this.btnClone.setOnAction(toActionEvent -> TabGroupController.this.cloneRow(this.foCurrentGroupProperty));
+    this.btnCreate.setOnAction(toActionEvent -> TabGroupController.this.createRow(false));
+    this.btnClone.setOnAction(toActionEvent -> TabGroupController.this.cloneRow(this.foCurrentGroupProperty, false));
     this.btnRemove.setOnAction(toActionEvent -> TabGroupController.this.removeRow());
 
     this.tblGroup.getSelectionModel().selectedItemProperty().addListener((ChangeListener<GroupProperty>) (observable, toOldRow, toNewRow) ->
@@ -237,8 +237,9 @@ public class TabGroupController extends TabModifyController
   protected void updateComponentsContent(final boolean tlUseEmptyFields)
   {
     final GroupProperty loProp = this.foCurrentGroupProperty;
+    final boolean llUseEmptyFields = (tlUseEmptyFields || (loProp == null));
 
-    this.txtDescription.setText(tlUseEmptyFields ? "" : loProp.getDescription());
+    this.txtDescription.setText(llUseEmptyFields ? "" : loProp.getDescription());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

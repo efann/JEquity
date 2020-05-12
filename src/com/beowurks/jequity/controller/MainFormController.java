@@ -17,6 +17,7 @@ import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
 import com.beowurks.jequity.dao.web.PageScraping;
+import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -215,6 +216,8 @@ public class MainFormController implements EventHandler<ActionEvent>
       PageScraping.INSTANCE.refreshData();
       this.tabGroupMainController.refreshData();
     }
+
+    this.toolbarMainController.setSystemMessage(Misc.countGroupRecords() != 0 ? "" : Constants.NO_GROUPS_EXIST_YET);
 
     final boolean llRefreshCombo = (tlIncludeGroupComboBox || (this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem() == null));
     final Integer loGroupID = (llRefreshCombo) ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectedItem().getKey();
