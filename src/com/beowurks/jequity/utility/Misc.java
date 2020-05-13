@@ -765,7 +765,7 @@ public final class Misc
   // ---------------------------------------------------------------------------------------------------------------------
   public static Long countGroupRecords()
   {
-    Long lnCount = 0L;
+    Long loCount = 0L;
     // An error should not occur here; however, I always want the ComboBox action reset afterwards
     // just in case.
     try
@@ -775,9 +775,10 @@ public final class Misc
 
       final Object loValue = loSession.createSQLQuery("SELECT COUNT(*) FROM " + loHibernate.getTableGroup()).uniqueResult();
 
+      // Apache Derby returns an Integer while MySQL and PostgreSQL return a BigInteger.
       if (loValue instanceof Number)
       {
-        lnCount = ((Number) loValue).longValue();
+        loCount = ((Number) loValue).longValue();
       }
 
       loSession.close();
@@ -788,7 +789,7 @@ public final class Misc
       Misc.showStackTraceInMessage(loErr, "From Misc.countGroupRecords");
     }
 
-    return (lnCount);
+    return (loCount);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

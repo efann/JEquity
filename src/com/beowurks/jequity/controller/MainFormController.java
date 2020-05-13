@@ -217,7 +217,7 @@ public class MainFormController implements EventHandler<ActionEvent>
       this.tabGroupMainController.refreshData();
     }
 
-    this.toolbarMainController.setSystemMessage(Misc.countGroupRecords() != 0 ? "" : Constants.NO_GROUPS_EXIST_YET);
+    this.toolbarMainController.setSystemMessage((Misc.countGroupRecords() != 0L) ? "" : Constants.NO_GROUPS_EXIST_YET);
 
     final boolean llRefreshCombo = (tlIncludeGroupComboBox || (this.toolbarMainController.getGroupComboBox().getSelectionModel().getSelectedItem() == null));
     final Integer loGroupID = (llRefreshCombo) ? this.toolbarMainController.refreshGroupComboBox() : this.toolbarMainController.getGroupComboBox().getSelectedItem().getKey();
