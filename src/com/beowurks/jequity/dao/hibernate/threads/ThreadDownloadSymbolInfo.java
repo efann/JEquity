@@ -200,6 +200,15 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
       }
 
       Misc.setStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
+
+      try
+      {
+        Thread.sleep(Constants.THREAD_DELAY_MULTI_SYMBOL_UPDATE);
+      }
+      catch (final InterruptedException loErr)
+      {
+        loErr.printStackTrace();
+      }
     }
 
     loSession.close();
