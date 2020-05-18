@@ -185,9 +185,9 @@ final public class Constants
   );
 
   public final static ObservableList<IntegerKeyItem> DAILY_INTERVAL = FXCollections.observableArrayList(
-    new IntegerKeyItem(60 * 60 * 1000, "Every Hour"),
-    new IntegerKeyItem(120 * 60 * 1000, "Every 2 Hours"),
-    new IntegerKeyItem(480 * 60 * 1000, "Every 4 Hours"),
+    new IntegerKeyItem((4 * 60) * 60 * 1000, "Every 4 Hours"),
+    new IntegerKeyItem((6 * 60) * 60 * 1000, "Every 6 Hours"),
+    new IntegerKeyItem((8 * 60) * 60 * 1000, "Every 8 Hours"),
     new IntegerKeyItem(Constants.DAILY_INTERVAL_NEVER, "Never")
   );
 
@@ -234,8 +234,8 @@ final public class Constants
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
 
-  // 1.25 seconds delay to play well with the web servers and screen scraping.
-  public final static long THREAD_DELAY_MULTI_SYMBOL_UPDATE = 1250L;
+  // 2 second delay to play well with the web servers and screen scraping.
+  public final static long THREAD_DELAY_MULTI_SYMBOL_UPDATE = 2000L;
 
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";

@@ -243,12 +243,14 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  // Due to the fact that I keep increasing the minimum time, I'm just insuring that the latest minimum value
+  // is returned.
   public int getDailyIntervalKey()
   {
-    // Due to the fact that I keep increasing the minimum time, I'm just insuring that the latest minimum value
-    // is returned.
     final int lnMinimumKeyValue = Constants.DAILY_INTERVAL.get(0).getKey();
-    final int lnKey = Integer.max(this.getProperty(Constants.DAILY_INTERVAL_KEY, lnMinimumKeyValue), lnMinimumKeyValue);
+    final int lnCurrentKeyValue = this.getProperty(Constants.DAILY_INTERVAL_KEY, lnMinimumKeyValue);
+
+    final int lnKey = Integer.max(lnCurrentKeyValue, lnMinimumKeyValue);
 
     return (lnKey);
   }
