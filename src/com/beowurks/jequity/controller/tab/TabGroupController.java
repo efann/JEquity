@@ -56,7 +56,7 @@ public class TabGroupController extends TabModifyController
     this.setupListeners();
     this.setupTooltips();
 
-    this.resetComponentsOnModify(false);
+    // Main.initializeEnvironment now calls resetComponentsOnModify(false) as Main.getController() will not be null.
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -250,7 +250,7 @@ public class TabGroupController extends TabModifyController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void resetComponentsOnModify(final boolean tlModify)
+  public void resetComponentsOnModify(final boolean tlModify)
   {
     super.resetComponentsOnModify(tlModify);
 

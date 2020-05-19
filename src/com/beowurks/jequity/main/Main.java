@@ -119,6 +119,12 @@ public class Main extends Application
 
     Main.foMainController = Main.foMainLoader.getController();
 
+    // Call resetComponentsOnModify here rather than in TabFinancialController.initialize and TabGroupController.initialize.
+    // Otherwise, in TabModifyController.resetComponentsOnModify, Main.getController() will be null
+    // when called from those initialize functions.
+    Main.foMainController.getTabFinancialController().resetComponentsOnModify(false);
+    Main.foMainController.getTabGroupController().resetComponentsOnModify(false);
+
     final Rectangle2D loPrimaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     // Set Stage boundaries to visible bounds of the main screen.

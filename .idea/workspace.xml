@@ -17,8 +17,7 @@
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabFinancialController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabGroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabGroupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/controller/tab/TabModifyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/SingleSymbolInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/SingleSymbolInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSymbolInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/dao/hibernate/threads/TimerSymbolInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/beowurks/jequity/main/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -770,7 +769,8 @@
       <workItem from="1589812665445" duration="34000" />
       <workItem from="1589812709093" duration="12005000" />
       <workItem from="1589847354852" duration="132000" />
-      <workItem from="1589849325007" duration="19827000" />
+      <workItem from="1589849325007" duration="21563000" />
+      <workItem from="1589929157567" duration="7000" />
     </task>
     <servers />
   </component>
@@ -822,22 +822,22 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="1008" y="387" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1587958615073" />
-    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1589927113738">
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1589929094340">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1589927113738" />
-    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1589927113737">
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1589929094340" />
+    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1589929094339">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1589927113737" />
-    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1589927113737">
+    <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1589929094339" />
+    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1589929094339">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1589927113737" />
-    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1589927113738">
+    <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1589929094339" />
+    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1589929094339">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1589927113738" />
+    <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1589929094339" />
     <state x="463" y="185" key="SettingsEditor" timestamp="1587595706271">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

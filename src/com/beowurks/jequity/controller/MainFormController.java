@@ -321,6 +321,18 @@ public class MainFormController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public TabFinancialController getTabFinancialController()
+  {
+    return (this.tabFinancialMainController);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public TabGroupController getTabGroupController()
+  {
+    return (this.tabGroupMainController);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public MenuController getMenuController()
   {
     return (this.menuMainController);

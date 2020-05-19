@@ -150,7 +150,7 @@ public class TabFinancialController extends TabModifyController implements Event
     this.setupTextComponents();
     this.setupComboBoxes();
 
-    this.resetComponentsOnModify(false);
+    // Main.initializeEnvironment now calls resetComponentsOnModify(false) as Main.getController() will not be null.
 
     TimerSummaryTable.INSTANCE.setTable(this.tblSummary);
   }
@@ -463,7 +463,7 @@ public class TabFinancialController extends TabModifyController implements Event
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void resetComponentsOnModify(final boolean tlModify)
+  public void resetComponentsOnModify(final boolean tlModify)
   {
     super.resetComponentsOnModify(tlModify);
 

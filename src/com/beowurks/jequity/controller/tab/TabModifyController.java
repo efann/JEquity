@@ -226,7 +226,7 @@ abstract public class TabModifyController extends TabBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void resetComponentsOnModify(final boolean tlModify)
+  public void resetComponentsOnModify(final boolean tlModify)
   {
     this.resetButtons(tlModify);
     this.resetTextFields(tlModify);
