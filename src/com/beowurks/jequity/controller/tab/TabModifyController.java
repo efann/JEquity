@@ -11,6 +11,7 @@ package com.beowurks.jequity.controller.tab;
 
 import com.beowurks.jequity.controller.ToolbarController;
 import com.beowurks.jequity.main.Main;
+import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
@@ -92,9 +93,9 @@ abstract public class TabModifyController extends TabBaseController
   protected void setupQuickModify(final TableView toTableView)
   {
     // From https://stackoverflow.com/questions/26563390/detect-doubleclick-on-row-of-tableview-javafx
+    // If grid row double-clicked then modify row.
     toTableView.setOnMouseClicked(toEvent ->
     {
-
       if (toEvent.getClickCount() == 2)
       {
         final EventTarget loTarget = toEvent.getTarget();
@@ -233,9 +234,10 @@ abstract public class TabModifyController extends TabBaseController
     if (Main.getController() != null)
     {
       final ToolbarController loController = Main.getController().getToolbarController();
+      final boolean llManualDataEntry = AppProperties.INSTANCE.getManualFinancialData();
 
       loController.getGroupComboBox().setDisable(tlModify);
-      loController.getUpdateButton().setDisable(tlModify);
+      loController.getUpdateButton().setDisable(tlModify || llManualDataEntry);
       loController.getRefreshButton().setDisable(tlModify);
     }
 

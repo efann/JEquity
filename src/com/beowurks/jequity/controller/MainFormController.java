@@ -17,6 +17,7 @@ import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
 import com.beowurks.jequity.dao.web.PageScraping;
+import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
@@ -121,6 +122,14 @@ public class MainFormController implements EventHandler<ActionEvent>
     this.setupListeners();
 
     this.setupTables();
+
+    this.setupTabs();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void setupTabs()
+  {
+    this.tabSymbol.setDisable(AppProperties.INSTANCE.getManualFinancialData());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -165,6 +174,15 @@ public class MainFormController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   public void updateSymbolData()
   {
+    // This function is called by a listener and should not be called as the Update button should be
+    // disabled. However, you never know if the button gets enabled somehow. So I perform this
+    // check just in case.
+    if (AppProperties.INSTANCE.getManualFinancialData())
+    {
+      Misc.errorMessage("Under Tools | Options > Stock Data, you have selected 'Manually Enter Stock Financial Data' so the Update function is disabled.");
+      return;
+    }
+
     ThreadDownloadSymbolInfo.INSTANCE.start(true);
   }
 

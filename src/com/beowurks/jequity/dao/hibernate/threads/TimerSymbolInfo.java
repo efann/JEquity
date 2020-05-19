@@ -37,6 +37,12 @@ public class TimerSymbolInfo
       this.foTimer.cancel();
     }
 
+    // If manual data entry, then do not run this thread for updating stock values.
+    if (AppProperties.INSTANCE.getManualFinancialData())
+    {
+      return;
+    }
+
     // The delay value is used for both the delay and the start of the download. So, if the delay is 15 minutes,
     // then the download will start in 15 minutes.
     final int lnDelay = AppProperties.INSTANCE.getDailyIntervalKey();

@@ -8,6 +8,7 @@
 
 package com.beowurks.jequity.dao.hibernate.threads;
 
+import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.NumberTextField;
 import com.beowurks.jequity.view.textfield.TextFieldPlus;
@@ -83,7 +84,16 @@ public class SingleSymbolInfo
     //   2) the user clicks first on the Symbol field
     //   3) the user moves to another field.
     // then the txtSymbol will be null.
-    return this.txtSymbol != null;
+    if (this.txtSymbol == null)
+    {
+      return (false);
+    }
+
+    final boolean llManualEntry = AppProperties.INSTANCE.getManualFinancialData();
+
+    return (!llManualEntry);
+
+
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

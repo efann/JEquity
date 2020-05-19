@@ -18,6 +18,7 @@ import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import com.beowurks.jequity.dao.tableview.SummaryProperty;
 import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.main.Main;
+import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
@@ -339,6 +340,13 @@ public class TabFinancialController extends TabModifyController implements Event
   {
     if (this.isEditing() || (this.foCurrentFinancialProperty == null))
     {
+      // Rare case: program starts and user clicks editable component first with no grid row selected.
+      // If the grid.requestFocus is not called, then when a grid row is selected,
+      // the modifyRow routine is immediately called.
+      // Turns out, the editable component still has focus for some reason, thus calling modifyRow.
+      // Weird.
+      this.tblFinancial.requestFocus();
+
       return (false);
     }
 
@@ -480,11 +488,20 @@ public class TabFinancialController extends TabModifyController implements Event
   {
     super.resetTextFields(tlModify);
 
-    final boolean llEmpty = this.txtSymbol.getText().isEmpty();
+    final AppProperties loApp = AppProperties.INSTANCE;
+    final boolean llManualEntry = loApp.getManualFinancialData();
+    final boolean llAutosetDate = loApp.getAutosetValuationDate();
 
-    this.txtDescription.setReadOnly(!(tlModify && llEmpty));
-    this.txtPrice.setReadOnly(!(tlModify && llEmpty));
-    this.txtDate.setReadOnly(!(tlModify && llEmpty));
+    final boolean llEditable = this.txtSymbol.getText().isEmpty() || llManualEntry;
+
+    this.txtDescription.setReadOnly(!(tlModify && llEditable));
+    this.txtPrice.setReadOnly(!(tlModify && llEditable));
+    this.txtDate.setReadOnly(!(tlModify && llEditable));
+
+    if (tlModify && this.txtDate.isEditable() && llAutosetDate)
+    {
+      this.txtDate.setValue(LocalDate.now());
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

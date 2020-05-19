@@ -178,6 +178,13 @@ public class TabGroupController extends TabModifyController
   {
     if (this.isEditing() || (this.foCurrentGroupProperty == null))
     {
+      // Rare case: program starts and user clicks editable component first with no grid row selected.
+      // If the grid.requestFocus is not called, then when a grid row is selected,
+      // the modifyRow routine is immediately called.
+      // Turns out, the editable component still has focus for some reason, thus calling modifyRow.
+      // Weird.
+      this.tblGroup.requestFocus();
+
       return (false);
     }
 
