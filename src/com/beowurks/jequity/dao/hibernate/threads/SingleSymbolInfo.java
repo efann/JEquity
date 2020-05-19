@@ -8,8 +8,6 @@
 
 package com.beowurks.jequity.dao.hibernate.threads;
 
-import com.beowurks.jequity.utility.Constants;
-import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.textfield.DatePickerPlus;
 import com.beowurks.jequity.view.textfield.NumberTextField;
 import com.beowurks.jequity.view.textfield.TextFieldPlus;
@@ -22,7 +20,6 @@ public class SingleSymbolInfo
 {
   public static final SingleSymbolInfo INSTANCE = new SingleSymbolInfo();
 
-  private String fcInitialSymbol;
   private TextFieldPlus txtSymbol;
 
   private TextFieldPlus txtDescription;
@@ -37,9 +34,8 @@ public class SingleSymbolInfo
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void setInformation(final String tcInitialSymbol, final TextFieldPlus toSymbol, final TextFieldPlus toDescription, final NumberTextField toPrice, final DatePickerPlus toDate, final Button toSave)
+  public void setInformation(final TextFieldPlus toSymbol, final TextFieldPlus toDescription, final NumberTextField toPrice, final DatePickerPlus toDate, final Button toSave)
   {
-    this.fcInitialSymbol = tcInitialSymbol.trim();
     this.txtSymbol = toSymbol;
 
     this.txtDescription = toDescription;
@@ -47,12 +43,6 @@ public class SingleSymbolInfo
     this.txtDate = toDate;
 
     this.btnSave = toSave;
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  public void resetSymbol(final String tcSymbol)
-  {
-    this.fcInitialSymbol = tcSymbol;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -93,24 +83,7 @@ public class SingleSymbolInfo
     //   2) the user clicks first on the Symbol field
     //   3) the user moves to another field.
     // then the txtSymbol will be null.
-    if (this.txtSymbol == null)
-    {
-      return (false);
-    }
-
-    if (!this.txtSymbol.getText().equals(this.fcInitialSymbol))
-    {
-      return (true);
-    }
-
-    final String lcDescription = this.txtDescription.getText().trim();
-    if (lcDescription.equals(Constants.BLANK_DESCRIPTION_FOR_SYMBOL) || lcDescription.isEmpty())
-    {
-      return (true);
-    }
-
-    final double lnPrice = Misc.getDoubleFromTextField(this.txtPrice);
-    return (lnPrice == 0.0);
+    return this.txtSymbol != null;
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

@@ -144,11 +144,6 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
     this.foSingleSymbolInfo.getPriceField().setText(Double.toString(lnLastTrade));
 
     this.foSingleSymbolInfo.getDateField().setValue(LocalDate.now());
-
-    if (llOkay)
-    {
-      SingleSymbolInfo.INSTANCE.resetSymbol(tcSymbol);
-    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

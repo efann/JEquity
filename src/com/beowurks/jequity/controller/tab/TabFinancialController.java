@@ -18,7 +18,6 @@ import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import com.beowurks.jequity.dao.tableview.SummaryProperty;
 import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.main.Main;
-import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
@@ -467,8 +466,7 @@ public class TabFinancialController extends TabModifyController implements Event
       return;
     }
 
-    SingleSymbolInfo.INSTANCE.setInformation(this.txtSymbol.getText(), this.txtSymbol,
-      this.txtDescription, this.txtPrice, this.txtDate, this.btnSave);
+    SingleSymbolInfo.INSTANCE.setInformation(this.txtSymbol, this.txtDescription, this.txtPrice, this.txtDate, this.btnSave);
 
     if (this.findFocused() == null)
     {
@@ -498,18 +496,6 @@ public class TabFinancialController extends TabModifyController implements Event
     }
 
     this.resetTextFields(true);
-
-    final String lcSymbol = this.txtSymbol.getText().trim();
-    final boolean llSymbolEmpty = lcSymbol.isEmpty();
-    if (llSymbolEmpty && this.txtDescription.getText().equals(Constants.BLANK_DESCRIPTION_FOR_SYMBOL))
-    {
-      this.txtDescription.setText("");
-    }
-    else if (!llSymbolEmpty && this.txtDescription.getText().trim().isEmpty())
-    {
-      this.txtDescription.setText(Constants.BLANK_DESCRIPTION_FOR_SYMBOL);
-    }
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

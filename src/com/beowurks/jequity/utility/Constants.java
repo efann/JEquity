@@ -291,8 +291,6 @@ final public class Constants
 
   //************************************************************
 
-  public final static String BLANK_DESCRIPTION_FOR_SYMBOL = "<Run Update to reset the Description, Price and Valuation Date.>";
-
   public final static String NO_GROUPS_EXIST_YET = "Under the Group tab, you need to create a Group by clicking the 'Create' button,\nentering a 'Description', and then pressing 'Save'.";
 
   //************************************************************
