@@ -111,7 +111,6 @@ public class SingleSymbolInfo
 
     final double lnPrice = Misc.getDoubleFromTextField(this.txtPrice);
     return (lnPrice == 0.0);
-
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

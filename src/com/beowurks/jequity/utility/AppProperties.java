@@ -276,9 +276,15 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public boolean getDailyManualFinancialData()
+  public boolean getManualFinancialData()
   {
     return (this.getProperty(Constants.DAILY_MANUAL_FINANCIAL_DATA, true));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public boolean getAutosetValuationDate()
+  {
+    return (this.getProperty(Constants.DAILY_AUTOSET_VALUATION_DATE, true));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -366,11 +372,16 @@ public final class AppProperties extends BaseProperties
     this.setProperty(Constants.BACKUP_RESTORE_FOLDER, tcValue);
   }
 
-
   // -----------------------------------------------------------------------------------------------------------------------
-  public void setDailyManualFinancialData(final boolean tlValue)
+  public void setManualFinancialData(final boolean tlValue)
   {
     this.setProperty(Constants.DAILY_MANUAL_FINANCIAL_DATA, tlValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setAutosetValuationDate(final boolean tlValue)
+  {
+    this.setProperty(Constants.DAILY_AUTOSET_VALUATION_DATE, tlValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

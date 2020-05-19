@@ -440,6 +440,7 @@ public class TabFinancialController extends TabModifyController implements Event
     final FinancialProperty loProp = this.foCurrentFinancialProperty;
     final boolean llUseEmptyFields = (tlUseEmptyFields || (loProp == null));
 
+    this.txtSymbol.setText(llUseEmptyFields ? "" : loProp.getSymbol().trim());
     this.txtDescription.setText(llUseEmptyFields ? "" : loProp.getDescription());
     this.txtOwnership.setText(llUseEmptyFields ? "" : loProp.getOwnership());
     this.txtAccount.setText(llUseEmptyFields ? "" : loProp.getAccount());
@@ -448,7 +449,6 @@ public class TabFinancialController extends TabModifyController implements Event
     this.txtShares.setText(llUseEmptyFields ? "0.0" : Double.toString(loProp.getShares()));
     this.txtPrice.setText(llUseEmptyFields ? "0.0" : Double.toString(loProp.getPrice()));
     this.txtDate.setValue(llUseEmptyFields ? LocalDate.now() : loProp.getValuationDate().toLocalDate());
-    this.txtSymbol.setText(llUseEmptyFields ? "" : loProp.getSymbol().trim());
     this.chkRetirement.setSelected(!llUseEmptyFields && loProp.getRetirement());
     this.cboTaxStatus.setValue(TaxStatusList.INSTANCE.getItem(llUseEmptyFields ? TaxStatusList.INSTANCE.getList().get(0).getKey() : loProp.getTaxStatus()));
 

@@ -156,6 +156,8 @@ final public class Constants
 
   public final static String DAILY_MANUAL_FINANCIAL_DATA = "daily.manual.financial.data";
 
+  public final static String DAILY_AUTOSET_VALUATION_DATE = "daily.autoset.valuation.date";
+
   // Needed to redo the interval and start arrays. So I had to channge
   // DAILY_INTERVAL_KEY & DAILY_START_KEY by adding javafx to both.
   public final static String DAILY_INTERVAL_KEY = "daily.interval.key.javafx";
