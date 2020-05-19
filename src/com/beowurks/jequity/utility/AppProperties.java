@@ -276,6 +276,12 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public boolean getDailyManualFinancialData()
+  {
+    return (this.getProperty(Constants.DAILY_MANUAL_FINANCIAL_DATA, true));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public boolean getFlywayAlwaysCheck()
   {
     // When developing, sometimes I delete the entire databsae which will then need
@@ -358,6 +364,13 @@ public final class AppProperties extends BaseProperties
   public void setBackupRestoreFolder(final String tcValue)
   {
     this.setProperty(Constants.BACKUP_RESTORE_FOLDER, tcValue);
+  }
+
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setDailyManualFinancialData(final boolean tlValue)
+  {
+    this.setProperty(Constants.DAILY_MANUAL_FINANCIAL_DATA, tlValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

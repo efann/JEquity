@@ -21,17 +21,17 @@
     <TabPane>
       <Tab text="Connections" closable="false">
         <GridPane hgap="10" vgap="10">
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Driver"/>
+          <Label text="Driver" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
           <ComboBoxIntegerKey fx:id="cboDriver" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Host"/>
+          <Label text="Host" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
           <TextFieldPlus fx:id="txtHost" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Database"/>
+          <Label text="Database" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
           <TextFieldPlus fx:id="txtDatabase" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="User"/>
+          <Label text="User" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
           <TextFieldPlus fx:id="txtUser" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="Password"/>
+          <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
           <PasswordFieldPlus fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-          <Button fx:id="btnDefault" GridPane.columnIndex="1" GridPane.rowIndex="5" text="Default"/>
+          <Button fx:id="btnDefault" text="Default" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
           <VBox GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2">
             <Label text="For any modifications to take effect, you must exit then restart JEquity."
                    style="-fx-font-weight: bold; -fx-pref-width: 300; -fx-wrap-text: true; -fx-padding: 15 0 0 0;
@@ -40,12 +40,23 @@
         </GridPane>
       </Tab>
       <Tab text="Stock Data" closable="false">
-        <GridPane hgap="10" vgap="10">
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Daily Download Interval"/>
-          <ComboBoxIntegerKey fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-          <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Alpha Vantage API Key"/>
-          <PasswordFieldPlus fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        </GridPane>
+        <VBox spacing="40">
+          <TitledPane text="Financial Data" alignment="CENTER" expanded="true" collapsible="false">
+            <GridPane hgap="10" vgap="20">
+              <CheckBoxPlus fx:id="chkManualFinancialData" text="Manually Enter Stock Financial Data"
+                            GridPane.columnIndex="1"
+                            GridPane.rowIndex="0"/>
+              <Label text="Daily Download Interval" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+              <ComboBoxIntegerKey fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            </GridPane>
+          </TitledPane>
+          <TitledPane text="Historical Data" alignment="CENTER" expanded="true" collapsible="false">
+            <GridPane hgap="10" vgap="20">
+              <Label text="Alpha Vantage API Key" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+              <PasswordFieldPlus fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            </GridPane>
+          </TitledPane>
+        </VBox>
       </Tab>
       <Tab text="Miscellaneous" closable="false">
         <CheckBoxPlus fx:id="chkMigrationStatus" text="Always Check Migration Status"/>

@@ -45,6 +45,9 @@ public class OptionsController implements EventHandler<ActionEvent>
   private Button btnDefault;
 
   @FXML
+  private CheckBoxPlus chkManualFinancialData;
+
+  @FXML
   private PasswordFieldPlus txtAlphaVantageAPIKey;
   @FXML
   private ComboBoxIntegerKey cboDailyDownloadInterval;
@@ -84,6 +87,8 @@ public class OptionsController implements EventHandler<ActionEvent>
 
     //***************************************
     // Stock Data tab
+    loApp.setDailyManualFinancialData(this.chkManualFinancialData.isSelected());
+
     loApp.setDailyIntervalKey(loApp.convertIndexToKey(loApp.getDailyIntervals(), this.cboDailyDownloadInterval.getSelectedIndex()));
     loApp.setAlphaVantageAPIKey(this.txtAlphaVantageAPIKey.getText().trim());
 
@@ -98,6 +103,7 @@ public class OptionsController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupCheckBoxes(final AppProperties toApp)
   {
+    this.chkManualFinancialData.setSelected(toApp.getDailyManualFinancialData());
     this.chkMigrationStatus.setSelected(toApp.getFlywayAlwaysCheck());
   }
 

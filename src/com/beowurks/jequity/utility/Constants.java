@@ -154,6 +154,8 @@ final public class Constants
 
   public final static String BACKUP_RESTORE_FOLDER = "backup.restore.folder";
 
+  public final static String DAILY_MANUAL_FINANCIAL_DATA = "daily.manual.financial.data";
+
   // Needed to redo the interval and start arrays. So I had to channge
   // DAILY_INTERVAL_KEY & DAILY_START_KEY by adding javafx to both.
   public final static String DAILY_INTERVAL_KEY = "daily.interval.key.javafx";
@@ -234,8 +236,8 @@ final public class Constants
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
 
-  // 2 second delay to play well with the web servers and screen scraping.
-  public final static long THREAD_DELAY_MULTI_SYMBOL_UPDATE = 2000L;
+  // 4 second delay to play well with the web servers and screen scraping.
+  public final static long THREAD_DELAY_MULTI_SYMBOL_UPDATE = 4000L;
 
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";
