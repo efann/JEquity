@@ -122,14 +122,6 @@ public class MainFormController implements EventHandler<ActionEvent>
     this.setupListeners();
 
     this.setupTables();
-
-    this.setupTabs();
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  private void setupTabs()
-  {
-    this.tabSymbol.setDisable(AppProperties.INSTANCE.getManualFinancialData());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -312,6 +304,12 @@ public class MainFormController implements EventHandler<ActionEvent>
   public Label getProgressLabel()
   {
     return (this.progressLabel);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public Tab getTabSymbol()
+  {
+    return (this.tabSymbol);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

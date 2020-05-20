@@ -41,7 +41,7 @@
       </Tab>
       <Tab text="Stock Data" closable="false">
         <VBox spacing="40">
-          <TitledPane text="Financial Data" alignment="CENTER" expanded="true" collapsible="false">
+          <TitledPane text="Financial Data" alignment="CENTER" collapsible="false">
             <GridPane hgap="10" vgap="20">
               <CheckBoxPlus fx:id="chkManualFinancialData" text="Manually Enter Stock Financial Data"
                             GridPane.columnIndex="1"
@@ -54,7 +54,7 @@
               <ComboBoxIntegerKey fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             </GridPane>
           </TitledPane>
-          <TitledPane text="Historical Data" alignment="CENTER" expanded="true" collapsible="false">
+          <TitledPane text="Historical Data" alignment="CENTER" collapsible="false">
             <GridPane hgap="10" vgap="20">
               <Label text="Alpha Vantage API Key" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
               <PasswordFieldPlus fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="0"/>

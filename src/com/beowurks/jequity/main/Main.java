@@ -119,12 +119,6 @@ public class Main extends Application
 
     Main.foMainController = Main.foMainLoader.getController();
 
-    // Call resetComponentsOnModify here rather than in TabFinancialController.initialize and TabGroupController.initialize.
-    // Otherwise, in TabModifyController.resetComponentsOnModify, Main.getController() will be null
-    // when called from those initialize functions.
-    Main.foMainController.getTabFinancialController().resetComponentsOnModify(false);
-    Main.foMainController.getTabGroupController().resetComponentsOnModify(false);
-
     final Rectangle2D loPrimaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     // Set Stage boundaries to visible bounds of the main screen.
@@ -137,6 +131,9 @@ public class Main extends Application
     {
       if (HibernateUtil.INSTANCE.initializeSuccess())
       {
+        // Must go here after Hibernate success.
+        Main.setComponentsVisibility();
+
         TimerSymbolInfo.INSTANCE.reSchedule();
 
         // Always call with the parameter is true when initializing. Otherwise certain
@@ -147,6 +144,27 @@ public class Main extends Application
       }
     });
 
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // I tried using
+  // Main.foMainController.getTabFinancialController().resetComponentsOnModify(false);
+  // and
+  // Main.foMainController.getTabGroupController().resetComponentsOnModify(false);
+  // I was getting javafx.fxml.LoadException:
+  //   file:/C:/Program%20Files/JEquity/JEquity.jar!/com/beowurks/jequity/view/fxml/MainForm.fxml
+  // at runtime.
+  // Too many issues with null values and AppProperties.INSTANCE not initialized yet due to
+  // password protection. This is simpler.
+  // Also can't use in TabFinancialController.initialize and TabGroupController.initialize.
+  // Otherwise, in TabModifyController.resetComponentsOnModify, Main.getController() will be null
+  // when called from those initialize functions.
+  private static void setComponentsVisibility()
+  {
+    final boolean llManualDataEntry = AppProperties.INSTANCE.getManualFinancialData();
+
+    Main.foMainController.getToolbarController().getUpdateButton().setDisable(llManualDataEntry);
+    Main.foMainController.getTabSymbol().setDisable(llManualDataEntry);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

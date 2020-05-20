@@ -250,7 +250,7 @@ public class TabGroupController extends TabModifyController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void resetComponentsOnModify(final boolean tlModify)
+  protected void resetComponentsOnModify(final boolean tlModify)
   {
     super.resetComponentsOnModify(tlModify);
 

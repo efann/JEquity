@@ -169,6 +169,10 @@ public final class Misc
   public static void setStatusText(final String tcMessage, final double tnProgress)
   {
     final MainFormController loController = Main.getController();
+    if (loController == null)
+    {
+      return;
+    }
 
     final Label loStatusMessage = loController.getStatusMessage();
     final ProgressBar loProgressBar = loController.getProgressBar();
