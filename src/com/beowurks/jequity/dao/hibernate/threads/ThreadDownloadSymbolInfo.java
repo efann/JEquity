@@ -194,16 +194,17 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
       Misc.setStatusText("Successfully read " + lcSymbol + " daily information");
 
+      final long lnDelay = Constants.THREAD_MULTI_SYMBOL_UPDATE_DELAY;
       if (this.importDailyInformation(loSession, loSymbol, loDoc))
       {
-        Misc.setStatusText("Successfully imported " + lcSymbol + "'s daily information");
+        Misc.setStatusText(String.format("Successfully imported %s's daily information. Now waiting %.1f seconds.", lcSymbol, lnDelay / 1000.0));
       }
 
       Misc.setStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
 
       try
       {
-        Thread.sleep(Constants.THREAD_DELAY_MULTI_SYMBOL_UPDATE);
+        Thread.sleep(lnDelay);
       }
       catch (final InterruptedException loErr)
       {
