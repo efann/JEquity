@@ -23,7 +23,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.paint.Color;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -51,6 +53,8 @@ public class OptionsController implements EventHandler<ActionEvent>
   @FXML
   private PasswordFieldPlus txtAlphaVantageAPIKey;
   @FXML
+  private Label lblDailyDownloadInterval;
+  @FXML
   private ComboBoxIntegerKey cboDailyDownloadInterval;
 
   @FXML
@@ -68,6 +72,10 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.setupCheckBoxes(loApp);
 
     this.setupButtons();
+
+    this.setupListeners();
+
+    this.updateComponents();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -146,6 +154,23 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.btnDefault.setTooltip(new Tooltip("Reset all of the above settings to the default"));
 
     this.btnDefault.setOnAction(this);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void setupListeners()
+  {
+    this.chkManualFinancialData.selectedProperty().addListener((observable, oldValue, newValue) -> this.updateComponents());
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateComponents()
+  {
+    final boolean llManualData = this.chkManualFinancialData.isSelected();
+
+    this.cboDailyDownloadInterval.setReadOnly(llManualData);
+    this.cboDailyDownloadInterval.setDisable(llManualData);
+
+    this.lblDailyDownloadInterval.setTextFill(llManualData ? Color.web("gray") : Color.web("black"));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

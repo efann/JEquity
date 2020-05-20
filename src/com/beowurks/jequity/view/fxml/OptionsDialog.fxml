@@ -49,7 +49,8 @@
               <CheckBoxPlus fx:id="chkAutosetValuationDate" text="Set Valuation Date When Editable"
                             GridPane.columnIndex="1"
                             GridPane.rowIndex="1"/>
-              <Label text="Daily Download Interval" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+              <Label fx:id="lblDailyDownloadInterval" text="Daily Download Interval" GridPane.columnIndex="0"
+                     GridPane.rowIndex="2"/>
               <ComboBoxIntegerKey fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             </GridPane>
           </TitledPane>
