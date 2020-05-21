@@ -132,7 +132,7 @@ public class Main extends Application
       if (HibernateUtil.INSTANCE.initializeSuccess())
       {
         // Must go here after Hibernate success.
-        Main.setComponentsVisibility();
+        Main.enableComponentsByOptions();
 
         TimerSymbolInfo.INSTANCE.reSchedule();
 
@@ -159,7 +159,7 @@ public class Main extends Application
   // Also can't use in TabFinancialController.initialize and TabGroupController.initialize.
   // Otherwise, in TabModifyController.resetComponentsOnModify, Main.getController() will be null
   // when called from those initialize functions.
-  private static void setComponentsVisibility()
+  private static void enableComponentsByOptions()
   {
     final boolean llManualDataEntry = AppProperties.INSTANCE.getManualFinancialData();
 
