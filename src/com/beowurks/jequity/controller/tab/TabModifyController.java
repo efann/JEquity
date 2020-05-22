@@ -226,16 +226,18 @@ abstract public class TabModifyController extends TabBaseController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void resetComponentsOnModify(final boolean tlModify)
+  public void resetComponentsOnModify(final boolean tlModify)
   {
     this.resetButtons(tlModify);
     this.resetTextFields(tlModify);
 
     if (Main.getController() != null)
     {
-      final ToolbarController loController = Main.getController().getToolbarController();
       final boolean llManualDataEntry = AppProperties.INSTANCE.getManualFinancialData();
 
+      Main.getController().getTabSymbol().setDisable(llManualDataEntry);
+
+      final ToolbarController loController = Main.getController().getToolbarController();
       loController.getGroupComboBox().setDisable(tlModify);
       loController.getUpdateButton().setDisable(tlModify || llManualDataEntry);
       loController.getRefreshButton().setDisable(tlModify);

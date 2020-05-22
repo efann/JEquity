@@ -463,7 +463,7 @@ public class TabFinancialController extends TabModifyController implements Event
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void resetComponentsOnModify(final boolean tlModify)
+  public void resetComponentsOnModify(final boolean tlModify)
   {
     super.resetComponentsOnModify(tlModify);
 

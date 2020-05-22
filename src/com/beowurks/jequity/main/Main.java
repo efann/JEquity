@@ -148,23 +148,22 @@ public class Main extends Application
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  // I tried using
-  // Main.foMainController.getTabFinancialController().resetComponentsOnModify(false);
-  // and
-  // Main.foMainController.getTabGroupController().resetComponentsOnModify(false);
   // I was getting javafx.fxml.LoadException:
   //   file:/C:/Program%20Files/JEquity/JEquity.jar!/com/beowurks/jequity/view/fxml/MainForm.fxml
   // at runtime.
-  // Too many issues with null values and AppProperties.INSTANCE not initialized yet due to
-  // password protection. This is simpler.
-  // Also can't use in TabFinancialController.initialize and TabGroupController.initialize as
+  // Then I realized that AppProperties.INSTANCE not initialized yet due to password protection.
+  // And I can't use in TabFinancialController.initialize and TabGroupController.initialize as
   // Main.getController() will be null when called indirectly from those initialize functions.
   private static void enableComponentsByOptions()
   {
-    final boolean llManualDataEntry = AppProperties.INSTANCE.getManualFinancialData();
+    if (!Platform.isFxApplicationThread())
+    {
+      System.err.println("\nYou must call Main.enableComponentsByOptions from within the FX Application Thread. Notify the developer to fix.\n");
+      System.exit(-1);
+    }
 
-    Main.foMainController.getToolbarController().getUpdateButton().setDisable(llManualDataEntry);
-    Main.foMainController.getTabSymbol().setDisable(llManualDataEntry);
+    Main.foMainController.getTabFinancialController().resetComponentsOnModify(false);
+    Main.foMainController.getTabGroupController().resetComponentsOnModify(false);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
