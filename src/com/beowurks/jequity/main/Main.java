@@ -131,7 +131,8 @@ public class Main extends Application
     {
       if (HibernateUtil.INSTANCE.initializeSuccess())
       {
-        // Must go here after Hibernate success.
+        // Must go here after Hibernate success
+        // which ensures AppProperties.INSTANCE.isSuccessfullyRead()
         Main.enableComponentsByOptions();
 
         TimerSymbolInfo.INSTANCE.reSchedule();
@@ -156,9 +157,8 @@ public class Main extends Application
   // at runtime.
   // Too many issues with null values and AppProperties.INSTANCE not initialized yet due to
   // password protection. This is simpler.
-  // Also can't use in TabFinancialController.initialize and TabGroupController.initialize.
-  // Otherwise, in TabModifyController.resetComponentsOnModify, Main.getController() will be null
-  // when called from those initialize functions.
+  // Also can't use in TabFinancialController.initialize and TabGroupController.initialize as
+  // Main.getController() will be null when called indirectly from those initialize functions.
   private static void enableComponentsByOptions()
   {
     final boolean llManualDataEntry = AppProperties.INSTANCE.getManualFinancialData();
