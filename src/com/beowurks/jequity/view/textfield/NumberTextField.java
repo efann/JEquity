@@ -17,7 +17,7 @@ public class NumberTextField extends TextFieldPlus
 {
   private final static String REGEX_NUMBER = "^[-+]?\\d{0,8}([.]\\d{0,6})?";
 
-  private NumberFormat foNumberTextFormat;
+  private NumberFormat foNumbersOnlyTextFormat;
 
   // ---------------------------------------------------------------------------------------------------------------------
   public NumberTextField()
@@ -37,13 +37,18 @@ public class NumberTextField extends TextFieldPlus
     this.setupListeners();
   }
 
-
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupFormatters()
   {
-    this.foNumberTextFormat = NumberFormat.getNumberInstance();
+    this.foNumbersOnlyTextFormat = NumberFormat.getNumberInstance();
     // In the regex expression, REGEX_NUMBER, the max decimal is 6.
-    this.foNumberTextFormat.setMaximumFractionDigits(6);
+    this.foNumbersOnlyTextFormat.setMaximumFractionDigits(6);
+
+    // No commas should be used in the text box. Otherwise, in the textProperty listener,
+    // the final check of (lcValue.matches(NumberTextField.REGEX_NUMBER)) will always
+    // be false for numbers greater than 999. This will happen only when pasting large
+    // numbers, not typing the numbers.
+    this.foNumbersOnlyTextFormat.setGroupingUsed(false);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -65,7 +70,7 @@ public class NumberTextField extends TextFieldPlus
         try
         {
           lnValue = Double.parseDouble(lcValue);
-          lcValue = this.foNumberTextFormat.format(lnValue);
+          lcValue = this.foNumbersOnlyTextFormat.format(lnValue);
         }
         catch (final NumberFormatException loErr)
         {
