@@ -238,8 +238,8 @@ final public class Constants
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
 
-  // 4 second delay to play well with the web servers and screen scraping.
-  public final static long THREAD_MULTI_SYMBOL_UPDATE_DELAY = 4000L;
+  // Several seconds delay to play well with the web servers and screen scraping.
+  public final static long THREAD_MULTI_SYMBOL_UPDATE_DELAY = 5000L;
 
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";

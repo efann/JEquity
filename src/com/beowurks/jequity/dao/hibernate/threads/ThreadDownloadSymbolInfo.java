@@ -22,8 +22,12 @@ import org.jsoup.nodes.Document;
 import java.sql.Date;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -33,6 +37,15 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
   public static final ThreadDownloadSymbolInfo INSTANCE = new ThreadDownloadSymbolInfo();
 
+  private Timer foTimer = null;
+  private Instant fiTimerStart;
+
+  // I had some issues with setting the status message from both the timer and this thread.
+  // Main.getController().getStatusMessage().getText() did not appear to always have the
+  // latest and greatest value. So I just track the value using this.fcTimerMessage.
+  // And I decided to use String instead of the thread-safe StringBuffer as I would constantly calling
+  // StringBuffer.toString and setLength(0).
+  private String fcTimerMessage;
 
   // ---------------------------------------------------------------------------------------------------------------------
   private ThreadDownloadSymbolInfo()
@@ -141,6 +154,8 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
   // ---------------------------------------------------------------------------------------------------------------------
   private void updateAllSymbolInformation()
   {
+    this.startTimer();
+
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
     final Session loSession = loHibernate.getSession();
 
@@ -153,7 +168,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     final int lnTotal = loList.size();
 
     // Must be initialized each time.
-    Misc.setStatusText("Downloading. . . .", 0.0);
+    this.updateStatusText("Downloading. . . .", 0.0);
 
     for (final SymbolEntity loSymbol : loList)
     {
@@ -161,7 +176,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
       final String lcDailyURL = PageScraping.INSTANCE.getDailyStockURL(lcSymbol);
 
-      Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
+      this.updateStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
       // Daily Information
       Document loDoc = null;
@@ -187,20 +202,20 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
       if (loDoc == null)
       {
         final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcDailyURL, lcSymbol);
-        Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+        this.updateStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
 
         continue;
       }
 
-      Misc.setStatusText("Successfully read " + lcSymbol + " daily information");
+      this.updateStatusText(String.format("Successfully read %s daily information", lcSymbol));
 
       final long lnDelay = Constants.THREAD_MULTI_SYMBOL_UPDATE_DELAY;
       if (this.importDailyInformation(loSession, loSymbol, loDoc))
       {
-        Misc.setStatusText(String.format("Successfully imported %s's daily information. Now waiting %.1f seconds.", lcSymbol, lnDelay / 1000.0));
+        this.updateStatusText(String.format("Successfully imported %s's daily information. Now waiting %.1f seconds.", lcSymbol, lnDelay / 1000.0));
       }
 
-      Misc.setStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
+      this.updateStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
 
       try
       {
@@ -214,8 +229,91 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
     loSession.close();
 
-    Misc.setStatusText("Daily information imported. . . .", 0.0);
+    this.updateStatusText("Daily information imported. . . .", 0.0);
 
+    if (this.foTimer != null)
+    {
+      this.foTimer.cancel();
+    }
+
+  }
+
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void startTimer()
+  {
+    if (this.foTimer != null)
+    {
+      this.foTimer.cancel();
+    }
+
+    this.fiTimerStart = Instant.now();
+    this.fcTimerMessage = "";
+    // From
+    // http://stackoverflow.com/questions/1041675/java-timer
+    // and
+    // http://stackoverflow.com/questions/10335784/restart-timer-in-java
+    this.foTimer = new Timer();
+    this.foTimer.schedule(
+      new TimerTask()
+      {
+        @Override
+        public void run()
+        {
+          ThreadDownloadSymbolInfo.this.updateStatusText();
+        }
+      }, 0L, 1000L);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateStatusText(final String tcMessage, final double tnProgress)
+  {
+    this.fcTimerMessage = this.updateDuration(tcMessage);
+
+    Misc.setStatusText(this.fcTimerMessage, tnProgress);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateStatusText(final String tcMessage)
+  {
+    this.fcTimerMessage = this.updateDuration(tcMessage);
+
+    Misc.setStatusText(this.fcTimerMessage);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateStatusText(final double tnProgress)
+  {
+    this.fcTimerMessage = this.updateDuration(this.fcTimerMessage);
+
+    Misc.setStatusText(this.fcTimerMessage, tnProgress);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateStatusText()
+  {
+    this.fcTimerMessage = this.updateDuration(this.fcTimerMessage);
+
+    Misc.setStatusText(this.fcTimerMessage);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String updateDuration(final String tcStatusText)
+  {
+    final Duration loDuration = Duration.between(this.fiTimerStart, Instant.now());
+    final String lcStatus;
+
+    final String lcTimePassed = String.format("[%02d:%02d]", loDuration.toMinutes(), loDuration.toSecondsPart());
+    if (tcStatusText.contains("[") && tcStatusText.contains("]"))
+    {
+      lcStatus = tcStatusText.replaceAll("\\[(.*?)\\]", lcTimePassed);
+    }
+    else
+    {
+      lcStatus = String.format("%s %s", lcTimePassed, tcStatusText);
+    }
+
+    return (lcStatus);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
