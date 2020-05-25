@@ -8,6 +8,7 @@
 
 package com.beowurks.jequity.dao.combobox;
 
+import com.beowurks.jequity.utility.Constants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,10 +27,7 @@ public class TaxStatusList
   // ---------------------------------------------------------------------------------------------------------------------
   private TaxStatusList()
   {
-    // Let's not change these keys as they will be stored in the database.
-    this.faOptions.add(new StringKeyItem("T", "Taxable"));
-    this.faOptions.add(new StringKeyItem("D", "Tax Deferred"));
-    this.faOptions.add(new StringKeyItem("F", "Tax Free"));
+    this.faOptions.addAll(Constants.TAX_STATUS_OPTIONS);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

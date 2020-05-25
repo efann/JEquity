@@ -9,6 +9,7 @@ package com.beowurks.jequity.utility;
 
 import com.beowurks.jequity.dao.combobox.DoubleKeyItem;
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
+import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.main.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,6 +70,16 @@ final public class Constants
 
   public final static String XML_TRUE = "true";
   public final static String XML_FALSE = "false";
+
+  //************************************************************
+  // Used by Financial Tab
+
+  // Let's not change these keys as they will be stored in the database.
+  public final static ObservableList<StringKeyItem> TAX_STATUS_OPTIONS = FXCollections.observableArrayList(
+    new StringKeyItem("T", "Taxable"),
+    new StringKeyItem("D", "Tax-Deferred"),
+    new StringKeyItem("F", "Tax-Free")
+  );
 
   //************************************************************
   // Used by Historical Tab
