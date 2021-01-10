@@ -221,7 +221,8 @@ final public class Constants
 
   // Just Google 'what is my user agent'
   // From https://www.scrapehero.com/scrape-yahoo-finance-stock-market-data/
-  // Recommended to use multiple user agents.
+  // Recommended to use multiple user agents, though that no longer appears to be the case.
+  // Leaving here for now for legacy reference.
   // And, yes, I want access private so force access through getUserAgent.
   private final static String[] USER_AGENTS =
     {
