@@ -256,6 +256,12 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public int getUpdateIntervalKey()
+  {
+    return (this.getProperty(Constants.UPDATE_INTERVAL_KEY, Constants.UPDATE_INTERVAL_DEFAULT));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getAlphaVantageAPIKey()
   {
     return (this.getProperty(Constants.ALPHAVANTAGE_API_KEY, "").trim());
@@ -358,6 +364,12 @@ public final class AppProperties extends BaseProperties
   public void setDailyIntervalKey(final int tnValue)
   {
     this.setProperty(Constants.DAILY_INTERVAL_KEY, tnValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setUpdateIntervalKey(final int tnValue)
+  {
+    this.setProperty(Constants.UPDATE_INTERVAL_KEY, tnValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

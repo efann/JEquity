@@ -24,6 +24,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 
@@ -56,6 +58,8 @@ public class OptionsController implements EventHandler<ActionEvent>
   private Label lblDailyDownloadInterval;
   @FXML
   private ComboBoxIntegerKey cboDailyDownloadInterval;
+  @FXML
+  private Spinner<Integer> spnUpdateInterval;
 
   @FXML
   private CheckBoxPlus chkMigrationStatus;
@@ -70,6 +74,7 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.setupComboBoxes(loApp);
     this.setupTextBoxes(loApp);
     this.setupCheckBoxes(loApp);
+    this.setupSpinners(loApp);
 
     this.setupButtons();
 
@@ -100,6 +105,7 @@ public class OptionsController implements EventHandler<ActionEvent>
     loApp.setAutosetValuationDate(this.chkAutosetValuationDate.isSelected());
 
     loApp.setDailyIntervalKey(loApp.convertIndexToKey(loApp.getDailyIntervals(), this.cboDailyDownloadInterval.getSelectedIndex()));
+    loApp.setUpdateIntervalKey(this.spnUpdateInterval.getValue());
     loApp.setAlphaVantageAPIKey(this.txtAlphaVantageAPIKey.getText().trim());
 
     // TimerSymbolInfo uses loApp.getDailyIntervalKey and loApp.getDailyStartKey
@@ -146,6 +152,17 @@ public class OptionsController implements EventHandler<ActionEvent>
 
     this.cboDriver.setOnAction(this);
     this.resetTextFields();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void setupSpinners(final AppProperties toApp)
+  {
+    // Value factory.
+    final SpinnerValueFactory<Integer> loValueFactory = //
+      new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 60, Constants.UPDATE_INTERVAL_DEFAULT);
+
+    this.spnUpdateInterval.setValueFactory(loValueFactory);
+    this.spnUpdateInterval.getValueFactory().setValue(toApp.getUpdateIntervalKey());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

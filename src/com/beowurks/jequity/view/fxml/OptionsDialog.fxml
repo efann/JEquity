@@ -52,6 +52,10 @@
               <Label fx:id="lblDailyDownloadInterval" text="Daily Download Interval" GridPane.columnIndex="0"
                      GridPane.rowIndex="2"/>
               <ComboBoxIntegerKey fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+              <Label fx:id="lblUpdateInterval" text="Update Interval (seconds)" GridPane.columnIndex="0"
+                     GridPane.rowIndex="3"/>
+              <Spinner fx:id="spnUpdateInterval" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                       style="-fx-pref-width: 75;"/>
             </GridPane>
           </TitledPane>
           <TitledPane text="Historical Data" alignment="CENTER" collapsible="false">

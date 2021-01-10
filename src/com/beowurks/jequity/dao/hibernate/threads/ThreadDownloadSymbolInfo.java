@@ -11,6 +11,7 @@ import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.main.Main;
+import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import org.hibernate.Session;
@@ -209,7 +210,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
       this.updateStatusText(String.format("Successfully read %s daily information", lcSymbol));
 
-      final long lnDelay = Constants.THREAD_MULTI_SYMBOL_UPDATE_DELAY;
+      final long lnDelay = AppProperties.INSTANCE.getUpdateIntervalKey() * 1000L;
       if (this.importDailyInformation(loSession, loSymbol, loDoc))
       {
         this.updateStatusText(String.format("Successfully imported %s's daily information. Now waiting %.1f seconds.", lcSymbol, lnDelay / 1000.0));

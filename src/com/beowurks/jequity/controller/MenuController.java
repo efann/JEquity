@@ -236,6 +236,11 @@ public class MenuController
     if (loButton == ButtonType.OK)
     {
       loDialog.getController().updateAppProperties();
+
+      // Any updates in Options will now be reflected in the relevant controllers.
+      final MainFormController loController = Main.getController();
+      loController.getTabFinancialController().resetComponentsOnModify(false);
+      loController.getTabGroupController().resetComponentsOnModify(false);
     }
   }
 

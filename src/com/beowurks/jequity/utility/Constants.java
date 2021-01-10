@@ -175,6 +175,9 @@ final public class Constants
   // DAILY_INTERVAL_KEY & DAILY_START_KEY by adding javafx to both.
   public final static String DAILY_INTERVAL_KEY = "daily.interval.key.javafx";
 
+  public final static String UPDATE_INTERVAL_KEY = "update.interval.key";
+  public final static int UPDATE_INTERVAL_DEFAULT = 5;
+
   public final static String ALPHAVANTAGE_API_KEY = "alpha.vantage.api.key";
 
   public final static String FLYWAY_ALWAYS_CHECK = "flyway.always.check";
@@ -244,9 +247,6 @@ final public class Constants
   public final static String UNKNOWN_STOCK_SYMBOL = "Unknown Stock Symbol";
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
-
-  // Several seconds delay to play well with the web servers and screen scraping.
-  public final static long THREAD_MULTI_SYMBOL_UPDATE_DELAY = 5000L;
 
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";

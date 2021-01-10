@@ -162,8 +162,10 @@ public class Main extends Application
       System.exit(-1);
     }
 
-    Main.foMainController.getTabFinancialController().resetComponentsOnModify(false);
-    Main.foMainController.getTabGroupController().resetComponentsOnModify(false);
+    final MainFormController loController = Main.getController();
+
+    loController.getTabFinancialController().resetComponentsOnModify(false);
+    loController.getTabGroupController().resetComponentsOnModify(false);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
