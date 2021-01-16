@@ -63,7 +63,7 @@ public class DatePickerPlus extends DatePicker implements IReadOnly
   {
     final String lcStyle = tlReadOnly ? Constants.DISABLED_CONTROL_BACKGROUND : "";
 
-    this.getEditor().setEditable(!tlReadOnly);
+    this.setEditable(!tlReadOnly);
     this.getEditor().setStyle(lcStyle);
 
     // The following hides / shows the button for the calendar.
