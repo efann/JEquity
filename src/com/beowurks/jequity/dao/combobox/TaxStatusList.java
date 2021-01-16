@@ -61,11 +61,10 @@ public class TaxStatusList
   // ---------------------------------------------------------------------------------------------------------------------
   public StringKeyItem getItem(final String tcKey)
   {
-    final String lcKey = tcKey.trim();
-    StringKeyItem loItem = null;
+    StringKeyItem loItem = Constants.BLANK_STRINGKEYITEM;
     for (final StringKeyItem loOption : this.faOptions)
     {
-      if (loOption.getKey().equals(lcKey))
+      if (loOption.getKey().equals(tcKey))
       {
         loItem = loOption;
         break;

@@ -37,10 +37,7 @@ public class TaxStatusTableCell extends TableCell<Object, String>
     }
 
     final StringKeyItem loItem = TaxStatusList.INSTANCE.getItem(tcItem);
-    if (loItem != null)
-    {
-      this.setText(loItem.getDescription());
-    }
+    this.setText(loItem.getDescription());
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

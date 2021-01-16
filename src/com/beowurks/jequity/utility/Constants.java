@@ -81,6 +81,8 @@ final public class Constants
     new StringKeyItem("F", "Tax-Free")
   );
 
+  public final static StringKeyItem BLANK_STRINGKEYITEM = new StringKeyItem("", "");
+
   //************************************************************
   // Used by Historical Tab
   public final static String XML_SYMBOL_ROOT_LABEL = "Historical";
@@ -289,7 +291,7 @@ final public class Constants
 
   //************************************************************
   // The following is used by the development environment for MySQL & PostgreSQL
-  public final static String DEVELOPMENT_SERVER = "192.168.64.10";
+  public final static String DEVELOPMENT_SERVER = "192.168.64.210";
   public final static String DEVELOPMENT_DATABASE = "JEquityTest";
   public final static String DEVELOPMENT_USER = "JEquityTest";
   public final static String DEVELOPMENT_PASSWORD = "JEquity!!!Test";
