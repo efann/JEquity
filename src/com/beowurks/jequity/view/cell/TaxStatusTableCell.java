@@ -8,6 +8,7 @@
 
 package com.beowurks.jequity.view.cell;
 
+import com.beowurks.jequity.dao.combobox.StringKeyItem;
 import com.beowurks.jequity.dao.combobox.TaxStatusList;
 import javafx.scene.control.TableCell;
 
@@ -35,7 +36,11 @@ public class TaxStatusTableCell extends TableCell<Object, String>
       return;
     }
 
-    this.setText(TaxStatusList.INSTANCE.getItem(tcItem).getDescription());
+    final StringKeyItem loItem = TaxStatusList.INSTANCE.getItem(tcItem);
+    if (loItem != null)
+    {
+      this.setText(loItem.getDescription());
+    }
   }
   // ---------------------------------------------------------------------------------------------------------------------
 
