@@ -58,13 +58,20 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
     }
 
     this.downloadPageAndImport();
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   private void downloadPageAndImport()
   {
     final String lcSymbol = this.foSingleSymbolInfo.getSymbol().getText();
+    if (lcSymbol.isEmpty() || lcSymbol.isBlank())
+    {
+      final String lcMessage = "The stock symbol is blank so unable to download any information.";
+      Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+
+      return;
+    }
+
     final String lcDailyURL = PageScraping.INSTANCE.getDailyStockURL(lcSymbol);
 
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
