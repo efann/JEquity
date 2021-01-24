@@ -350,7 +350,13 @@ public class TabFinancialController extends TabModifyController implements Event
       return (false);
     }
 
-    return (this.modifyRow(this.foCurrentFinancialProperty));
+    final boolean llModifyingRow = this.modifyRow(this.foCurrentFinancialProperty);
+    if (llModifyingRow)
+    {
+      ThreadDownloadSingleSymbol.INSTANCE.start(SingleSymbolInfo.INSTANCE);
+    }
+
+    return (llModifyingRow);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

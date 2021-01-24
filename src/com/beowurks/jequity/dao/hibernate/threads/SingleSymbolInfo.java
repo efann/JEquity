@@ -92,8 +92,6 @@ public class SingleSymbolInfo
     final boolean llManualEntry = AppProperties.INSTANCE.getManualFinancialData();
 
     return (!llManualEntry);
-
-
   }
   // ---------------------------------------------------------------------------------------------------------------------
 
