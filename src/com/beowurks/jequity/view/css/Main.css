@@ -11,6 +11,7 @@
   caspian.css
 
   I just found the css files. They're in lib\javafx.controls.jar in the folder path of com\sun\javafx\scene\control\skin\
+  Actually, that's no longer the case for BellSoft Liberica Java/JavaFX.
 */
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -589,6 +590,26 @@
 
 /* From https://stackoverflow.com/questions/21379865/how-to-hide-the-down-arrow-button-on-a-combobox-in-javafx */
 .hide-combo-box-arrow .arrow-button
+{
+  -fx-opacity: 0.0;
+  -fx-cursor: text;
+  -fx-padding: 0;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  Spinner
+*/
+
+.spinner:disabled,
+.spinner:disabled > *
+{
+  -fx-opacity: 1.0;
+  -fx-text-fill: #444;
+}
+
+.hide-spinner-increment-arrow .increment-arrow-button,
+.hide-spinner-increment-arrow .decrement-arrow-button
 {
   -fx-opacity: 0.0;
   -fx-cursor: text;

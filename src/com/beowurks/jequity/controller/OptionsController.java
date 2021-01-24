@@ -16,6 +16,7 @@ import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
+import com.beowurks.jequity.view.spinner.SpinnerPlus;
 import com.beowurks.jequity.view.textfield.PasswordFieldPlus;
 import com.beowurks.jequity.view.textfield.TextFieldPlus;
 import javafx.collections.ObservableList;
@@ -24,7 +25,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
@@ -57,9 +57,11 @@ public class OptionsController implements EventHandler<ActionEvent>
   @FXML
   private Label lblDailyDownloadInterval;
   @FXML
+  private Label lblUpdateInterval;
+  @FXML
   private ComboBoxIntegerKey cboDailyDownloadInterval;
   @FXML
-  private Spinner<Integer> spnUpdateInterval;
+  private SpinnerPlus<Integer> spnUpdateInterval;
 
   @FXML
   private CheckBoxPlus chkMigrationStatus;
@@ -185,9 +187,11 @@ public class OptionsController implements EventHandler<ActionEvent>
     final boolean llManualData = this.chkManualFinancialData.isSelected();
 
     this.cboDailyDownloadInterval.setReadOnly(llManualData);
-    this.cboDailyDownloadInterval.setDisable(llManualData);
+
+    this.spnUpdateInterval.setReadOnly(llManualData);
 
     this.lblDailyDownloadInterval.setTextFill(llManualData ? Color.web("gray") : Color.web("black"));
+    this.lblUpdateInterval.setTextFill(llManualData ? Color.web("gray") : Color.web("black"));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

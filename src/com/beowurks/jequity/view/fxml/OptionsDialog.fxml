@@ -10,6 +10,7 @@
 
 <?import com.beowurks.jequity.view.checkbox.CheckBoxPlus?>
 <?import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey?>
+<?import com.beowurks.jequity.view.spinner.SpinnerPlus?>
 <?import com.beowurks.jequity.view.textfield.PasswordFieldPlus?>
 <?import com.beowurks.jequity.view.textfield.TextFieldPlus?>
 <?import javafx.scene.control.*?>
@@ -54,8 +55,8 @@
               <ComboBoxIntegerKey fx:id="cboDailyDownloadInterval" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
               <Label fx:id="lblUpdateInterval" text="Update Interval (seconds)" GridPane.columnIndex="0"
                      GridPane.rowIndex="3"/>
-              <Spinner fx:id="spnUpdateInterval" GridPane.columnIndex="1" GridPane.rowIndex="3"
-                       style="-fx-pref-width: 75;"/>
+              <SpinnerPlus fx:id="spnUpdateInterval" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                           style="-fx-pref-width: 75;"/>
             </GridPane>
           </TitledPane>
           <TitledPane text="Historical Data" alignment="CENTER" collapsible="false">
