@@ -27,6 +27,7 @@ import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxDoubleKey;
 import com.beowurks.jequity.view.combobox.ComboBoxIntegerKey;
+import com.beowurks.jequity.view.combobox.ComboBoxPlus;
 import com.beowurks.jequity.view.combobox.ComboBoxStringKey;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -37,7 +38,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -757,9 +757,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     this.cboSmoothing.getItems().clear();
     this.cboSmoothing.getItems().addAll(Constants.HISTORICAL_SMOOTH_COEFFICIENTS);
-    for (final Object loItem : this.cboSmoothing.getItems())
+    for (final DoubleKeyItem loItem : this.cboSmoothing.getItems())
     {
-      if (((DoubleKeyItem) loItem).getKey() == 1.0)
+      if (loItem.getKey() == 1.0)
       {
         this.cboSmoothing.getSelectionModel().select(loItem);
         break;
@@ -928,7 +928,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     // Just in case, the AlphaVantage key has been modified in the Options dialog.
     this.refreshLabels();
 
-    final ComboBox<StringKeyItem> loCombo = this.cboStocks;
+    final ComboBoxPlus<StringKeyItem> loCombo = this.cboStocks;
 
     final StringKeyItem loSelectItem = loCombo.getSelectionModel().getSelectedItem();
     final String lcSelectKey = (loSelectItem != null) ? loSelectItem.getKey() : "";
@@ -968,7 +968,14 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     loSession.close();
 
     loCombo.getItems().clear();
+    final boolean llEmpty = loStringKeys.isEmpty();
+    if (llEmpty)
+    {
+      loStringKeys.add(Constants.BLANK_NO_STOCK_FOUND);
+    }
+
     loCombo.setItems(loStringKeys);
+    loCombo.setReadOnly(llEmpty);
 
     // Reset before selection occurs so that the relevant select actions take place.
     loCombo.setOnAction(loActionHandler);

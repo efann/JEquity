@@ -543,6 +543,11 @@
   -fx-pref-width: Infinity;
 }
 
+#lblUpdateIntervalDefault
+{
+  -fx-font-style: italic;
+}
+
 #lblHistoricalWarning
 {
   -fx-font-size: 1.2em;
