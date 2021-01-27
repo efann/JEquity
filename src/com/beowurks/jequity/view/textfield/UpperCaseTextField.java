@@ -8,6 +8,8 @@
 
 package com.beowurks.jequity.view.textfield;
 
+import javafx.scene.control.TextFormatter;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -19,7 +21,7 @@ public class UpperCaseTextField extends TextFieldPlus
   {
     super();
 
-    this.setupListeners();
+    this.setupFormatters();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -27,13 +29,22 @@ public class UpperCaseTextField extends TextFieldPlus
   {
     super(tcText);
 
-    this.setupListeners();
+    this.setupFormatters();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void setupListeners()
+  // From https://stackoverflow.com/questions/30884812/javafx-textfield-automatically-transform-text-to-uppercase
+  // Previously I used this.textProperty().addListener((observable, oldValue, newValue) -> UpperCaseTextField.this.setText(newValue.toUpperCase())
+  // Caused the following error on Ctrl-Z with a field that had been cleared or modified to empty:
+  //   Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
+  //   at javafx.controls/javafx.scene.control.TextInputControl.updateUndoRedoState(TextInputControl.java:1198)
+  protected void setupFormatters()
   {
-    this.textProperty().addListener((observable, oldValue, newValue) -> UpperCaseTextField.this.setText(newValue.toUpperCase()));
+    this.setTextFormatter(new TextFormatter<>((toChange) ->
+    {
+      toChange.setText(toChange.getText().toUpperCase());
+      return toChange;
+    }));
   }
   // ---------------------------------------------------------------------------------------------------------------------
 

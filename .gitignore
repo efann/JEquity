@@ -1,5 +1,6 @@
 *.class
 
+
 # Output Folder
 out/
 
@@ -65,5 +66,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Application files
 efann.Properties
 derby.log
+.idea/workspace.xml
