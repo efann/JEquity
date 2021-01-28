@@ -105,7 +105,7 @@ public class ToolbarController
       }
       else if ((loCombo.getValue() == null) && (loCombo.getItems().size() > 0))
       {
-        loKeyItemInit = (IntegerKeyItem) loCombo.getItems().get(0);
+        loKeyItemInit = loCombo.getItems().get(0);
         loCombo.setValue(loKeyItemInit);
       }
 

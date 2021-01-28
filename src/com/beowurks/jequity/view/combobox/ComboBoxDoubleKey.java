@@ -23,7 +23,7 @@ public class ComboBoxDoubleKey extends ComboBoxPlus<DoubleKeyItem>
   @Override
   public DoubleKeyItem getSelectedItem()
   {
-    return ((DoubleKeyItem) this.getValue());
+    return (this.getValue());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

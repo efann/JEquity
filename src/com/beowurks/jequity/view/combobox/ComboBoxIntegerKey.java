@@ -23,7 +23,7 @@ public class ComboBoxIntegerKey extends ComboBoxPlus<IntegerKeyItem>
   @Override
   public IntegerKeyItem getSelectedItem()
   {
-    return ((IntegerKeyItem) this.getValue());
+    return (this.getValue());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

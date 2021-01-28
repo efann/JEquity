@@ -147,7 +147,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   public double getSmoothingValue()
   {
-    final DoubleKeyItem loItem = (DoubleKeyItem) this.cboSmoothing.getSelectionModel().getSelectedItem();
+    final DoubleKeyItem loItem = this.cboSmoothing.getSelectionModel().getSelectedItem();
 
     return ((loItem != null) ? loItem.getKey() : 0.0);
   }
