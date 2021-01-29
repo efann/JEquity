@@ -971,7 +971,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final boolean llEmpty = loStringKeys.isEmpty();
     if (llEmpty)
     {
-      loStringKeys.add(Constants.BLANK_NO_STOCK_FOUND);
+      loStringKeys.add(Constants.BLANK_NO_SYMBOL_FOUND);
     }
 
     loCombo.setItems(loStringKeys);

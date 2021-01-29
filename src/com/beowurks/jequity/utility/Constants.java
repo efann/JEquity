@@ -177,7 +177,7 @@ final public class Constants
 
   public final static String UPDATE_INTERVAL_KEY = "update.interval.key";
   public final static int UPDATE_INTERVAL_DEFAULT = 5;
-  public final static StringKeyItem BLANK_NO_STOCK_FOUND = new StringKeyItem("--", "<no stock information>");
+  public final static StringKeyItem BLANK_NO_SYMBOL_FOUND = new StringKeyItem("--", "<no symbol information>");
 
   public final static String ALPHAVANTAGE_API_KEY = "alpha.vantage.api.key";
 
