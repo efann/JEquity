@@ -21,7 +21,7 @@ public class V3_6__Drop_Clean_Symbol_Fields extends MigrationHelper
   {
     this.foConnection = toContext.getConnection();
 
-    this.executeStatements("DropCleanSymbolFields.sql");
+    this.executeStatements("sql/DropCleanSymbolFields.template");
   }
   // -----------------------------------------------------------------------------
 

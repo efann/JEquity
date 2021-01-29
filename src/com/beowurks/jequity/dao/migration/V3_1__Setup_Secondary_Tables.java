@@ -24,7 +24,7 @@ public class V3_1__Setup_Secondary_Tables extends MigrationHelper
 
     this.foConnection = toContext.getConnection();
 
-    this.executeStatements("TablesSecondarySetup.sql");
+    this.executeStatements("sql/TablesSecondarySetup.template");
 
   }
   // -----------------------------------------------------------------------------

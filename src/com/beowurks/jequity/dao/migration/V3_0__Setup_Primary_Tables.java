@@ -24,7 +24,7 @@ public class V3_0__Setup_Primary_Tables extends MigrationHelper
 
     this.foConnection = toContext.getConnection();
 
-    this.executeStatements("TablesPrimarySetup.sql");
+    this.executeStatements("sql/TablesPrimarySetup.template");
 
   }
   // -----------------------------------------------------------------------------

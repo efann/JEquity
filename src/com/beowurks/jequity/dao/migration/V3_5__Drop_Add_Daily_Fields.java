@@ -21,7 +21,7 @@ public class V3_5__Drop_Add_Daily_Fields extends MigrationHelper
   {
     this.foConnection = toContext.getConnection();
 
-    this.executeStatements("DropAddDailyFields.sql");
+    this.executeStatements("sql/DropAddDailyFields.template");
 
   }
   // -----------------------------------------------------------------------------

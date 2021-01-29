@@ -24,7 +24,7 @@ public class V3_2__Setup_Constraints extends MigrationHelper
 
     this.foConnection = toContext.getConnection();
 
-    this.executeStatements("ConstraintsSetup.sql");
+    this.executeStatements("sql/ConstraintsSetup.template");
 
   }
   // -----------------------------------------------------------------------------

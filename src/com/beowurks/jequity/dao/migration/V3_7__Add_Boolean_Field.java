@@ -21,7 +21,7 @@ public class V3_7__Add_Boolean_Field extends MigrationHelper
   {
     this.foConnection = toContext.getConnection();
 
-    this.executeStatements("AddBooleanField.sql");
+    this.executeStatements("sql/AddBooleanField.template");
   }
   // -----------------------------------------------------------------------------
 

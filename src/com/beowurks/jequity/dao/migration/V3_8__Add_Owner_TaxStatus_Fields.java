@@ -20,7 +20,7 @@ public class V3_8__Add_Owner_TaxStatus_Fields extends MigrationHelper
   {
     this.foConnection = toContext.getConnection();
 
-    this.executeStatements("AddOwnerTaxStatus.sql");
+    this.executeStatements("sql/AddOwnerTaxStatus.template");
   }
   // -----------------------------------------------------------------------------
 
