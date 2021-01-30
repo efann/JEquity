@@ -161,7 +161,7 @@ public class OptionsController implements EventHandler<ActionEvent>
   {
     // Value factory.
     final SpinnerValueFactory<Integer> loValueFactory = //
-      new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 60, Constants.UPDATE_INTERVAL_DEFAULT);
+      new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 30, Constants.UPDATE_INTERVAL_DEFAULT);
 
     this.spnUpdateInterval.setValueFactory(loValueFactory);
     this.spnUpdateInterval.getValueFactory().setValue(toApp.getUpdateIntervalKey());

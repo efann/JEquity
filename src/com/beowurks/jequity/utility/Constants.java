@@ -176,7 +176,7 @@ final public class Constants
   public final static String DAILY_INTERVAL_KEY = "daily.interval.key.javafx";
 
   public final static String UPDATE_INTERVAL_KEY = "update.interval.key";
-  public final static int UPDATE_INTERVAL_DEFAULT = 5;
+  public final static int UPDATE_INTERVAL_DEFAULT = 4;
   public final static StringKeyItem BLANK_NO_SYMBOL_FOUND = new StringKeyItem("--", "<no symbol information>");
 
   public final static String ALPHAVANTAGE_API_KEY = "alpha.vantage.api.key";
