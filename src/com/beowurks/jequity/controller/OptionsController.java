@@ -59,6 +59,8 @@ public class OptionsController implements EventHandler<ActionEvent>
   @FXML
   private Label lblUpdateInterval;
   @FXML
+  private Label lblUpdateIntervalDefault;
+  @FXML
   private ComboBoxIntegerKey cboDailyDownloadInterval;
   @FXML
   private SpinnerPlus<Integer> spnUpdateInterval;
@@ -165,6 +167,8 @@ public class OptionsController implements EventHandler<ActionEvent>
 
     this.spnUpdateInterval.setValueFactory(loValueFactory);
     this.spnUpdateInterval.getValueFactory().setValue(toApp.getUpdateIntervalKey());
+
+    this.lblUpdateIntervalDefault.setText(String.format("Default is %d seconds", Constants.UPDATE_INTERVAL_DEFAULT));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
