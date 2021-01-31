@@ -72,7 +72,7 @@ public class CheckForUpdates implements Runnable
     final String lcURL = String.format("https://www.beowurks.com/ajax/version/%d", CheckForUpdates.JEQUITY);
 
     Document loDoc = null;
-    for (int lnTries = 0; (lnTries < 5) && (loDoc == null); ++lnTries)
+    for (int lnTries = 0; (lnTries < Constants.JSOUP_TIMEOUT_TRIES) && (loDoc == null); ++lnTries)
     {
       try
       {

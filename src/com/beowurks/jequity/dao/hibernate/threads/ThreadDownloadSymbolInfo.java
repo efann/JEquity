@@ -181,7 +181,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
       // Daily Information
       Document loDoc = null;
-      for (int lnTries = 0; (lnTries < 5) && (loDoc == null); ++lnTries)
+      for (int lnTries = 0; (lnTries < Constants.JSOUP_TIMEOUT_TRIES) && (loDoc == null); ++lnTries)
       {
         try
         {

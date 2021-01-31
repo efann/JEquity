@@ -78,7 +78,7 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
 
     // Daily Information
     Document loDoc = null;
-    for (int lnTries = 0; (lnTries < 5) && (loDoc == null); ++lnTries)
+    for (int lnTries = 0; (lnTries < Constants.JSOUP_TIMEOUT_TRIES) && (loDoc == null); ++lnTries)
     {
       try
       {

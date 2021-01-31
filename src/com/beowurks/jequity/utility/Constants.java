@@ -264,6 +264,7 @@ final public class Constants
   public final static String YAHOO_DAILY_DIVIDENDYIELD = "Dividend & Yield";
   public final static String YAHOO_DAILY_TARGETEST = "1y Target Est";
 
+  public final static int JSOUP_TIMEOUT_TRIES = 5;
   //************************************************************
   // The following is used by Flyway.
   public final static String FLYWAY_MYSQL = "MySQL";
