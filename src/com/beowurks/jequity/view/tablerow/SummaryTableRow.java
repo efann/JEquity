@@ -60,7 +60,7 @@ public class SummaryTableRow extends TableRow<SummaryProperty>
     {
       this.addClass(SummaryTableRow.SUMMARY_TAX);
     }
-    else if (lcDescription.equals(Constants.SUMMARY_TABLE_OWNERSHIP))
+    else if (lcDescription.contains(Constants.SUMMARY_TABLE_OWNERSHIP_FRAGMENT))
     {
       this.addClass(SummaryTableRow.SUMMARY_OWNER);
     }

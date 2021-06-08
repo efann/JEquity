@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 // ---------------------------------------------------------------------------------------------------------------------
 public class TaxStatusList
 {
+  public static final int TAX_STATUS_NOT_FOUND = -1;
   // Here's a discussion of when INSTANCE will be initialized:
   // http://stackoverflow.com/questions/13724230/singleton-and-public-static-variable-java
   // Accordingly, it should be initialized when first accessed.
@@ -45,7 +46,7 @@ public class TaxStatusList
   // ---------------------------------------------------------------------------------------------------------------------
   public int getIndex(final String tcKey)
   {
-    int lnIndex = -1;
+    int lnIndex = TaxStatusList.TAX_STATUS_NOT_FOUND;
     for (final StringKeyItem loOption : this.faOptions)
     {
       if (loOption.getKey().equals(tcKey))

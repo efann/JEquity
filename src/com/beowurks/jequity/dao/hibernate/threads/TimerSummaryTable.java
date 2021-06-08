@@ -52,15 +52,6 @@ public class TimerSummaryTable
 
   public static final TimerSummaryTable INSTANCE = new TimerSummaryTable();
 
-  private final static String SUMMARY_TOTAL = "SummaryTableTotal";
-  private final static String SUMMARY_RETIREMENT = "SummaryTableRetirements";
-  private final static String SUMMARY_TAX = "SummaryTaxStatus";
-  private final static String SUMMARY_OWNER = "SummaryTableOwnership";
-  private final static String SUMMARY_ACCOUNT = "SummaryTableAccount";
-  private final static String SUMMARY_TYPE = "SummaryTableType";
-  private final static String SUMMARY_CATEGORY = "SummaryTableCategory";
-  private final static String SUMMARY_REGULAR = "SummaryTableRegular";
-
   private final Vector<SummarySubAmount> foSummaryList = new Vector<>();
 
   private Timer foTimer = null;
@@ -184,9 +175,10 @@ public class TimerSummaryTable
 
     // Now calculate all of the sub totals.
     double lnTotal = 0;
+    double lnTotalTax = 0;
+    double lnTotalTaxOwner = 0;
     double lnRetirement = 0;
     double lnNonRetirement = 0;
-    double lnOwnership = 0;
     double lnAccount = 0;
 
     final int lnTaxStatus = TaxStatusList.INSTANCE.getCount();
@@ -194,6 +186,12 @@ public class TimerSummaryTable
     for (int i = 0; i < lnTaxStatus; ++i)
     {
       laTaxStatus[i] = 0.0;
+    }
+
+    final double[] laTaxStatusOwner = new double[lnTaxStatus];
+    for (int i = 0; i < lnTaxStatus; ++i)
+    {
+      laTaxStatusOwner[i] = 0.0;
     }
 
     for (final SummarySubAmount loSumAmount : this.foSummaryList)
@@ -212,11 +210,17 @@ public class TimerSummaryTable
       if (loSumAmount.fnTaxStatus >= 0)
       {
         laTaxStatus[loSumAmount.fnTaxStatus] += loSumAmount.fnSubTotal;
+        lnTotalTax += loSumAmount.fnSubTotal;
       }
 
       if ((tcOwnership != null) && (!tcOwnership.isEmpty()) && (tcOwnership.compareToIgnoreCase(loSumAmount.fcOwnership) == 0))
       {
-        lnOwnership += loSumAmount.fnSubTotal;
+        if (loSumAmount.fnTaxStatus >= 0)
+        {
+          laTaxStatusOwner[loSumAmount.fnTaxStatus] += loSumAmount.fnSubTotal;
+        }
+
+        lnTotalTaxOwner += loSumAmount.fnSubTotal;
       }
 
       if ((tcAccount != null) && (!tcAccount.isEmpty()) && (tcAccount.compareToIgnoreCase(loSumAmount.fcAccount) == 0))
@@ -253,18 +257,39 @@ public class TimerSummaryTable
     this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_RETIREMENT, lnRetirement));
     this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_NON_RETIREMENT, lnNonRetirement));
 
+    //***************************************
     // Add Tax Status info
     for (int i = 0; i < lnTaxStatus; ++i)
     {
       this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, TaxStatusList.INSTANCE.getDescription(i)), laTaxStatus[i]));
     }
 
+    if (lnTotal > lnTotalTax)
+    {
+      this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, Constants.TAX_STATUS_BLANK), lnTotal - lnTotalTax));
+    }
+    //***************************************
+    // Add ownership information
+
     if ((tcOwnership != null) && (!tcOwnership.isEmpty()))
     {
-      this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_OWNERSHIP));
-      this.foDataList.add(new SummaryProperty(tcOwnership, lnOwnership));
+      this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_OWNERSHIP, tcOwnership)));
+      this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_OWNERSHIP_TOTAL, tcOwnership), lnTotalTaxOwner));
+
+      double lnTaxStatusTotal = 0;
+      for (int i = 0; i < lnTaxStatus; ++i)
+      {
+        this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, TaxStatusList.INSTANCE.getDescription(i)), laTaxStatusOwner[i]));
+        lnTaxStatusTotal += laTaxStatusOwner[i];
+      }
+
+      if (lnTotalTaxOwner > lnTaxStatusTotal)
+      {
+        this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, Constants.TAX_STATUS_BLANK), lnTotalTaxOwner - lnTaxStatusTotal));
+      }
     }
 
+    //***************************************
     if ((tcAccount != null) && (!tcAccount.isEmpty()))
     {
       this.foDataList.add(new SummaryProperty(Constants.SUMMARY_TABLE_ACCOUNT));
