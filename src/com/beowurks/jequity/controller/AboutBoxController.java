@@ -58,10 +58,10 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   public TableViewPlus tblEnvironment;
 
   @FXML
-  private TableColumn colKey;
+  private TableColumn<EnvironmentProperty, String> colKey;
 
   @FXML
-  private TableColumn colValue;
+  private TableColumn<EnvironmentProperty, String> colValue;
 
   // ---------------------------------------------------------------------------------------------------------------------
   // From https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method

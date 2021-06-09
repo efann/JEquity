@@ -19,7 +19,7 @@ import javafx.scene.control.ComboBox;
 // setEditable is final for Node, I can't override it. So I just created a setReadOnly function.
 abstract public class ComboBoxPlus<T> extends ComboBox<T> implements IReadOnly
 {
-  private EventHandler foOriginalShownEvent;
+  private EventHandler<javafx.event.Event> foOriginalShownEvent;
 
   // ---------------------------------------------------------------------------------------------------------------------
   public ComboBoxPlus()
