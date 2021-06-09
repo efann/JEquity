@@ -465,7 +465,7 @@ public final class AppProperties extends BaseProperties
   {
     final StringBuilder loBuilder = new StringBuilder(Constants.USER_FILENAME);
 
-    return ("*" + loBuilder.reverse().append("*").toString());
+    return ("*" + loBuilder.reverse().append("*"));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

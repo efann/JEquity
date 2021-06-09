@@ -12,20 +12,24 @@ import com.beowurks.jequity.utility.Constants;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableRow;
 
+import java.util.Iterator;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // From http://stackoverflow.com/questions/32001/resettable-java-timer
 public class SummaryTableRow extends TableRow<SummaryProperty>
 {
-  private final static String SUMMARY_TOTAL = "SummaryTableTotal";
-  private final static String SUMMARY_RETIREMENT = "SummaryTableRetirements";
-  private final static String SUMMARY_TAX = "SummaryTaxStatus";
-  private final static String SUMMARY_OWNER = "SummaryTableOwnership";
-  private final static String SUMMARY_ACCOUNT = "SummaryTableAccount";
-  private final static String SUMMARY_TYPE = "SummaryTableType";
-  private final static String SUMMARY_CATEGORY = "SummaryTableCategory";
-  private final static String SUMMARY_REGULAR = "SummaryTableRegular";
+  private final static String SUMMARY_PREFIX = "Summary";
+
+  private final static String SUMMARY_TOTAL = String.format("%sTableTotal", SummaryTableRow.SUMMARY_PREFIX);
+  private final static String SUMMARY_RETIREMENT = String.format("%sTableRetirements", SummaryTableRow.SUMMARY_PREFIX);
+  private final static String SUMMARY_TAX = String.format("%sTaxStatus", SummaryTableRow.SUMMARY_PREFIX);
+  private final static String SUMMARY_OWNER = String.format("%sTableOwnership", SummaryTableRow.SUMMARY_PREFIX);
+  private final static String SUMMARY_ACCOUNT = String.format("%sTableAccount", SummaryTableRow.SUMMARY_PREFIX);
+  private final static String SUMMARY_TYPE = String.format("%sTableType", SummaryTableRow.SUMMARY_PREFIX);
+  private final static String SUMMARY_CATEGORY = String.format("%sTableCategory", SummaryTableRow.SUMMARY_PREFIX);
+  private final static String SUMMARY_REGULAR = String.format("%sTableRegular", SummaryTableRow.SUMMARY_PREFIX);
 
   // ---------------------------------------------------------------------------------------------------------------------
   public SummaryTableRow()
@@ -40,10 +44,15 @@ public class SummaryTableRow extends TableRow<SummaryProperty>
     if (toItem == null)
     {
       this.setStyle("");
-      this.getStyleClass().clear();
       return;
     }
 
+    this.updateStyle(toItem);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateStyle(final SummaryProperty toItem)
+  {
     final String lcDescription = toItem.getSummaryDescription();
 
     // Fixed the issues with row highlighting.
@@ -92,6 +101,20 @@ public class SummaryTableRow extends TableRow<SummaryProperty>
     if (!loClasses.contains(tcClass))
     {
       loClasses.add(tcClass);
+    }
+
+    // From https://stackoverflow.com/questions/1196586/calling-remove-in-foreach-loop-in-java
+    final Iterator<String> loLoop = loClasses.iterator();
+    while (loLoop.hasNext())
+    {
+      final String lcClass = loLoop.next();
+      // Not sure why this is happening. But it is. Now, the summary grid
+      // is not randomly changing class styles when scrolling up & down.
+      if (lcClass.startsWith(SummaryTableRow.SUMMARY_PREFIX) && !lcClass.equals(tcClass))
+      {
+        //System.err.println(String.format("removing %s while adding  %s", lcClass, tcClass));
+        loLoop.remove();
+      }
     }
 
   }

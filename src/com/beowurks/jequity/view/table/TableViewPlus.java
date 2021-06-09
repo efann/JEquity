@@ -91,7 +91,7 @@ public class TableViewPlus<S> extends TableView
       return;
     }
 
-    final String lcMessage = this.foKeySearch.length() > 0 ? String.format("Finding: %s", this.foKeySearch.toString()) : "";
+    final String lcMessage = this.foKeySearch.length() > 0 ? String.format("Finding: %s", this.foKeySearch) : "";
 
     if (Platform.isFxApplicationThread())
     {
