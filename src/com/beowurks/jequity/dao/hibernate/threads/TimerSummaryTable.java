@@ -273,8 +273,7 @@ public class TimerSummaryTable
 
     if ((tcOwnership != null) && (!tcOwnership.isEmpty()))
     {
-      this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_OWNERSHIP, tcOwnership)));
-      this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_OWNERSHIP_TOTAL, tcOwnership), lnTotalTaxOwner));
+      this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_OWNERSHIP, tcOwnership), lnTotalTaxOwner));
 
       double lnTaxStatusTotal = 0;
       for (int i = 0; i < lnTaxStatus; ++i)
