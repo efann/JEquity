@@ -12,12 +12,9 @@ import com.beowurks.jequity.utility.Constants;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableRow;
 
-import java.util.Iterator;
-
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-// From http://stackoverflow.com/questions/32001/resettable-java-timer
 public class SummaryTableRow extends TableRow<SummaryProperty>
 {
   private final static String SUMMARY_PREFIX = "Summary";
@@ -103,18 +100,19 @@ public class SummaryTableRow extends TableRow<SummaryProperty>
       loClasses.add(tcClass);
     }
 
-    // From https://stackoverflow.com/questions/1196586/calling-remove-in-foreach-loop-in-java
-    final Iterator<String> loLoop = loClasses.iterator();
-    while (loLoop.hasNext())
-    {
-      final String lcClass = loLoop.next();
-      // Not sure why this is happening. But it is. Now, the summary grid
-      // is not randomly changing class styles when scrolling up & down.
-      if (lcClass.startsWith(SummaryTableRow.SUMMARY_PREFIX) && !lcClass.equals(tcClass))
-      {
-        loLoop.remove();
-      }
-    }
+    /*
+      From https://stackoverflow.com/questions/1196586/calling-remove-in-foreach-loop-in-java
+      Not sure why this is happening. But it is. Now, the summary grid
+      is not randomly changing class styles when scrolling up & down. I'm wondering if TableRow relates to
+      rows being displayed, and the items are continuously updated with data.
+
+      Woah, this is a cool short-cut. It replaces code involving
+      final Iterator<String> loLoop = loClasses.iterator() and
+      while (loLoop.hasNext()) and
+      String lcClass = loLoop.next() and
+      loLoop.remove()
+    */
+    loClasses.removeIf(lcClass -> lcClass.startsWith(SummaryTableRow.SUMMARY_PREFIX) && !lcClass.equals(tcClass));
 
   }
   // ---------------------------------------------------------------------------------------------------------------------
