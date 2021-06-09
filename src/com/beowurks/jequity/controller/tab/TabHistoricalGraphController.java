@@ -1008,27 +1008,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final Object loPeriod = this.cboRanges.getSelectionModel().getSelectedItem();
     final String lcPeriod = (loPeriod instanceof IntegerKeyItem) ? ((IntegerKeyItem) loPeriod).getDescription() : "";
     this.setStockTitleMessage(String.format("%s (%s): %s", this.fcCurrentDescription, this.fcCurrentSymbol, lcPeriod), false);
-    this.updateComponentsFromXML();
-  }
-
-  // -----------------------------------------------------------------------------
-  private void updateComponentsFromXML()
-  {
-    final XMLTextReader loReader = XMLTextReader.INSTANCE;
-    if (!this.fcCurrentXML.isEmpty() && loReader.initializeXMLDocument(this.fcCurrentXML, false))
-    {
-/*
-      this.chkUseToday.setSelected(loReader.getBoolean(Constants.XML_SYMBOL_USE_TODAY, true));
-      // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
-      final String lcStart = loReader.getString(Constants.XML_SYMBOL_START_DATE, LocalDate.now().toString());
-      this.txtStart.setValue(LocalDate.parse(lcStart));
-
-      final String lcEnd = loReader.getString(Constants.XML_SYMBOL_END_DATE, LocalDate.now().toString());
-      this.updateEndDate(LocalDate.parse(lcEnd));
-      */
-      return;
-    }
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -1038,14 +1017,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     loTextWriter.initializeXMLDocument();
     loTextWriter.createRootNode(Constants.XML_SYMBOL_ROOT_LABEL, null);
 
-    final Node loRecord = loTextWriter.appendNodeToRoot(Constants.XML_SYMBOL_RECORD_LABEL, (String) null, null);
-
-    /*
-    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_USE_TODAY, this.chkUseToday.isSelected() ? Constants.XML_TRUE : Constants.XML_FALSE, null);
-    // I've decided to store the dates as string rather than longs as it's easier to read the XML with human eyes.
-    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_START_DATE, this.txtStart.getValue().toString(), null);
-    loTextWriter.appendToNode(loRecord, Constants.XML_SYMBOL_END_DATE, this.txtEnd.getValue().toString(), null);
-*/
     final String lcXML = loTextWriter.generateXMLString(2);
 
     final HibernateUtil loHibernate = HibernateUtil.INSTANCE;
