@@ -8,7 +8,6 @@
 
 package com.beowurks.jequity.controller.tab;
 
-import com.beowurks.jequity.dao.XMLTextReader;
 import com.beowurks.jequity.dao.XMLTextWriter;
 import com.beowurks.jequity.dao.combobox.DoubleKeyItem;
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
@@ -49,7 +48,6 @@ import org.controlsfx.control.HyperlinkLabel;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
-import org.w3c.dom.Node;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
