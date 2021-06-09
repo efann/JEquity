@@ -112,7 +112,6 @@ public class SummaryTableRow extends TableRow<SummaryProperty>
       // is not randomly changing class styles when scrolling up & down.
       if (lcClass.startsWith(SummaryTableRow.SUMMARY_PREFIX) && !lcClass.equals(tcClass))
       {
-        //System.err.println(String.format("removing %s while adding  %s", lcClass, tcClass));
         loLoop.remove();
       }
     }
