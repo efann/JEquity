@@ -291,7 +291,7 @@ final public class Constants
 
   public final static String SUMMARY_TABLE_OWNERSHIP_FRAGMENT = "Ownership Summaries for ";
   public final static String SUMMARY_TABLE_OWNERSHIP = Constants.SUMMARY_TABLE_OWNERSHIP_FRAGMENT + "%s:";
-  public final static String SUMMARY_TABLE_OWNERSHIP_TOTAL = "Tax Summary (Total)";
+  public final static String SUMMARY_TABLE_OWNERSHIP_TOTAL = "%s (Total)";
 
   public final static String SUMMARY_TABLE_ACCOUNT = "Account Total:";
   public final static String SUMMARY_TABLE_TYPE = "Type Summaries:";

@@ -38,7 +38,7 @@ public class SummaryTableRow extends TableRow<SummaryProperty>
 
   // ---------------------------------------------------------------------------------------------------------------------
   @Override
-  public void updateItem(final SummaryProperty toItem, final boolean tlEmpty)
+  protected void updateItem(final SummaryProperty toItem, final boolean tlEmpty)
   {
     super.updateItem(toItem, tlEmpty);
     if (toItem == null)
