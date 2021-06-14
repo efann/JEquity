@@ -255,7 +255,7 @@ public class TableViewPlus<S> extends TableView
   // and use what's below.
   private static <T, S> void resizeColumnToFitContent(final TableView<T> toTableView, final TableViewSkinBase toSkin, final TableColumnHeader toHeader)
   {
-    final TableColumn<T, S> loTableColumn = (TableColumn) toHeader.getTableColumn();
+    final TableColumn<T, S> loTableColumn = (TableColumn<T, S>) toHeader.getTableColumn();
     final List<?> loItems = toTableView.getItems();
     if (loItems == null || loItems.isEmpty())
     {
