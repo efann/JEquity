@@ -279,7 +279,7 @@ public class TableViewPlus<S> extends TableView
     loCell.getProperties().put(Properties.DEFER_TO_PARENT_PREF_WIDTH, Boolean.TRUE);
 
     // determine cell padding
-    double lnPadding = 10;
+    double lnPadding = 18;
     final Node loNode = loCell.getSkin() == null ? null : loCell.getSkin().getNode();
     if (loNode instanceof Region)
     {
