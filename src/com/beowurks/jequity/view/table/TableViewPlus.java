@@ -262,7 +262,7 @@ public class TableViewPlus<S> extends TableView
       return;
     }
 
-    final Callback/*<TableColumn<T, ?>, TableCell<T,?>>*/ loCellFactory = loTableColumn.getCellFactory();
+    final Callback loCellFactory = loTableColumn.getCellFactory();
     if (loCellFactory == null)
     {
       return;
