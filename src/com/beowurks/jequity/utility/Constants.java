@@ -288,6 +288,7 @@ final public class Constants
   public final static String SUMMARY_TABLE_NON_RETIREMENT = "Non-Retirement (Total)";
 
   public final static String SUMMARY_TABLE_TAXSTATUS = "%s (Total)";
+  public final static String SUMMARY_TABLE_TAXSTATUS_OWNER = "%s: %s (Total)";
 
   public final static String SUMMARY_TABLE_OWNERSHIP_FRAGMENT = "Ownership Summaries for ";
   public final static String SUMMARY_TABLE_OWNERSHIP = Constants.SUMMARY_TABLE_OWNERSHIP_FRAGMENT + "%s (Total)";

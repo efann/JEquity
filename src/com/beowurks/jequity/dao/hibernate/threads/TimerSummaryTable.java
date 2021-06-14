@@ -278,13 +278,13 @@ public class TimerSummaryTable
       double lnTaxStatusTotal = 0;
       for (int i = 0; i < lnTaxStatus; ++i)
       {
-        this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, TaxStatusList.INSTANCE.getDescription(i)), laTaxStatusOwner[i]));
+        this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS_OWNER, tcOwnership, TaxStatusList.INSTANCE.getDescription(i)), laTaxStatusOwner[i]));
         lnTaxStatusTotal += laTaxStatusOwner[i];
       }
 
       if (lnTotalTaxOwner > lnTaxStatusTotal)
       {
-        this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, Constants.TAX_STATUS_BLANK), lnTotalTaxOwner - lnTaxStatusTotal));
+        this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS_OWNER, tcOwnership, Constants.TAX_STATUS_BLANK), lnTotalTaxOwner - lnTaxStatusTotal));
       }
     }
 
