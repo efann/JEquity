@@ -183,7 +183,7 @@ public class MenuController
     Misc.setStatusText("Showing the credits for " + Main.getApplicationName());
 
     final String lcTitle = String.format("Credits for %s", Main.getApplicationFullName());
-    Misc.displayWebContent(lcTitle, "http://www.beowurks.com/ajax/node/16");
+    Misc.displayWebContent(lcTitle, "https://www.beowurks.com/ajax/node/16");
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -415,13 +415,6 @@ public class MenuController
       AppProperties.INSTANCE.setKey(lcMasterKey);
       Misc.infoMessage("The new Master Password has been successfully applied.");
     }
-
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  @FXML
-  private void printJasperReport()
-  {
 
   }
 

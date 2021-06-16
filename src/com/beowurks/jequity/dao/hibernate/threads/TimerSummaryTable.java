@@ -52,6 +52,11 @@ public class TimerSummaryTable
 
   public static final TimerSummaryTable INSTANCE = new TimerSummaryTable();
 
+  // Since the value is displayed at 4 digits, this should round up to 0.0001
+  // By the way, just using 0.00005 appears to round down to 0.0000,
+  // where 0.0000501 rounds up to 0.0001.
+  private final static double DISPLAY_DIFF = 0.0000501;
+
   private final Vector<SummarySubAmount> foSummaryList = new Vector<>();
 
   private Timer foTimer = null;
@@ -264,13 +269,12 @@ public class TimerSummaryTable
       this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, TaxStatusList.INSTANCE.getDescription(i)), laTaxStatus[i]));
     }
 
-    if (lnTotal > lnTotalTax)
+    if (Math.abs(lnTotal - lnTotalTax) >= TimerSummaryTable.DISPLAY_DIFF)
     {
       this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS, Constants.TAX_STATUS_BLANK), lnTotal - lnTotalTax));
     }
     //***************************************
     // Add ownership information
-
     if ((tcOwnership != null) && (!tcOwnership.isEmpty()))
     {
       this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_OWNERSHIP, tcOwnership), lnTotalTaxOwner));
@@ -282,7 +286,7 @@ public class TimerSummaryTable
         lnTaxStatusTotal += laTaxStatusOwner[i];
       }
 
-      if (lnTotalTaxOwner > lnTaxStatusTotal)
+      if (Math.abs(lnTotalTaxOwner - lnTaxStatusTotal) >= TimerSummaryTable.DISPLAY_DIFF)
       {
         this.foDataList.add(new SummaryProperty(String.format(Constants.SUMMARY_TABLE_TAXSTATUS_OWNER, tcOwnership, Constants.TAX_STATUS_BLANK), lnTotalTaxOwner - lnTaxStatusTotal));
       }

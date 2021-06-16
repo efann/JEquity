@@ -127,11 +127,9 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
   // http://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
   private void importInformation(final String tcSymbol, final Document toDoc)
   {
-
     this.refreshCurrentTextList(toDoc, tcSymbol);
 
     final String lcDescription = this.getDescriptionFromHtml(toDoc);
-    final boolean llOkay = !lcDescription.equals(Constants.UNKNOWN_STOCK_SYMBOL);
 
     this.foSingleSymbolInfo.getDescriptionField().setText(lcDescription);
 

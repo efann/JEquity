@@ -89,7 +89,6 @@ final public class Constants
   //************************************************************
   // Used by Historical Tab
   public final static String XML_SYMBOL_ROOT_LABEL = "Historical";
-  public final static String XML_SYMBOL_RECORD_LABEL = "symbol";
 
   public final static int HISTORICAL_EVERY_DAY = 0;
   public final static int HISTORICAL_EVERY_WEEK = 1;

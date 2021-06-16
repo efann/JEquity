@@ -24,7 +24,7 @@ import java.net.URISyntaxException;
 // ---------------------------------------------------------------------------------------------------------------------
 public class CheckForUpdates implements Runnable
 {
-  private final static int TRASH_WIZARD = 1;
+  // 2 is a setting for the web controller. 1 is used by Trash Wizard
   private final static int JEQUITY = 2;
 
   private String fcAppFolder = "";

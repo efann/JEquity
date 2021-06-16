@@ -33,8 +33,8 @@ import java.util.Enumeration;
 // ---------------------------------------------------------------------------------------------------------------------
 public class AboutBoxController implements EventHandler<ActionEvent>
 {
-  private final static String JEQUITY_COMPANY = "http://www.beowurks.com/";
-  private final static String JEQUITY_HOME = "http://www.beowurks.com/applications/single/JEquity";
+  private final static String JEQUITY_COMPANY = "https://www.beowurks.com/";
+  private final static String JEQUITY_HOME = "https://www.beowurks.com/applications/single/JEquity";
   private final static String JEQUITY_LICENSE = "https://www.eclipse.org/legal/epl-2.0/";
 
   private final ObservableList<EnvironmentProperty> foDataList = FXCollections.observableArrayList();

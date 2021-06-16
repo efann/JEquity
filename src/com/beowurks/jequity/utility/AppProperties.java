@@ -39,9 +39,6 @@ public final class AppProperties extends BaseProperties
   // saved to disk.
   private String fcPassword = AppProperties.getDefaultMasterKey();
 
-  private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-
-
   // -----------------------------------------------------------------------------------------------------------------------
   private AppProperties()
   {
