@@ -25,7 +25,9 @@ public class PageScraping implements Runnable
 
   private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", PageScraping.SYMBOL_MARKER, PageScraping.SYMBOL_MARKER);
   private String fcYahooDescriptionMarker = "#quote-header-info h1";
-  private String fcYahooLastTradeMarker = "#quote-header-info div[class^=My] span[class^=Trsdu]";
+  // List of previously used values
+  //   "#quote-header-info div[class^=My] span[class^=Trsdu]"
+  private String fcYahooLastTradeMarker = "#quote-header-info div[class^=My] fin-streamer:first-child";
 
   private Thread foThread = null;
 
