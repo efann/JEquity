@@ -8,7 +8,7 @@
     <codeSigning macEnabled="true" macPkcs12File="D:/OneDrive/Downloads/Certificates/Apple/DeveloperCertificates.p12" windowsEnabled="true" windowsKeySource="windows">
       <windowsKeystoreIdentifier issuer="Sectigo RSA Code Signing CA" serial="83b2b0638de0f944f6bf5c4bbf6ffa94" subject="Beowurks" />
     </codeSigning>
-    <jreBundles jdkProviderId="Liberica" release="OpenJDK 12.0.2">
+    <jreBundles jdkProviderId="Liberica" release="OpenJDK 17.0.1+12">
       <modules>
         <module name="java.sql" />
         <module name="java.sql.rowset" />
