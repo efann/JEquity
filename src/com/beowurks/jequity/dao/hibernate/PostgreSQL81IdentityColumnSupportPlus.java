@@ -1,6 +1,6 @@
 /*
  * JEquity
- * Copyright(c) 2008-2021, Beowurks
+ * Copyright(c) 2008-2022, Beowurks
  * Original Author: Eddie Fann
  * License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
  *
@@ -18,7 +18,7 @@ public class PostgreSQL81IdentityColumnSupportPlus extends PostgreSQL81IdentityC
   // -----------------------------------------------------------------------------
   // From https://hibernate.atlassian.net/plugins/servlet/mobile#issue/HHH-8574
   // The default behaviour is quite bizarre.
-  // By the way, you can also query the sequence id: 
+  // By the way, you can also query the sequence id:
   //   select sequence_schema, sequence_name from information_schema.sequences;
   // Currently, the parameters look like the following:
   //   tcTable = "JEquity"."Financial"
