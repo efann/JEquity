@@ -10,7 +10,6 @@ package com.beowurks.jequity.view.dialog;
 
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.Misc;
-import com.sun.javafx.scene.control.skin.resources.ControlResources;
 import javafx.beans.NamedArg;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -42,8 +41,6 @@ public class PasswordBaseDialog extends Dialog<String>
     loDialogPane.getStylesheets().add(Misc.ALERT_STYLE_SHEET);
 
     this.fcDefaultValue = tcDefaultValue;
-
-    this.setTitle(ControlResources.getString("Dialog.confirm.title"));
 
     loDialogPane.getStyleClass().add("text-input-dialog");
     loDialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);

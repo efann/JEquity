@@ -9,9 +9,6 @@
 package com.beowurks.jequity.view.table;
 
 import com.beowurks.jequity.utility.Constants;
-import com.sun.javafx.scene.control.Properties;
-import com.sun.javafx.scene.control.TableColumnBaseHelper;
-import com.sun.javafx.scene.control.skin.Utils;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -45,6 +42,12 @@ public class TableViewPlus<S> extends TableView
   private Label foStatusMessage = null;
 
   private Timer foTimerSearchReset = null;
+
+
+  // Defined in javafx.controls\com\sun\javafx\scene\control\Properties.java
+  // which can't seem to be accessed in JDK 17.
+  private static final String DEFER_TO_PARENT_PREF_WIDTH = "deferToParentPrefWidth";
+
 
   // ---------------------------------------------------------------------------------------------------------------------
   public TableViewPlus()
@@ -276,7 +279,7 @@ public class TableViewPlus<S> extends TableView
 
     // set this property to tell the TableCell we want to know its actual
     // preferred width, not the width of the associated TableColumnBase
-    loCell.getProperties().put(Properties.DEFER_TO_PARENT_PREF_WIDTH, Boolean.TRUE);
+    loCell.getProperties().put(TableViewPlus.DEFER_TO_PARENT_PREF_WIDTH, Boolean.TRUE);
 
     // determine cell padding
     double lnPadding = 18;
@@ -314,7 +317,9 @@ public class TableViewPlus<S> extends TableView
       if (loItem instanceof Label)
       {
         final Label loLabel = (Label) loItem;
-        final double lnHeaderTextWidth = Utils.computeTextWidth(loLabel.getFont(), loTableColumn.getText(), -1);
+
+        // Once a label is visible, then getWidth will work.
+        final double lnHeaderTextWidth = loTableColumn.getWidth();
         final Node loGraphic = loLabel.getGraphic();
         final double lnHeaderGraphicWidth = loGraphic == null ? 0 : loGraphic.prefWidth(-1) + loLabel.getGraphicTextGap();
         final double lnHeaderWidth = lnHeaderTextWidth + lnHeaderGraphicWidth + 10 + toHeader.snappedLeftInset() + toHeader.snappedRightInset();
@@ -326,7 +331,7 @@ public class TableViewPlus<S> extends TableView
 
     // RT-23486
     lnMaxWidth += lnPadding;
-    TableColumnBaseHelper.setWidth(loTableColumn, lnMaxWidth);
+    loTableColumn.setPrefWidth(lnMaxWidth);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
