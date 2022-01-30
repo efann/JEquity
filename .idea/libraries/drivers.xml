@@ -1,10 +1,10 @@
 <component name="libraryTable">
   <library name="drivers">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libraries/drivers/mysql-connector-java-8.0.16.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libraries/drivers/postgresql-42.2.5.jar!/" />
       <root url="jar://$PROJECT_DIR$/libraries/drivers/derby-10.14.2.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/libraries/drivers/derbyclient-10.14.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/drivers/mysql-connector-java-8.0.28.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/drivers/postgresql-42.3.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
