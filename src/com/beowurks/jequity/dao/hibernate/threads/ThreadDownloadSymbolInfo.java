@@ -17,7 +17,6 @@ import com.beowurks.jequity.utility.Misc;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.sql.Date;
@@ -180,25 +179,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
       this.updateStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
       // Daily Information
-      Document loDoc = null;
-      for (int lnTries = 0; (lnTries < Constants.JSOUP_TIMEOUT_TRIES) && (loDoc == null); ++lnTries)
-      {
-        try
-        {
-          // Highly recommended to set the userAgent.
-          loDoc = Jsoup.connect(lcDailyURL)
-            .followRedirects(false)
-            .userAgent(Constants.getUserAgent())
-            .data("name", "jsoup")
-            .maxBodySize(0)
-            .timeout(Constants.WEB_TIME_OUT)
-            .get();
-        }
-        catch (final Exception loErr)
-        {
-          loDoc = null;
-        }
-      }
+      final Document loDoc = this.getDocument(lcDailyURL);
 
       if (loDoc == null)
       {

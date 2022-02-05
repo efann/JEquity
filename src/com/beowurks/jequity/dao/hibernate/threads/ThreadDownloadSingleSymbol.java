@@ -11,7 +11,6 @@ import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.time.LocalDate;
@@ -77,25 +76,7 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
     // Daily Information
-    Document loDoc = null;
-    for (int lnTries = 0; (lnTries < Constants.JSOUP_TIMEOUT_TRIES) && (loDoc == null); ++lnTries)
-    {
-      try
-      {
-        // Highly recommended to set the userAgent.
-        loDoc = Jsoup.connect(lcDailyURL)
-          .followRedirects(false)
-          .userAgent(Constants.getUserAgent())
-          .data("name", "jsoup")
-          .maxBodySize(0)
-          .timeout(Constants.WEB_TIME_OUT)
-          .get();
-      }
-      catch (final Exception loErr)
-      {
-        loDoc = null;
-      }
-    }
+    final Document loDoc = this.getDocument(lcDailyURL);
 
     if (loDoc == null)
     {
