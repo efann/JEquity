@@ -241,7 +241,7 @@ public class XMLTextWriter
       // then you will get the "Not supported: indent-number" error.
       try
       {
-        loFactory.setAttribute("indent-number", Integer.valueOf(tnIndent));
+        loFactory.setAttribute("indent-number", tnIndent);
       }
       catch (final IllegalArgumentException ignored)
       {

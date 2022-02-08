@@ -148,15 +148,15 @@ public class Calculations
     // Convert data to frequencies.
     this.foComplexFFTSeasonal = this.foFFTransformer.transform(laFFTSeasonalData, TransformType.FORWARD);
 
-    final int lnComplex = this.foComplexFFTSeasonal.length;
     double lnAverage = 0.0;
-    for (int i = 0; i < lnComplex; ++i)
+    for (final Complex loComplex : this.foComplexFFTSeasonal)
     {
       // From https://coderanch.com/t/618633/java/Basic-FFT-identify-frequency
-      final double lnFrequency = Math.sqrt(Math.pow(this.foComplexFFTSeasonal[i].getReal(), 2) + Math.pow(this.foComplexFFTSeasonal[i].getImaginary(), 2));
+      final double lnFrequency = Math.sqrt(Math.pow(loComplex.getReal(), 2) + Math.pow(loComplex.getImaginary(), 2));
       lnAverage += lnFrequency;
     }
 
+    final int lnComplex = this.foComplexFFTSeasonal.length;
     lnAverage /= lnComplex;
 
     final double lnSmoothing = this.fnSmoothing;

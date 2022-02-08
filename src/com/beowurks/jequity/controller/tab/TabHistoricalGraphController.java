@@ -100,7 +100,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
   private String fcCurrentDescription = "";
   private String fcCurrentSymbol = "";
-  private String fcCurrentXML = "";
 
   private CheckBoxPlus[] faSeriesVisibility;
   private String[] faSeriesColors;
@@ -604,11 +603,9 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private boolean isAtLeastOneSeriesVisible()
   {
-    final int lnCount = this.faSeriesVisibility.length;
-
-    for (int i = 0; i < lnCount; ++i)
+    for (final CheckBoxPlus laCheckBoxPlus : this.faSeriesVisibility)
     {
-      if (this.faSeriesVisibility[i].isSelected())
+      if (laCheckBoxPlus.isSelected())
       {
         return (true);
       }
@@ -699,15 +696,12 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
       {
         for (final Object loObject : ((XYChart.Series) loSeries).getData())
         {
-          if (loObject instanceof XYChart.Data)
+          if (loObject instanceof final XYChart.Data loData)
           {
-            final XYChart.Data loData = (XYChart.Data) loObject;
-
             final javafx.scene.Node loNode = loData.getNode();
             // No need to also check for null as that won't be an instance of StackPane.
-            if (loNode instanceof StackPane)
+            if (loNode instanceof final StackPane loStackPane)
             {
-              final StackPane loStackPane = (StackPane) loNode;
               // From https://stackoverflow.com/questions/39658056/how-do-i-change-the-size-of-a-chart-symbol-in-a-javafx-scatter-chart
               loStackPane.setPrefWidth(7);
               loStackPane.setPrefHeight(7);
@@ -1063,7 +1057,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     for (final Object[] loRow : loList)
     {
       this.fcCurrentSymbol = loRow[0].toString().trim();
-      this.fcCurrentXML = loRow[1].toString();
       this.fcCurrentDescription = lcDescription;
 
       return (true);
@@ -1103,9 +1096,8 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     {
       ThreadDownloadHistorical.INSTANCE.start(true, this, false);
     }
-    else if (loSource instanceof Hyperlink)
+    else if (loSource instanceof final Hyperlink loHyperLink)
     {
-      final Hyperlink loHyperLink = (Hyperlink) loSource;
 
       final String lcURL = loHyperLink.getText();
       Main.getMainHostServices().showDocument(lcURL);

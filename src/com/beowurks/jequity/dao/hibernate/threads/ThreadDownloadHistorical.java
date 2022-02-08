@@ -240,9 +240,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
         continue;
       }
 
-      if (loValues instanceof JSONObject)
+      if (loValues instanceof final JSONObject loNumbers)
       {
-        final JSONObject loNumbers = (JSONObject) loValues;
         loNumbers.keys().forEachRemaining(loSequence ->
         {
           final Object loStockValue = loNumbers.get(loSequence);
@@ -276,10 +275,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     for (final Object loElement : taJSONInfo)
     {
-      if (loElement instanceof JSONObject)
+      if (loElement instanceof final JSONObject loTopObject)
       {
-        final JSONObject loTopObject = (JSONObject) loElement;
-
         try
         {
           final Object loSeries = loTopObject.get("Time Series (Daily)");

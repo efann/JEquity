@@ -123,9 +123,8 @@ public class MenuController
           // - Don't use FXML, and add menu programmatically if not Mac OS X.
           // It's easier to just remove.
           final Parent loParent = loMenuBar.getParent();
-          if (loParent instanceof Pane)
+          if (loParent instanceof final Pane loPane)
           {
-            final Pane loPane = (Pane) loParent;
             loPane.getChildren().remove(loMenuBar);
           }
         }

@@ -54,9 +54,8 @@ public class HyperLinkLabelTableCell extends TableCell<Object, String> implement
   public void handle(final ActionEvent toEvent)
   {
     final Object loSource = toEvent.getSource();
-    if (loSource instanceof Hyperlink)
+    if (loSource instanceof final Hyperlink loHyperLink)
     {
-      final Hyperlink loHyperLink = (Hyperlink) loSource;
       final String lcTextURL = loHyperLink.getText();
 
       Main.getMainHostServices().showDocument(lcTextURL);

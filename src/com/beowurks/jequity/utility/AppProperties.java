@@ -33,11 +33,8 @@ public final class AppProperties extends BaseProperties
 
   private boolean flSuccessfulRead = false;
 
-  // Always have to start with the default password as the real one is never
-  // saved to disk.
-  private String fcPassword = AppProperties.getDefaultMasterKey();
-
   // -----------------------------------------------------------------------------------------------------------------------
+  // Always have to start with the default password as the real one is never saved to disk.
   private AppProperties()
   {
     super(Constants.LOCAL_PATH, Constants.USER_FILENAME, "JEquity\u00a9 Parameters - DO NOT EDIT . . . please", AppProperties.getDefaultMasterKey(), false, false);
@@ -165,13 +162,10 @@ public final class AppProperties extends BaseProperties
 
     switch (lnKey)
     {
-      case Constants.DRIVER_KEY_DERBY:
-
+      case Constants.DRIVER_KEY_DERBY -> {
         final String lcFolder = this.getConnectionDatabase();
-
         lcURL.append("jdbc:derby:").append(lcFolder)
           .append(";upgrade=true").append(";bootPassword=").append(this.getDerbyBootPassword());
-
         final boolean llBrandNew = (!Files.isDirectory(Paths.get(lcFolder), LinkOption.NOFOLLOW_LINKS));
         if (!llBrandNew)
         {
@@ -185,23 +179,17 @@ public final class AppProperties extends BaseProperties
             return ("");
           }
         }
-
         if (llBrandNew)
         {
           lcURL.append(";create=true")
             .append(";dataEncryption=true");
         }
-        break;
+      }
 
       // From https://stackoverflow.com/questions/34189756/warning-about-ssl-connection-when-connecting-to-mysql-database
       // Also, with new Jar driver, https://community.oracle.com/message/14819583#14819583
-      case Constants.DRIVER_KEY_MYSQL5_PLUS:
-        lcURL.append("jdbc:mysql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase()).append("?autoReconnect=true&useSSL=false&serverTimezone=UTC");
-        break;
-
-      case Constants.DRIVER_KEY_POSTGRESQL9_PLUS:
-        lcURL.append("jdbc:postgresql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase());
-        break;
+      case Constants.DRIVER_KEY_MYSQL5_PLUS -> lcURL.append("jdbc:mysql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase()).append("?autoReconnect=true&useSSL=false&serverTimezone=UTC");
+      case Constants.DRIVER_KEY_POSTGRESQL9_PLUS -> lcURL.append("jdbc:postgresql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase());
     }
 
     return (lcURL.toString());
@@ -451,8 +439,7 @@ public final class AppProperties extends BaseProperties
   // Never save the password to the property's file.
   public void setMasterKey(final String tcValue)
   {
-    this.fcPassword = tcValue;
-    this.setKey(this.fcPassword);
+    this.setKey(tcValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

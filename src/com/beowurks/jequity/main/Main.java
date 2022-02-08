@@ -180,11 +180,10 @@ public class Main extends Application
       "org.bouncycastle.crypto.BlockCipher"
     };
 
-    final int lnCount = taClasses.length;
     boolean llExists = false;
-    for (int i = 0; i < lnCount; ++i)
+    for (final String laClass : taClasses)
     {
-      if (Misc.isClassAvailable(taClasses[i]))
+      if (Misc.isClassAvailable(laClass))
       {
         llExists = true;
         break;

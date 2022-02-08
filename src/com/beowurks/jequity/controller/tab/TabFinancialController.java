@@ -330,7 +330,7 @@ public class TabFinancialController extends TabModifyController implements Event
     final String lcSQL = String.format("SELECT * FROM %s WHERE groupid = :groupid", loHibernate.getTableFinancial());
     final NativeQuery loQuery = toSession.createNativeQuery(lcSQL)
       .addEntity(FinancialEntity.class)
-      .setParameter("groupid", loHibernate.getGroupID().intValue());
+      .setParameter("groupid", loHibernate.getGroupID());
 
     return (loQuery);
   }
@@ -552,9 +552,8 @@ public class TabFinancialController extends TabModifyController implements Event
   public void handle(final ActionEvent toEvent)
   {
     final Object loSource = toEvent.getSource();
-    if (loSource instanceof Hyperlink)
+    if (loSource instanceof final Hyperlink loHyperLink)
     {
-      final Hyperlink loHyperLink = (Hyperlink) loSource;
       final String lcURL = loHyperLink.getText().trim();
 
       if (!lcURL.isEmpty())

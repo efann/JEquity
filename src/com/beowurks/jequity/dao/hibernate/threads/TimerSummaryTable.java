@@ -167,7 +167,7 @@ public class TimerSummaryTable
     final String lcSQL = String.format("SELECT * FROM %s WHERE groupid = :groupid", loHibernate.getTableFinancial());
     final NativeQuery loQuery = toSession.createNativeQuery(lcSQL)
       .addEntity(FinancialEntity.class)
-      .setParameter("groupid", loHibernate.getGroupID().intValue());
+      .setParameter("groupid", loHibernate.getGroupID());
 
     return (loQuery);
   }

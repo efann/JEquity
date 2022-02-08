@@ -89,8 +89,8 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   private void setupTable()
   {
     // "key" relates to EnvironmentProperty.keyProperty and "value" relates to EnvironmentProperty.valueProperty
-    this.colKey.setCellValueFactory(new PropertyValueFactory<EnvironmentProperty, String>("key"));
-    this.colValue.setCellValueFactory(new PropertyValueFactory<EnvironmentProperty, String>("value"));
+    this.colKey.setCellValueFactory(new PropertyValueFactory<>("key"));
+    this.colValue.setCellValueFactory(new PropertyValueFactory<>("value"));
 
     final Enumeration<?> loEnum = System.getProperties().propertyNames();
     final StringBuilder lcValue = new StringBuilder();
@@ -130,9 +130,8 @@ public class AboutBoxController implements EventHandler<ActionEvent>
   public void handle(final ActionEvent toEvent)
   {
     final Object loSource = toEvent.getSource();
-    if (loSource instanceof Hyperlink)
+    if (loSource instanceof final Hyperlink loHyperLink)
     {
-      final Hyperlink loHyperLink = (Hyperlink) loSource;
       String lcURL = AboutBoxController.JEQUITY_HOME;
       // If not a graphic image. . . .
       if (loHyperLink.getGraphic() == null)

@@ -273,7 +273,7 @@ public class BaseProperties
       return (tlDefault);
     }
 
-    return (Boolean.valueOf(lcValue).booleanValue());
+    return (Boolean.parseBoolean(lcValue));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

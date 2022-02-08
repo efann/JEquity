@@ -28,8 +28,6 @@ public final class FlywayMigration
 
   public static final FlywayMigration INSTANCE = new FlywayMigration();
 
-  private Flyway foFlyway;
-
   private WhichDatabase foWhichDatabase = null;
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -89,13 +87,13 @@ public final class FlywayMigration
         // Needs to be called before calling new Flyway.
         this.setSchemaTable(loConfiguration);
 
-        this.foFlyway = new Flyway(loConfiguration);
+        final Flyway loFlyway = new Flyway(loConfiguration);
 
-        this.foFlyway.migrate();
+        loFlyway.migrate();
 
         if (this.isApacheDerby())
         {
-          this.foFlyway.validate();
+          loFlyway.validate();
         }
 
         loAppProp.setFlywaySuccessfulJEquityVersion(Main.getApplicationFullName());

@@ -102,17 +102,9 @@ public final class HibernateUtil
 
         switch (lnKey)
         {
-          case Constants.DRIVER_KEY_DERBY:
-            lcCfgFile = "apachederby";
-            break;
-
-          case Constants.DRIVER_KEY_MYSQL5_PLUS:
-            lcCfgFile = "mysql5";
-            break;
-
-          case Constants.DRIVER_KEY_POSTGRESQL9_PLUS:
-            lcCfgFile = "postgresql91";
-            break;
+          case Constants.DRIVER_KEY_DERBY -> lcCfgFile = "apachederby";
+          case Constants.DRIVER_KEY_MYSQL5_PLUS -> lcCfgFile = "mysql5";
+          case Constants.DRIVER_KEY_POSTGRESQL9_PLUS -> lcCfgFile = "postgresql91";
         }
 
         // Should never happen but check anyway.
@@ -323,10 +315,8 @@ public final class HibernateUtil
     {
       loTransaction = loSession.beginTransaction();
 
-      if (toEntity instanceof GroupEntity)
+      if (toEntity instanceof final GroupEntity loGroupEntity)
       {
-        final GroupEntity loGroupEntity = (GroupEntity) toEntity;
-
         // First remove the related financial records.
 
         // From http://phpzila.blogspot.com/2012/01/mysql-using-table-alias-in-delete.html

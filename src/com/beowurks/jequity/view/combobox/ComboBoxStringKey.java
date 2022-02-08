@@ -30,7 +30,7 @@ public class ComboBoxStringKey extends ComboBoxPlus<StringKeyItem>
   @Override
   protected void setupStringConverter()
   {
-    this.setConverter(new StringConverter<StringKeyItem>()
+    this.setConverter(new StringConverter<>()
     {
       @Override
       public String toString(final StringKeyItem toItem)

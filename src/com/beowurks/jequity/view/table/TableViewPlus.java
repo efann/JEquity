@@ -284,9 +284,8 @@ public class TableViewPlus<S> extends TableView
     // determine cell padding
     double lnPadding = 18;
     final Node loNode = loCell.getSkin() == null ? null : loCell.getSkin().getNode();
-    if (loNode instanceof Region)
+    if (loNode instanceof final Region loRegion)
     {
-      final Region loRegion = (Region) loNode;
       lnPadding = loRegion.snappedLeftInset() + loRegion.snappedRightInset();
     }
 
@@ -314,10 +313,8 @@ public class TableViewPlus<S> extends TableView
     // Magic 10 is to allow for sort arrow to appear without text truncation.
     for (final Node loItem : toHeader.getChildrenUnmodifiable())
     {
-      if (loItem instanceof Label)
+      if (loItem instanceof final Label loLabel)
       {
-        final Label loLabel = (Label) loItem;
-
         // Once a label is visible, then getWidth will work.
         final double lnHeaderTextWidth = loTableColumn.getWidth();
         final Node loGraphic = loLabel.getGraphic();

@@ -401,10 +401,11 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
         final String lcTradeTime = String.format("UPDATE %s f SET ValuationDate = (SELECT CAST(s.TradeTime AS date) FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);
         final String lcDescription = String.format("UPDATE %s f SET Description = (SELECT s.Description FROM %s s WHERE f.Symbol = s.Symbol) WHERE (f.symbol <> ' ') AND (f.symbol IN (SELECT symbol FROM %s))", lcFinancialTable, lcSymbolTable, lcSymbolTable);
 
-        Statement loStatement = null;
-        try
+        // As of Java 7, you don't need to issue loStatement.close()
+        // New feature called 'try-with-resources'
+        // From https://stackoverflow.com/questions/18114905/close-connection-and-statement-finally
+        try (final Statement loStatement = toConnection.createStatement())
         {
-          loStatement = toConnection.createStatement();
 
           loStatement.addBatch(lcPrice);
           loStatement.addBatch(lcTradeTime);
@@ -416,13 +417,6 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
         {
           final String lcMessage = String.format("There was an error in updating the Financial table with doWork: %s", loError.getMessage());
           Misc.setStatusText(lcMessage);
-        }
-        finally
-        {
-          if (null != loStatement)
-          {
-            loStatement.close();
-          }
         }
       });
 
