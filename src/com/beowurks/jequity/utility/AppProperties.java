@@ -8,6 +8,7 @@
 package com.beowurks.jequity.utility;
 
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
+import com.beowurks.jequity.dao.web.PageScraping;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.view.dialog.PasswordDialog;
 import javafx.collections.ObservableList;
@@ -116,6 +117,12 @@ public final class AppProperties extends BaseProperties
   public ObservableList<IntegerKeyItem> getDailyIntervals()
   {
     return (Constants.DAILY_INTERVAL);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public ObservableList<IntegerKeyItem> getWebMarkerSources()
+  {
+    return (Constants.WEB_SCRAPING_MARKER_SOURCE);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -300,16 +307,76 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  private int getPositionOfFirstNumber(final String tcValue)
+  // Yes, private on purpose. Should only be accessed by setMarkerDescription.
+  private String getMarkerManualDescription()
   {
-    final int lnLength = tcValue.length();
-    int lnPos = 0;
-    while ((lnPos < lnLength) && !Character.isDigit(tcValue.charAt(lnPos)))
+    return (this.getProperty(Constants.WEB_MARKER_MANUAL_DESCRIPTION, Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by setMarkerLastTrade.
+  private String getMarkerManualLastTrade()
+  {
+    return (this.getProperty(Constants.WEB_MARKER_MANUAL_LASTTRADE, Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public int getMarkerSource()
+  {
+    return (this.getProperty(Constants.WEB_MARKER_SOURCE, Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // You can't use this.getMarkerSource(): it might not be set yet.
+  // Like changing the combo box value in Options, but not yet saved.
+  public String getMarkerDescription(final int tnSource)
+  {
+    switch (tnSource)
     {
-      lnPos++;
+      case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT -> {
+        return (PageScraping.INSTANCE.getMarkerDescription());
+      }
+
+      case Constants.WEB_MARKER_SOURCE_APPLICATION -> {
+        return (Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION);
+      }
+
+      case Constants.WEB_MARKER_SOURCE_MANUAL -> {
+        return (this.getMarkerManualDescription());
+      }
+
+      default -> {
+        System.err.println(String.format("%d is not valid in AppProperties.getMarkerDescripton", tnSource));
+        return (Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION);
+      }
     }
 
-    return (lnPos);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // You can't use this.getMarkerSource(): it might not be set yet.
+  // Like changing the combo box value in Options, but not yet saved.
+  public String getMarkerLastTrade(final int tnSource)
+  {
+    switch (tnSource)
+    {
+      case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT -> {
+        return (PageScraping.INSTANCE.getMarkerLastTrade());
+      }
+
+      case Constants.WEB_MARKER_SOURCE_APPLICATION -> {
+        return (Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE);
+      }
+
+      case Constants.WEB_MARKER_SOURCE_MANUAL -> {
+        return (this.getMarkerManualLastTrade());
+      }
+
+      default -> {
+        System.err.println(String.format("%d is not valid in AppProperties.getMarkerLastTrade", tnSource));
+        return (Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE);
+      }
+    }
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -396,6 +463,50 @@ public final class AppProperties extends BaseProperties
   public void setExportFileChooserFilename(final String tcValue)
   {
     this.setProperty(Constants.EXPORT_FILECHOOSER_FILENAME, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setMarkerSource(final int tnValue)
+  {
+    this.setProperty(Constants.WEB_MARKER_SOURCE, tnValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by setMarkerDescription.
+  private void setMarkerManualDescription(final String tcValue)
+  {
+    this.setProperty(Constants.WEB_MARKER_MANUAL_DESCRIPTION, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by setMarkerLastTrade.
+  private void setMarkerManualLastTrade(final String tcValue)
+  {
+    this.setProperty(Constants.WEB_MARKER_MANUAL_LASTTRADE, tcValue);
+  }
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setMarkerDescription(final int tnSource, final String tcValue)
+  {
+    if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    {
+      this.setMarkerManualDescription(tcValue);
+    }
+    else
+    {
+      System.err.println(String.format("%d is not valid in AppProperties.setMarkerDescripton", tnSource));
+    }
+  }
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setMarkerLastTrade(final int tnSource, final String tcValue)
+  {
+    if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    {
+      this.setMarkerManualLastTrade(tcValue);
+    }
+    else
+    {
+      System.err.println(String.format("%d is not valid in AppProperties.setMarkerLastTrade", tnSource));
+    }
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

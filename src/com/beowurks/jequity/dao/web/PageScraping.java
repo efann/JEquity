@@ -24,10 +24,11 @@ public class PageScraping implements Runnable
   private static final String SYMBOL_MARKER = "###symbol###";
 
   private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", PageScraping.SYMBOL_MARKER, PageScraping.SYMBOL_MARKER);
-  private String fcYahooDescriptionMarker = "#quote-header-info h1";
+
+  private String fcYahooDescriptionMarker = Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION;
   // List of previously used values
   //   "#quote-header-info div[class^=My] span[class^=Trsdu]"
-  private String fcYahooLastTradeMarker = "#quote-header-info div[class^=My] fin-streamer:first-child";
+  private String fcYahooLastTradeMarker = Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE;
 
   private Thread foThread = null;
 
@@ -110,13 +111,13 @@ public class PageScraping implements Runnable
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public String getDescriptionMarker()
+  public String getMarkerDescription()
   {
     return (this.fcYahooDescriptionMarker);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public String getLastTradeMarker()
+  public String getMarkerLastTrade()
   {
     return (this.fcYahooLastTradeMarker);
   }

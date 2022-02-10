@@ -66,6 +66,15 @@ public class OptionsController implements EventHandler<ActionEvent>
   private SpinnerPlus<Integer> spnUpdateInterval;
 
   @FXML
+  private ComboBoxIntegerKey cboWebMarkerSource;
+
+  @FXML
+  private TextFieldPlus txtMarkerDescription;
+
+  @FXML
+  private TextFieldPlus txtMarkerLastTrade;
+
+  @FXML
   private CheckBoxPlus chkMigrationStatus;
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -104,13 +113,18 @@ public class OptionsController implements EventHandler<ActionEvent>
     loApp.setConnectionPassword(this.txtPassword.getText());
 
     //***************************************
-    // Stock Data tab
+    // Stock tab
     loApp.setManualFinancialData(this.chkManualFinancialData.isSelected());
     loApp.setAutosetValuationDate(this.chkAutosetValuationDate.isSelected());
 
     loApp.setDailyIntervalKey(loApp.convertIndexToKey(loApp.getDailyIntervals(), this.cboDailyDownloadInterval.getSelectedIndex()));
     loApp.setUpdateIntervalKey(this.spnUpdateInterval.getValue());
     loApp.setAlphaVantageAPIKey(this.txtAlphaVantageAPIKey.getText().trim());
+
+    final int lnSource = loApp.convertIndexToKey(loApp.getWebMarkerSources(), this.cboWebMarkerSource.getSelectedIndex());
+    loApp.setMarkerSource(lnSource);
+    loApp.setMarkerDescription(lnSource, this.txtMarkerDescription.getText().trim());
+    loApp.setMarkerLastTrade(lnSource, this.txtMarkerLastTrade.getText().trim());
 
     // TimerSymbolInfo uses loApp.getDailyIntervalKey and loApp.getDailyStartKey
     TimerSymbolInfo.INSTANCE.reSchedule();
@@ -137,6 +151,10 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.txtPassword.setText(toApp.getConnectionPassword());
 
     this.txtAlphaVantageAPIKey.setText(toApp.getAlphaVantageAPIKey());
+
+    final int lnSource = toApp.getMarkerSource();
+    this.txtMarkerDescription.setText(toApp.getMarkerDescription(lnSource));
+    this.txtMarkerLastTrade.setText(toApp.getMarkerLastTrade(lnSource));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -144,16 +162,23 @@ public class OptionsController implements EventHandler<ActionEvent>
   {
     final ObservableList<IntegerKeyItem> laDrivers = toApp.getRDBMS_Types();
     final ObservableList<IntegerKeyItem> laDailyIntervals = toApp.getDailyIntervals();
+    final ObservableList<IntegerKeyItem> laWebMarkerSources = toApp.getWebMarkerSources();
 
+    // Initialize the combo boxes.
     this.cboDriver.getItems().clear();
     this.cboDriver.getItems().addAll(laDrivers);
 
     this.cboDailyDownloadInterval.getItems().clear();
     this.cboDailyDownloadInterval.getItems().addAll(laDailyIntervals);
 
+    this.cboWebMarkerSource.getItems().clear();
+    this.cboWebMarkerSource.getItems().addAll(laWebMarkerSources);
+
+    // Now set the selected value.
     this.cboDriver.getSelectionModel().select(toApp.convertKeyToIndex(toApp.getRDBMS_Types(), toApp.getConnectionRDBMS_Key()));
     this.cboDailyDownloadInterval.getSelectionModel().select(toApp.convertKeyToIndex(laDailyIntervals, toApp.getDailyIntervalKey()));
 
+    // Now set any OnAction events.
     this.cboDriver.setOnAction(this);
     this.resetTextFields();
   }

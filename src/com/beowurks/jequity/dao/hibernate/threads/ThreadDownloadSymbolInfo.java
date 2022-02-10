@@ -315,13 +315,13 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
 
     toSymbol.setDescription(lcDescription);
 
-    double lnLastTrade = this.parseDouble(toDoc, PageScraping.INSTANCE.getLastTradeMarker());
+    double lnLastTrade = this.parseDouble(toDoc, PageScraping.INSTANCE.getMarkerLastTrade());
 
     if (lnLastTrade == 0.0)
     {
       // Some symbols, like FDRXX, don't have a last trade field. So in that case,
       // default to 1.0.
-      final String lcLastTrade = this.getHTML(toDoc, PageScraping.INSTANCE.getLastTradeMarker());
+      final String lcLastTrade = this.getHTML(toDoc, PageScraping.INSTANCE.getMarkerLastTrade());
       if (lcLastTrade.isEmpty())
       {
         lnLastTrade = 1.0;

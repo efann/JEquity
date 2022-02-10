@@ -214,6 +214,25 @@ final public class Constants
     new IntegerKeyItem(Constants.DAILY_INTERVAL_NEVER, "Never")
   );
 
+  // Web scraping related variables
+  public final static String WEB_MARKER_SOURCE = "web.marker.source";
+
+  public final static String WEB_MARKER_MANUAL_DESCRIPTION = "web.marker.manual.description";
+  public final static String WEB_MARKER_MANUAL_LASTTRADE = "web.marker.manual.lasttrade";
+
+  public final static String WEB_MARKER_DEFAULT_VALUE_DESCRIPTION = "#quote-header-info h1";
+  public final static String WEB_MARKER_DEFAULT_VALUE_LASTTRADE = "#quote-header-info div[class^=My] fin-streamer:first-child";
+
+  public final static int WEB_MARKER_SOURCE_BEOWURKS_DEFAULT = 0;
+  public final static int WEB_MARKER_SOURCE_APPLICATION = 1;
+  public final static int WEB_MARKER_SOURCE_MANUAL = 2;
+
+  public final static ObservableList<IntegerKeyItem> WEB_SCRAPING_MARKER_SOURCE = FXCollections.observableArrayList(
+    new IntegerKeyItem(Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT, "From Beowurks website (default)"),
+    new IntegerKeyItem(Constants.WEB_MARKER_SOURCE_APPLICATION, "From application code"),
+    new IntegerKeyItem(Constants.WEB_MARKER_SOURCE_MANUAL, "Manually entered")
+  );
+
   // 1 second delay as it's in milliseconds.
   public final static int TIMER_SUMMARY_UPDATE_DELAY = 1000;
 

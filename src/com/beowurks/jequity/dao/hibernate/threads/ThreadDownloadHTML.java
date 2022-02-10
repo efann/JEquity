@@ -55,7 +55,7 @@ public class ThreadDownloadHTML extends ThreadBase
   // ---------------------------------------------------------------------------------------------------------------------
   protected String getDescriptionFromHtml(final Document toDoc)
   {
-    String lcDescription = this.getHTML(toDoc, PageScraping.INSTANCE.getDescriptionMarker());
+    String lcDescription = this.getHTML(toDoc, PageScraping.INSTANCE.getMarkerDescription());
     if (lcDescription.isEmpty())
     {
       lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;

@@ -2,7 +2,7 @@
 
 <!--
   ~ JEquity
-  ~ Copyright(c) 2008-2021, Beowurks
+  ~ Copyright(c) 2008-2022, Beowurks
   ~ Original Author: Eddie Fann
   ~ License: Eclipse Public License - v 2.0 (https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html)
   ~
@@ -40,7 +40,7 @@
           </VBox>
         </GridPane>
       </Tab>
-      <Tab text="Stock Data" closable="false">
+      <Tab text="Stocks" closable="false">
         <VBox spacing="40">
           <TitledPane text="Financial Data" alignment="CENTER" collapsible="false">
             <GridPane hgap="10" vgap="20">
@@ -62,13 +62,23 @@
               </GridPane>
             </GridPane>
           </TitledPane>
-          <TitledPane text="Historical Data" alignment="CENTER" collapsible="false">
+          <TitledPane text="Web Scraping" alignment="CENTER" collapsible="false">
             <GridPane hgap="10" vgap="20">
-              <Label text="Alpha Vantage API Key" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-              <PasswordFieldPlus fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+              <Label text="Web Marker Source" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+              <ComboBoxIntegerKey fx:id="cboWebMarkerSource" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+              <Label text="Description Marker" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+              <TextFieldPlus fx:id="txtMarkerDescription" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+              <Label text="Last Trade Marker" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+              <TextFieldPlus fx:id="txtMarkerLastTrade" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             </GridPane>
           </TitledPane>
         </VBox>
+      </Tab>
+      <Tab text="Historical" closable="false">
+        <GridPane hgap="10" vgap="20">
+          <Label text="Alpha Vantage API Key" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+          <PasswordFieldPlus fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        </GridPane>
       </Tab>
       <Tab text="Miscellaneous" closable="false">
         <CheckBoxPlus fx:id="chkMigrationStatus" text="Always Check Migration Status"/>
