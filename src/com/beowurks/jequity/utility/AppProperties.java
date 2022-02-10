@@ -484,6 +484,7 @@ public final class AppProperties extends BaseProperties
   {
     this.setProperty(Constants.WEB_MARKER_MANUAL_LASTTRADE, tcValue);
   }
+
   // -----------------------------------------------------------------------------------------------------------------------
   public void setMarkerDescription(final int tnSource, final String tcValue)
   {
@@ -496,6 +497,7 @@ public final class AppProperties extends BaseProperties
       System.err.println(String.format("%d is not valid in AppProperties.setMarkerDescripton", tnSource));
     }
   }
+
   // -----------------------------------------------------------------------------------------------------------------------
   public void setMarkerLastTrade(final int tnSource, final String tcValue)
   {

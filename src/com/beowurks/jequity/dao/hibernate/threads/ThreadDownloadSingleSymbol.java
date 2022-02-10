@@ -8,6 +8,7 @@
 package com.beowurks.jequity.dao.hibernate.threads;
 
 import com.beowurks.jequity.dao.web.PageScraping;
+import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
@@ -114,13 +115,15 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
 
     this.foSingleSymbolInfo.getDescriptionField().setText(lcDescription);
 
-    double lnLastTrade = this.parseDouble(toDoc, PageScraping.INSTANCE.getMarkerLastTrade());
+    final AppProperties loApp = AppProperties.INSTANCE;
+    final int lnSource = loApp.getMarkerSource();
+    double lnLastTrade = this.parseDouble(toDoc, loApp.getMarkerLastTrade(lnSource));
 
     if (lnLastTrade == 0.0)
     {
       // Some symbols, like FDRXX, don't have a last trade field. So in that case,
       // default to 1.0.
-      final String lcLastTrade = this.getHTML(toDoc, PageScraping.INSTANCE.getMarkerLastTrade());
+      final String lcLastTrade = this.getHTML(toDoc, loApp.getMarkerLastTrade(lnSource));
       if (lcLastTrade.isEmpty())
       {
         lnLastTrade = 1.0;
