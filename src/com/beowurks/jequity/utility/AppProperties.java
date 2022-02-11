@@ -492,7 +492,7 @@ public final class AppProperties extends BaseProperties
     {
       this.setMarkerManualDescription(tcValue);
     }
-    else
+    else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
       System.err.println(String.format("%d is not valid in AppProperties.setMarkerDescripton", tnSource));
     }
@@ -505,7 +505,7 @@ public final class AppProperties extends BaseProperties
     {
       this.setMarkerManualLastTrade(tcValue);
     }
-    else
+    else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
       System.err.println(String.format("%d is not valid in AppProperties.setMarkerLastTrade", tnSource));
     }
