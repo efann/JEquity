@@ -120,66 +120,39 @@ public class ThreadDownloadHTML extends ThreadBase
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected int parseInt(final String tcMarker, final int tnLines)
+  protected double getLastTradeValue(final Document toDoc)
   {
-    int lnInteger;
+    final AppProperties loApp = AppProperties.INSTANCE;
+    final String lcMarker = loApp.getMarkerLastTrade(loApp.getMarkerSource());
 
-    final String lcHTML = this.cleanForNumber(this.getHTML(tcMarker, tnLines));
+    final String lcSelectedValue = this.cleanForNumber(this.getHTML(toDoc, lcMarker));
 
+    double lnLastTrade;
     try
     {
-      lnInteger = Integer.parseInt(lcHTML);
+      lnLastTrade = Double.parseDouble(lcSelectedValue);
     }
     catch (final NumberFormatException loErr)
     {
-      lnInteger = 0;
+      lnLastTrade = 0.0;
     }
 
-    return (lnInteger);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  protected double parseDouble(final String tcMarker, final int tnLines)
-  {
-    double lnDouble;
-
-    final String lcHTML = this.cleanForNumber(this.getHTML(tcMarker, tnLines));
-
-    try
+    if (lnLastTrade == 0.0)
     {
-      lnDouble = Double.parseDouble(lcHTML);
-    }
-    catch (final NumberFormatException loErr)
-    {
-      lnDouble = 0;
-    }
-
-    return (lnDouble);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  protected double parseDouble(final Document toDoc, final String tcSelect)
-  {
-    double lnDouble;
-
-    final String lcHTML = this.cleanForNumber(this.getHTML(toDoc, tcSelect));
-
-    try
-    {
-      lnDouble = Double.parseDouble(lcHTML);
-    }
-    catch (final NumberFormatException loErr)
-    {
-      lnDouble = 0;
+      // Some symbols, like FDRXX, don't have a last trade field. So in that case,
+      // default to 1.0. But first test if there is any string value at all.
+      if (lcSelectedValue.isEmpty())
+      {
+        lnLastTrade = 1.0;
+      }
     }
 
-    return (lnDouble);
+    return (lnLastTrade);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
   protected String cleanForNumber(final String tcNumber)
   {
-
     String lcNumber = tcNumber.replaceAll(",", "");
     final int lnPos = lcNumber.indexOf("x");
     if (lnPos >= 0)
@@ -210,30 +183,6 @@ public class ThreadDownloadHTML extends ThreadBase
     lcHTML = lcHTML.replaceAll("undefined", "Unk");
 
     return (lcHTML);
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  protected String getHTML(final String tcMarker, final int tnLines)
-  {
-    final StringBuilder loHTML = new StringBuilder();
-    final String lcMarker = this.getStringWithMarker(tcMarker);
-
-    final int lnLength = this.faCurrentTextList.length;
-    for (int i = 0; i < lnLength; ++i)
-    {
-      if (this.faCurrentTextList[i].contains(lcMarker))
-      {
-        for (int x = 1; (x <= tnLines) && ((i + x) < lnLength); ++x)
-        {
-          loHTML.append(this.faCurrentTextList[i + x]).append(" ");
-        }
-        break;
-      }
-    }
-
-    final String lcHTML = loHTML.toString().replaceAll("undefined", "Unk");
-
-    return (lcHTML.trim());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
