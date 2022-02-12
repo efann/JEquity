@@ -141,7 +141,14 @@ public class Main extends Application
         // variables will not be properly initialized.
         Main.getController().refreshAllComponents(true);
 
-        Main.libraryCheck();
+        try
+        {
+          Main.libraryCheck();
+        }
+        catch (final Exception loErr)
+        {
+          Misc.errorMessage(loErr.getMessage());
+        }
       }
     });
 
@@ -169,34 +176,53 @@ public class Main extends Application
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private static void libraryCheck()
+  // If one of the library jar files is signed, then at production run-time, you will get
+  //   Error: Could not find or load main class com.beowurks.jequity.main.Main
+  //   Caused by: java.lang.ClassNotFoundException: com.beowurks.jequity.main.
+  // If you look in the META-INF folder of the JEquity.jar, you should only see one set of
+  // *.SF & *.RSA files: BEOWURKS.SF & BEOWURKS.RSA.
+  private static void libraryCheck() throws Exception
   {
-    // Not to be obsessive, but this library really caused problems with the self-executable jar file due to the fact
-    // that this library was already signed.
+    // The Bouncy Castle library is already signed.
     // These classes currently exist and, hopefully in future versions, one of them will still exist.
-    final String[] taClasses = {"org.bouncycastle.jcajce.provider.config.ProviderConfiguration",
+    // This library is not needed as JEquity does not output a signed PDF.
+    final String[] taBouncyCastle = {"org.bouncycastle.jcajce.provider.config.ProviderConfiguration",
       "org.bouncycastle.util.Arrays",
       "org.bouncycastle.util.Strings",
       "org.bouncycastle.crypto.BlockCipher"
     };
 
-    boolean llExists = false;
-    for (final String laClass : taClasses)
+    for (final String laClass : taBouncyCastle)
     {
       if (Misc.isClassAvailable(laClass))
       {
-        llExists = true;
-        break;
+        throw new Exception(Main.getLibraryErrorMessage("Bouncy Castle"));
       }
     }
 
-    if (llExists)
+    // The Eclipse JDT Batch Compiler library is already signed.
+    // These classes currently exist and, hopefully in future versions, one of them will still exist.
+    // This library is not needed as JasperReports is not running any just-in-time compilation using this library: it uses the default JDK.
+    final String[] taEclipseJDT = {"org.eclipse.jdt.internal.compiler.AbstractAnnotationProcessorManager",
+      "org.eclipse.jdt.internal.compiler.tool.Archive",
+      "org.eclipse.jdt.internal.compiler.batch.FileFinder",
+      "org.eclipse.jdt.internal.compiler.parser.JavadocParser"
+    };
+
+    for (final String laClass : taEclipseJDT)
     {
-      // This should only happen when developing, and I accidently re-included the bouncy castle library,
-      // currently bcprov-jdk15on-1.62.jar, back into the jasper reports bundle.
-      Misc.errorMessage("The Bouncy Castle java library has been re-added to this project.\n\nNotify the developer to remove from this library. The exclude option may be found in Projects | Libraries | Classes: a funny looking + sign.");
+      if (Misc.isClassAvailable(laClass))
+      {
+        throw new Exception(Main.getLibraryErrorMessage("Eclipse JDT Batch Compiler"));
+      }
     }
 
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private static String getLibraryErrorMessage(final String tcLibraryName)
+  {
+    return (String.format("The %s library (signed) has been added to this project.\n\nNotify the developer to remove this jar file from the library (Probably in the JasperReports library).\nThe remove option may be found in Projects | Libraries | Classes: - sign.\nThis will only remove from project, not the disk.", tcLibraryName));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
