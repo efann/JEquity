@@ -177,9 +177,13 @@ public class OptionsController implements EventHandler<ActionEvent>
     // Now set the selected value.
     this.cboDriver.getSelectionModel().select(toApp.convertKeyToIndex(toApp.getRDBMS_Types(), toApp.getConnectionRDBMS_Key()));
     this.cboDailyDownloadInterval.getSelectionModel().select(toApp.convertKeyToIndex(laDailyIntervals, toApp.getDailyIntervalKey()));
+    this.cboWebMarkerSource.getSelectionModel().select(toApp.convertKeyToIndex(toApp.getWebMarkerSources(), toApp.getMarkerSource()));
 
     // Now set any OnAction events.
     this.cboDriver.setOnAction(this);
+    this.cboWebMarkerSource.setOnAction(this);
+
+    // Now set the text fields to their initial correct state.
     this.resetTextFields();
   }
 
@@ -226,16 +230,30 @@ public class OptionsController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void resetTextFields()
   {
-    final IntegerKeyItem loItem = this.cboDriver.getSelectedItem();
+    // Database
+    final IntegerKeyItem loDriverItem = this.cboDriver.getSelectedItem();
 
-    final String lcDescription = loItem.getDescription();
+    final String lcDescription = loDriverItem.getDescription();
     final boolean llApacheDerby = lcDescription.equals(Constants.DRIVER_VALUE_DERBY);
-    final boolean llEditable = !llApacheDerby;
+    final boolean llDriverEditable = !llApacheDerby;
 
-    this.txtHost.setReadOnly(!llEditable);
-    this.txtUser.setReadOnly(!llEditable);
-    this.txtPassword.setReadOnly(!llEditable);
+    this.txtHost.setReadOnly(!llDriverEditable);
+    this.txtUser.setReadOnly(!llDriverEditable);
+    this.txtPassword.setReadOnly(!llDriverEditable);
 
+    // Markers
+    final IntegerKeyItem loMarkerItem = this.cboWebMarkerSource.getSelectedItem();
+
+    final int lnSource = loMarkerItem.getKey();
+    final boolean llMarkerEditable = (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL);
+    this.txtMarkerDescription.setReadOnly(!llMarkerEditable);
+    this.txtMarkerLastTrade.setReadOnly(!llMarkerEditable);
+
+    final AppProperties loApp = AppProperties.INSTANCE;
+    this.txtMarkerDescription.setText(loApp.getMarkerDescription(lnSource));
+    this.txtMarkerLastTrade.setText(loApp.getMarkerLastTrade(lnSource));
+
+    // If not in development environment, then stop here.
     if (!Main.isDevelopmentEnvironment())
     {
       return;
@@ -280,6 +298,10 @@ public class OptionsController implements EventHandler<ActionEvent>
       this.resetDefaultValues();
     }
     else if (loObject == this.cboDriver)
+    {
+      this.resetTextFields();
+    }
+    else if (loObject == this.cboWebMarkerSource)
     {
       this.resetTextFields();
     }
