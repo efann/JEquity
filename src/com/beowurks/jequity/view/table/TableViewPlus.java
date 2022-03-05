@@ -26,6 +26,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -247,7 +248,22 @@ public class TableViewPlus<S> extends TableView
       {
         for (final TableColumnHeader loHeader : ((NestedTableColumnHeader) loChild).getColumnHeaders())
         {
-          TableViewPlus.resizeColumnToFitContent(this, loHeader);
+          //TableViewPlus.resizeColumnToFitContent(this, loHeader);
+
+          try
+          {
+            final TableColumn<?, ?> loColumn = (TableColumn<?, ?>) loHeader.getTableColumn();
+            if (loColumn != null)
+            {
+              final Method loMethod = loHeader.getClass().getDeclaredMethod("resizeColumnToFitContent", int.class);
+              loMethod.setAccessible(true);
+              loMethod.invoke( loColumn, -1);
+            }
+          }
+          catch (final Throwable loErr)
+          {
+            loErr.printStackTrace(System.err);
+          }
         }
         System.err.println("===================================================");
       }
