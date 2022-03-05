@@ -111,7 +111,6 @@ public class TabSymbolController extends TabBaseController
     this.colComments.setCellFactory(tc -> new HyperLinkLabelTableCell());
 
     this.tblSymbol.getItems().clear();
-    this.tblSymbol.setColumnResizePolicy((param -> true));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
