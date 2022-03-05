@@ -26,7 +26,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,6 +47,11 @@ public class TableViewPlus<S> extends TableView
   // which can't seem to be accessed in JDK 17.
   private static final String DEFER_TO_PARENT_PREF_WIDTH = "deferToParentPrefWidth";
 
+  // From TableColumnBase (javafx17\javafx.controls\javafx\scene\control\TableColumnBase.java),
+  // which, of course, we can't access
+  private static final double DEFAULT_MIN_WIDTH = 10.0F;
+  private static final double DEFAULT_MAX_WIDTH = 5000.0F;
+
 
   // ---------------------------------------------------------------------------------------------------------------------
   public TableViewPlus()
@@ -55,6 +59,8 @@ public class TableViewPlus<S> extends TableView
     super();
 
     this.setEditable(false);
+    this.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
     this.setupKeySearch();
   }
 
@@ -64,6 +70,8 @@ public class TableViewPlus<S> extends TableView
     super(toItems);
 
     this.setEditable(false);
+    this.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
     this.setupKeySearch();
   }
 
@@ -227,8 +235,6 @@ public class TableViewPlus<S> extends TableView
   // Geesh. . . .
   private void resizeAllColumnsUsingReflection()
   {
-    this.setColumnResizePolicy( TableView.UNCONSTRAINED_RESIZE_POLICY);
-
     // Otherwise, you can have ghost values in rows that are not overwritten with data.
     this.refresh();
     // Otherwise the column will not resort after refreshing.
@@ -241,6 +247,7 @@ public class TableViewPlus<S> extends TableView
       System.err.println("Skin is null");
       return;
     }
+
     final TableHeaderRow loHeaderRow = (TableHeaderRow) this.lookup("TableHeaderRow");
     for (final Node loChild : loHeaderRow.getChildren())
     {
@@ -248,31 +255,15 @@ public class TableViewPlus<S> extends TableView
       {
         for (final TableColumnHeader loHeader : ((NestedTableColumnHeader) loChild).getColumnHeaders())
         {
-          //TableViewPlus.resizeColumnToFitContent(this, loHeader);
-
-          try
-          {
-            final TableColumn<?, ?> loColumn = (TableColumn<?, ?>) loHeader.getTableColumn();
-            if (loColumn != null)
-            {
-              final Method loMethod = loHeader.getClass().getDeclaredMethod("resizeColumnToFitContent", int.class);
-              loMethod.setAccessible(true);
-              loMethod.invoke( loColumn, -1);
-            }
-          }
-          catch (final Throwable loErr)
-          {
-            loErr.printStackTrace(System.err);
-          }
+          TableViewPlus.resizeColumnToFitContent(this, loHeader);
         }
-        System.err.println("===================================================");
       }
     }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  // Unfortunately, we can't access TableSkinUtils.resizeColumnToFitContent. So I just copied the code, modify slightly,
-  // and use what's below.
+  // Unfortunately, we can't access TableColumnHeader.resizeColumnToFitContent (previously TableSkinUtils.resizeColumnToFitContent).
+  // So I just copied the code, modified slightly.
   private static <T, S> void resizeColumnToFitContent(final TableView<T> toTableView, final TableColumnHeader toHeader)
   {
     final TableColumn<T, S> loTableColumn = (TableColumn<T, S>) toHeader.getTableColumn();
@@ -345,11 +336,13 @@ public class TableViewPlus<S> extends TableView
     // https://bugs.openjdk.java.net/browse/JDK-8113955
     lnMaxWidth += lnPadding;
 
-    System.err.println(toHeader + " " + loTableColumn.getMinWidth() + "  " + lnMaxWidth + " " + loTableColumn.getMaxWidth());
-
-
+    // From https://stackoverflow.com/questions/33348757/javafx-8-tablecolumn-setprefwidth-doing-nothing-if-user-manually-resizes-the-co
     loTableColumn.setPrefWidth(lnMaxWidth);
+    loTableColumn.setMinWidth(lnMaxWidth);
+    loTableColumn.setMaxWidth(lnMaxWidth);
 
+    loTableColumn.setMinWidth(TableViewPlus.DEFAULT_MIN_WIDTH);
+    loTableColumn.setMaxWidth(TableViewPlus.DEFAULT_MAX_WIDTH);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
