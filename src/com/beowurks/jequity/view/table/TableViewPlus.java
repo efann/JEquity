@@ -9,6 +9,7 @@
 package com.beowurks.jequity.view.table;
 
 import com.beowurks.jequity.utility.Constants;
+import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -20,7 +21,6 @@ import javafx.scene.control.skin.NestedTableColumnHeader;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.control.skin.TableViewSkin;
-import javafx.scene.control.skin.TableViewSkinBase;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
@@ -42,7 +42,6 @@ public class TableViewPlus<S> extends TableView
   private Label foStatusMessage = null;
 
   private Timer foTimerSearchReset = null;
-
 
   // Defined in javafx.controls\com\sun\javafx\scene\control\Properties.java
   // which can't seem to be accessed in JDK 17.
@@ -227,6 +226,8 @@ public class TableViewPlus<S> extends TableView
   // Geesh. . . .
   private void resizeAllColumnsUsingReflection()
   {
+    this.setColumnResizePolicy( TableView.UNCONSTRAINED_RESIZE_POLICY);
+
     // Otherwise, you can have ghost values in rows that are not overwritten with data.
     this.refresh();
     // Otherwise the column will not resort after refreshing.
@@ -239,7 +240,6 @@ public class TableViewPlus<S> extends TableView
       System.err.println("Skin is null");
       return;
     }
-
     final TableHeaderRow loHeaderRow = (TableHeaderRow) this.lookup("TableHeaderRow");
     for (final Node loChild : loHeaderRow.getChildren())
     {
@@ -247,8 +247,9 @@ public class TableViewPlus<S> extends TableView
       {
         for (final TableColumnHeader loHeader : ((NestedTableColumnHeader) loChild).getColumnHeaders())
         {
-          TableViewPlus.resizeColumnToFitContent(this, loSkin, loHeader);
+          TableViewPlus.resizeColumnToFitContent(this, loHeader);
         }
+        System.err.println("===================================================");
       }
     }
   }
@@ -256,7 +257,7 @@ public class TableViewPlus<S> extends TableView
   // ---------------------------------------------------------------------------------------------------------------------
   // Unfortunately, we can't access TableSkinUtils.resizeColumnToFitContent. So I just copied the code, modify slightly,
   // and use what's below.
-  private static <T, S> void resizeColumnToFitContent(final TableView<T> toTableView, final TableViewSkinBase toSkin, final TableColumnHeader toHeader)
+  private static <T, S> void resizeColumnToFitContent(final TableView<T> toTableView, final TableColumnHeader toHeader)
   {
     final TableColumn<T, S> loTableColumn = (TableColumn<T, S>) toHeader.getTableColumn();
     final List<?> loItems = toTableView.getItems();
@@ -299,10 +300,7 @@ public class TableViewPlus<S> extends TableView
 
       if ((loCell.getText() != null && !loCell.getText().isEmpty()) || loCell.getGraphic() != null)
       {
-        toSkin.getChildren().add(loCell);
-        loCell.applyCss();
-        lnMaxWidth = Math.max(lnMaxWidth, loCell.prefWidth(-1));
-        toSkin.getChildren().remove(loCell);
+        lnMaxWidth = Math.max(lnMaxWidth, Misc.getStringWidth(loCell.getText(), loCell.getFont()));
       }
     }
 
@@ -315,8 +313,8 @@ public class TableViewPlus<S> extends TableView
     {
       if (loItem instanceof final Label loLabel)
       {
-        // Once a label is visible, then getWidth will work.
-        final double lnHeaderTextWidth = loTableColumn.getWidth();
+        final double lnHeaderTextWidth = Misc.getStringWidth(loLabel.getText(), loLabel.getFont());
+
         final Node loGraphic = loLabel.getGraphic();
         final double lnHeaderGraphicWidth = loGraphic == null ? 0 : loGraphic.prefWidth(-1) + loLabel.getGraphicTextGap();
         final double lnHeaderWidth = lnHeaderTextWidth + lnHeaderGraphicWidth + 10 + toHeader.snappedLeftInset() + toHeader.snappedRightInset();
@@ -327,8 +325,15 @@ public class TableViewPlus<S> extends TableView
     }
 
     // RT-23486
+    // Hmmmmmm.
+    // https://bugs.openjdk.java.net/browse/JDK-8113955
     lnMaxWidth += lnPadding;
+
+    System.err.println(toHeader + " " + loTableColumn.getMinWidth() + "  " + lnMaxWidth + " " + loTableColumn.getMaxWidth());
+
+
     loTableColumn.setPrefWidth(lnMaxWidth);
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

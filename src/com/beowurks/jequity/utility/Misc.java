@@ -37,6 +37,8 @@ import org.w3c.dom.NodeList;
 import javax.swing.SwingUtilities;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -53,6 +55,8 @@ public final class Misc
   static private NumberFormat foCurrencyFormat = null;
   static private NumberFormat foIntegerFormat = null;
   static private NumberFormat foDoubleFormat = null;
+
+  private static final FontRenderContext foFontRenderContext = new FontRenderContext(new AffineTransform(), true, true);
 
   static private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy");
 
@@ -794,6 +798,15 @@ public final class Misc
     }
 
     return (loCount);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public static double getStringWidth(final String tcValue, final Font toFont)
+  {
+    final Text loText = new Text(tcValue);
+    loText.setFont(toFont);
+
+    return (loText.getBoundsInLocal().getWidth());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
