@@ -205,16 +205,6 @@ public class TableViewPlus<S> extends TableView
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public void resizeColumnsToFitContent()
-  {
-    final Skin<?> loSkin = this.getSkin();
-    if ((loSkin != null) && (loSkin instanceof TableViewSkinPlus))
-    {
-      ((TableViewSkinPlus) loSkin).resizeColumnToFit();
-    }
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------
   private void resizeColumnsPlatformCheck()
   {
     if (Platform.isFxApplicationThread())
@@ -226,6 +216,18 @@ public class TableViewPlus<S> extends TableView
       Platform.runLater(this::resizeColumnsToFitContent);
     }
   }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void resizeColumnsToFitContent()
+  {
+    final Skin<?> loSkin = this.getSkin();
+    // Also covers if null, duh.
+    if ((loSkin instanceof TableViewSkinPlus))
+    {
+      ((TableViewSkinPlus) loSkin).resizeColumnToFit();
+    }
+  }
+
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------

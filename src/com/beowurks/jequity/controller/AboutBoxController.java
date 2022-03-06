@@ -120,6 +120,7 @@ public class AboutBoxController implements EventHandler<ActionEvent>
     {
       this.tblEnvironment.setItems(this.foDataList);
     }
+
     this.tblEnvironment.resizeColumnsToFit();
   }
 
