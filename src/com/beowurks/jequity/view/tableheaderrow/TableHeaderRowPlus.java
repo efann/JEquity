@@ -32,6 +32,7 @@ public class TableHeaderRowPlus extends TableHeaderRow
   @Override
   protected NestedTableColumnHeader createRootHeader()
   {
+    // If you view the code of TableHeaderRow, it passes a null to NestedTableColumnHeader().
     return (new NestedTableColumnHeaderPlus(null));
   }
   // ---------------------------------------------------------------------------------------------------------------------

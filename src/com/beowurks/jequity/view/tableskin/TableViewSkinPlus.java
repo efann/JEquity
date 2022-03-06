@@ -9,9 +9,8 @@
 package com.beowurks.jequity.view.tableskin;
 
 import com.beowurks.jequity.view.tablecolumnheader.TableColumnHeaderPlus;
-import javafx.scene.control.TableColumnBase;
+import com.beowurks.jequity.view.tableheaderrow.TableHeaderRowPlus;
 import javafx.scene.control.TableView;
-import javafx.scene.control.skin.NestedTableColumnHeader;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.control.skin.TableViewSkin;
@@ -35,26 +34,7 @@ public class TableViewSkinPlus<T> extends TableViewSkin<T>
   @Override
   protected TableHeaderRow createTableHeaderRow()
   {
-    return new TableHeaderRow(this)
-    {
-      // ---------------------------------------------------------------------------------------------------------------------
-      @Override
-      protected NestedTableColumnHeader createRootHeader()
-      {
-        return new NestedTableColumnHeader(null)
-        {
-          // ---------------------------------------------------------------------------------------------------------------------
-          @Override
-          protected TableColumnHeader createTableColumnHeader(final TableColumnBase col)
-          {
-            final TableColumnHeaderPlus loColumnHeader = new TableColumnHeaderPlus(col);
-            return (loColumnHeader);
-          }
-          // ---------------------------------------------------------------------------------------------------------------------
-        };
-      }
-      // ---------------------------------------------------------------------------------------------------------------------
-    };
+    return new TableHeaderRowPlus(this);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
