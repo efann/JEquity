@@ -220,6 +220,26 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     final Object loSeries = this.getSeries(laJSONInfo);
     if (loSeries == null)
     {
+      String lcMessage = "There was an unknown error in reading the JSON file.";
+      if (laJSONInfo.length() != 0)
+      {
+        Object loObject = laJSONInfo.get(0);
+        if (loObject instanceof JSONObject)
+        {
+          JSONObject loJSONObj = (JSONObject) loObject;
+          try
+          {
+            final String lcKey = loJSONObj.keys().next();
+            lcMessage = loJSONObj.getString(lcKey);
+          }
+          catch (final JSONException loError)
+          {
+          }
+
+        }
+      }
+      Misc.errorMessage(lcMessage + "\n\nEnsure that your Alpha Vantage key is valid.");
+
       return (false);
     }
 
@@ -272,7 +292,6 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   // ---------------------------------------------------------------------------------------------------------------------
   private Object getSeries(final JSONArray taJSONInfo)
   {
-
     for (final Object loElement : taJSONInfo)
     {
       if (loElement instanceof final JSONObject loTopObject)
