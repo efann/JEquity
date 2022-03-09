@@ -40,9 +40,6 @@ final public class Constants
   public final static int ALPHA_KEY_MASK_LIMIT = 4;
   public final static String ALPHA_KEY_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s";
 
-  // You can test with this one.
-  public final static String ALPHA_DEMO_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT&outputsize=full&apikey=demo";
-
   //************************************************************
   // Used by Sample Data
   public final static String SAMPLE_DATA_URL = "https://www.beowurks.com/Software/JEquity/SampleData/SampleData.2.0.xml";

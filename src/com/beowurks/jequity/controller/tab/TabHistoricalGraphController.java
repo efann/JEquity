@@ -164,9 +164,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   public String getAlphaVantageURL()
   {
-    return (!Main.isDevelopmentEnvironment() ?
-      String.format(Constants.ALPHA_KEY_STRING, this.getSymbol(), "full", this.getAlphaVantageKey()) :
-      Constants.ALPHA_DEMO_STRING);
+    return (String.format(Constants.ALPHA_KEY_STRING, this.getSymbol(), "full", this.getAlphaVantageKey()));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
