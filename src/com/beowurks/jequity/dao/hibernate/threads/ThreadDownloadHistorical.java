@@ -220,25 +220,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     final Object loSeries = this.getSeries(laJSONInfo);
     if (loSeries == null)
     {
-      String lcMessage = "There was an unknown error in reading the JSON file.";
-      if (laJSONInfo.length() != 0)
-      {
-        final Object loObject = laJSONInfo.get(0);
-        if (loObject instanceof JSONObject)
-        {
-          final JSONObject loJSONObj = (JSONObject) loObject;
-          try
-          {
-            final String lcKey = loJSONObj.keys().next();
-            lcMessage = loJSONObj.getString(lcKey);
-          }
-          catch (final JSONException loError)
-          {
-          }
-
-        }
-      }
-      Misc.errorMessage(lcMessage + "\n\nEnsure that your Alpha Vantage key is valid.");
+      Misc.errorMessage(this.deciphorErrorMessage(laJSONInfo));
 
       return (false);
     }
@@ -287,6 +269,31 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     this.foJSONDateRangeList.sort(Comparator.comparing(o -> o.foDate));
 
     return (true);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String deciphorErrorMessage(final JSONArray taJSONInfo)
+  {
+    String lcMessage = "There was an unknown error in reading the JSON file.";
+    if (taJSONInfo.length() != 0)
+    {
+      final Object loObject = taJSONInfo.get(0);
+      if (loObject instanceof JSONObject)
+      {
+        final JSONObject loJSONObj = (JSONObject) loObject;
+        try
+        {
+          final String lcKey = loJSONObj.keys().next();
+          lcMessage = loJSONObj.getString(lcKey);
+        }
+        catch (final JSONException loError)
+        {
+        }
+
+      }
+    }
+
+    return (lcMessage + "\n\nEnsure that your Alpha Vantage key is valid.");
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
