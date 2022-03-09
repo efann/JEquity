@@ -223,10 +223,10 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       String lcMessage = "There was an unknown error in reading the JSON file.";
       if (laJSONInfo.length() != 0)
       {
-        Object loObject = laJSONInfo.get(0);
+        final Object loObject = laJSONInfo.get(0);
         if (loObject instanceof JSONObject)
         {
-          JSONObject loJSONObj = (JSONObject) loObject;
+          final JSONObject loJSONObj = (JSONObject) loObject;
           try
           {
             final String lcKey = loJSONObj.keys().next();
