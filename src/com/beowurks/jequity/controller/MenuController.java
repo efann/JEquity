@@ -21,7 +21,7 @@ import com.beowurks.jequity.view.dialog.AboutDialog;
 import com.beowurks.jequity.view.dialog.OptionsDialog;
 import com.beowurks.jequity.view.dialog.PasswordConfirmDialog;
 import com.beowurks.jequity.view.misc.CheckForUpdates;
-import de.codecentric.centerdevice.MenuToolkit;
+import de.jangassen.MenuToolkit;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;

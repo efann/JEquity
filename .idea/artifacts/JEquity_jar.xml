@@ -19,7 +19,17 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/commons-math3-3.6.1/commons-math3-3.6.1-tools.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/commons-math3-3.6.1/commons-math3-3.6.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/controlsfx/controlsfx-11.1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/nsmenufx/centerdevice-nsmenufx-2.1.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/nsmenufx-3.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/jfa-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/jna-5.7.0-jpms.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/javafx-controls-11.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/javafx-controls-11-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/javafx-graphics-11.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/javafx-graphics-11-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/javafx-base-11.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/javafx-base-11-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/javafx-fxml-11.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/de.jangassen.nsmenufx/javafx-fxml-11-win.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/derby-10.14.2.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/derbyclient-10.14.2.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/mysql-connector-java-8.0.28.jar" path-in-jar="/" />

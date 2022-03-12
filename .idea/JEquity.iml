@@ -31,6 +31,6 @@
     <orderEntry type="library" name="json" level="project" />
     <orderEntry type="library" name="net.sf.jasperreports:jasperreports:6.18.1" level="project" />
     <orderEntry type="library" name="commons-io-2.11.0" level="project" />
-    <orderEntry type="library" name="de.codecentric.centerdevice.nsmenufx" level="project" />
+    <orderEntry type="library" name="de.jangassen.nsmenufx" level="project" />
   </component>
 </module>
