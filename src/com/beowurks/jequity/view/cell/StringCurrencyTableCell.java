@@ -28,7 +28,8 @@ public class StringCurrencyTableCell extends NumberTableCell<Object, String>
 
     if ((tcItem == null) || tlEmpty)
     {
-      this.setText("");
+      // Now mimics the other cells' updateItem.
+      this.setText(null);
       return;
     }
 

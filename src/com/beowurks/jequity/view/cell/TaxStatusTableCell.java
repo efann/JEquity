@@ -33,6 +33,8 @@ public class TaxStatusTableCell extends TableCell<Object, String>
 
     if ((tcItem == null) || tlEmpty)
     {
+      // Now mimics the other cell updateItem.
+      this.setText(null);
       return;
     }
 

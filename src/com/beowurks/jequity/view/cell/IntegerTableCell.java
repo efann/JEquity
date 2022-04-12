@@ -23,7 +23,6 @@ public class IntegerTableCell extends NumberTableCell<Object, Integer>
   {
     super.updateItem(tnItem, tlEmpty);
 
-
     if ((tnItem == null) || tlEmpty)
     {
       this.setText(null);

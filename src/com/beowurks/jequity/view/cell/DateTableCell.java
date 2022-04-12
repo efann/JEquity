@@ -28,6 +28,9 @@ public class DateTableCell extends TableCell<Object, Date>
 
     if ((tdItem == null) || tlEmpty)
     {
+      // Now, there are no more ghost values in empty rows.
+      // Also, now mimics the other cells' updateItem.
+      this.setText(null);
       return;
     }
 

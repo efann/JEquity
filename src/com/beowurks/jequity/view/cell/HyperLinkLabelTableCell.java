@@ -36,6 +36,8 @@ public class HyperLinkLabelTableCell extends TableCell<Object, String> implement
 
     if ((tcItem == null) || tlEmpty)
     {
+      // Now mimics the other cells' updateItem.
+      this.setText(null);
       return;
     }
 
