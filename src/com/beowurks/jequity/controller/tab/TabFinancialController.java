@@ -257,6 +257,8 @@ public class TabFinancialController extends TabModifyController implements Event
     }
 
     this.tblFinancial.resizeColumnsToFit();
+    // In case of data refresh and column(s) have already been sorted.
+    this.tblFinancial.sort();
 
     loSession.close();
 
