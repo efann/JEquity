@@ -800,7 +800,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   // ---------------------------------------------------------------------------------------------------------------------
   private void setupXYDataSeries()
   {
-    this.faXYDataSeriesData = new XYChart.Series[5];
+    this.faXYDataSeriesData = new XYChart.Series[Constants.ALPHA_KEY_PRICE_TYPES];
 
     this.faXYDataSeriesData[0] = new XYChart.Series();
     this.faXYDataSeriesData[0].setName("Open");
@@ -810,8 +810,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     this.faXYDataSeriesData[2].setName("Low");
     this.faXYDataSeriesData[3] = new XYChart.Series();
     this.faXYDataSeriesData[3].setName("Close");
-    this.faXYDataSeriesData[4] = new XYChart.Series();
-    this.faXYDataSeriesData[4].setName("Adj Close");
 
     //*****
     this.faXYDataSeriesTrends = new XYChart.Series[3];
@@ -828,12 +826,11 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     //*****
     // From modena.css at https://gist.github.com/maxd/63691840fc372f22f470
     // which define CHART_COLOR_1 through CHART_COLOR_8
-    this.faSeriesColors = new String[5];
+    this.faSeriesColors = new String[Constants.ALPHA_KEY_PRICE_TYPES];
     this.faSeriesColors[0] = "#57b757";
     this.faSeriesColors[1] = "#4258c9";
     this.faSeriesColors[2] = "#f3622d";
     this.faSeriesColors[3] = "#fba71b";
-    this.faSeriesColors[4] = "#41a9c9";
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

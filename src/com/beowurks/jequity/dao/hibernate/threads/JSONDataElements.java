@@ -8,6 +8,8 @@
 
 package com.beowurks.jequity.dao.hibernate.threads;
 
+import com.beowurks.jequity.utility.Constants;
+
 import java.time.LocalDate;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -16,7 +18,7 @@ import java.time.LocalDate;
 public class JSONDataElements
 {
   public LocalDate foDate;
-  public final double[] faNumbers = new double[5];
+  public final double[] faNumbers = new double[Constants.ALPHA_KEY_PRICE_TYPES];
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
