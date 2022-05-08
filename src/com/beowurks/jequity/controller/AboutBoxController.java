@@ -122,6 +122,10 @@ public class AboutBoxController implements EventHandler<ActionEvent>
     }
 
     this.tblEnvironment.resizeColumnsToFit();
+    // In case of data refresh and column(s) have already been sorted.
+    // And it's okay if no column(s) have been sorted.
+    this.tblEnvironment.sort();
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
