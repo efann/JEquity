@@ -802,14 +802,28 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   {
     this.faXYDataSeriesData = new XYChart.Series[Constants.ALPHA_KEY_PRICE_TYPES];
 
+    /*
+      By the way, we are now dynamically setting the captions using the JSON data in ThreadDownloadHistorical.
+      For example,
+      "2022-05-09": {
+      "1. open": "134.4100",
+        "2. high": "136.3500",
+        "3. low": "133.3200",
+        "4. close": "134.4400",
+        "5. volume": "7645955"
+      },
+
+      This first update of the captions looks better than <empty>.
+    */
+
     this.faXYDataSeriesData[0] = new XYChart.Series();
-    this.faXYDataSeriesData[0].setName("Open");
+    this.updateDataSeriesLabels(0, "<open>");
     this.faXYDataSeriesData[1] = new XYChart.Series();
-    this.faXYDataSeriesData[1].setName("High");
+    this.updateDataSeriesLabels(1, "<high>");
     this.faXYDataSeriesData[2] = new XYChart.Series();
-    this.faXYDataSeriesData[2].setName("Low");
+    this.updateDataSeriesLabels(2, "<low>");
     this.faXYDataSeriesData[3] = new XYChart.Series();
-    this.faXYDataSeriesData[3].setName("Close");
+    this.updateDataSeriesLabels(3, "<close>");
 
     //*****
     this.faXYDataSeriesTrends = new XYChart.Series[3];
@@ -834,11 +848,36 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public void updateDataSeriesLabels(final int tnIndex, final String tcLabel)
+  {
+    Platform.runLater(() ->
+    {
+      if ((tnIndex >= 0) && (tnIndex < this.faXYDataSeriesData.length))
+      {
+        this.faXYDataSeriesData[tnIndex].setName(tcLabel);
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void updateCheckboxesLabels()
+  {
+    Platform.runLater(() ->
+    {
+      final int lnCount = this.faSeriesVisibility.length;
+      for (int i = 0; i < lnCount; ++i)
+      {
+        this.faSeriesVisibility[i].setText(this.faXYDataSeriesData[i].getName());
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   private void setupCheckboxes()
   {
     if (this.faXYDataSeriesData == null)
     {
-      System.err.println("EROR: setupCheckboxes muse be called after setupXYDataSeries");
+      System.err.println("Error: setupCheckboxes muse be called after setupXYDataSeries");
       return;
     }
 
@@ -847,13 +886,15 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
     for (int i = 0; i < lnCount; ++i)
     {
-      final CheckBoxPlus loCheckBox = new CheckBoxPlus(this.faXYDataSeriesData[i].getName());
+      // I could set the checkbox names here, but I'd like to standardize on the updateCheckboxesLabels.
+      final CheckBoxPlus loCheckBox = new CheckBoxPlus();
       loCheckBox.setSelected(true);
       this.faSeriesVisibility[i] = loCheckBox;
 
       this.hboxSeriesVisibility.getChildren().add(loCheckBox);
     }
 
+    this.updateCheckboxesLabels();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

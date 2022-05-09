@@ -14,6 +14,7 @@ import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +36,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 {
   public static final ThreadDownloadHistorical INSTANCE = new ThreadDownloadHistorical();
 
+  private final static int INVALID_SEQUENCE_INDEX = -1;
   private String fcSymbol;
 
   private final ArrayList<JSONDataElements> foJSONDateRangeList = new ArrayList<>();
@@ -44,6 +46,9 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
   private final DateTimeFormatter foHistoricalFileDateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
 
   private boolean flRecreateCharts = true;
+
+  // From https://www.baeldung.com/java-lambda-effectively-final-local-variables
+  private boolean flUpdateChartCaptions;
 
   // ---------------------------------------------------------------------------------------------------------------------
   private ThreadDownloadHistorical()
@@ -227,6 +232,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
     final JSONObject loDates = (JSONObject) loSeries;
     final Iterator<String> loIterator = loDates.keys();
+    this.flUpdateChartCaptions = true;
 
     while (loIterator.hasNext())
     {
@@ -250,16 +256,26 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
 
           try
           {
-            final int lnIndex = Integer.parseInt(loSequence.trim().substring(0, 1)) - 1;
-            if ((lnIndex >= 0) && (lnIndex < loElement.faNumbers.length))
+            final int lnIndex = this.getSequenceIndex(loSequence, loElement);
+            if (lnIndex != ThreadDownloadHistorical.INVALID_SEQUENCE_INDEX)
             {
               loElement.faNumbers[lnIndex] = Double.parseDouble(loStockValue.toString().trim());
+              if (this.flUpdateChartCaptions)
+              {
+                this.foTabHistoricalGraphController.updateDataSeriesLabels(lnIndex, this.getSequenceLabel(loSequence));
+              }
             }
           }
           catch (final NumberFormatException ignore)
           {
           }
         });
+
+        if (this.flUpdateChartCaptions)
+        {
+          this.foTabHistoricalGraphController.updateCheckboxesLabels();
+          this.flUpdateChartCaptions = false;
+        }
 
       }
 
@@ -269,6 +285,31 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     this.foJSONDateRangeList.sort(Comparator.comparing(o -> o.foDate));
 
     return (true);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private String getSequenceLabel(final String toSequence)
+  {
+    final int lnPos = toSequence.indexOf(' ');
+    if (lnPos != -1)
+    {
+      return (WordUtils.capitalize(toSequence.substring(lnPos).trim()));
+    }
+
+    return ("<empty>");
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private int getSequenceIndex(final String toSequence, final JSONDataElements toElement) throws NumberFormatException
+  {
+    final int lnIndex = Integer.parseInt(toSequence.trim().substring(0, 1)) - 1;
+
+    if ((lnIndex >= 0) && (lnIndex < toElement.faNumbers.length))
+    {
+      return (lnIndex);
+    }
+
+    return (ThreadDownloadHistorical.INVALID_SEQUENCE_INDEX);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
