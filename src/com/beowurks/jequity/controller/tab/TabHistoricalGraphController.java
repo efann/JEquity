@@ -817,13 +817,13 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     */
 
     this.faXYDataSeriesData[0] = new XYChart.Series();
-    this.updateDataSeriesLabels(0, "<open>");
+    this.updateDataSeriesLabels(0, "[open]");
     this.faXYDataSeriesData[1] = new XYChart.Series();
-    this.updateDataSeriesLabels(1, "<high>");
+    this.updateDataSeriesLabels(1, "[high]");
     this.faXYDataSeriesData[2] = new XYChart.Series();
-    this.updateDataSeriesLabels(2, "<low>");
+    this.updateDataSeriesLabels(2, "[low]");
     this.faXYDataSeriesData[3] = new XYChart.Series();
-    this.updateDataSeriesLabels(3, "<close>");
+    this.updateDataSeriesLabels(3, "[close]");
 
     //*****
     this.faXYDataSeriesTrends = new XYChart.Series[3];
