@@ -503,6 +503,11 @@
   Miscellaneous
 */
 
+.button
+{
+  -fx-skin: 'com.beowurks.jequity.view.skin.ButtonSkinPlus';
+}
+
 .combo-box,
 .button,
 .check-box,
