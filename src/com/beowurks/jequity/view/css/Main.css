@@ -185,11 +185,14 @@
 {
   -fx-underline: false;
   -fx-text-fill: #870000;
+  -fx-font-weight: normal;
+
+  -fx-skin: 'com.beowurks.jequity.view.skin.HyperLinkSkinPlus';
 }
 
 .hyperlink:hover
 {
-  -fx-underline: true;
+  -fx-underline: false;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/

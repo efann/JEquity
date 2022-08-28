@@ -9,8 +9,8 @@
 package com.beowurks.jequity.view.skin;
 
 import javafx.animation.FadeTransition;
-import javafx.scene.control.Button;
-import javafx.scene.control.skin.ButtonSkin;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.skin.HyperlinkSkin;
 import javafx.util.Duration;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -18,21 +18,21 @@ import javafx.util.Duration;
 // ---------------------------------------------------------------------------------------------------------------------
 // From https://stackoverflow.com/questions/49831755/javafx-animation-on-button-hover
 // By the way, it's used in com/beowurks/jequity/view/css/Main.css
-public class ButtonSkinPlus extends ButtonSkin
+public class HyperLinkSkinPlus extends HyperlinkSkin
 {
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public ButtonSkinPlus(final Button toControl)
+  public HyperLinkSkinPlus(final Hyperlink toControl)
   {
     super(toControl);
 
-    final FadeTransition loFadeIn = new FadeTransition(Duration.millis(500));
+    final FadeTransition loFadeIn = new FadeTransition(Duration.millis(250));
     loFadeIn.setNode(toControl);
-    loFadeIn.setToValue(1);
+    loFadeIn.setToValue(1.0);
 
-    final FadeTransition loFadeOut = new FadeTransition(Duration.millis(500));
+    final FadeTransition loFadeOut = new FadeTransition(Duration.millis(250));
     loFadeOut.setNode(toControl);
-    loFadeOut.setToValue(0.75);
+    loFadeOut.setToValue(0.5);
 
     toControl.setOnMouseEntered(e -> loFadeOut.playFromStart());
     toControl.setOnMouseExited(e -> loFadeIn.playFromStart());
