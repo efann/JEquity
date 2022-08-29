@@ -26,13 +26,13 @@ public class ButtonSkinPlus extends ButtonSkin
   {
     super(toControl);
 
-    final FadeTransition loFadeIn = new FadeTransition(Duration.millis(500));
+    final FadeTransition loFadeIn = new FadeTransition(Duration.millis(250));
     loFadeIn.setNode(toControl);
     loFadeIn.setToValue(1);
 
-    final FadeTransition loFadeOut = new FadeTransition(Duration.millis(500));
+    final FadeTransition loFadeOut = new FadeTransition(Duration.millis(250));
     loFadeOut.setNode(toControl);
-    loFadeOut.setToValue(0.75);
+    loFadeOut.setToValue(0.5);
 
     toControl.setOnMouseEntered(e -> loFadeOut.playFromStart());
     toControl.setOnMouseExited(e -> loFadeIn.playFromStart());

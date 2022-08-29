@@ -32,7 +32,7 @@ public class HyperLinkSkinPlus extends HyperlinkSkin
 
     final FadeTransition loFadeOut = new FadeTransition(Duration.millis(250));
     loFadeOut.setNode(toControl);
-    loFadeOut.setToValue(0.5);
+    loFadeOut.setToValue(0.70);
 
     toControl.setOnMouseEntered(e -> loFadeOut.playFromStart());
     toControl.setOnMouseExited(e -> loFadeIn.playFromStart());

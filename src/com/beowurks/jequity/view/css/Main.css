@@ -192,6 +192,7 @@
 
 .hyperlink:hover
 {
+  -fx-text-fill: black;
   -fx-underline: false;
 }
 

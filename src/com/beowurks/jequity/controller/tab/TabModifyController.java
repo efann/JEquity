@@ -290,7 +290,7 @@ abstract public class TabModifyController extends TabBaseController
       else if (!(loNode instanceof Label) && !(loNode instanceof Button) && !(loNode instanceof Hyperlink))
       {
         System.err.println("==========================================================================================");
-        System.err.println(String.format("Unknown class in TabModifyController.setEditable: %s", loNode.getClass()));
+        System.err.printf("Unknown class in TabModifyController.setEditable: %s%n", loNode.getClass());
         System.err.println("==========================================================================================");
       }
 

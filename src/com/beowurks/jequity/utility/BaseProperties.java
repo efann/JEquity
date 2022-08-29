@@ -178,7 +178,8 @@ public class BaseProperties
         Misc.infoMessage(loErr.getMessage());
       }
       // Let's not display any encryption-related messages to the end-user.
-      catch (final InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException loErr)
+      catch (final InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException |
+                   BadPaddingException loErr)
       {
         llOkay = false;
         if (this.flDisplayErrors)
@@ -225,7 +226,8 @@ public class BaseProperties
 
         Misc.bytesToBinaryFile(loCipher.doFinal(lbOutput), this.fcFullName);
       }
-      catch (final InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException loErr)
+      catch (final InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException |
+                   BadPaddingException loErr)
       {
         llOkay = false;
         if (this.flDisplayErrors)

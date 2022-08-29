@@ -319,9 +319,8 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     if (taJSONInfo.length() != 0)
     {
       final Object loObject = taJSONInfo.get(0);
-      if (loObject instanceof JSONObject)
+      if (loObject instanceof final JSONObject loJSONObj)
       {
-        final JSONObject loJSONObj = (JSONObject) loObject;
         try
         {
           final String lcKey = loJSONObj.keys().next();

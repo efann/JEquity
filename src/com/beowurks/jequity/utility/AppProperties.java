@@ -169,7 +169,8 @@ public final class AppProperties extends BaseProperties
 
     switch (lnKey)
     {
-      case Constants.DRIVER_KEY_DERBY -> {
+      case Constants.DRIVER_KEY_DERBY ->
+      {
         final String lcFolder = this.getConnectionDatabase();
         lcURL.append("jdbc:derby:").append(lcFolder)
           .append(";upgrade=true").append(";bootPassword=").append(this.getDerbyBootPassword());
@@ -195,8 +196,10 @@ public final class AppProperties extends BaseProperties
 
       // From https://stackoverflow.com/questions/34189756/warning-about-ssl-connection-when-connecting-to-mysql-database
       // Also, with new Jar driver, https://community.oracle.com/message/14819583#14819583
-      case Constants.DRIVER_KEY_MYSQL5_PLUS -> lcURL.append("jdbc:mysql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase()).append("?autoReconnect=true&useSSL=false&serverTimezone=UTC");
-      case Constants.DRIVER_KEY_POSTGRESQL9_PLUS -> lcURL.append("jdbc:postgresql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase());
+      case Constants.DRIVER_KEY_MYSQL5_PLUS ->
+        lcURL.append("jdbc:mysql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase()).append("?autoReconnect=true&useSSL=false&serverTimezone=UTC");
+      case Constants.DRIVER_KEY_POSTGRESQL9_PLUS ->
+        lcURL.append("jdbc:postgresql://").append(this.getConnectionHost()).append("/").append(this.getConnectionDatabase());
     }
 
     return (lcURL.toString());
@@ -333,20 +336,24 @@ public final class AppProperties extends BaseProperties
   {
     switch (tnSource)
     {
-      case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT -> {
+      case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
+      {
         return (PageScraping.INSTANCE.getMarkerDescription());
       }
 
-      case Constants.WEB_MARKER_SOURCE_APPLICATION -> {
+      case Constants.WEB_MARKER_SOURCE_APPLICATION ->
+      {
         return (Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION);
       }
 
-      case Constants.WEB_MARKER_SOURCE_MANUAL -> {
+      case Constants.WEB_MARKER_SOURCE_MANUAL ->
+      {
         return (this.getMarkerManualDescription());
       }
 
-      default -> {
-        System.err.println(String.format("%d is not valid in AppProperties.getMarkerDescripton", tnSource));
+      default ->
+      {
+        System.err.printf("%d is not valid in AppProperties.getMarkerDescripton%n", tnSource);
         return (Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION);
       }
     }
@@ -360,20 +367,24 @@ public final class AppProperties extends BaseProperties
   {
     switch (tnSource)
     {
-      case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT -> {
+      case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
+      {
         return (PageScraping.INSTANCE.getMarkerLastTrade());
       }
 
-      case Constants.WEB_MARKER_SOURCE_APPLICATION -> {
+      case Constants.WEB_MARKER_SOURCE_APPLICATION ->
+      {
         return (Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE);
       }
 
-      case Constants.WEB_MARKER_SOURCE_MANUAL -> {
+      case Constants.WEB_MARKER_SOURCE_MANUAL ->
+      {
         return (this.getMarkerManualLastTrade());
       }
 
-      default -> {
-        System.err.println(String.format("%d is not valid in AppProperties.getMarkerLastTrade", tnSource));
+      default ->
+      {
+        System.err.printf("%d is not valid in AppProperties.getMarkerLastTrade%n", tnSource);
         return (Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE);
       }
     }
@@ -494,7 +505,7 @@ public final class AppProperties extends BaseProperties
     }
     else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
-      System.err.println(String.format("%d is not valid in AppProperties.setMarkerDescripton", tnSource));
+      System.err.printf("%d is not valid in AppProperties.setMarkerDescripton%n", tnSource);
     }
   }
 
@@ -507,7 +518,7 @@ public final class AppProperties extends BaseProperties
     }
     else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
-      System.err.println(String.format("%d is not valid in AppProperties.setMarkerLastTrade", tnSource));
+      System.err.printf("%d is not valid in AppProperties.setMarkerLastTrade%n", tnSource);
     }
   }
 

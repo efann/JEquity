@@ -55,6 +55,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.IsoFields;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -362,10 +363,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
     final ObservableList<XYChart.Series> loData = this.chtLineChartTrends.getData();
     loData.clear();
 
-    for (final XYChart.Series<String, Double> laXYDataSeriesTrend : this.faXYDataSeriesTrends)
-    {
-      loData.add(laXYDataSeriesTrend);
-    }
+    Collections.addAll(loData, this.faXYDataSeriesTrends);
 
   }
 
