@@ -652,9 +652,9 @@ public final class Misc
 
     // https://stackoverflow.com/questions/12540044/execute-a-task-after-the-webview-is-fully-loaded
     toWebView.getEngine().getLoadWorker().stateProperty().addListener(
-      (ObservableValue<? extends Worker.State> observable,
-       Worker.State oldValue,
-       Worker.State newValue) ->
+      (final ObservableValue<? extends Worker.State> observable,
+       final Worker.State oldValue,
+       final Worker.State newValue) ->
       {
         if (newValue != Worker.State.SUCCEEDED)
         {

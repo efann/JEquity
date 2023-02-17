@@ -124,7 +124,7 @@ public class TableViewPlus<S> extends TableView
   // ---------------------------------------------------------------------------------------------------------------------
   protected void setupKeySearch()
   {
-    this.setOnKeyTyped((KeyEvent toEvent) ->
+    this.setOnKeyTyped((final KeyEvent toEvent) ->
     {
       final ObservableList<TableColumn> loColumnList = this.getSortOrder();
       if (loColumnList.isEmpty())
@@ -185,7 +185,7 @@ public class TableViewPlus<S> extends TableView
       this.updateKeySearchMessage();
     });
 
-    this.setOnKeyPressed((KeyEvent toEvent) ->
+    this.setOnKeyPressed((final KeyEvent toEvent) ->
     {
       final KeyCode loKey = toEvent.getCode();
 

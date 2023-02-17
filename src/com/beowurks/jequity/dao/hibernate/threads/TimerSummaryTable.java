@@ -32,7 +32,7 @@ import java.util.Vector;
 // From http://stackoverflow.com/questions/32001/resettable-java-timer
 public class TimerSummaryTable
 {
-  class SummarySubAmount
+  static class SummarySubAmount
   {
     protected Boolean flRetirement;
     protected int fnTaxStatus;
@@ -43,7 +43,7 @@ public class TimerSummaryTable
     protected Double fnSubTotal;
   }
 
-  class SummarySubList
+  static class SummarySubList
   {
     protected String fcLabel;
     protected String fcConverted;

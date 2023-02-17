@@ -326,7 +326,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
           final String lcKey = loJSONObj.keys().next();
           lcMessage = loJSONObj.getString(lcKey);
         }
-        catch (final JSONException loError)
+        catch (final JSONException ignored)
         {
         }
 
