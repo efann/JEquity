@@ -3,8 +3,6 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/libraries/drivers/derby-10.14.2.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/libraries/drivers/derbyclient-10.14.2.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libraries/drivers/mysql-connector-j-8.0.33.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libraries/drivers/postgresql-42.6.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
