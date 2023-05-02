@@ -1,0 +1,10 @@
+{
+  "stocks": {
+    "description-marker": "#quote-header-info h1",
+    "lasttrade-marker": "#quote-header-info div[class^=My] fin-streamer:first-child",
+    "daily-url": "https://finance.yahoo.com/quote/###symbol###?p=###symbol###"
+  },
+  "historical": {
+    "alpha-key-url": "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=%s&outputsize=%s&apikey=%s"
+  }
+}
