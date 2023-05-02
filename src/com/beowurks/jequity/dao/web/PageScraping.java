@@ -20,7 +20,7 @@ public class PageScraping implements Runnable
 {
   public static final PageScraping INSTANCE = new PageScraping();
 
-  private static final String CONFIG_URL = "https://www.beowurks.com/Software/JEquity/config.xml";
+  private static final String CONFIG_URL = "https://www.beowurks.com/Software/JEquity/config.json";
   private static final String SYMBOL_MARKER = "###symbol###";
 
   private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", PageScraping.SYMBOL_MARKER, PageScraping.SYMBOL_MARKER);
