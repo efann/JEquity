@@ -31,6 +31,7 @@
     <orderEntry type="library" name="net.sf.jasperreports:jasperreports:6.18.1" level="project" />
     <orderEntry type="library" name="commons-io-2.11.0" level="project" />
     <orderEntry type="library" name="de.jangassen.nsmenufx" level="project" />
-    <orderEntry type="library" name="controlsfx-11.1.2" level="project" />
+    <orderEntry type="library" name="controlsfx" level="project" />
+    <orderEntry type="library" name="org.controlsfx" level="project" />
   </component>
 </module>

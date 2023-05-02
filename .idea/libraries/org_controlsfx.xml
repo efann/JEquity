@@ -1,8 +1,8 @@
 <component name="libraryTable">
-  <library name="controlsfx-11.1.2" type="repository">
+  <library name="org.controlsfx" type="repository">
     <properties maven-id="org.controlsfx:controlsfx:11.1.2" />
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libraries/controlsfx-11.1.2/controlsfx-11.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/org.controlsfx/controlsfx-11.1.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
