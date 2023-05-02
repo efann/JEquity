@@ -16,7 +16,7 @@ import com.beowurks.jequity.controller.tab.TabSymbolController;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSymbolInfo;
 import com.beowurks.jequity.dao.tableview.EnvironmentProperty;
-import com.beowurks.jequity.dao.web.PageScraping;
+import com.beowurks.jequity.dao.web.ConfigJSONSettings;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
@@ -223,7 +223,7 @@ public class MainFormController implements EventHandler<ActionEvent>
     // Refresh the Group Table also.
     if (tlIncludeGroupComboBox)
     {
-      PageScraping.INSTANCE.refreshData();
+      ConfigJSONSettings.INSTANCE.refreshData();
       this.tabGroupMainController.refreshData();
     }
 

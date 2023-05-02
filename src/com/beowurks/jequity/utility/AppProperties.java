@@ -8,7 +8,7 @@
 package com.beowurks.jequity.utility;
 
 import com.beowurks.jequity.dao.combobox.IntegerKeyItem;
-import com.beowurks.jequity.dao.web.PageScraping;
+import com.beowurks.jequity.dao.web.ConfigJSONSettings;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.view.dialog.PasswordDialog;
 import javafx.collections.ObservableList;
@@ -338,7 +338,7 @@ public final class AppProperties extends BaseProperties
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
-        return (PageScraping.INSTANCE.getMarkerDescription());
+        return (ConfigJSONSettings.INSTANCE.getMarkerDescription());
       }
 
       case Constants.WEB_MARKER_SOURCE_APPLICATION ->
@@ -369,7 +369,7 @@ public final class AppProperties extends BaseProperties
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
-        return (PageScraping.INSTANCE.getMarkerLastTrade());
+        return (ConfigJSONSettings.INSTANCE.getMarkerLastTrade());
       }
 
       case Constants.WEB_MARKER_SOURCE_APPLICATION ->

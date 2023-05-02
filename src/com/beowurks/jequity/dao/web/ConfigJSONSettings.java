@@ -16,14 +16,15 @@ import org.jsoup.nodes.Document;
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class PageScraping implements Runnable
+// This class contains the default values for scraping a page. It is called in AppProperties.
+public class ConfigJSONSettings implements Runnable
 {
-  public static final PageScraping INSTANCE = new PageScraping();
+  public static final ConfigJSONSettings INSTANCE = new ConfigJSONSettings();
 
   private static final String CONFIG_URL = "https://www.beowurks.com/Software/JEquity/config.json";
   private static final String SYMBOL_MARKER = "###symbol###";
 
-  private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", PageScraping.SYMBOL_MARKER, PageScraping.SYMBOL_MARKER);
+  private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", ConfigJSONSettings.SYMBOL_MARKER, ConfigJSONSettings.SYMBOL_MARKER);
 
   private String fcYahooDescriptionMarker = Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION;
   // List of previously used values
@@ -33,7 +34,7 @@ public class PageScraping implements Runnable
   private Thread foThread = null;
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private PageScraping()
+  private ConfigJSONSettings()
   {
   }
 
@@ -60,7 +61,7 @@ public class PageScraping implements Runnable
       try
       {
         // Highly recommended to set the userAgent.
-        loDoc = Jsoup.connect(PageScraping.CONFIG_URL + "?" + System.currentTimeMillis())
+        loDoc = Jsoup.connect(ConfigJSONSettings.CONFIG_URL + "?" + System.currentTimeMillis())
           .followRedirects(true)
           .userAgent(Constants.getUserAgent())
           .data("name", "jsoup")
@@ -76,7 +77,7 @@ public class PageScraping implements Runnable
 
     if (loDoc == null)
     {
-      final String lcMessage = String.format("Unable to read the page of %s.", PageScraping.CONFIG_URL);
+      final String lcMessage = String.format("Unable to read the page of %s.", ConfigJSONSettings.CONFIG_URL);
       Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
 
       return;
@@ -105,7 +106,7 @@ public class PageScraping implements Runnable
   public String getDailyStockURL(final String tcSymbol)
   {
     final String lcSymbol = tcSymbol.trim();
-    final String lcURL = this.fcYahooDailyURL.replaceAll(PageScraping.SYMBOL_MARKER, lcSymbol);
+    final String lcURL = this.fcYahooDailyURL.replaceAll(ConfigJSONSettings.SYMBOL_MARKER, lcSymbol);
 
     return (lcURL);
   }

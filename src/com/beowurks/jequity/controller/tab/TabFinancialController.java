@@ -16,7 +16,7 @@ import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadSingleSymbol;
 import com.beowurks.jequity.dao.hibernate.threads.TimerSummaryTable;
 import com.beowurks.jequity.dao.tableview.FinancialProperty;
 import com.beowurks.jequity.dao.tableview.SummaryProperty;
-import com.beowurks.jequity.dao.web.PageScraping;
+import com.beowurks.jequity.dao.web.ConfigJSONSettings;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Misc;
@@ -529,7 +529,7 @@ public class TabFinancialController extends TabModifyController implements Event
   {
     final String lcSymbol = this.txtSymbol.getText().trim();
 
-    this.lnkSymbolURL.setText(lcSymbol.isEmpty() ? "" : PageScraping.INSTANCE.getDailyStockURL(lcSymbol));
+    this.lnkSymbolURL.setText(lcSymbol.isEmpty() ? "" : ConfigJSONSettings.INSTANCE.getDailyStockURL(lcSymbol));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

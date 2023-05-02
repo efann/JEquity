@@ -9,7 +9,7 @@ package com.beowurks.jequity.dao.hibernate.threads;
 
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.SymbolEntity;
-import com.beowurks.jequity.dao.web.PageScraping;
+import com.beowurks.jequity.dao.web.ConfigJSONSettings;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Constants;
@@ -174,7 +174,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     {
       final String lcSymbol = loSymbol.getSymbol().trim();
 
-      final String lcDailyURL = PageScraping.INSTANCE.getDailyStockURL(lcSymbol);
+      final String lcDailyURL = ConfigJSONSettings.INSTANCE.getDailyStockURL(lcSymbol);
 
       this.updateStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
@@ -323,7 +323,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     final Timestamp loTimestamp = new Timestamp(loDate.getTime());
     toSymbol.setTradeTime(loTimestamp);
 
-    toSymbol.setComments(String.format("Source reference: %s", PageScraping.INSTANCE.getDailyStockURL(lcSymbol)));
+    toSymbol.setComments(String.format("Source reference: %s", ConfigJSONSettings.INSTANCE.getDailyStockURL(lcSymbol)));
 
     Transaction loTransaction = null;
     try
