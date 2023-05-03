@@ -10,8 +10,14 @@ package com.beowurks.jequity.dao.web;
 
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import org.apache.commons.io.FileUtils;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -21,7 +27,9 @@ public class ConfigJSONSettings implements Runnable
 {
   public static final ConfigJSONSettings INSTANCE = new ConfigJSONSettings();
 
-  private static final String CONFIG_URL = "https://www.beowurks.com/Software/JEquity/config.json";
+  private static final String BASE_FILE = "config.json";
+  private static final String CONFIG_URL = String.format("https://www.beowurks.com/Software/JEquity/%s", ConfigJSONSettings.BASE_FILE);
+  private static final String CONFIG_URL_LOCAL = Constants.TEMPORARY_PATH + ConfigJSONSettings.BASE_FILE;
   private static final String SYMBOL_MARKER = "###symbol###";
 
   private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", ConfigJSONSettings.SYMBOL_MARKER, ConfigJSONSettings.SYMBOL_MARKER);
@@ -55,27 +63,35 @@ public class ConfigJSONSettings implements Runnable
   @Override
   public void run()
   {
-    Document loDoc = null;
-    for (int lnTries = 0; (lnTries < Constants.JSOUP_TIMEOUT_TRIES) && (loDoc == null); ++lnTries)
+    final URL loURL;
+    try
     {
-      try
-      {
-        // Highly recommended to set the userAgent.
-        loDoc = Jsoup.connect(ConfigJSONSettings.CONFIG_URL + "?" + System.currentTimeMillis())
-          .followRedirects(true)
-          .userAgent(Constants.getUserAgent())
-          .data("name", "jsoup")
-          .maxBodySize(0)
-          .timeout(Constants.WEB_TIME_OUT)
-          .get();
-      }
-      catch (final Exception loErr)
-      {
-        loDoc = null;
-      }
+      loURL = new URL(ConfigJSONSettings.CONFIG_URL);
+    }
+    catch (final MalformedURLException loErr)
+    {
+      throw new RuntimeException(loErr);
     }
 
-    if (loDoc == null)
+    final File loJSONFile = new File(ConfigJSONSettings.CONFIG_URL_LOCAL);
+    try
+    {
+      FileUtils.copyURLToFile(loURL, loJSONFile, Constants.WEB_TIME_OUT, Constants.WEB_TIME_OUT);
+    }
+    catch (final Exception loErr)
+    {
+    }
+
+    String lcJSONText = null;
+    try
+    {
+      lcJSONText = FileUtils.readFileToString(loJSONFile, Charset.defaultCharset());
+    }
+    catch (final IOException loErr)
+    {
+    }
+
+    if (lcJSONText == null)
     {
       final String lcMessage = String.format("Unable to read the page of %s.", ConfigJSONSettings.CONFIG_URL);
       Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
@@ -83,23 +99,28 @@ public class ConfigJSONSettings implements Runnable
       return;
     }
 
-    final String lcDescription = loDoc.select("description-marker").text().trim();
+    final JSONObject loJSONObject = new JSONObject(lcJSONText);
+
+    final JSONObject loStocksJSON = loJSONObject.getJSONObject("stocks");
+
+    final String lcDescription = loStocksJSON.get("description-marker").toString().trim();
     if (!lcDescription.isEmpty())
     {
       this.fcYahooDescriptionMarker = lcDescription;
     }
 
-    final String lcLastTrade = loDoc.select("lasttrade-marker").text().trim();
+    final String lcLastTrade = loStocksJSON.get("lasttrade-marker").toString().trim();
     if (!lcLastTrade.isEmpty())
     {
       this.fcYahooLastTradeMarker = lcLastTrade;
     }
 
-    final String lcURL = loDoc.select("daily-url").text().trim();
+    final String lcURL = loStocksJSON.get("daily-url").toString().trim();
     if (!lcURL.isEmpty())
     {
       this.fcYahooDailyURL = lcURL;
     }
+
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

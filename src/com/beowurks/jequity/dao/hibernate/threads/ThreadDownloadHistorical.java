@@ -18,10 +18,11 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -124,51 +125,43 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
     Misc.setStatusText("Starting the process for historical data. . . .");
 
     final String lcSymbol = this.fcSymbol;
-    final String lcURL = this.foTabHistoricalGraphController.getAlphaVantageURL();
+    final URL loURL;
+    try
+    {
+      loURL = new URL(this.foTabHistoricalGraphController.getAlphaVantageURL());
+    }
+    catch (final MalformedURLException loErr)
+    {
+      throw new RuntimeException(loErr);
+    }
 
-    final String lcJSONFile = String.format("%s%s-%s.json", Constants.TEMPORARY_HISTORICAL_PATH, lcSymbol, LocalDate.now().format(this.foHistoricalFileDateFormat));
-    final File loJSONFile = new File(lcJSONFile);
+    final File loJSONFile = new File(String.format("%s%s-%s.json", Constants.TEMPORARY_HISTORICAL_PATH, lcSymbol, LocalDate.now().format(this.foHistoricalFileDateFormat)));
 
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 
     String lcJSONText = null;
 
-    if (loJSONFile.exists())
-    {
-      Misc.setStatusText("Reading the historical data from the cache. . . .");
-
-      try
-      {
-        lcJSONText = FileUtils.readFileToString(loJSONFile, Charset.defaultCharset());
-      }
-      catch (final IOException loErr)
-      {
-        lcJSONText = null;
-      }
-    }
-    else
+    // Don't download again if the file was already downloaded today (the date is in the name).
+    if (!loJSONFile.exists())
     {
       Misc.setStatusText("Downloading the historical data. . . .");
 
       try
       {
-        // Highly recommended to set the userAgent.
-        // Leave out data. I get errors when setting that parameter.
-        lcJSONText = Jsoup.connect(lcURL)
-          .followRedirects(false)
-          .userAgent(Constants.getUserAgent())
-          .maxBodySize(0)
-          .timeout(Constants.WEB_TIME_OUT)
-          .ignoreContentType(true)
-          .execute()
-          .body();
-
-        FileUtils.writeStringToFile(loJSONFile, lcJSONText, Charset.defaultCharset());
+        FileUtils.copyURLToFile(loURL, loJSONFile, Constants.WEB_TIME_OUT, Constants.WEB_TIME_OUT);
       }
       catch (final Exception loErr)
       {
-        lcJSONText = null;
       }
+    }
+
+    Misc.setStatusText("Reading the historical data from the cache. . . .");
+    try
+    {
+      lcJSONText = FileUtils.readFileToString(loJSONFile, Charset.defaultCharset());
+    }
+    catch (final IOException loErr)
+    {
     }
 
     if (lcJSONText == null)
@@ -176,7 +169,7 @@ public class ThreadDownloadHistorical extends ThreadBase implements Runnable
       // Just in case the file was created.
       FileUtils.deleteQuietly(loJSONFile);
 
-      final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid. If so, try again.", lcURL, lcSymbol);
+      final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid. If so, try again.", loURL, lcSymbol);
 
       // Display both messages, so at least one of them is noticed.
       Misc.errorMessage(lcMessage);
