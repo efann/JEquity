@@ -184,7 +184,7 @@ public class CheckForUpdates implements Runnable
     }
     else if (lcCurrentVersion.compareTo(this.fcAppVersion) == 0)
     {
-      loHtml.append("<b>You have the latest version installed</b>: ");
+      loHtml.append("<b>You have the latest & greatest version installed</b>: ");
       loHtml.append(Main.getApplicationFullName())
         .append("!");
     }
