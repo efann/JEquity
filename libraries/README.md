@@ -12,5 +12,5 @@ From https://db.apache.org/derby/releases/release-10.15.1.3.html
 
 ## NSMenuFX Library
 
-We have removed the javafx*11.jar files as those are provided by the JDK that we are using, which is currently the BellSoft JDK 19
+We have removed the javafx*11.jar files as those are provided by the JDK that we are using, which is currently the BellSoft JDK 19.
 
