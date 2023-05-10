@@ -5,6 +5,6 @@
     "web-page-url": "https://finance.yahoo.com/quote/%s?p=%s"
   },
   "historical": {
-    "alpha-vantage-url": "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=%s&outputsize=%s&apikey=%s"
+    "alpha-vantage-url": "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s"
   }
 }

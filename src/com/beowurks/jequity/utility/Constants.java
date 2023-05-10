@@ -38,7 +38,7 @@ final public class Constants
   //************************************************************
   // Used by Historical Graph Controller
   public final static int ALPHA_KEY_MASK_LIMIT = 4;
-  public final static String ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=%s&outputsize=%s&apikey=%s";
+  public final static String ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s";
   public final static int ALPHA_KEY_PRICE_TYPES = 4;
 
   //************************************************************
@@ -269,7 +269,6 @@ final public class Constants
   public final static String UNKNOWN_STOCK_SYMBOL = "Unknown Stock Symbol";
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
-
   public final static String WEB_PAGE_URL = "https://finance.yahoo.com/quote/%s?p=%s";
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";

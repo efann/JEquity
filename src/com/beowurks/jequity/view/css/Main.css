@@ -501,6 +501,23 @@
   -fx-pref-width: 150px;
 }
 
+#spnUpdateInterval
+{
+  -fx-pref-width: 75px;
+}
+
+#txtMarkerDescription,
+#txtMarkerLastTrade
+{
+  -fx-pref-width: 375px;
+  -fx-max-width: 375px;
+}
+
+#txtWebPageURL,
+#txtAlphaVantageURL
+{
+  -fx-pref-width: 500px;
+}
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
@@ -567,6 +584,16 @@
 {
   -fx-font-size: 1.1em;
   -fx-font-weight: bold;
+}
+
+#lblCredentialsWarning
+{
+  -fx-font-weight: bold;
+  -fx-pref-width: 300;
+  -fx-wrap-text: true;
+  -fx-padding: 15 0 0 0;
+  -fx-text-alignment: center;
+  -fx-alignment: center;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/

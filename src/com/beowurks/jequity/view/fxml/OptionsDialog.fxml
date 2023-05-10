@@ -34,9 +34,8 @@
           <PasswordFieldPlus fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
           <Button fx:id="btnDefault" text="Default" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
           <VBox GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2">
-            <Label text="For any modifications to take effect, you must exit then restart JEquity."
-                   style="-fx-font-weight: bold; -fx-pref-width: 300; -fx-wrap-text: true; -fx-padding: 15 0 0 0;
-                   -fx-text-alignment: center; -fx-alignment: center;"/>
+            <Label fx:id="lblCredentialsWarning"
+                   text="For any modifications to take effect, you must exit then restart JEquity."/>
           </VBox>
         </GridPane>
       </Tab>
@@ -56,8 +55,7 @@
               <Label fx:id="lblUpdateInterval" text="Update Interval (seconds)" GridPane.columnIndex="0"
                      GridPane.rowIndex="3"/>
               <GridPane hgap="10" vgap="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                <SpinnerPlus fx:id="spnUpdateInterval" GridPane.columnIndex="0" GridPane.rowIndex="0"
-                             style="-fx-pref-width: 75;"/>
+                <SpinnerPlus fx:id="spnUpdateInterval" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                 <Label fx:id="lblUpdateIntervalDefault" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
               </GridPane>
             </GridPane>
