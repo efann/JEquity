@@ -270,8 +270,7 @@ final public class Constants
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
 
-  public final static String WEB_PAGE_URL = "https://finance.yahoo.com/quote/###symbol###?p=###symbol###";
-
+  public final static String WEB_PAGE_URL = "https://finance.yahoo.com/quote/%s?p=%s";
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";
   public final static String YAHOO_DAILY_OPEN = "Open";

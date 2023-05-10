@@ -440,7 +440,7 @@ public final class AppProperties extends BaseProperties
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
-        return (ConfigJSONSettings.INSTANCE.getWebPageURL());
+        return (ConfigJSONSettings.INSTANCE.getAlphaVantageURL());
       }
 
       case Constants.WEB_MARKER_SOURCE_APPLICATION ->

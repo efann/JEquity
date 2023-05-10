@@ -24,7 +24,6 @@ import java.io.IOException;
 
 public class OptionsDialog extends Dialog
 {
-
   private final OptionsController foController;
 
   // ---------------------------------------------------------------------------------------------------------------------

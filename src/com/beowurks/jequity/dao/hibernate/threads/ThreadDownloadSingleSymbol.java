@@ -7,7 +7,6 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
-import com.beowurks.jequity.dao.web.ConfigJSONSettings;
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
@@ -71,7 +70,7 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
       return;
     }
 
-    final String lcDailyURL = ConfigJSONSettings.INSTANCE.getDailyStockURL(lcSymbol);
+    final String lcDailyURL = Misc.getDailyStockURL(lcSymbol);
 
     Misc.setStatusText(String.format("Downloading information for the symbol of %s . . . .", lcSymbol));
 

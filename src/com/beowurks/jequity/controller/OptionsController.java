@@ -162,6 +162,8 @@ public class OptionsController implements EventHandler<ActionEvent>
     final int lnSource = toApp.getMarkerSource();
     this.txtMarkerDescription.setText(toApp.getMarkerDescription(lnSource));
     this.txtMarkerLastTrade.setText(toApp.getMarkerLastTrade(lnSource));
+    this.txtWebPageURL.setText(toApp.getWebPageURL(lnSource));
+    this.txtAlphaVantageURL.setText(toApp.getAlphaVantageURL(lnSource));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -261,6 +263,8 @@ public class OptionsController implements EventHandler<ActionEvent>
     final AppProperties loApp = AppProperties.INSTANCE;
     this.txtMarkerDescription.setText(loApp.getMarkerDescription(lnSource));
     this.txtMarkerLastTrade.setText(loApp.getMarkerLastTrade(lnSource));
+    this.txtWebPageURL.setText((loApp.getWebPageURL(lnSource)));
+    this.txtAlphaVantageURL.setText(loApp.getAlphaVantageURL(lnSource));
 
     // If not in development environment, then stop here.
     if (!Main.isDevelopmentEnvironment())

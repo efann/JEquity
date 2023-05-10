@@ -810,7 +810,7 @@ public final class Misc
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public String getDailyStockURL(final String tcSymbol)
+  public static String getDailyStockURL(final String tcSymbol)
   {
     final AppProperties loApp = AppProperties.INSTANCE;
 

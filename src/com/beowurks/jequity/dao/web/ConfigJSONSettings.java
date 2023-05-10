@@ -101,6 +101,7 @@ public class ConfigJSONSettings implements Runnable
     final JSONObject loJSONObject = new JSONObject(lcJSONText);
 
     final JSONObject loStocksJSON = loJSONObject.getJSONObject("stocks");
+    final JSONObject loHistoricalJSON = loJSONObject.getJSONObject("historical");
 
     final String lcDescription = loStocksJSON.get("description-marker").toString().trim();
     if (!lcDescription.isEmpty())
@@ -120,10 +121,10 @@ public class ConfigJSONSettings implements Runnable
       this.fcWebPageURL = lcURL;
     }
 
-    final String lcAVURL = loStocksJSON.get("alpha-vantage-url").toString().trim();
-    if (!lcAVURL.isEmpty())
+    final String lcAlphaVantageURL = loHistoricalJSON.get("alpha-vantage-url").toString().trim();
+    if (!lcAlphaVantageURL.isEmpty())
     {
-      this.fcAlphaVantageURL = lcAVURL;
+      this.fcAlphaVantageURL = lcAlphaVantageURL;
     }
 
   }
@@ -145,6 +146,12 @@ public class ConfigJSONSettings implements Runnable
   public String getWebPageURL()
   {
     return (this.fcWebPageURL);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public String getAlphaVantageURL()
+  {
+    return (this.fcAlphaVantageURL);
   }
   // ---------------------------------------------------------------------------------------------------------------------
 }
