@@ -30,14 +30,13 @@ public class ConfigJSONSettings implements Runnable
   private static final String BASE_FILE = "config.json";
   private static final String CONFIG_URL = String.format("https://www.beowurks.com/Software/JEquity/%s", ConfigJSONSettings.BASE_FILE);
   private static final String CONFIG_URL_LOCAL = Constants.TEMPORARY_PATH + ConfigJSONSettings.BASE_FILE;
-  private static final String SYMBOL_MARKER = "###symbol###";
-
-  private String fcYahooDailyURL = String.format("https://finance.yahoo.com/quote/%s?p=%s", ConfigJSONSettings.SYMBOL_MARKER, ConfigJSONSettings.SYMBOL_MARKER);
-
   private String fcYahooDescriptionMarker = Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION;
   // List of previously used values
   //   "#quote-header-info div[class^=My] span[class^=Trsdu]"
   private String fcYahooLastTradeMarker = Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE;
+
+  private String fcWebPageURL = Constants.WEB_PAGE_URL;
+  private String fcAlphaVantageURL = Constants.ALPHA_VANTAGE_URL;
 
   private Thread foThread = null;
 
@@ -115,22 +114,20 @@ public class ConfigJSONSettings implements Runnable
       this.fcYahooLastTradeMarker = lcLastTrade;
     }
 
-    final String lcURL = loStocksJSON.get("daily-url").toString().trim();
+    final String lcURL = loStocksJSON.get("web-page-url").toString().trim();
     if (!lcURL.isEmpty())
     {
-      this.fcYahooDailyURL = lcURL;
+      this.fcWebPageURL = lcURL;
+    }
+
+    final String lcAVURL = loStocksJSON.get("alpha-vantage-url").toString().trim();
+    if (!lcAVURL.isEmpty())
+    {
+      this.fcAlphaVantageURL = lcAVURL;
     }
 
   }
 
-  // ---------------------------------------------------------------------------------------------------------------------
-  public String getDailyStockURL(final String tcSymbol)
-  {
-    final String lcSymbol = tcSymbol.trim();
-    final String lcURL = this.fcYahooDailyURL.replaceAll(ConfigJSONSettings.SYMBOL_MARKER, lcSymbol);
-
-    return (lcURL);
-  }
 
   // ---------------------------------------------------------------------------------------------------------------------
   public String getMarkerDescription()
@@ -144,6 +141,11 @@ public class ConfigJSONSettings implements Runnable
     return (this.fcYahooLastTradeMarker);
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------
+  public String getWebPageURL()
+  {
+    return (this.fcWebPageURL);
+  }
   // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------

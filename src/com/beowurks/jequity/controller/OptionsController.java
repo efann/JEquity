@@ -55,6 +55,8 @@ public class OptionsController implements EventHandler<ActionEvent>
   @FXML
   private PasswordFieldPlus txtAlphaVantageAPIKey;
   @FXML
+  private TextFieldPlus txtAlphaVantageURL;
+  @FXML
   private Label lblDailyDownloadInterval;
   @FXML
   private Label lblUpdateInterval;
@@ -70,9 +72,11 @@ public class OptionsController implements EventHandler<ActionEvent>
 
   @FXML
   private TextFieldPlus txtMarkerDescription;
-
   @FXML
   private TextFieldPlus txtMarkerLastTrade;
+
+  @FXML
+  private TextFieldPlus txtWebPageURL;
 
   @FXML
   private CheckBoxPlus chkMigrationStatus;
@@ -125,6 +129,9 @@ public class OptionsController implements EventHandler<ActionEvent>
     loApp.setMarkerSource(lnSource);
     loApp.setMarkerDescription(lnSource, this.txtMarkerDescription.getText().trim());
     loApp.setMarkerLastTrade(lnSource, this.txtMarkerLastTrade.getText().trim());
+
+    loApp.setWebPageURL(lnSource, this.txtWebPageURL.getText().trim());
+    loApp.setAlphaVantageURL(lnSource, this.txtAlphaVantageURL.getText().trim());
 
     // TimerSymbolInfo uses loApp.getDailyIntervalKey and loApp.getDailyStartKey
     TimerSymbolInfo.INSTANCE.reSchedule();
@@ -248,6 +255,8 @@ public class OptionsController implements EventHandler<ActionEvent>
     final boolean llMarkerEditable = (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL);
     this.txtMarkerDescription.setReadOnly(!llMarkerEditable);
     this.txtMarkerLastTrade.setReadOnly(!llMarkerEditable);
+    this.txtWebPageURL.setReadOnly(!llMarkerEditable);
+    this.txtAlphaVantageURL.setReadOnly(!llMarkerEditable);
 
     final AppProperties loApp = AppProperties.INSTANCE;
     this.txtMarkerDescription.setText(loApp.getMarkerDescription(lnSource));

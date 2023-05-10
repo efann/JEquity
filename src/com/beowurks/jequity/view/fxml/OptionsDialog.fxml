@@ -70,15 +70,15 @@
               <TextFieldPlus fx:id="txtMarkerDescription" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
               <Label text="Last Trade Marker" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
               <TextFieldPlus fx:id="txtMarkerLastTrade" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+              <Label text="Web Page URL" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+              <TextFieldPlus fx:id="txtWebPageURL" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+              <Label text="Alpha Vantage URL" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+              <TextFieldPlus fx:id="txtAlphaVantageURL" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+              <Label text="Alpha Vantage API Key" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+              <PasswordFieldPlus fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
             </GridPane>
           </TitledPane>
         </VBox>
-      </Tab>
-      <Tab text="Historical" closable="false">
-        <GridPane hgap="10" vgap="20">
-          <Label text="Alpha Vantage API Key" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-          <PasswordFieldPlus fx:id="txtAlphaVantageAPIKey" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-        </GridPane>
       </Tab>
       <Tab text="Miscellaneous" closable="false">
         <CheckBoxPlus fx:id="chkMigrationStatus" text="Always Check Migration Status"/>

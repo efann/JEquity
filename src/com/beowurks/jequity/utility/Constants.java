@@ -38,7 +38,7 @@ final public class Constants
   //************************************************************
   // Used by Historical Graph Controller
   public final static int ALPHA_KEY_MASK_LIMIT = 4;
-  public final static String ALPHA_KEY_STRING = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=%s&outputsize=%s&apikey=%s";
+  public final static String ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=%s&outputsize=%s&apikey=%s";
   public final static int ALPHA_KEY_PRICE_TYPES = 4;
 
   //************************************************************
@@ -215,8 +215,10 @@ final public class Constants
   // Web scraping related variables
   public final static String WEB_MARKER_SOURCE = "web.marker.source";
 
-  public final static String WEB_MARKER_MANUAL_DESCRIPTION = "web.marker.manual.description";
-  public final static String WEB_MARKER_MANUAL_LASTTRADE = "web.marker.manual.lasttrade";
+  public final static String MANUAL_WEB_MARKER_DESCRIPTION = "manual.web.marker.description";
+  public final static String MANUAL_WEB_MARKER_LASTTRADE = "manual.web.marker.lasttrade";
+  public final static String MANUAL_WEB_PAGE_URL = "manual.web.page.url";
+  public final static String MANUAL_ALPHA_VANTAGE_URL = "manual.alpha.vantage.url";
 
   public final static String WEB_MARKER_DEFAULT_VALUE_DESCRIPTION = "#quote-header-info h1";
   public final static String WEB_MARKER_DEFAULT_VALUE_LASTTRADE = "#quote-header-info div[class^=My] fin-streamer:first-child";
@@ -267,6 +269,8 @@ final public class Constants
   public final static String UNKNOWN_STOCK_SYMBOL = "Unknown Stock Symbol";
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
+
+  public final static String WEB_PAGE_URL = "https://finance.yahoo.com/quote/###symbol###?p=###symbol###";
 
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";

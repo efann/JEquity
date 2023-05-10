@@ -310,17 +310,32 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  // Yes, private on purpose. Should only be accessed by setMarkerDescription.
-  private String getMarkerManualDescription()
+  // Yes, private on purpose. Should only be accessed by getMarkerDescription.
+  private String getManualMarkerDescription()
   {
-    return (this.getProperty(Constants.WEB_MARKER_MANUAL_DESCRIPTION, Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION));
+    return (this.getProperty(Constants.MANUAL_WEB_MARKER_DESCRIPTION, Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  // Yes, private on purpose. Should only be accessed by setMarkerLastTrade.
-  private String getMarkerManualLastTrade()
+  // Yes, private on purpose. Should only be accessed by getMarkerLastTrade.
+  private String getManualMarkerLastTrade()
   {
-    return (this.getProperty(Constants.WEB_MARKER_MANUAL_LASTTRADE, Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE));
+    return (this.getProperty(Constants.MANUAL_WEB_MARKER_LASTTRADE, Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE));
+  }
+
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by getWebPageURL.
+  private String getManualWebPageURL()
+  {
+    return (this.getProperty(Constants.MANUAL_WEB_PAGE_URL, Constants.WEB_PAGE_URL));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by getAlphaVantageURL.
+  private String getManualAlphaVantageURL()
+  {
+    return (this.getProperty(Constants.MANUAL_ALPHA_VANTAGE_URL, Constants.ALPHA_VANTAGE_URL));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -348,7 +363,7 @@ public final class AppProperties extends BaseProperties
 
       case Constants.WEB_MARKER_SOURCE_MANUAL ->
       {
-        return (this.getMarkerManualDescription());
+        return (this.getManualMarkerDescription());
       }
 
       default ->
@@ -379,13 +394,69 @@ public final class AppProperties extends BaseProperties
 
       case Constants.WEB_MARKER_SOURCE_MANUAL ->
       {
-        return (this.getMarkerManualLastTrade());
+        return (this.getManualMarkerLastTrade());
       }
 
       default ->
       {
         System.err.printf("%d is not valid in AppProperties.getMarkerLastTrade%n", tnSource);
         return (Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE);
+      }
+    }
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public String getWebPageURL(final int tnSource)
+  {
+    switch (tnSource)
+    {
+      case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
+      {
+        return (ConfigJSONSettings.INSTANCE.getWebPageURL());
+      }
+
+      case Constants.WEB_MARKER_SOURCE_APPLICATION ->
+      {
+        return (Constants.WEB_PAGE_URL);
+      }
+
+      case Constants.WEB_MARKER_SOURCE_MANUAL ->
+      {
+        return (this.getManualWebPageURL());
+      }
+
+      default ->
+      {
+        System.err.printf("%d is not valid in AppProperties.getWebPageURL%n", tnSource);
+        return (Constants.WEB_PAGE_URL);
+      }
+    }
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public String getAlphaVantageURL(final int tnSource)
+  {
+    switch (tnSource)
+    {
+      case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
+      {
+        return (ConfigJSONSettings.INSTANCE.getWebPageURL());
+      }
+
+      case Constants.WEB_MARKER_SOURCE_APPLICATION ->
+      {
+        return (Constants.ALPHA_VANTAGE_URL);
+      }
+
+      case Constants.WEB_MARKER_SOURCE_MANUAL ->
+      {
+        return (this.getManualAlphaVantageURL());
+      }
+
+      default ->
+      {
+        System.err.printf("%d is not valid in AppProperties.getAlphaVantageURL%n", tnSource);
+        return (Constants.ALPHA_VANTAGE_URL);
       }
     }
   }
@@ -484,16 +555,30 @@ public final class AppProperties extends BaseProperties
 
   // -----------------------------------------------------------------------------------------------------------------------
   // Yes, private on purpose. Should only be accessed by setMarkerDescription.
-  private void setMarkerManualDescription(final String tcValue)
+  private void setManualMarkerDescription(final String tcValue)
   {
-    this.setProperty(Constants.WEB_MARKER_MANUAL_DESCRIPTION, tcValue);
+    this.setProperty(Constants.MANUAL_WEB_MARKER_DESCRIPTION, tcValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
   // Yes, private on purpose. Should only be accessed by setMarkerLastTrade.
-  private void setMarkerManualLastTrade(final String tcValue)
+  private void setManualMarkerLastTrade(final String tcValue)
   {
-    this.setProperty(Constants.WEB_MARKER_MANUAL_LASTTRADE, tcValue);
+    this.setProperty(Constants.MANUAL_WEB_MARKER_LASTTRADE, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by setWebPageURL.
+  private void setManualWebPageURL(final String tcValue)
+  {
+    this.setProperty(Constants.MANUAL_WEB_PAGE_URL, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by setAlphaVantageURL.
+  private void setManualAlphaVantageURL(final String tcValue)
+  {
+    this.setProperty(Constants.MANUAL_ALPHA_VANTAGE_URL, tcValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -501,7 +586,7 @@ public final class AppProperties extends BaseProperties
   {
     if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
     {
-      this.setMarkerManualDescription(tcValue);
+      this.setManualMarkerDescription(tcValue);
     }
     else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
@@ -514,11 +599,37 @@ public final class AppProperties extends BaseProperties
   {
     if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
     {
-      this.setMarkerManualLastTrade(tcValue);
+      this.setManualMarkerLastTrade(tcValue);
     }
     else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
       System.err.printf("%d is not valid in AppProperties.setMarkerLastTrade%n", tnSource);
+    }
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setWebPageURL(final int tnSource, final String tcValue)
+  {
+    if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    {
+      this.setManualWebPageURL(tcValue);
+    }
+    else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
+    {
+      System.err.printf("%d is not valid in AppProperties.setWebPageURL%n", tnSource);
+    }
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setAlphaVantageURL(final int tnSource, final String tcValue)
+  {
+    if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    {
+      this.setManualAlphaVantageURL(tcValue);
+    }
+    else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
+    {
+      System.err.printf("%d is not valid in AppProperties.setAlphaVantageURL%n", tnSource);
     }
   }
 

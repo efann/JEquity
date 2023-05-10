@@ -810,6 +810,18 @@ public final class Misc
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public String getDailyStockURL(final String tcSymbol)
+  {
+    final AppProperties loApp = AppProperties.INSTANCE;
+
+    final String lcSymbol = tcSymbol.trim();
+
+    final String lcURL = String.format(loApp.getWebPageURL(loApp.getMarkerSource()), lcSymbol, lcSymbol);
+
+    return (lcURL);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
