@@ -167,7 +167,7 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
   {
     final AppProperties loApp = AppProperties.INSTANCE;
 
-    return (String.format(loApp.getAlphaVantageURL(loApp.getMarkerSource()), this.getSymbol(), "full", this.getAlphaVantageKey()));
+    return (String.format(loApp.getAlphaVantageURL(), this.getSymbol(), "full", this.getAlphaVantageKey()));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

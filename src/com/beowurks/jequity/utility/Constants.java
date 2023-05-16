@@ -249,19 +249,24 @@ final public class Constants
   // Just Google 'what is my user agent'
   // From https://www.scrapehero.com/scrape-yahoo-finance-stock-market-data/
   // Recommended to use multiple user agents, though that no longer appears to be the case.
-  // Leaving here for now for legacy reference.
+  // Leaving here for now for legacy reference. Plus, I do not have a way to query
+  // the end-user's User Agent. And, why not.
   // And, yes, I want access private so force access through getUserAgent.
   private final static String[] USER_AGENTS =
     {
       "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
       "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0",
       "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:76.0) Gecko/20100101 Firefox/76.0",
+      "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0",
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
       "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko",
       "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:57.0) Gecko/20100101 Firefox/57.0",
       "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36",
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36",
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0",
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edg/87.0.664.75"
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edg/87.0.664.75",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
     };
 
   private static int fnTrackUserAgent = 0;
@@ -333,7 +338,7 @@ final public class Constants
 
   //************************************************************
   // Used for controls that are disabled.
-  public final static String DISABLED_CONTROL_BACKGROUND = "-fx-control-inner-background: #EEEEEE";
+  public final static String DISABLED_CONTROL_BACKGROUND = "-fx-control-inner-background: #EEEEEE; -fx-border-color: white;";
   public final static String DATEPICKER_NON_EDITABLE = "non-editable-datepicker";
 
   // ---------------------------------------------------------------------------------------------------------------------

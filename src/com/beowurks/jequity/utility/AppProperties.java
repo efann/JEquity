@@ -310,19 +310,18 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  // Yes, private on purpose. Should only be accessed by getMarkerDescription.
-  private String getManualMarkerDescription()
+  // Yes, private on purpose. Should only be accessed by getWebMarkerDescription.
+  private String getManualWebMarkerDescription()
   {
     return (this.getProperty(Constants.MANUAL_WEB_MARKER_DESCRIPTION, Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  // Yes, private on purpose. Should only be accessed by getMarkerLastTrade.
-  private String getManualMarkerLastTrade()
+  // Yes, private on purpose. Should only be accessed by getWebMarkerLastTrade.
+  private String getManualWebMarkerLastTrade()
   {
     return (this.getProperty(Constants.MANUAL_WEB_MARKER_LASTTRADE, Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE));
   }
-
 
   // -----------------------------------------------------------------------------------------------------------------------
   // Yes, private on purpose. Should only be accessed by getWebPageURL.
@@ -339,17 +338,19 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public int getMarkerSource()
+  public int getWebMarkerSource()
   {
     return (this.getProperty(Constants.WEB_MARKER_SOURCE, Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  // You can't use this.getMarkerSource(): it might not be set yet.
+  // You can't use this.getWebMarkerSource(): it might not be set yet.
   // Like changing the combo box value in Options, but not yet saved.
-  public String getMarkerDescription(final int tnSource)
+  public String getWebMarkerDescription()
   {
-    switch (tnSource)
+    final int lnSource = this.getWebMarkerSource();
+
+    switch (lnSource)
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
@@ -363,12 +364,12 @@ public final class AppProperties extends BaseProperties
 
       case Constants.WEB_MARKER_SOURCE_MANUAL ->
       {
-        return (this.getManualMarkerDescription());
+        return (this.getManualWebMarkerDescription());
       }
 
       default ->
       {
-        System.err.printf("%d is not valid in AppProperties.getMarkerDescripton%n", tnSource);
+        System.err.printf("%d is not valid in AppProperties.getMarkerDescripton%n", lnSource);
         return (Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION);
       }
     }
@@ -376,11 +377,13 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  // You can't use this.getMarkerSource(): it might not be set yet.
+  // You can't use this.getWebMarkerSource(): it might not be set yet.
   // Like changing the combo box value in Options, but not yet saved.
-  public String getMarkerLastTrade(final int tnSource)
+  public String getWebMarkerLastTrade()
   {
-    switch (tnSource)
+    final int lnSource = this.getWebMarkerSource();
+
+    switch (lnSource)
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
@@ -394,21 +397,23 @@ public final class AppProperties extends BaseProperties
 
       case Constants.WEB_MARKER_SOURCE_MANUAL ->
       {
-        return (this.getManualMarkerLastTrade());
+        return (this.getManualWebMarkerLastTrade());
       }
 
       default ->
       {
-        System.err.printf("%d is not valid in AppProperties.getMarkerLastTrade%n", tnSource);
+        System.err.printf("%d is not valid in AppProperties.getWebMarkerLastTrade%n", lnSource);
         return (Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE);
       }
     }
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public String getWebPageURL(final int tnSource)
+  public String getWebPageURL()
   {
-    switch (tnSource)
+    final int lnSource = this.getWebMarkerSource();
+
+    switch (lnSource)
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
@@ -427,16 +432,18 @@ public final class AppProperties extends BaseProperties
 
       default ->
       {
-        System.err.printf("%d is not valid in AppProperties.getWebPageURL%n", tnSource);
+        System.err.printf("%d is not valid in AppProperties.getWebPageURL%n", lnSource);
         return (Constants.WEB_PAGE_URL);
       }
     }
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public String getAlphaVantageURL(final int tnSource)
+  public String getAlphaVantageURL()
   {
-    switch (tnSource)
+    final int lnSource = this.getWebMarkerSource();
+
+    switch (lnSource)
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
@@ -455,7 +462,7 @@ public final class AppProperties extends BaseProperties
 
       default ->
       {
-        System.err.printf("%d is not valid in AppProperties.getAlphaVantageURL%n", tnSource);
+        System.err.printf("%d is not valid in AppProperties.getAlphaVantageURL%n", lnSource);
         return (Constants.ALPHA_VANTAGE_URL);
       }
     }
@@ -548,21 +555,21 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public void setMarkerSource(final int tnValue)
+  public void setWebMarkerSource(final int tnValue)
   {
     this.setProperty(Constants.WEB_MARKER_SOURCE, tnValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
   // Yes, private on purpose. Should only be accessed by setMarkerDescription.
-  private void setManualMarkerDescription(final String tcValue)
+  private void setManualWebMarkerDescription(final String tcValue)
   {
     this.setProperty(Constants.MANUAL_WEB_MARKER_DESCRIPTION, tcValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
   // Yes, private on purpose. Should only be accessed by setMarkerLastTrade.
-  private void setManualMarkerLastTrade(final String tcValue)
+  private void setManualWebMarkerLastTrade(final String tcValue)
   {
     this.setProperty(Constants.MANUAL_WEB_MARKER_LASTTRADE, tcValue);
   }
@@ -582,54 +589,62 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public void setMarkerDescription(final int tnSource, final String tcValue)
+  public void setMarkerDescription(final String tcValue)
   {
-    if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    final int lnSource = this.getWebMarkerSource();
+
+    if (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
     {
-      this.setManualMarkerDescription(tcValue);
+      this.setManualWebMarkerDescription(tcValue);
     }
-    else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
+    else if ((lnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (lnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
-      System.err.printf("%d is not valid in AppProperties.setMarkerDescripton%n", tnSource);
+      System.err.printf("%d is not valid in AppProperties.setMarkerDescripton%n", lnSource);
     }
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public void setMarkerLastTrade(final int tnSource, final String tcValue)
+  public void setMarkerLastTrade(final String tcValue)
   {
-    if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    final int lnSource = this.getWebMarkerSource();
+
+    if (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
     {
-      this.setManualMarkerLastTrade(tcValue);
+      this.setManualWebMarkerLastTrade(tcValue);
     }
-    else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
+    else if ((lnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (lnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
-      System.err.printf("%d is not valid in AppProperties.setMarkerLastTrade%n", tnSource);
+      System.err.printf("%d is not valid in AppProperties.setMarkerLastTrade%n", lnSource);
     }
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public void setWebPageURL(final int tnSource, final String tcValue)
+  public void setWebPageURL(final String tcValue)
   {
-    if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    final int lnSource = this.getWebMarkerSource();
+
+    if (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
     {
       this.setManualWebPageURL(tcValue);
     }
-    else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
+    else if ((lnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (lnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
-      System.err.printf("%d is not valid in AppProperties.setWebPageURL%n", tnSource);
+      System.err.printf("%d is not valid in AppProperties.setWebPageURL%n", lnSource);
     }
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  public void setAlphaVantageURL(final int tnSource, final String tcValue)
+  public void setAlphaVantageURL(final String tcValue)
   {
-    if (tnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    final int lnSource = this.getWebMarkerSource();
+
+    if (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
     {
       this.setManualAlphaVantageURL(tcValue);
     }
-    else if ((tnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (tnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
+    else if ((lnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (lnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
     {
-      System.err.printf("%d is not valid in AppProperties.setAlphaVantageURL%n", tnSource);
+      System.err.printf("%d is not valid in AppProperties.setAlphaVantageURL%n", lnSource);
     }
   }
 

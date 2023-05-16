@@ -816,7 +816,7 @@ public final class Misc
 
     final String lcSymbol = tcSymbol.trim();
 
-    final String lcURL = String.format(loApp.getWebPageURL(loApp.getMarkerSource()), lcSymbol, lcSymbol);
+    final String lcURL = String.format(loApp.getWebPageURL(), lcSymbol, lcSymbol);
 
     return (lcURL);
   }

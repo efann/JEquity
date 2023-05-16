@@ -126,12 +126,13 @@ public class OptionsController implements EventHandler<ActionEvent>
     loApp.setAlphaVantageAPIKey(this.txtAlphaVantageAPIKey.getText().trim());
 
     final int lnSource = loApp.convertIndexToKey(loApp.getWebMarkerSources(), this.cboWebMarkerSource.getSelectedIndex());
-    loApp.setMarkerSource(lnSource);
-    loApp.setMarkerDescription(lnSource, this.txtMarkerDescription.getText().trim());
-    loApp.setMarkerLastTrade(lnSource, this.txtMarkerLastTrade.getText().trim());
+    // Set MarkerSource first.
+    loApp.setWebMarkerSource(lnSource);
+    loApp.setMarkerDescription(this.txtMarkerDescription.getText().trim());
+    loApp.setMarkerLastTrade(this.txtMarkerLastTrade.getText().trim());
 
-    loApp.setWebPageURL(lnSource, this.txtWebPageURL.getText().trim());
-    loApp.setAlphaVantageURL(lnSource, this.txtAlphaVantageURL.getText().trim());
+    loApp.setWebPageURL(this.txtWebPageURL.getText().trim());
+    loApp.setAlphaVantageURL(this.txtAlphaVantageURL.getText().trim());
 
     // TimerSymbolInfo uses loApp.getDailyIntervalKey and loApp.getDailyStartKey
     TimerSymbolInfo.INSTANCE.reSchedule();
@@ -159,11 +160,10 @@ public class OptionsController implements EventHandler<ActionEvent>
 
     this.txtAlphaVantageAPIKey.setText(toApp.getAlphaVantageAPIKey());
 
-    final int lnSource = toApp.getMarkerSource();
-    this.txtMarkerDescription.setText(toApp.getMarkerDescription(lnSource));
-    this.txtMarkerLastTrade.setText(toApp.getMarkerLastTrade(lnSource));
-    this.txtWebPageURL.setText(toApp.getWebPageURL(lnSource));
-    this.txtAlphaVantageURL.setText(toApp.getAlphaVantageURL(lnSource));
+    this.txtMarkerDescription.setText(toApp.getWebMarkerDescription());
+    this.txtMarkerLastTrade.setText(toApp.getWebMarkerLastTrade());
+    this.txtWebPageURL.setText(toApp.getWebPageURL());
+    this.txtAlphaVantageURL.setText(toApp.getAlphaVantageURL());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -186,7 +186,7 @@ public class OptionsController implements EventHandler<ActionEvent>
     // Now set the selected value.
     this.cboDriver.getSelectionModel().select(toApp.convertKeyToIndex(toApp.getRDBMS_Types(), toApp.getConnectionRDBMS_Key()));
     this.cboDailyDownloadInterval.getSelectionModel().select(toApp.convertKeyToIndex(laDailyIntervals, toApp.getDailyIntervalKey()));
-    this.cboWebMarkerSource.getSelectionModel().select(toApp.convertKeyToIndex(toApp.getWebMarkerSources(), toApp.getMarkerSource()));
+    this.cboWebMarkerSource.getSelectionModel().select(toApp.convertKeyToIndex(toApp.getWebMarkerSources(), toApp.getWebMarkerSource()));
 
     // Now set any OnAction events.
     this.cboDriver.setOnAction(this);
@@ -261,10 +261,10 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.txtAlphaVantageURL.setReadOnly(!llMarkerEditable);
 
     final AppProperties loApp = AppProperties.INSTANCE;
-    this.txtMarkerDescription.setText(loApp.getMarkerDescription(lnSource));
-    this.txtMarkerLastTrade.setText(loApp.getMarkerLastTrade(lnSource));
-    this.txtWebPageURL.setText((loApp.getWebPageURL(lnSource)));
-    this.txtAlphaVantageURL.setText(loApp.getAlphaVantageURL(lnSource));
+    this.txtMarkerDescription.setText(loApp.getWebMarkerDescription());
+    this.txtMarkerLastTrade.setText(loApp.getWebMarkerLastTrade());
+    this.txtWebPageURL.setText((loApp.getWebPageURL()));
+    this.txtAlphaVantageURL.setText(loApp.getAlphaVantageURL());
 
     // If not in development environment, then stop here.
     if (!Main.isDevelopmentEnvironment())

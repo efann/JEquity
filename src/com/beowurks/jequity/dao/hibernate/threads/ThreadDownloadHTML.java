@@ -56,9 +56,8 @@ public class ThreadDownloadHTML extends ThreadBase
   protected String getDescriptionFromHtml(final Document toDoc)
   {
     final AppProperties loApp = AppProperties.INSTANCE;
-    final int lnSource = loApp.getMarkerSource();
 
-    String lcDescription = this.getHTML(toDoc, loApp.getMarkerDescription(lnSource));
+    String lcDescription = this.getHTML(toDoc, loApp.getWebMarkerDescription());
     if (lcDescription.isEmpty())
     {
       lcDescription = Constants.UNKNOWN_STOCK_SYMBOL;
@@ -123,7 +122,7 @@ public class ThreadDownloadHTML extends ThreadBase
   protected double getLastTradeValue(final Document toDoc)
   {
     final AppProperties loApp = AppProperties.INSTANCE;
-    final String lcMarker = loApp.getMarkerLastTrade(loApp.getMarkerSource());
+    final String lcMarker = loApp.getWebMarkerLastTrade();
 
     final String lcSelectedValue = this.cleanForNumber(this.getHTML(toDoc, lcMarker));
 
