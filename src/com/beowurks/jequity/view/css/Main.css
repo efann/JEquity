@@ -555,6 +555,13 @@
   -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
 }
 
+.text-field,
+.text-area,
+.combo-box
+{
+  -fx-border-color: #444444;
+}
+
 .progress-bar
 {
   -fx-pref-width: 350px;
@@ -627,6 +634,7 @@
 {
   -fx-opacity: 1.0;
   -fx-text-fill: #444;
+  -fx-border-color: white;
 }
 
 /* From https://stackoverflow.com/questions/21379865/how-to-hide-the-down-arrow-button-on-a-combobox-in-javafx */

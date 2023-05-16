@@ -41,7 +41,7 @@
   </TableViewPlus>
 
   <HBox fx:id="boxComponents" spacing="10">
-    <GridPane fx:id="gridPaneComponents" hgap="5">
+    <GridPane fx:id="gridPaneComponents" hgap="5" vgap="1">
 
       <Label text="Stock Symbol" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="RIGHT"/>
       <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
