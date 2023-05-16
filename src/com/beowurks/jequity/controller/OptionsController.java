@@ -261,10 +261,10 @@ public class OptionsController implements EventHandler<ActionEvent>
     this.txtAlphaVantageURL.setReadOnly(!llMarkerEditable);
 
     final AppProperties loApp = AppProperties.INSTANCE;
-    this.txtMarkerDescription.setText(loApp.getWebMarkerDescription());
-    this.txtMarkerLastTrade.setText(loApp.getWebMarkerLastTrade());
-    this.txtWebPageURL.setText((loApp.getWebPageURL()));
-    this.txtAlphaVantageURL.setText(loApp.getAlphaVantageURL());
+    this.txtMarkerDescription.setText(loApp.getWebMarkerDescription(lnSource));
+    this.txtMarkerLastTrade.setText(loApp.getWebMarkerLastTrade(lnSource));
+    this.txtWebPageURL.setText((loApp.getWebPageURL(lnSource)));
+    this.txtAlphaVantageURL.setText(loApp.getAlphaVantageURL(lnSource));
 
     // If not in development environment, then stop here.
     if (!Main.isDevelopmentEnvironment())

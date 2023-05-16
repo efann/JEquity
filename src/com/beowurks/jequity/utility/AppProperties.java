@@ -344,17 +344,19 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  // You can't use this.getWebMarkerSource(): it might not be set yet.
-  // Like changing the combo box value in Options, but not yet saved.
   public String getWebMarkerDescription()
   {
-    final int lnSource = this.getWebMarkerSource();
+    return (this.getWebMarkerDescription(this.getWebMarkerSource()));
+  }
 
-    switch (lnSource)
+  // -----------------------------------------------------------------------------------------------------------------------
+  public String getWebMarkerDescription(final int tnSource)
+  {
+    switch (tnSource)
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
-        return (ConfigJSONSettings.INSTANCE.getMarkerDescription());
+        return (ConfigJSONSettings.INSTANCE.getWebMarkerDescription());
       }
 
       case Constants.WEB_MARKER_SOURCE_APPLICATION ->
@@ -369,7 +371,7 @@ public final class AppProperties extends BaseProperties
 
       default ->
       {
-        System.err.printf("%d is not valid in AppProperties.getMarkerDescripton%n", lnSource);
+        System.err.printf("%d is not valid in AppProperties.getMarkerDescripton%n", tnSource);
         return (Constants.WEB_MARKER_DEFAULT_VALUE_DESCRIPTION);
       }
     }
@@ -377,17 +379,19 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  // You can't use this.getWebMarkerSource(): it might not be set yet.
-  // Like changing the combo box value in Options, but not yet saved.
   public String getWebMarkerLastTrade()
   {
-    final int lnSource = this.getWebMarkerSource();
+    return (this.getWebMarkerLastTrade(this.getWebMarkerSource()));
+  }
 
-    switch (lnSource)
+  // -----------------------------------------------------------------------------------------------------------------------
+  public String getWebMarkerLastTrade(final int tnSource)
+  {
+    switch (tnSource)
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
-        return (ConfigJSONSettings.INSTANCE.getMarkerLastTrade());
+        return (ConfigJSONSettings.INSTANCE.getWebMarkerLastTrade());
       }
 
       case Constants.WEB_MARKER_SOURCE_APPLICATION ->
@@ -402,7 +406,7 @@ public final class AppProperties extends BaseProperties
 
       default ->
       {
-        System.err.printf("%d is not valid in AppProperties.getWebMarkerLastTrade%n", lnSource);
+        System.err.printf("%d is not valid in AppProperties.getWebMarkerLastTrade%n", tnSource);
         return (Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE);
       }
     }
@@ -411,9 +415,13 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------------------------------------------------
   public String getWebPageURL()
   {
-    final int lnSource = this.getWebMarkerSource();
+    return (this.getWebPageURL(this.getWebMarkerSource()));
+  }
 
-    switch (lnSource)
+  // -----------------------------------------------------------------------------------------------------------------------
+  public String getWebPageURL(final int tnSource)
+  {
+    switch (tnSource)
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
@@ -432,7 +440,7 @@ public final class AppProperties extends BaseProperties
 
       default ->
       {
-        System.err.printf("%d is not valid in AppProperties.getWebPageURL%n", lnSource);
+        System.err.printf("%d is not valid in AppProperties.getWebPageURL%n", tnSource);
         return (Constants.WEB_PAGE_URL);
       }
     }
@@ -441,9 +449,13 @@ public final class AppProperties extends BaseProperties
   // -----------------------------------------------------------------------------------------------------------------------
   public String getAlphaVantageURL()
   {
-    final int lnSource = this.getWebMarkerSource();
+    return (this.getAlphaVantageURL(this.getWebMarkerSource()));
+  }
 
-    switch (lnSource)
+  // -----------------------------------------------------------------------------------------------------------------------
+  public String getAlphaVantageURL(final int tnSource)
+  {
+    switch (tnSource)
     {
       case Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT ->
       {
@@ -462,7 +474,7 @@ public final class AppProperties extends BaseProperties
 
       default ->
       {
-        System.err.printf("%d is not valid in AppProperties.getAlphaVantageURL%n", lnSource);
+        System.err.printf("%d is not valid in AppProperties.getAlphaVantageURL%n", tnSource);
         return (Constants.ALPHA_VANTAGE_URL);
       }
     }

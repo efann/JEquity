@@ -131,13 +131,13 @@ public class ConfigJSONSettings implements Runnable
 
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public String getMarkerDescription()
+  public String getWebMarkerDescription()
   {
     return (this.fcYahooDescriptionMarker);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  public String getMarkerLastTrade()
+  public String getWebMarkerLastTrade()
   {
     return (this.fcYahooLastTradeMarker);
   }
