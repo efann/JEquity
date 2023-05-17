@@ -521,6 +521,29 @@
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
+  Filter fields
+*/
+
+#lblFilterFinancial
+{
+  -fx-font-style: italic;
+  -fx-text-fill: green;
+}
+
+#txtFilterFinancial
+{
+  -fx-pref-width: 500px;
+  -fx-max-width: 500px;
+  -fx-font-style: italic;
+}
+
+.text-field
+{
+  -fx-prompt-text-fill: green;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
   Miscellaneous
 */
 

@@ -61,6 +61,12 @@ public class TabFinancialController extends TabModifyController implements Event
 
   //------------------------
   // tblFinancial
+
+  @FXML
+  private TextFieldPlus txtFilterFinancial;
+  @FXML
+  private Label lblFilterFinancial;
+
   @FXML
   private TableViewPlus tblFinancial;
 
@@ -182,6 +188,15 @@ public class TabFinancialController extends TabModifyController implements Event
       }
     });
 
+    this.txtFilterFinancial.focusedProperty().addListener((observable, oldValue, newValue) ->
+    {
+      // Signifies that focus has been lost.
+      if (oldValue && (!newValue))
+      {
+        ThreadDownloadSingleSymbol.INSTANCE.start(SingleSymbolInfo.INSTANCE);
+      }
+    });
+
     this.lnkSymbolURL.setOnAction(this);
 
     // Setup the summary table update on scroll.
@@ -263,6 +278,19 @@ public class TabFinancialController extends TabModifyController implements Event
     loSession.close();
 
     TimerSummaryTable.INSTANCE.scheduleDataRefresh(null, null, null, null);
+
+    this.updateFilterFinancialInfo(true);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateFilterFinancialInfo(final boolean tlResetFilter)
+  {
+    if (tlResetFilter)
+    {
+      this.txtFilterFinancial.setText("");
+    }
+
+    this.lblFilterFinancial.setText(String.format("Record count: %d", this.tblFinancial.getItems().size()));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

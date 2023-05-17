@@ -12,16 +12,19 @@
 <?import com.beowurks.jequity.view.combobox.ComboBoxStringKey?>
 <?import com.beowurks.jequity.view.table.TableViewPlus?>
 <?import com.beowurks.jequity.view.textarea.TextAreaPlus?>
-<?import com.beowurks.jequity.view.textfield.DatePickerPlus?>
-<?import com.beowurks.jequity.view.textfield.NumberTextField?>
-<?import com.beowurks.jequity.view.textfield.TextFieldPlus?>
-<?import com.beowurks.jequity.view.textfield.UpperCaseTextField?>
+<?import com.beowurks.jequity.view.textfield.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox stylesheets="@../css/Main.css"
       xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.beowurks.jequity.controller.tab.TabFinancialController">
 
+  <ToolBar fx:id="barSearch">
+    <items>
+      <TextFieldPlus fx:id="txtFilterFinancial" promptText="Filter results"/>
+      <Label fx:id="lblFilterFinancial"/>
+    </items>
+  </ToolBar>
   <TableViewPlus fx:id="tblFinancial" prefHeight="300" VBox.vgrow="ALWAYS">
     <columns>
       <TableColumn fx:id="colID" text="ID #"/>
