@@ -7,11 +7,8 @@
  */
 
 /*
-  Here's an example file: https://gist.github.com/tmazeika/c90c03c645d18722ddb0
-  caspian.css
-
-  I just found the css files. They're in lib\javafx.controls.jar in the folder path of com\sun\javafx\scene\control\skin\
-  Actually, that's no longer the case for BellSoft Liberica Java/JavaFX.
+  Here's a link to the GitHub repo for JavaFX and a main CSS file
+  https://github.com/openjdk/jfx/blob/master/modules/javafx.controls/src/main/resources/com/sun/javafx/scene/control/skin/modena/modena.css
 */
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -565,12 +562,8 @@
 .check-box:disabled,
 .date-picker:disabled
 {
+  /* Otherwise, you can barely read the check-box text. */
   -fx-opacity: 1.0;
-}
-
-.check-box > .box
-{
-  -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
 }
 
 .enable-check-box > .box
@@ -582,7 +575,7 @@
 .text-area,
 .combo-box
 {
-  -fx-border-color: #444444;
+  -fx-border-color: darkgray;
 }
 
 .progress-bar
