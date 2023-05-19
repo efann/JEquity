@@ -544,10 +544,17 @@
   Miscellaneous
 */
 
+/*
+From https://mail.openjdk.org/pipermail/openjfx-dev/2012-August/003324.html
+Unfortunately, the FadeTransition will override that opacity styling for the button.
+After mouse enter/exit, the button will remain opaque: 1.0 even when disabled.
+Sigh. . . .
 .button
 {
+
   -fx-skin: 'com.beowurks.jequity.view.skin.ButtonSkinPlus';
 }
+*/
 
 .combo-box,
 .button,

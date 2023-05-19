@@ -193,7 +193,7 @@ public class TabFinancialController extends TabModifyController implements Event
       // Signifies that focus has been lost.
       if (oldValue && (!newValue))
       {
-        ThreadDownloadSingleSymbol.INSTANCE.start(SingleSymbolInfo.INSTANCE);
+        // ThreadDownloadSingleSymbol.INSTANCE.start(SingleSymbolInfo.INSTANCE);
       }
     });
 
