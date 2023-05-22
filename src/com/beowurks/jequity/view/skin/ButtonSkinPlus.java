@@ -9,7 +9,6 @@
 package com.beowurks.jequity.view.skin;
 
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.skin.ButtonSkin;
 import javafx.util.Duration;
@@ -30,30 +29,15 @@ public class ButtonSkinPlus extends ButtonSkin
 
     final FadeTransition loFadeIn = new FadeTransition(Duration.millis(250));
     loFadeIn.setNode(toControl);
-    loFadeIn.setToValue(1);
+    loFadeIn.setToValue(1.0);
 
     final FadeTransition loFadeOut = new FadeTransition(Duration.millis(250));
     loFadeOut.setNode(toControl);
     // 0.5 makes it appear disabled.
     loFadeOut.setToValue(0.75);
 
-    toControl.setOnMouseEntered(
-      e ->
-      {
-        Platform.runLater(() ->
-        {
-          loFadeOut.playFromStart();
-        });
-      }
-    );
-    toControl.setOnMouseExited(e ->
-    {
-      Platform.runLater(() ->
-      {
-        loFadeIn.playFromStart();
-      });
-    });
-
+    toControl.setOnMouseEntered(e -> loFadeOut.playFromStart());
+    toControl.setOnMouseExited(e -> loFadeIn.playFromStart());
   }
   // ---------------------------------------------------------------------------------------------------------------------
 
