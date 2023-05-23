@@ -561,7 +561,9 @@ Sigh. . . .
   The fadeIn/fadeOut modify .button:disabled, but apparently not .button:disabled > *
 
   Yeah, it's kind of a hack.
- */
+*/
+
+/* Matches the results of fadeIn/fadeOut */
 .button:disabled
 {
   -fx-opacity: 1.0;
