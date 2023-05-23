@@ -556,8 +556,10 @@ Sigh. . . .
 }
 
 /*
-  This is necessary to combat the ButtonSkipPlus fadeIn/fadeOut reseting the opacity values.
+  This is necessary to combat the ButtonSkipPlus fadeIn/fadeOut resetting the opacity values.
   Now, the disabled colors should not change after the button is hovered over.
+  The fadeIn/fadeOut modify .button:disabled, but apparently not .button:disabled > *
+
   Yeah, it's kind of a hack.
  */
 .button:disabled
