@@ -255,6 +255,12 @@ public class TabFinancialController extends TabModifyController implements Event
       this.tblFinancial.setItems(this.foDataList);
     }
 
+    this.tblFinancial.resizeColumnsToFit();
+    // In case of data refresh and column(s) have already been sorted.
+    // And it's okay if no column(s) have been sorted.
+    this.tblFinancial.sort();
+
+    // Re-select the current selection if able. This should happen after sorting & such.
     if (loCurrent != null)
     {
       final int lnRows = this.tblFinancial.getItems().size();
@@ -269,11 +275,6 @@ public class TabFinancialController extends TabModifyController implements Event
         }
       }
     }
-
-    this.tblFinancial.resizeColumnsToFit();
-    // In case of data refresh and column(s) have already been sorted.
-    // And it's okay if no column(s) have been sorted.
-    this.tblFinancial.sort();
 
     loSession.close();
 
