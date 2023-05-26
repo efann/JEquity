@@ -57,8 +57,12 @@ import java.util.List;
 // ---------------------------------------------------------------------------------------------------------------------
 public class TabFinancialController extends TabModifyController implements EventHandler<ActionEvent>
 {
-  private final ObservableList<FinancialProperty> foDataList = FXCollections.observableArrayList();
-
+  // From https://stackoverflow.com/questions/50747524/javafx-tableview-rows-not-refreshing-when-list-item-added
+  // FilteredList won't refresh with foDataList updates as it makes a copy of foDataList.
+  // So manual searching it is. . . .
+  // Which I derived from https://edencoding.com/search-bar-dynamic-filtering/
+  private final ObservableList<FinancialProperty> foFullDataList = FXCollections.observableArrayList();
+  private final ObservableList<FinancialProperty> foFilteredDataList = FXCollections.observableArrayList();
   //------------------------
   // tblFinancial
 
@@ -188,15 +192,6 @@ public class TabFinancialController extends TabModifyController implements Event
       }
     });
 
-    this.txtFilterFinancial.focusedProperty().addListener((observable, oldValue, newValue) ->
-    {
-      // Signifies that focus has been lost.
-      if (oldValue && (!newValue))
-      {
-        // ThreadDownloadSingleSymbol.INSTANCE.start(SingleSymbolInfo.INSTANCE);
-      }
-    });
-
     this.lnkSymbolURL.setOnAction(this);
 
     // Setup the summary table update on scroll.
@@ -209,6 +204,13 @@ public class TabFinancialController extends TabModifyController implements Event
       }
 
     });
+
+    this.txtFilterFinancial.textProperty().addListener((observable, oldValue, newValue) ->
+      {
+        this.refreshFilteredData();
+        this.updateFilterFinancialInfo(false);
+      }
+    );
 
     this.setupQuickModify(this.tblFinancial);
   }
@@ -242,17 +244,19 @@ public class TabFinancialController extends TabModifyController implements Event
 
     final List<FinancialEntity> loList = this.getQuery(loSession).list();
 
-    this.foDataList.clear();
+    this.foFullDataList.clear();
     for (final FinancialEntity loRow : loList)
     {
-      this.foDataList.add(new FinancialProperty(loRow.getGroupID(), loRow.getFinancialID(), loRow.getDescription(), loRow.getAccount(),
+      this.foFullDataList.add(new FinancialProperty(loRow.getGroupID(), loRow.getFinancialID(), loRow.getDescription(), loRow.getAccount(),
         loRow.getType(), loRow.getCategory(), loRow.getShares(), loRow.getPrice(), loRow.getValuationDate(), loRow.getRetirement(), loRow.getOwnership(),
         loRow.getTaxStatus(), loRow.getSymbol(), loRow.getComments()));
     }
 
-    if (this.tblFinancial.getItems() != this.foDataList)
+    this.refreshFilteredData();
+
+    if (this.tblFinancial.getItems() != this.foFilteredDataList)
     {
-      this.tblFinancial.setItems(this.foDataList);
+      this.tblFinancial.setItems(this.foFilteredDataList);
     }
 
     this.tblFinancial.resizeColumnsToFit();
@@ -281,6 +285,37 @@ public class TabFinancialController extends TabModifyController implements Event
     TimerSummaryTable.INSTANCE.scheduleDataRefresh(null, null, null, null);
 
     this.updateFilterFinancialInfo(true);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void refreshFilteredData()
+  {
+    final String lcSearch = this.txtFilterFinancial.getText().trim();
+    this.foFilteredDataList.clear();
+    if (lcSearch.isEmpty())
+    {
+      this.foFilteredDataList.setAll(this.foFullDataList);
+      return;
+    }
+
+    for (final FinancialProperty loFinancial : this.foFullDataList)
+    {
+      if (this.searchFinancials(loFinancial, lcSearch))
+      {
+        this.foFilteredDataList.add(loFinancial);
+      }
+    }
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private boolean searchFinancials(final FinancialProperty toFinancial, final String tcSearchText)
+  {
+    final String lcSearch = toFinancial.getDescription().trim() + ";" + toFinancial.getAccount().trim() + ";" +
+      toFinancial.getType().trim() + ";" + toFinancial.getCategory().trim() + ";" + toFinancial.getOwnership().trim() + ";" +
+      toFinancial.getSymbol().trim() + ";" + toFinancial.getComments().trim() + ";";
+
+    return (lcSearch.toLowerCase().contains(tcSearchText.toLowerCase()));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -432,7 +467,7 @@ public class TabFinancialController extends TabModifyController implements Event
           loNewEntity.getType(), loNewEntity.getCategory(), loNewEntity.getShares(), loNewEntity.getPrice(), loNewEntity.getValuationDate(), loNewEntity.getRetirement(), loNewEntity.getOwnership(),
           loNewEntity.getTaxStatus(), loNewEntity.getSymbol(), loNewEntity.getComments());
 
-        this.foDataList.add(loNewRecord);
+        this.foFullDataList.add(loNewRecord);
         this.tblFinancial.getSelectionModel().select(loNewRecord);
         this.tblFinancial.scrollTo(loNewRecord);
 
@@ -524,6 +559,8 @@ public class TabFinancialController extends TabModifyController implements Event
   protected void resetTextFields(final boolean tlModify)
   {
     super.resetTextFields(tlModify);
+
+    this.txtFilterFinancial.setReadOnly(tlModify);
 
     final AppProperties loApp = AppProperties.INSTANCE;
     final boolean llManualEntry = loApp.getManualFinancialData();
