@@ -63,6 +63,8 @@ public class TabFinancialController extends TabModifyController implements Event
   // Which I derived from https://edencoding.com/search-bar-dynamic-filtering/
   private final ObservableList<FinancialProperty> foFullDataList = FXCollections.observableArrayList();
   private final ObservableList<FinancialProperty> foFilteredDataList = FXCollections.observableArrayList();
+
+  private final static String SEARCH_FIELD_SEPARATOR = "~";
   //------------------------
   // tblFinancial
 
@@ -311,9 +313,9 @@ public class TabFinancialController extends TabModifyController implements Event
   // ---------------------------------------------------------------------------------------------------------------------
   private boolean searchFinancials(final FinancialProperty toFinancial, final String tcSearchText)
   {
-    final String lcSearch = toFinancial.getDescription().trim() + ";" + toFinancial.getAccount().trim() + ";" +
-      toFinancial.getType().trim() + ";" + toFinancial.getCategory().trim() + ";" + toFinancial.getOwnership().trim() + ";" +
-      toFinancial.getSymbol().trim() + ";" + toFinancial.getComments().trim() + ";";
+    final String lcSearch = toFinancial.getDescription().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getAccount().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR +
+      toFinancial.getType().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getCategory().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getOwnership().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR +
+      toFinancial.getSymbol().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getComments().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR;
 
     return (lcSearch.toLowerCase().contains(tcSearchText.toLowerCase()));
   }
