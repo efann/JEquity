@@ -38,6 +38,10 @@ public class Calculations
 
   private double fnSmoothing;
 
+  // This variable is used for the predictions: otherwise, you will have a large gap from where the
+  // raw data ends and the future data starts.
+  private double fnOffset = 0.0;
+
   // ---------------------------------------------------------------------------------------------------------------------
   private Calculations()
   {
@@ -65,6 +69,8 @@ public class Calculations
     this.refreshRegression();
     // Regression must be done before FFTSeasonal as FFTSeasonal uses the Regression results.
     this.refreshFFTSeasonal();
+
+    this.resetOffset();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -79,10 +85,11 @@ public class Calculations
   // 0-based.
   public double getYValueFFTSeasonal(final int tnXValue)
   {
-    final int lnIndex = tnXValue % this.faAvgValues.length;
+    final int lnAvgValuesLen = this.faAvgValues.length;
+    final int lnIndex = tnXValue % lnAvgValuesLen;
 
     // You should use lnIndex for foComplexFFTSeasonal. However, getYValueRegression should use the actual tnXValue.
-    return (this.foComplexFFTSeasonal[lnIndex].getReal() + this.getYValueRegression(tnXValue));
+    return (this.foComplexFFTSeasonal[lnIndex].getReal() + this.getYValueRegression(tnXValue) + (tnXValue >= lnAvgValuesLen ? this.fnOffset : 0.0));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -175,6 +182,18 @@ public class Calculations
 
     // Now convert altered frequency data back to normal data.
     this.foComplexFFTSeasonal = this.foFFTransformer.transform(this.foComplexFFTSeasonal, TransformType.INVERSE);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // Otherwise, you get large gaps between last raw data and first prediction.
+  private void resetOffset()
+  {
+    final int lnAvgValuesLen = this.faAvgValues.length;
+    this.fnOffset = 0.0;
+
+    final double lnFirst = this.getYValueFFTSeasonal(0);
+    final double lnSecond = this.getYValueFFTSeasonal(lnAvgValuesLen - 1);
+    this.fnOffset = lnSecond - lnFirst;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
