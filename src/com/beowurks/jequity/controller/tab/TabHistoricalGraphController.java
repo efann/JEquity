@@ -17,7 +17,6 @@ import com.beowurks.jequity.dao.hibernate.SymbolEntity;
 import com.beowurks.jequity.dao.hibernate.threads.DataExtraValue;
 import com.beowurks.jequity.dao.hibernate.threads.JSONDataElements;
 import com.beowurks.jequity.dao.hibernate.threads.ThreadDownloadHistorical;
-import com.beowurks.jequity.dao.tableview.GroupProperty;
 import com.beowurks.jequity.main.Main;
 import com.beowurks.jequity.utility.AppProperties;
 import com.beowurks.jequity.utility.Calculations;
@@ -89,8 +88,6 @@ public class TabHistoricalGraphController implements EventHandler<ActionEvent>
 
   @FXML
   private LineChart chtLineChartTrends;
-
-  private final ObservableList<GroupProperty> foDataList = FXCollections.observableArrayList();
 
   private XYChart.Series<String, Double>[] faXYDataSeriesData;
   private XYChart.Series<String, Double>[] faXYDataSeriesTrends;
