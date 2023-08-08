@@ -39,6 +39,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -71,7 +72,9 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   private TextFieldPlus txtFilterFinancial;
   @FXML
-  private Label lblFilterFinancial;
+  private Label lblFilterFinancialResults;
+  @FXML
+  private Button btnFilterClear;
 
   @FXML
   private TableViewPlus tblFinancial;
@@ -161,8 +164,9 @@ public class TabFinancialController extends TabModifyController implements Event
     this.setupTextComponents();
     this.setupComboBoxes();
 
-    // Main.initializeEnvironment now calls resetComponentsOnModify(false) as Main.getController() will not be null.
-
+    /*
+      Main.initializeEnvironment now calls resetComponentsOnModify(false) as Main.getController() will not be null.
+    */
     TimerSummaryTable.INSTANCE.setTable(this.tblSummary);
   }
 
@@ -213,6 +217,8 @@ public class TabFinancialController extends TabModifyController implements Event
         this.updateFilterFinancialInfo(false);
       }
     );
+
+    this.btnFilterClear.setOnAction(toActionEvent -> this.txtFilterFinancial.setText(""));
 
     this.setupQuickModify(this.tblFinancial);
   }
@@ -328,7 +334,7 @@ public class TabFinancialController extends TabModifyController implements Event
       this.txtFilterFinancial.setText("");
     }
 
-    this.lblFilterFinancial.setText(String.format("Record count: %d", this.tblFinancial.getItems().size()));
+    this.lblFilterFinancialResults.setText(String.format("Record count: %d", this.tblFinancial.getItems().size()));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -563,6 +569,7 @@ public class TabFinancialController extends TabModifyController implements Event
     super.resetTextFields(tlModify);
 
     this.txtFilterFinancial.setReadOnly(tlModify);
+    this.btnFilterClear.setDisable(tlModify);
 
     final AppProperties loApp = AppProperties.INSTANCE;
     final boolean llManualEntry = loApp.getManualFinancialData();

@@ -10,12 +10,12 @@ package com.beowurks.jequity.view.textfield;
 
 import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.view.interfaces.IReadOnly;
-import javafx.scene.control.TextField;
+import org.controlsfx.control.textfield.CustomTextField;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-public class TextFieldPlus extends TextField implements IReadOnly
+public class TextFieldPlus extends CustomTextField implements IReadOnly
 {
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -27,7 +27,9 @@ public class TextFieldPlus extends TextField implements IReadOnly
   // ---------------------------------------------------------------------------------------------------------------------
   public TextFieldPlus(final String tcText)
   {
-    super(tcText);
+    super();
+
+    this.setText(tcText);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

@@ -521,7 +521,7 @@
   Filter fields
 */
 
-#lblFilterFinancial
+#lblFilterFinancialResults
 {
   -fx-font-style: italic;
   -fx-text-fill: green;
@@ -537,6 +537,22 @@
 .text-field
 {
   -fx-prompt-text-fill: green;
+}
+
+#txtFilterFinancial .label
+{
+  -fx-graphic: url("../images/xmag16.png");
+}
+
+#txtFilterFinancial .button
+{
+  -fx-pref-height: 10px;
+  -fx-pref-width: 10px;
+  -fx-font-size: 10px;
+  -fx-font-style: normal;
+  -fx-font-weight: bold;
+  -fx-text-fill: black;
+  -fx-background-color: white;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/

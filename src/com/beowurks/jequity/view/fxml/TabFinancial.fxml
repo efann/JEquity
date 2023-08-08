@@ -21,8 +21,16 @@
 
   <ToolBar fx:id="barSearch">
     <items>
-      <TextFieldPlus fx:id="txtFilterFinancial" promptText="Filter results"/>
-      <Label fx:id="lblFilterFinancial"/>
+      <TextFieldPlus fx:id="txtFilterFinancial" promptText="Filter results">
+        <left>
+          <!-- Label for magnifying glass icon -->
+          <Label/>
+        </left>
+        <right>
+          <Button fx:id="btnFilterClear" text="X"/>
+        </right>
+      </TextFieldPlus>
+      <Label fx:id="lblFilterFinancialResults"/>
     </items>
   </ToolBar>
   <TableViewPlus fx:id="tblFinancial" prefHeight="300" VBox.vgrow="ALWAYS">
