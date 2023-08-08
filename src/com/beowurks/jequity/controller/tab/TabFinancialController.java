@@ -43,6 +43,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
@@ -168,6 +169,14 @@ public class TabFinancialController extends TabModifyController implements Event
       Main.initializeEnvironment now calls resetComponentsOnModify(false) as Main.getController() will not be null.
     */
     TimerSummaryTable.INSTANCE.setTable(this.tblSummary);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected void setupTooltips()
+  {
+    super.setupTooltips();
+
+    this.btnFilterClear.setTooltip(new Tooltip("Clear the Filter Results text"));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
