@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<install4j version="10.0.4" transformSequenceNumber="10">
+<install4j version="10.0.6" transformSequenceNumber="10">
   <directoryPresets config="D:/IntelliJ/JEquity/images" />
   <application name="JEquity" applicationId="3320-6753-1790-7084" mediaDir="D:/temp/install4j/JEquity/media" shortName="JEquity" publisher="Beowurks" publisherWeb="https://www.beowurks.com/applications/single/JEquity" version="2022.0.5.310" convertDotsToUnderscores="false" macVolumeId="704ca49a6335aefd" javaMinVersion="17" javaMaxVersion="17">
     <languages>
@@ -8,7 +8,7 @@
     <codeSigning macEnabled="true" macPkcs12File="D:/OneDrive/Downloads/Certificates/Apple/DeveloperCertificates.p12" windowsEnabled="true" windowsKeySource="windows">
       <windowsKeystoreIdentifier issuer="Sectigo RSA Code Signing CA" serial="83b2b0638de0f944f6bf5c4bbf6ffa94" subject="Beowurks" />
     </codeSigning>
-    <jreBundles jdkProviderId="Liberica" release="17/17.0.1+12">
+    <jreBundles jdkProviderId="Liberica" release="19/19.0.2+9">
       <modules>
         <module name="java.sql" />
         <module name="java.sql.rowset" />
