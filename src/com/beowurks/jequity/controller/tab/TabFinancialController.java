@@ -22,6 +22,7 @@ import com.beowurks.jequity.utility.Misc;
 import com.beowurks.jequity.view.cell.CurrencyTableCell;
 import com.beowurks.jequity.view.cell.DateTableCell;
 import com.beowurks.jequity.view.cell.DoubleTableCell;
+import com.beowurks.jequity.view.cell.IntegerTableCell;
 import com.beowurks.jequity.view.cell.StringCurrencyTableCell;
 import com.beowurks.jequity.view.cell.TaxStatusTableCell;
 import com.beowurks.jequity.view.checkbox.CheckBoxPlus;
@@ -222,12 +223,11 @@ public class TabFinancialController extends TabModifyController implements Event
 
     this.txtFilterFinancial.textProperty().addListener((observable, oldValue, newValue) ->
       {
-        this.refreshFilteredData();
-        this.updateFilterFinancialInfo(false);
+        this.updateFiltered();
       }
     );
 
-    this.btnFilterClear.setOnAction(toActionEvent -> this.txtFilterFinancial.setText(""));
+    this.btnFilterClear.setOnAction(toActionEvent -> this.clearFilterFinancialText());
 
     this.setupQuickModify(this.tblFinancial);
   }
@@ -269,7 +269,10 @@ public class TabFinancialController extends TabModifyController implements Event
         loRow.getTaxStatus(), loRow.getSymbol(), loRow.getComments()));
     }
 
-    this.refreshFilteredData();
+    //////////////////////////////
+    // Filter data section
+    this.clearFilterFinancialText();
+    //////////////////////////////
 
     if (this.tblFinancial.getItems() != this.foFilteredDataList)
     {
@@ -300,12 +303,17 @@ public class TabFinancialController extends TabModifyController implements Event
     loSession.close();
 
     TimerSummaryTable.INSTANCE.scheduleDataRefresh(null, null, null, null);
-
-    this.updateFilterFinancialInfo(true);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void refreshFilteredData()
+  private void updateFiltered()
+  {
+    this.updateFilteredData();
+    this.updateFilteredFinancialInfoLabel();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void updateFilteredData()
   {
     final String lcSearch = this.txtFilterFinancial.getText().trim();
     this.foFilteredDataList.clear();
@@ -328,22 +336,47 @@ public class TabFinancialController extends TabModifyController implements Event
   // ---------------------------------------------------------------------------------------------------------------------
   private boolean searchFinancials(final FinancialProperty toFinancial, final String tcSearchText)
   {
-    final String lcSearch = toFinancial.getDescription().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getAccount().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR +
-      toFinancial.getType().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getCategory().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getOwnership().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR +
-      toFinancial.getSymbol().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getComments().trim() + TabFinancialController.SEARCH_FIELD_SEPARATOR;
+    final String lcID = Misc.getIntegerFormat().format(toFinancial.getFinancialID()).trim();
+    final String lcPrice = Misc.getCurrencyFormat().format(toFinancial.getPrice()).trim();
+    final String lcTotal = Misc.getCurrencyFormat().format(toFinancial.getTotal()).trim();
+    final String lcShares = Misc.getDoubleFormat().format(toFinancial.getShares()).trim();
+    final String lcDate = Misc.getDateFormat().format(toFinancial.getValuationDate()).trim();
+
+    final String lcSearch = toFinancial.getDescription().trim()
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getAccount().trim()
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getType().trim()
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getCategory().trim()
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getOwnership().trim()
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getSymbol().trim()
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getComments().trim()
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcID
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcPrice
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcTotal
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcShares
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcDate;
 
     return (lcSearch.toLowerCase().contains(tcSearchText.toLowerCase()));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  private void updateFilterFinancialInfo(final boolean tlResetFilter)
+  private void updateFilteredFinancialInfoLabel()
   {
-    if (tlResetFilter)
+    // Use the size for foFilteredDataList. Sometimes, there's a delay for this.tblFinancial.getItems().size().
+    this.lblFilterFinancialResults.setText(String.format("Record count: %d", this.foFilteredDataList.size()));
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  private void clearFilterFinancialText()
+  {
+    final TextFieldPlus loField = this.txtFilterFinancial;
+    // Otherwise, if you want the event listener to fire, say, when the application and
+    // financial grid first appear, then the text needs to change.
+    if (loField.getText().isEmpty())
     {
-      this.txtFilterFinancial.setText("");
+      loField.setText(" ");
     }
 
-    this.lblFilterFinancialResults.setText(String.format("Record count: %d", this.tblFinancial.getItems().size()));
+    loField.setText("");
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -377,7 +410,11 @@ public class TabFinancialController extends TabModifyController implements Event
     this.colSymbol.setCellValueFactory(new PropertyValueFactory<FinancialProperty, String>("symbol"));
     this.colSharesPrice.setCellValueFactory(new PropertyValueFactory<FinancialProperty, Double>("total"));
 
-    // Add check box to the grid.
+    // Now customize the number, date and boolean fields.
+    // By the way, I tested the IntegerTableCell by adding 10000 to the ID. The format is
+    // 10,002
+    this.colID.setCellFactory(tc -> new IntegerTableCell());
+
     this.colRetirement.setCellFactory(tc -> new CheckBoxTableCell<FinancialProperty, Boolean>());
 
     this.colValuationDate.setCellFactory(tc -> new DateTableCell());
@@ -503,6 +540,8 @@ public class TabFinancialController extends TabModifyController implements Event
 
     this.refreshCalculationsAndSummary();
     this.resetComponentsOnModify(false);
+
+    this.updateFiltered();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
