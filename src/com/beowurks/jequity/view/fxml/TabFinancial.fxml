@@ -26,8 +26,12 @@
           <!-- Label for magnifying glass icon -->
           <Label/>
         </left>
+
         <right>
-          <Button fx:id="btnFilterClear" text="X"/>
+          <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="btnFilterFinancialClear"/>
+            <Button fx:id="btnFilterFinancialRefresh"/>
+          </HBox>
         </right>
       </TextFieldPlus>
       <Label fx:id="lblFilterFinancialResults"/>

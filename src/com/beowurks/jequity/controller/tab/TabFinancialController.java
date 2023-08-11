@@ -76,7 +76,9 @@ public class TabFinancialController extends TabModifyController implements Event
   @FXML
   private Label lblFilterFinancialResults;
   @FXML
-  private Button btnFilterClear;
+  private Button btnFilterFinancialClear;
+  @FXML
+  private Button btnFilterFinancialRefresh;
 
   @FXML
   private TableViewPlus tblFinancial;
@@ -177,7 +179,8 @@ public class TabFinancialController extends TabModifyController implements Event
   {
     super.setupTooltips();
 
-    this.btnFilterClear.setTooltip(new Tooltip("Clear the Filter Results text"));
+    this.btnFilterFinancialClear.setTooltip(new Tooltip("Clear the Filter Results text"));
+    this.btnFilterFinancialRefresh.setTooltip(new Tooltip("Refresh the Filter Results"));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -221,13 +224,10 @@ public class TabFinancialController extends TabModifyController implements Event
 
     });
 
-    this.txtFilterFinancial.textProperty().addListener((observable, oldValue, newValue) ->
-      {
-        this.updateFiltered();
-      }
-    );
+    this.txtFilterFinancial.textProperty().addListener((observable, oldValue, newValue) -> this.updateFiltered());
 
-    this.btnFilterClear.setOnAction(toActionEvent -> this.clearFilterFinancialText());
+    this.btnFilterFinancialClear.setOnAction(toActionEvent -> this.clearFilterFinancialText());
+    this.btnFilterFinancialRefresh.setOnAction(toActionEvent -> this.updateFiltered());
 
     this.setupQuickModify(this.tblFinancial);
   }
@@ -540,8 +540,6 @@ public class TabFinancialController extends TabModifyController implements Event
 
     this.refreshCalculationsAndSummary();
     this.resetComponentsOnModify(false);
-
-    this.updateFiltered();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -617,7 +615,7 @@ public class TabFinancialController extends TabModifyController implements Event
     super.resetTextFields(tlModify);
 
     this.txtFilterFinancial.setReadOnly(tlModify);
-    this.btnFilterClear.setDisable(tlModify);
+    this.btnFilterFinancialClear.setDisable(tlModify);
 
     final AppProperties loApp = AppProperties.INSTANCE;
     final boolean llManualEntry = loApp.getManualFinancialData();

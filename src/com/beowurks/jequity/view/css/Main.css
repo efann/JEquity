@@ -547,14 +547,29 @@
 
 #txtFilterFinancial .button
 {
-  -fx-pref-height: 10px;
-  -fx-pref-width: 10px;
-  -fx-font-size: 10px;
-  -fx-font-style: normal;
-  -fx-font-weight: bold;
-  -fx-text-fill: black;
+  -fx-pref-height: 18px;
+  -fx-pref-width: 18px;
+  -fx-min-height: 18px;
+  -fx-min-width: 18px;
+
   -fx-background-color: white;
 }
+
+#txtFilterFinancial .button:hover
+{
+  -fx-background-color: gray;
+}
+
+#btnFilterFinancialClear
+{
+  -fx-graphic: url("../images/messagebox_critical16bw.png");
+}
+
+#btnFilterFinancialRefresh
+{
+  -fx-graphic: url("../images/reload16bw.png");
+}
+
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*
