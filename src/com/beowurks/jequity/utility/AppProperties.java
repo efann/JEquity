@@ -480,6 +480,19 @@ public final class AppProperties extends BaseProperties
     }
   }
 
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public boolean getTextFilterCaseSensitive()
+  {
+    return (this.getProperty(Constants.TEXT_FILTER_CASE_SENSITIVE, false));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public boolean getTextFilterWord()
+  {
+    return (this.getProperty(Constants.TEXT_FILTER_WORD, false));
+  }
+
   // -----------------------------------------------------------------------------------------------------------------------
   // -----------------------------------------------------------------------------------------------------------------------
   public void setConnectionDatabase(final String tcValue)
@@ -658,6 +671,18 @@ public final class AppProperties extends BaseProperties
     {
       System.err.printf("%d is not valid in AppProperties.setAlphaVantageURL%n", lnSource);
     }
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setTextFilterCaseSensitive(final boolean tlValue)
+  {
+    this.setProperty(Constants.TEXT_FILTER_CASE_SENSITIVE, tlValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setTextFilterWord(final boolean tlValue)
+  {
+    this.setProperty(Constants.TEXT_FILTER_WORD, tlValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------

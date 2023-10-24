@@ -552,12 +552,16 @@
   -fx-min-height: 18px;
   -fx-min-width: 18px;
 
+  -fx-padding: 0;
+
+  -fx-font-size: 14px;
+  -fx-font-weight: BOLD;
   -fx-background-color: white;
 }
 
 #txtFilterFinancial .button:hover
 {
-  -fx-background-color: gray;
+  -fx-background-color: grey;
 }
 
 #btnFilterFinancialClear

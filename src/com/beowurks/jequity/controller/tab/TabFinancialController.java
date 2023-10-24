@@ -75,6 +75,11 @@ public class TabFinancialController extends TabModifyController implements Event
   private TextFieldPlus txtFilterFinancial;
   @FXML
   private Label lblFilterFinancialResults;
+
+  @FXML
+  private Button btnFilterFinancialCaseSensitive;
+  @FXML
+  private Button btnFilterFinancialWord;
   @FXML
   private Button btnFilterFinancialClear;
   @FXML
@@ -168,6 +173,7 @@ public class TabFinancialController extends TabModifyController implements Event
     this.setupTextComponents();
     this.setupComboBoxes();
 
+    this.updateTextFilterButtonFonts();
     /*
       Main.initializeEnvironment now calls resetComponentsOnModify(false) as Main.getController() will not be null.
     */
@@ -179,8 +185,10 @@ public class TabFinancialController extends TabModifyController implements Event
   {
     super.setupTooltips();
 
-    this.btnFilterFinancialClear.setTooltip(new Tooltip("Clear the Filter Results text"));
-    this.btnFilterFinancialRefresh.setTooltip(new Tooltip("Refresh the Filter Results"));
+    this.btnFilterFinancialCaseSensitive.setTooltip(new Tooltip("Search by matching case"));
+    this.btnFilterFinancialWord.setTooltip(new Tooltip("Search by words"));
+    this.btnFilterFinancialClear.setTooltip(new Tooltip("Clear the Filter Text field"));
+    this.btnFilterFinancialRefresh.setTooltip(new Tooltip("Refresh the Filter Text results"));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -226,6 +234,26 @@ public class TabFinancialController extends TabModifyController implements Event
 
     this.txtFilterFinancial.textProperty().addListener((observable, oldValue, newValue) -> this.updateFiltered());
 
+    this.btnFilterFinancialCaseSensitive.setOnAction(toActionEvent ->
+    {
+      final AppProperties loApp = AppProperties.INSTANCE;
+      loApp.setTextFilterCaseSensitive(!loApp.getTextFilterCaseSensitive());
+
+      this.updateTextFilterButtonFonts();
+
+      this.updateFiltered();
+    });
+
+    this.btnFilterFinancialWord.setOnAction(toActionEvent ->
+    {
+      final AppProperties loApp = AppProperties.INSTANCE;
+      loApp.setTextFilterWord(!loApp.getTextFilterWord());
+
+      this.updateTextFilterButtonFonts();
+
+      this.updateFiltered();
+    });
+
     this.btnFilterFinancialClear.setOnAction(toActionEvent -> this.clearFilterFinancialText());
     this.btnFilterFinancialRefresh.setOnAction(toActionEvent -> this.updateFiltered());
 
@@ -250,6 +278,15 @@ public class TabFinancialController extends TabModifyController implements Event
     final String lcType = loCurrentRow.getType();
 
     TimerSummaryTable.INSTANCE.scheduleDataRefresh(lcOwnership, lcAccount, lcType, lcCategory);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void updateTextFilterButtonFonts()
+  {
+    final AppProperties loApp = AppProperties.INSTANCE;
+
+    this.btnFilterFinancialCaseSensitive.setTextFill(loApp.getTextFilterCaseSensitive() ? Color.GREEN : Color.BLACK);
+    this.btnFilterFinancialWord.setTextFill(loApp.getTextFilterWord() ? Color.GREEN : Color.BLACK);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -342,7 +379,7 @@ public class TabFinancialController extends TabModifyController implements Event
     final String lcShares = Misc.getDoubleFormat().format(toFinancial.getShares()).trim();
     final String lcDate = Misc.getDateFormat().format(toFinancial.getValuationDate()).trim();
 
-    final String lcSearch = toFinancial.getDescription().trim()
+    final String lcSearchBuild = toFinancial.getDescription().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getAccount().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getType().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getCategory().trim()
@@ -355,7 +392,14 @@ public class TabFinancialController extends TabModifyController implements Event
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcShares
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcDate;
 
-    return (lcSearch.toLowerCase().contains(tcSearchText.toLowerCase()));
+    final boolean llCaseSensitive = AppProperties.INSTANCE.getTextFilterCaseSensitive();
+
+    final String lcSearch = llCaseSensitive ? lcSearchBuild.toLowerCase() : lcSearchBuild;
+    final String lcSearchText = llCaseSensitive ? tcSearchText.toLowerCase() : tcSearchText;
+
+    return (
+      lcSearch.contains(lcSearchText)
+    );
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

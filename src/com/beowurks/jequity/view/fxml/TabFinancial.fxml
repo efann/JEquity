@@ -21,7 +21,7 @@
 
   <ToolBar fx:id="barSearch">
     <items>
-      <TextFieldPlus fx:id="txtFilterFinancial" promptText="Filter results">
+      <TextFieldPlus fx:id="txtFilterFinancial" promptText="Filter Text">
         <left>
           <!-- Label for magnifying glass icon -->
           <Label/>
@@ -29,6 +29,8 @@
 
         <right>
           <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="btnFilterFinancialCaseSensitive" text="Cc"/>
+            <Button fx:id="btnFilterFinancialWord" text="W"/>
             <Button fx:id="btnFilterFinancialClear"/>
             <Button fx:id="btnFilterFinancialRefresh"/>
           </HBox>

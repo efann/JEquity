@@ -242,6 +242,9 @@ final public class Constants
 
   public static final String EXPORT_FILECHOOSER_FILENAME = "export.filechooser.filename";
 
+  public final static String TEXT_FILTER_CASE_SENSITIVE = "filter.text.case.sensitive";
+  public final static String TEXT_FILTER_WORD = "filter.text.word";
+
   //************************************************************
   // The following is used by the downloads in global.warehouse
   public final static int WEB_TIME_OUT = 7500;
