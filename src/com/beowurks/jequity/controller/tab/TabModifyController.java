@@ -78,6 +78,9 @@ abstract public class TabModifyController extends TabBaseController
   abstract protected void setupListeners();
 
   // ---------------------------------------------------------------------------------------------------------------------
+  abstract public void initializeComponentsNeedingAppProperties();
+
+  // ---------------------------------------------------------------------------------------------------------------------
   protected void setupTooltips()
   {
     this.btnModify.setTooltip(new Tooltip("Modify the contents of the currently selected record"));

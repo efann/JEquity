@@ -28,7 +28,7 @@
         </left>
 
         <right>
-          <HBox spacing="10" alignment="CENTER">
+          <HBox spacing="5" alignment="CENTER">
             <Button fx:id="btnFilterFinancialCaseSensitive" text="Cc"/>
             <Button fx:id="btnFilterFinancialWord" text="W"/>
             <Button fx:id="btnFilterFinancialClear"/>

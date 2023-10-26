@@ -84,6 +84,12 @@ public class TabGroupController extends TabModifyController
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  public void initializeComponentsNeedingAppProperties()
+  {
+    this.resetComponentsOnModify(false);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
   public void refreshData()
   {
     final GroupProperty loCurrent = (GroupProperty) this.tblGroup.getSelectionModel().getSelectedItem();

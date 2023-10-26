@@ -41,6 +41,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -175,6 +176,8 @@ public class TabFinancialController extends TabModifyController implements Event
     this.setupTextComponents();
     this.setupComboBoxes();
 
+    this.btnFilterFinancialCaseSensitive.setContentDisplay(ContentDisplay.TOP);
+
     /*
       Main.initializeEnvironment now calls resetComponentsOnModify(false) as Main.getController() will not be null.
     */
@@ -259,6 +262,14 @@ public class TabFinancialController extends TabModifyController implements Event
     this.btnFilterFinancialRefresh.setOnAction(toActionEvent -> this.updateFiltered());
 
     this.setupQuickModify(this.tblFinancial);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  public void initializeComponentsNeedingAppProperties()
+  {
+    this.resetComponentsOnModify(false);
+
+    this.updateTextFilterButtonFonts();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -366,17 +377,22 @@ public class TabFinancialController extends TabModifyController implements Event
     if (lcSearch.isEmpty())
     {
       this.foFilteredDataList.setAll(this.foFullDataList);
-      return;
     }
-
-    for (final FinancialProperty loFinancial : this.foFullDataList)
+    else
     {
-      if (this.searchFinancials(loFinancial, lcSearch))
+      for (final FinancialProperty loFinancial : this.foFullDataList)
       {
-        this.foFilteredDataList.add(loFinancial);
+        if (this.searchFinancials(loFinancial, lcSearch))
+        {
+          this.foFilteredDataList.add(loFinancial);
+        }
       }
     }
 
+    this.tblFinancial.resizeColumnsToFit();
+    // In case of data refresh and column(s) have already been sorted.
+    // And it's okay if no column(s) have been sorted.
+    this.tblFinancial.sort();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -394,7 +410,10 @@ public class TabFinancialController extends TabModifyController implements Event
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getCategory().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getOwnership().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getSymbol().trim()
-      + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getComments().trim()
+      // Turns out the newlines mess up Word Search. If you look at how to search a text file, they split the file into an array of strings,
+      // then iteratively search each string.
+      // So I replace newlines with a space, then multi-spaces with a single space, then trim.
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getComments().replaceAll("[\\n\\r]+", " ").replaceAll(" +", " ").trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcID
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcPrice
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcTotal
@@ -408,8 +427,7 @@ public class TabFinancialController extends TabModifyController implements Event
     final String lcSearch = llCaseSensitive ? lcSearchBuild : lcSearchBuild.toLowerCase();
     // Do not trim: the user might want spaces as suffix or prefix.
     final String lcSearchText = llCaseSensitive ? tcSearchText : tcSearchText.toLowerCase();
-    System.out.println(lcSearch);
-    System.out.println("===========================================");
+
     // From https://stackoverflow.com/questions/18289929/regex-to-find-a-specific-word-in-a-string-in-java
     // Regex to find a specific word in a string in java
     // This is a little weird: as the user types, there will be no matches till a full word matches.

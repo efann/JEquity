@@ -9,8 +9,6 @@
 package com.beowurks.jequity.main;
 
 import com.beowurks.jequity.controller.MainFormController;
-import com.beowurks.jequity.controller.tab.TabFinancialController;
-import com.beowurks.jequity.controller.tab.TabGroupController;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.TimerSymbolInfo;
 import com.beowurks.jequity.utility.AppProperties;
@@ -135,7 +133,7 @@ public class Main extends Application
       {
         // Must go here after Hibernate success
         // which ensures AppProperties.INSTANCE.isSuccessfullyRead()
-        Main.enableComponentsByOptions();
+        Main.initializeComponentsNeedingAppProperties();
 
         TimerSymbolInfo.INSTANCE.reSchedule();
 
@@ -163,22 +161,17 @@ public class Main extends Application
   // Then I realized that AppProperties.INSTANCE not initialized yet due to password protection.
   // And I can't use in TabFinancialController.initialize and TabGroupController.initialize as
   // Main.getController() will be null when called indirectly from those initialize functions.
-  private static void enableComponentsByOptions()
+  private static void initializeComponentsNeedingAppProperties()
   {
     if (!Platform.isFxApplicationThread())
     {
-      System.err.println("\nYou must call Main.enableComponentsByOptions from within the FX Application Thread. Notify the developer to fix.\n");
+      System.err.println("\nYou must call Main.initializeComponentsNeedingAppProperties from within the FX Application Thread. Notify the developer to fix.\n");
       System.exit(-1);
     }
 
     final MainFormController loMainController = Main.getController();
-    final TabFinancialController loFinancialController = loMainController.getTabFinancialController();
-    final TabGroupController loGroupController = loMainController.getTabGroupController();
-
-    loFinancialController.resetComponentsOnModify(false);
-    loFinancialController.updateTextFilterButtonFonts();
-
-    loGroupController.resetComponentsOnModify(false);
+    loMainController.getTabFinancialController().initializeComponentsNeedingAppProperties();
+    loMainController.getTabGroupController().initializeComponentsNeedingAppProperties();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------

@@ -545,27 +545,37 @@
   -fx-graphic: url("../images/xmag16.png");
 }
 
-#txtFilterFinancial .button
+#barSearch .button
 {
-  -fx-pref-height: 18px;
-  -fx-pref-width: 18px;
-  -fx-min-height: 18px;
-  -fx-min-width: 18px;
+  -fx-pref-height: 22px;
+  -fx-pref-width: 22px;
+  -fx-min-height: 22px;
+  -fx-min-width: 22px;
 
-  -fx-padding: 0;
 
-  -fx-font-size: 16px;
   -fx-font-weight: BOLD;
   -fx-font-style: ITALIC;
   -fx-background-color: white;
-
-  /*  -fx-text-alignment: top;
-  */
 }
 
-#txtFilterFinancial .button:hover
+#barSearch .button:hover
 {
   -fx-background-color: grey;
+}
+
+
+#btnFilterFinancialCaseSensitive,
+#btnFilterFinancialWord
+{
+  /* Without setting to 0, the text is pushed off the bottom. */
+  -fx-padding: 0;
+
+  /*
+    This font size works best when aligning with the images in the Refresh & Clear buttons.
+    I can't find a way to pad the bottom and push the text up.
+  */
+  -fx-font-size: 14px;
+  -fx-content-display: bottom;
 }
 
 #btnFilterFinancialClear
@@ -744,4 +754,16 @@ Sigh. . . .
   -fx-opacity: 0.0;
   -fx-cursor: text;
   -fx-padding: 0;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*
+  ToolTips
+*/
+.tooltip
+{
+  -fx-font-size: 14px;
+  -fx-font-style: NORMAL;
+  -fx-font-weight: NORMAL;
 }
