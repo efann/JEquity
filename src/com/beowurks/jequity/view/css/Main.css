@@ -554,9 +554,13 @@
 
   -fx-padding: 0;
 
-  -fx-font-size: 14px;
+  -fx-font-size: 16px;
   -fx-font-weight: BOLD;
+  -fx-font-style: ITALIC;
   -fx-background-color: white;
+
+  /*  -fx-text-alignment: top;
+  */
 }
 
 #txtFilterFinancial .button:hover

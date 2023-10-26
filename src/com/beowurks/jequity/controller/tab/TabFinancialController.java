@@ -173,7 +173,6 @@ public class TabFinancialController extends TabModifyController implements Event
     this.setupTextComponents();
     this.setupComboBoxes();
 
-    this.updateTextFilterButtonFonts();
     /*
       Main.initializeEnvironment now calls resetComponentsOnModify(false) as Main.getController() will not be null.
     */
@@ -281,6 +280,13 @@ public class TabFinancialController extends TabModifyController implements Event
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
+  // Do not call when initializing the tab: AppProperties.INSTANCE has not yet been set.
+  // I was getting javafx.fxml.LoadException:
+  //   file:/C:/Program%20Files/JEquity/JEquity.jar!/com/beowurks/jequity/view/fxml/TabFinancial.fxml
+  // at runtime.
+  // Then I realized that AppProperties.INSTANCE not initialized yet due to password protection.
+  //
+  // So this function is first called in Main.enableComponentsByOptions
   public void updateTextFilterButtonFonts()
   {
     final AppProperties loApp = AppProperties.INSTANCE;
@@ -392,14 +398,19 @@ public class TabFinancialController extends TabModifyController implements Event
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcShares
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcDate;
 
-    final boolean llCaseSensitive = AppProperties.INSTANCE.getTextFilterCaseSensitive();
+    final AppProperties loApp = AppProperties.INSTANCE;
+    final boolean llCaseSensitive = loApp.getTextFilterCaseSensitive();
+    final boolean llWord = loApp.getTextFilterWord();
 
-    final String lcSearch = llCaseSensitive ? lcSearchBuild.toLowerCase() : lcSearchBuild;
-    final String lcSearchText = llCaseSensitive ? tcSearchText.toLowerCase() : tcSearchText;
+    final String lcSearch = llCaseSensitive ? lcSearchBuild : lcSearchBuild.toLowerCase();
+    final String lcSearchText = llCaseSensitive ? tcSearchText : tcSearchText.toLowerCase();
 
-    return (
-      lcSearch.contains(lcSearchText)
-    );
+    // From https://stackoverflow.com/questions/18289929/regex-to-find-a-specific-word-in-a-string-in-java
+    // Regex to find a specific word in a string in java
+    // This is a little weird: as the user types, there will be no matches till a full word matches.
+    final String lcRegex = String.format(".*\\b%s\\b.*", lcSearchText);
+
+    return (llWord ? lcSearch.matches(lcRegex) : lcSearch.contains(lcSearchText));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
