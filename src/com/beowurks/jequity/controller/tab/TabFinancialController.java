@@ -358,7 +358,8 @@ public class TabFinancialController extends TabModifyController implements Event
   // ---------------------------------------------------------------------------------------------------------------------
   private void updateFilteredData()
   {
-    final String lcSearch = this.txtFilterFinancial.getText().trim();
+    // Do not trim: the user might want spaces as suffix or prefix.
+    final String lcSearch = this.txtFilterFinancial.getText();
     this.foFilteredDataList.clear();
     if (lcSearch.isEmpty())
     {
@@ -403,6 +404,7 @@ public class TabFinancialController extends TabModifyController implements Event
     final boolean llWord = loApp.getTextFilterWord();
 
     final String lcSearch = llCaseSensitive ? lcSearchBuild : lcSearchBuild.toLowerCase();
+    // Do not trim: the user might want spaces as suffix or prefix.
     final String lcSearchText = llCaseSensitive ? tcSearchText : tcSearchText.toLowerCase();
 
     // From https://stackoverflow.com/questions/18289929/regex-to-find-a-specific-word-in-a-string-in-java
