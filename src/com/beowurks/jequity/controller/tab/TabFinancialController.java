@@ -67,7 +67,9 @@ public class TabFinancialController extends TabModifyController implements Event
   private final ObservableList<FinancialProperty> foFullDataList = FXCollections.observableArrayList();
   private final ObservableList<FinancialProperty> foFilteredDataList = FXCollections.observableArrayList();
 
-  private final static String SEARCH_FIELD_SEPARATOR = "~";
+  // System.getProperty("line.separator") doesn't work for some reason with the Word search.
+  // Tab character can't be entered by user as pressing Tab merely move the cursor to the next field.
+  private final static String SEARCH_FIELD_SEPARATOR = "\t";
   //------------------------
   // tblFinancial
 
@@ -406,7 +408,8 @@ public class TabFinancialController extends TabModifyController implements Event
     final String lcSearch = llCaseSensitive ? lcSearchBuild : lcSearchBuild.toLowerCase();
     // Do not trim: the user might want spaces as suffix or prefix.
     final String lcSearchText = llCaseSensitive ? tcSearchText : tcSearchText.toLowerCase();
-
+    System.out.println(lcSearch);
+    System.out.println("===========================================");
     // From https://stackoverflow.com/questions/18289929/regex-to-find-a-specific-word-in-a-string-in-java
     // Regex to find a specific word in a string in java
     // This is a little weird: as the user types, there will be no matches till a full word matches.
