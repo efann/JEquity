@@ -393,7 +393,7 @@ public class TabFinancialController extends TabModifyController implements Event
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getOwnership().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getSymbol().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getComments().trim()
-      + TabFinancialController.SEARCH_FIELD_SEPARATOR + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcID
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcID
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcPrice
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcTotal
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcShares
@@ -410,6 +410,8 @@ public class TabFinancialController extends TabModifyController implements Event
     // From https://stackoverflow.com/questions/18289929/regex-to-find-a-specific-word-in-a-string-in-java
     // Regex to find a specific word in a string in java
     // This is a little weird: as the user types, there will be no matches till a full word matches.
+    // From https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
+    // A word character: [a-zA-Z_0-9]
     final String lcRegex = String.format(".*\\b%s\\b.*", lcSearchText);
 
     return (llWord ? lcSearch.matches(lcRegex) : lcSearch.contains(lcSearchText));
