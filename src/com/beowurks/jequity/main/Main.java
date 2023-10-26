@@ -10,6 +10,7 @@ package com.beowurks.jequity.main;
 
 import com.beowurks.jequity.controller.MainFormController;
 import com.beowurks.jequity.controller.tab.TabFinancialController;
+import com.beowurks.jequity.controller.tab.TabGroupController;
 import com.beowurks.jequity.dao.hibernate.HibernateUtil;
 import com.beowurks.jequity.dao.hibernate.threads.TimerSymbolInfo;
 import com.beowurks.jequity.utility.AppProperties;
@@ -171,12 +172,13 @@ public class Main extends Application
     }
 
     final MainFormController loMainController = Main.getController();
-
     final TabFinancialController loFinancialController = loMainController.getTabFinancialController();
+    final TabGroupController loGroupController = loMainController.getTabGroupController();
+
     loFinancialController.resetComponentsOnModify(false);
     loFinancialController.updateTextFilterButtonFonts();
 
-    loMainController.getTabGroupController().resetComponentsOnModify(false);
+    loGroupController.resetComponentsOnModify(false);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
