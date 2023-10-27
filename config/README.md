@@ -4,3 +4,5 @@ This way, I can change HTML markup for scraping the Yahoo Financial pages withou
 JEquity.
 
 We will soon be switching to a JSON format, for all sorts of reasons.
+The new path will be \
+The path is https://www.beowurks.com/Software/JEquity/config.json

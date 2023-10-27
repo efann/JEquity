@@ -38,7 +38,7 @@ final public class Constants
   //************************************************************
   // Used by Historical Graph Controller
   public final static int ALPHA_KEY_MASK_LIMIT = 4;
-  public final static String ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=%s&apikey=%s";
+  public final static String ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=%s&outputsize=%s&apikey=%s";
   public final static int ALPHA_KEY_PRICE_TYPES = 4;
 
   //************************************************************
