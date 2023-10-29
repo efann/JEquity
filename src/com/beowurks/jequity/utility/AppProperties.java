@@ -212,9 +212,21 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public void setConnectionDatabase(final String tcValue)
+  {
+    this.setProperty(Constants.CONNECTION_DATABASE, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getConnectionHost()
   {
     return (this.getProperty(Constants.CONNECTION_HOST, this.getDefaultHost()).trim());
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setConnectionHost(final String tcValue)
+  {
+    this.setProperty(Constants.CONNECTION_HOST, tcValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -224,15 +236,33 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public void setConnectionUser(final String tcValue)
+  {
+    this.setProperty(Constants.CONNECTION_USER, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getConnectionPassword()
   {
     return (this.getProperty(Constants.CONNECTION_PASSWORD, this.getDefaultDerbyPassword()).trim());
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public void setConnectionPassword(final String tcValue)
+  {
+    this.setProperty(Constants.CONNECTION_PASSWORD, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public int getConnectionRDBMS_Key()
   {
     return (this.getProperty(Constants.CONNECTION_RDBMS_KEY, Constants.RDBMS_DRIVERS.get(0).getKey()));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setConnectionRDBMS_Key(final int tnValue)
+  {
+    this.setProperty(Constants.CONNECTION_RDBMS_KEY, tnValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -249,15 +279,33 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public void setDailyIntervalKey(final int tnValue)
+  {
+    this.setProperty(Constants.DAILY_INTERVAL_KEY, tnValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public int getUpdateIntervalKey()
   {
     return (this.getProperty(Constants.UPDATE_INTERVAL_KEY, Constants.UPDATE_INTERVAL_DEFAULT));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public void setUpdateIntervalKey(final int tnValue)
+  {
+    this.setProperty(Constants.UPDATE_INTERVAL_KEY, tnValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getAlphaVantageAPIKey()
   {
     return (this.getProperty(Constants.ALPHAVANTAGE_API_KEY, "").trim());
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setAlphaVantageAPIKey(final String tcValue)
+  {
+    this.setProperty(Constants.ALPHAVANTAGE_API_KEY, tcValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -275,15 +323,33 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public void setBackupRestoreFolder(final String tcValue)
+  {
+    this.setProperty(Constants.BACKUP_RESTORE_FOLDER, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public boolean getManualFinancialData()
   {
     return (this.getProperty(Constants.DAILY_MANUAL_FINANCIAL_DATA, true));
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public void setManualFinancialData(final boolean tlValue)
+  {
+    this.setProperty(Constants.DAILY_MANUAL_FINANCIAL_DATA, tlValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public boolean getAutosetValuationDate()
   {
     return (this.getProperty(Constants.DAILY_AUTOSET_VALUATION_DATE, true));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setAutosetValuationDate(final boolean tlValue)
+  {
+    this.setProperty(Constants.DAILY_AUTOSET_VALUATION_DATE, tlValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -297,6 +363,12 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public void setFlywayAlwaysCheck(final boolean tlValue)
+  {
+    this.setProperty(Constants.FLYWAY_ALWAYS_CHECK, tlValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   // This represents the version of JEquity where Flyway was successful.
   public String getFlywaySuccessfulJEquityVersion()
   {
@@ -304,9 +376,22 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  // This represents the version of JEquity where Flyway was successful.
+  public void setFlywaySuccessfulJEquityVersion(final String tcValue)
+  {
+    this.setProperty(Constants.FLYWAY_SUCCESSFUL_JEQUITY, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getExportFileChooserFilename()
   {
     return (this.getProperty(Constants.EXPORT_FILECHOOSER_FILENAME, "export.csv"));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setExportFileChooserFilename(final String tcValue)
+  {
+    this.setProperty(Constants.EXPORT_FILECHOOSER_FILENAME, tcValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -317,10 +402,24 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by setMarkerDescription.
+  private void setManualWebMarkerDescription(final String tcValue)
+  {
+    this.setProperty(Constants.MANUAL_WEB_MARKER_DESCRIPTION, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   // Yes, private on purpose. Should only be accessed by getWebMarkerLastTrade.
   private String getManualWebMarkerLastTrade()
   {
     return (this.getProperty(Constants.MANUAL_WEB_MARKER_LASTTRADE, Constants.WEB_MARKER_DEFAULT_VALUE_LASTTRADE));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by setMarkerLastTrade.
+  private void setManualWebMarkerLastTrade(final String tcValue)
+  {
+    this.setProperty(Constants.MANUAL_WEB_MARKER_LASTTRADE, tcValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -331,6 +430,13 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by setWebPageURL.
+  private void setManualWebPageURL(final String tcValue)
+  {
+    this.setProperty(Constants.MANUAL_WEB_PAGE_URL, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   // Yes, private on purpose. Should only be accessed by getAlphaVantageURL.
   private String getManualAlphaVantageURL()
   {
@@ -338,9 +444,22 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  // Yes, private on purpose. Should only be accessed by setAlphaVantageURL.
+  private void setManualAlphaVantageURL(final String tcValue)
+  {
+    this.setProperty(Constants.MANUAL_ALPHA_VANTAGE_URL, tcValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public int getWebMarkerSource()
   {
     return (this.getProperty(Constants.WEB_MARKER_SOURCE, Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setWebMarkerSource(final int tnValue)
+  {
+    this.setProperty(Constants.WEB_MARKER_SOURCE, tnValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -447,6 +566,21 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public void setWebPageURL(final String tcValue)
+  {
+    final int lnSource = this.getWebMarkerSource();
+
+    if (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    {
+      this.setManualWebPageURL(tcValue);
+    }
+    else if ((lnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (lnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
+    {
+      System.err.printf("%d is not valid in AppProperties.setWebPageURL%n", lnSource);
+    }
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public String getAlphaVantageURL()
   {
     return (this.getAlphaVantageURL(this.getWebMarkerSource()));
@@ -480,11 +614,31 @@ public final class AppProperties extends BaseProperties
     }
   }
 
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setAlphaVantageURL(final String tcValue)
+  {
+    final int lnSource = this.getWebMarkerSource();
+
+    if (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
+    {
+      this.setManualAlphaVantageURL(tcValue);
+    }
+    else if ((lnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (lnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
+    {
+      System.err.printf("%d is not valid in AppProperties.setAlphaVantageURL%n", lnSource);
+    }
+  }
 
   // -----------------------------------------------------------------------------------------------------------------------
   public boolean getTextFilterCaseSensitive()
   {
     return (this.getProperty(Constants.TEXT_FILTER_CASE_SENSITIVE, false));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setTextFilterCaseSensitive(final boolean tlValue)
+  {
+    this.setProperty(Constants.TEXT_FILTER_CASE_SENSITIVE, tlValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -494,123 +648,9 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setConnectionDatabase(final String tcValue)
+  public void setTextFilterWord(final boolean tlValue)
   {
-    this.setProperty(Constants.CONNECTION_DATABASE, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setConnectionHost(final String tcValue)
-  {
-    this.setProperty(Constants.CONNECTION_HOST, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setConnectionUser(final String tcValue)
-  {
-    this.setProperty(Constants.CONNECTION_USER, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setConnectionPassword(final String tcValue)
-  {
-    this.setProperty(Constants.CONNECTION_PASSWORD, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setConnectionRDBMS_Key(final int tnValue)
-  {
-    this.setProperty(Constants.CONNECTION_RDBMS_KEY, tnValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setDailyIntervalKey(final int tnValue)
-  {
-    this.setProperty(Constants.DAILY_INTERVAL_KEY, tnValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setUpdateIntervalKey(final int tnValue)
-  {
-    this.setProperty(Constants.UPDATE_INTERVAL_KEY, tnValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setAlphaVantageAPIKey(final String tcValue)
-  {
-    this.setProperty(Constants.ALPHAVANTAGE_API_KEY, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setBackupRestoreFolder(final String tcValue)
-  {
-    this.setProperty(Constants.BACKUP_RESTORE_FOLDER, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setManualFinancialData(final boolean tlValue)
-  {
-    this.setProperty(Constants.DAILY_MANUAL_FINANCIAL_DATA, tlValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setAutosetValuationDate(final boolean tlValue)
-  {
-    this.setProperty(Constants.DAILY_AUTOSET_VALUATION_DATE, tlValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setFlywayAlwaysCheck(final boolean tlValue)
-  {
-    this.setProperty(Constants.FLYWAY_ALWAYS_CHECK, tlValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  // This represents the version of JEquity where Flyway was successful.
-  public void setFlywaySuccessfulJEquityVersion(final String tcValue)
-  {
-    this.setProperty(Constants.FLYWAY_SUCCESSFUL_JEQUITY, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setExportFileChooserFilename(final String tcValue)
-  {
-    this.setProperty(Constants.EXPORT_FILECHOOSER_FILENAME, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setWebMarkerSource(final int tnValue)
-  {
-    this.setProperty(Constants.WEB_MARKER_SOURCE, tnValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  // Yes, private on purpose. Should only be accessed by setMarkerDescription.
-  private void setManualWebMarkerDescription(final String tcValue)
-  {
-    this.setProperty(Constants.MANUAL_WEB_MARKER_DESCRIPTION, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  // Yes, private on purpose. Should only be accessed by setMarkerLastTrade.
-  private void setManualWebMarkerLastTrade(final String tcValue)
-  {
-    this.setProperty(Constants.MANUAL_WEB_MARKER_LASTTRADE, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  // Yes, private on purpose. Should only be accessed by setWebPageURL.
-  private void setManualWebPageURL(final String tcValue)
-  {
-    this.setProperty(Constants.MANUAL_WEB_PAGE_URL, tcValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  // Yes, private on purpose. Should only be accessed by setAlphaVantageURL.
-  private void setManualAlphaVantageURL(final String tcValue)
-  {
-    this.setProperty(Constants.MANUAL_ALPHA_VANTAGE_URL, tcValue);
+    this.setProperty(Constants.TEXT_FILTER_WORD, tlValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
@@ -641,48 +681,6 @@ public final class AppProperties extends BaseProperties
     {
       System.err.printf("%d is not valid in AppProperties.setMarkerLastTrade%n", lnSource);
     }
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setWebPageURL(final String tcValue)
-  {
-    final int lnSource = this.getWebMarkerSource();
-
-    if (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
-    {
-      this.setManualWebPageURL(tcValue);
-    }
-    else if ((lnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (lnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
-    {
-      System.err.printf("%d is not valid in AppProperties.setWebPageURL%n", lnSource);
-    }
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setAlphaVantageURL(final String tcValue)
-  {
-    final int lnSource = this.getWebMarkerSource();
-
-    if (lnSource == Constants.WEB_MARKER_SOURCE_MANUAL)
-    {
-      this.setManualAlphaVantageURL(tcValue);
-    }
-    else if ((lnSource != Constants.WEB_MARKER_SOURCE_BEOWURKS_DEFAULT) && (lnSource != Constants.WEB_MARKER_SOURCE_APPLICATION))
-    {
-      System.err.printf("%d is not valid in AppProperties.setAlphaVantageURL%n", lnSource);
-    }
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setTextFilterCaseSensitive(final boolean tlValue)
-  {
-    this.setProperty(Constants.TEXT_FILTER_CASE_SENSITIVE, tlValue);
-  }
-
-  // -----------------------------------------------------------------------------------------------------------------------
-  public void setTextFilterWord(final boolean tlValue)
-  {
-    this.setProperty(Constants.TEXT_FILTER_WORD, tlValue);
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
