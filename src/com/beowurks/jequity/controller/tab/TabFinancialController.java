@@ -87,6 +87,8 @@ public class TabFinancialController extends TabModifyController implements Event
   private Button btnFilterFinancialClear;
   @FXML
   private Button btnFilterFinancialRefresh;
+  @FXML
+  private CheckBoxPlus chkFilterFinancialIncludeComments;
 
   @FXML
   private TableViewPlus tblFinancial;
@@ -193,6 +195,8 @@ public class TabFinancialController extends TabModifyController implements Event
     this.btnFilterFinancialWord.setTooltip(new Tooltip("Search by words"));
     this.btnFilterFinancialClear.setTooltip(new Tooltip("Clear the Filter Text field"));
     this.btnFilterFinancialRefresh.setTooltip(new Tooltip("Refresh the Filter Text results"));
+
+    this.chkFilterFinancialIncludeComments.setTooltip(new Tooltip("Include the comments when searching through the records"));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -258,6 +262,15 @@ public class TabFinancialController extends TabModifyController implements Event
       this.updateFiltered();
     });
 
+
+    this.chkFilterFinancialIncludeComments.setOnAction(toActionEvent ->
+    {
+      final AppProperties loApp = AppProperties.INSTANCE;
+      loApp.setTextFilterIncludeComments(this.chkFilterFinancialIncludeComments.isSelected());
+
+      this.updateFiltered();
+    });
+
     this.btnFilterFinancialClear.setOnAction(toActionEvent -> this.clearFilterFinancialText());
     this.btnFilterFinancialRefresh.setOnAction(toActionEvent -> this.updateFiltered());
 
@@ -306,6 +319,8 @@ public class TabFinancialController extends TabModifyController implements Event
 
     this.btnFilterFinancialCaseSensitive.setTextFill(loApp.getTextFilterCaseSensitive() ? Color.GREEN : Color.BLACK);
     this.btnFilterFinancialWord.setTextFill(loApp.getTextFilterWord() ? Color.GREEN : Color.BLACK);
+
+    this.chkFilterFinancialIncludeComments.setSelected(loApp.getTextFilterIncludeComments());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
@@ -398,11 +413,18 @@ public class TabFinancialController extends TabModifyController implements Event
   // ---------------------------------------------------------------------------------------------------------------------
   private boolean searchFinancials(final FinancialProperty toFinancial, final String tcSearchText)
   {
+    final AppProperties loApp = AppProperties.INSTANCE;
+    final boolean llCaseSensitive = loApp.getTextFilterCaseSensitive();
+    final boolean llWord = loApp.getTextFilterWord();
+    final boolean llIncludeComments = loApp.getTextFilterIncludeComments();
+
     final String lcID = Misc.getIntegerFormat().format(toFinancial.getFinancialID()).trim();
     final String lcPrice = Misc.getCurrencyFormat().format(toFinancial.getPrice()).trim();
     final String lcTotal = Misc.getCurrencyFormat().format(toFinancial.getTotal()).trim();
     final String lcShares = Misc.getDoubleFormat().format(toFinancial.getShares()).trim();
     final String lcDate = Misc.getDateFormat().format(toFinancial.getValuationDate()).trim();
+    final String lcComments = llIncludeComments ?
+      toFinancial.getComments().replaceAll("[\\n\\r]+", " ").replaceAll(" +", " ").trim() : "";
 
     final String lcSearchBuild = toFinancial.getDescription().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getAccount().trim()
@@ -413,16 +435,12 @@ public class TabFinancialController extends TabModifyController implements Event
       // Turns out the newlines mess up Word Search. If you look at how to search a text file, they split the file into an array of strings,
       // then iteratively search each string.
       // So I replace newlines with a space, then multi-spaces with a single space, then trim.
-      + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getComments().replaceAll("[\\n\\r]+", " ").replaceAll(" +", " ").trim()
+      + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcComments
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcID
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcPrice
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcTotal
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcShares
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcDate;
-
-    final AppProperties loApp = AppProperties.INSTANCE;
-    final boolean llCaseSensitive = loApp.getTextFilterCaseSensitive();
-    final boolean llWord = loApp.getTextFilterWord();
 
     final String lcSearch = llCaseSensitive ? lcSearchBuild : lcSearchBuild.toLowerCase();
     // Do not trim: the user might want spaces as suffix or prefix.
@@ -694,8 +712,11 @@ public class TabFinancialController extends TabModifyController implements Event
   {
     super.resetTextFields(tlModify);
 
-    this.txtFilterFinancial.setReadOnly(tlModify);
+    this.btnFilterFinancialCaseSensitive.setDisable(tlModify);
+    this.btnFilterFinancialWord.setDisable(tlModify);
     this.btnFilterFinancialClear.setDisable(tlModify);
+    this.btnFilterFinancialRefresh.setDisable(tlModify);
+    this.chkFilterFinancialIncludeComments.setReadOnly(tlModify);
 
     final AppProperties loApp = AppProperties.INSTANCE;
     final boolean llManualEntry = loApp.getManualFinancialData();

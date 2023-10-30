@@ -552,7 +552,6 @@
   -fx-min-height: 22px;
   -fx-min-width: 22px;
 
-
   -fx-font-weight: BOLD;
   -fx-font-style: ITALIC;
   -fx-background-color: white;
@@ -586,6 +585,20 @@
 #btnFilterFinancialRefresh
 {
   -fx-graphic: url("../images/reload16bw.png");
+}
+
+#chkFilterFinancialIncludeComments
+{
+  -fx-padding: 0 10 0 20;
+  -fx-font-size: 12px;
+  -fx-font-weight: BOLD;
+  -fx-font-style: ITALIC;
+}
+
+#chkFilterFinancialIncludeComments > .box
+{
+  -fx-border-width: 1px;
+  -fx-border-color: darkgray;
 }
 
 

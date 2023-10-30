@@ -33,6 +33,7 @@
             <Button fx:id="btnFilterFinancialWord" text="W"/>
             <Button fx:id="btnFilterFinancialClear"/>
             <Button fx:id="btnFilterFinancialRefresh"/>
+            <CheckBoxPlus fx:id="chkFilterFinancialIncludeComments" text="Include searching comments?"/>
           </HBox>
         </right>
       </TextFieldPlus>

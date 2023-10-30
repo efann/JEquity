@@ -654,6 +654,18 @@ public final class AppProperties extends BaseProperties
   }
 
   // -----------------------------------------------------------------------------------------------------------------------
+  public boolean getTextFilterIncludeComments()
+  {
+    return (this.getProperty(Constants.TEXT_FILTER_INCLUDE_COMMENTS, false));
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  public void setTextFilterIncludeComments(final boolean tlValue)
+  {
+    this.setProperty(Constants.TEXT_FILTER_INCLUDE_COMMENTS, tlValue);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
   public void setMarkerDescription(final String tcValue)
   {
     final int lnSource = this.getWebMarkerSource();

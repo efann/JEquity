@@ -245,6 +245,8 @@ final public class Constants
   public final static String TEXT_FILTER_CASE_SENSITIVE = "filter.text.case.sensitive";
   public final static String TEXT_FILTER_WORD = "filter.text.word";
 
+  public final static String TEXT_FILTER_INCLUDE_COMMENTS = "filter.text.include.comments";
+
   //************************************************************
   // The following is used by the downloads in global.warehouse
   public final static int WEB_TIME_OUT = 7500;
