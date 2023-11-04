@@ -423,6 +423,10 @@ public class TabFinancialController extends TabModifyController implements Event
     final String lcTotal = Misc.getCurrencyFormat().format(toFinancial.getTotal()).trim();
     final String lcShares = Misc.getDoubleFormat().format(toFinancial.getShares()).trim();
     final String lcDate = Misc.getDateFormat().format(toFinancial.getValuationDate()).trim();
+
+    // Turns out the newlines mess up Word Search. If you look at how to search a text file, they split the file into an array of strings,
+    // then iteratively search each string.
+    // So I replace newlines with a space, then multi-spaces with a single space, then trim.
     final String lcComments = llIncludeComments ?
       toFinancial.getComments().replaceAll("[\\n\\r]+", " ").replaceAll(" +", " ").trim() : "";
 
@@ -432,9 +436,6 @@ public class TabFinancialController extends TabModifyController implements Event
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getCategory().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getOwnership().trim()
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + toFinancial.getSymbol().trim()
-      // Turns out the newlines mess up Word Search. If you look at how to search a text file, they split the file into an array of strings,
-      // then iteratively search each string.
-      // So I replace newlines with a space, then multi-spaces with a single space, then trim.
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcComments
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcID
       + TabFinancialController.SEARCH_FIELD_SEPARATOR + lcPrice
@@ -708,15 +709,24 @@ public class TabFinancialController extends TabModifyController implements Event
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
-  protected void resetTextFields(final boolean tlModify)
+  protected void resetButtons(final boolean tlModify)
   {
-    super.resetTextFields(tlModify);
+    super.resetButtons(tlModify);
 
     this.btnFilterFinancialCaseSensitive.setDisable(tlModify);
     this.btnFilterFinancialWord.setDisable(tlModify);
     this.btnFilterFinancialClear.setDisable(tlModify);
     this.btnFilterFinancialRefresh.setDisable(tlModify);
     this.chkFilterFinancialIncludeComments.setReadOnly(tlModify);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  protected void resetTextFields(final boolean tlModify)
+  {
+    super.resetTextFields(tlModify);
+
+    // Not a mistake: when the text fields for records are editable, the Filter Text field is read-only.
+    this.txtFilterFinancial.setReadOnly(tlModify);
 
     final AppProperties loApp = AppProperties.INSTANCE;
     final boolean llManualEntry = loApp.getManualFinancialData();
