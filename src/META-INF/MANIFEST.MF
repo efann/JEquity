@@ -3,8 +3,8 @@ Ant-Version: Apache Ant 1.10.12
 Created-By: 19.0.2+9 (BellSoft)
 Main-Class: com.beowurks.jequity.main.Main
 Implementation-Vendor: Beowurks
-Implementation-Version: 2023.0.0.365
+Implementation-Version: 2023.0.0.366
 Implementation-Title: JEquity
-Built-On: 2023-11-04 16:11:51
+Built-On: 2023-11-30 17:26:16
 Permissions: all-permissions
 
