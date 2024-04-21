@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
-Ant-Version: Apache Ant 1.10.12
+Ant-Version: Apache Ant 1.10.14
 Created-By: 19.0.2+9 (BellSoft)
 Main-Class: com.beowurks.jequity.main.Main
 Implementation-Vendor: Beowurks
-Implementation-Version: 2023.0.0.366
+Implementation-Version: 2024.0.0.368
 Implementation-Title: JEquity
-Built-On: 2023-11-30 17:26:16
+Built-On: 2024-04-21 13:06:05
 Permissions: all-permissions
 
