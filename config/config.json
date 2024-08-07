@@ -1,6 +1,6 @@
 {
   "stocks": {
-    "description-marker": "section.container div.top h1[class^=svelte]",
+    "description-marker": "section.container div.top h1[class^=yf-]",
     "lasttrade-marker": "section.container div.bottom fin-streamer:first-child span",
     "web-page-url": "https://finance.yahoo.com/quote/%s/?p=%s"
   },
