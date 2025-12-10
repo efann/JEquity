@@ -180,23 +180,23 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
       // Daily Information
       final Document loDoc = this.getDocument(lcDailyURL);
 
+      final long lnDelay = (loDoc == null) ? Constants.THREAD_ERROR_DISPLAY_DELAY : AppProperties.INSTANCE.getUpdateIntervalKey() * 1000L;
+
       if (loDoc == null)
       {
-        final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcDailyURL, lcSymbol);
-        this.updateStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
-
-        continue;
+        this.updateStatusText(String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcDailyURL, lcSymbol));
       }
-
-      this.updateStatusText(String.format("Successfully read %s daily information", lcSymbol));
-
-      final long lnDelay = AppProperties.INSTANCE.getUpdateIntervalKey() * 1000L;
-      if (this.importDailyInformation(loSession, loSymbol, loDoc))
+      else
       {
-        this.updateStatusText(String.format("Successfully imported %s's daily information. Now waiting %.1f seconds.", lcSymbol, lnDelay / 1000.0));
-      }
+        this.updateStatusText(String.format("Successfully read %s daily information", lcSymbol));
 
-      this.updateStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
+        if (this.importDailyInformation(loSession, loSymbol, loDoc))
+        {
+          this.updateStatusText(String.format("Successfully imported %s's daily information. Now waiting %.1f seconds.", lcSymbol, lnDelay / 1000.0));
+        }
+
+        this.updateStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
+      }
 
       try
       {
