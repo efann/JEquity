@@ -180,13 +180,11 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
       // Daily Information
       final Document loDoc = this.getDocument(lcDailyURL);
 
-      final long lnDelay = (loDoc == null) ? Constants.THREAD_ERROR_DISPLAY_DELAY : AppProperties.INSTANCE.getUpdateIntervalKey() * 1000L;
+      final boolean llOkay = (loDoc != null);
 
-      if (loDoc == null)
-      {
-        this.updateStatusText(String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcDailyURL, lcSymbol));
-      }
-      else
+      final long lnDelay = llOkay ? AppProperties.INSTANCE.getUpdateIntervalKey() * 1000L : Constants.THREAD_ERROR_DISPLAY_DELAY;
+
+      if (llOkay)
       {
         this.updateStatusText(String.format("Successfully read %s daily information", lcSymbol));
 
@@ -196,6 +194,10 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
         }
 
         this.updateStatusText((double) loList.indexOf(loSymbol) / (double) lnTotal);
+      }
+      else
+      {
+        this.updateStatusText(String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcDailyURL, lcSymbol));
       }
 
       try
