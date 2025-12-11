@@ -58,7 +58,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/org.hibernate.5.4.2/stax-ex-1.8.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/org.hibernate.5.4.2/FastInfoset-1.2.15.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/org.json/json-20230227.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/org.jsoup/jsoup-1.18.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/org.jsoup/jsoup-1.21.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libraries/drivers/org.postgresql/postgresql-42.6.0.jar" path-in-jar="/" />
     </root>
   </artifact>

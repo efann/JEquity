@@ -249,7 +249,7 @@ final public class Constants
 
   //************************************************************
   // The following is used by the downloads in global.warehouse
-  public final static int WEB_TIME_OUT = 7500;
+  public final static int WEB_TIME_OUT = 10 * 1000;
 
   // Just Google 'what is my user agent'
   // From https://www.scrapehero.com/scrape-yahoo-finance-stock-market-data/
