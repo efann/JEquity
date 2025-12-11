@@ -7,7 +7,6 @@
  */
 package com.beowurks.jequity.dao.hibernate.threads;
 
-import com.beowurks.jequity.utility.Constants;
 import com.beowurks.jequity.utility.Misc;
 import javafx.application.Platform;
 import org.jsoup.nodes.Document;
@@ -65,7 +64,7 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
     if (lcSymbol.isEmpty() || lcSymbol.isBlank())
     {
       final String lcMessage = "The stock symbol is blank so unable to download any information.";
-      Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+      Misc.setStatusText(lcMessage);
 
       return;
     }
@@ -80,7 +79,7 @@ public class ThreadDownloadSingleSymbol extends ThreadDownloadHTML implements Ru
     if (loDoc == null)
     {
       final String lcMessage = String.format("Unable to read the page of %s. Make sure that the stock symbol, %s, is still valid.", lcDailyURL, lcSymbol);
-      Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+      Misc.setStatusText(lcMessage);
 
       return;
     }

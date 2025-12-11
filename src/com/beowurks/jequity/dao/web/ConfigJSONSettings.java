@@ -93,7 +93,7 @@ public class ConfigJSONSettings implements Runnable
     if (lcJSONText == null)
     {
       final String lcMessage = String.format("Unable to read the page of %s.", ConfigJSONSettings.CONFIG_URL);
-      Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+      Misc.setStatusText(lcMessage);
 
       return;
     }

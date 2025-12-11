@@ -339,7 +339,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
     {
       final String lcMessage = String.format("There was an error with %s: %s %s", lcSymbol, loErr.getMessage(), loErr.getCause().toString());
 
-      Misc.setStatusText(lcMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+      Misc.setStatusText(lcMessage);
 
       try
       {
@@ -356,7 +356,7 @@ public class ThreadDownloadSymbolInfo extends ThreadDownloadHTML implements Runn
       {
         final String lcRTMessage = String.format("There was a rollback error with %s: %s", lcSymbol, loRTErr.getMessage());
 
-        Misc.setStatusText(lcRTMessage, Constants.THREAD_ERROR_DISPLAY_DELAY);
+        Misc.setStatusText(lcRTMessage);
       }
 
     }
