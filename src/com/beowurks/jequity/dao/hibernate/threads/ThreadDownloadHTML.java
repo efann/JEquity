@@ -35,9 +35,15 @@ public class ThreadDownloadHTML extends ThreadBase
       try
       {
         // Highly recommended to set the userAgent.
+        // Also, I'm now using recommendations from
+        // https://webscraping.ai/faq/jsoup/how-do-i-set-custom-http-headers-with-jsoup
         loDoc = Jsoup.connect(tcDailyURL)
           .followRedirects(false)
           .userAgent(Constants.getUserAgent())
+          .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
+          .header("Accept-Language", "en-US,en;q=0.8")
+          .header("Accept-Encoding", "gzip, deflate, br")
+          .header("Cache-Control", "max-age=0")
           .maxBodySize(0)
           .timeout(Constants.WEB_TIME_OUT)
           .get();
