@@ -249,7 +249,7 @@ final public class Constants
 
   //************************************************************
   // The following is used by the downloads in global.warehouse
-  public final static int WEB_TIME_OUT = 10 * 1000;
+  public final static int WEB_TIME_OUT = 20 * 1000;
 
   // Just Google 'what is my user agent'
   // From https://www.scrapehero.com/scrape-yahoo-finance-stock-market-data/
@@ -271,7 +271,7 @@ final public class Constants
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0",
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edg/87.0.664.75",
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0"
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
     };
 
   private static int fnTrackUserAgent = 0;

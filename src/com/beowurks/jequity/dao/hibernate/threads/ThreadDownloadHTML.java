@@ -38,7 +38,6 @@ public class ThreadDownloadHTML extends ThreadBase
         loDoc = Jsoup.connect(tcDailyURL)
           .followRedirects(false)
           .userAgent(Constants.getUserAgent())
-          .data("name", "jsoup")
           .maxBodySize(0)
           .timeout(Constants.WEB_TIME_OUT)
           .get();
@@ -47,7 +46,22 @@ public class ThreadDownloadHTML extends ThreadBase
       {
         loDoc = null;
       }
+
+      if (loDoc == null)
+      {
+        try
+        {
+          Thread.sleep(400);
+        }
+        catch (final InterruptedException loErr)
+        {
+          loErr.printStackTrace();
+        }
+      }
+
+
     }
+
 
     return (loDoc);
   }
@@ -107,9 +121,8 @@ public class ThreadDownloadHTML extends ThreadBase
   {
     // Parentheses are special characters for regex.
     final String lcReplace = tcReplace.replace("(", "\\(").replace(")", "\\)");
-    final String lcText = tcText.replaceAll(lcReplace, this.getStringWithMarker(tcReplace));
 
-    return (lcText);
+    return (tcText.replaceAll(lcReplace, this.getStringWithMarker(tcReplace)));
   }
 
   // ---------------------------------------------------------------------------------------------------------------------
