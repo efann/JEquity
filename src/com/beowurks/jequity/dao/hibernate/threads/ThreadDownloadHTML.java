@@ -57,14 +57,13 @@ public class ThreadDownloadHTML extends ThreadBase
       {
         try
         {
-          Thread.sleep(400);
+          Thread.sleep(500);
         }
         catch (final InterruptedException loErr)
         {
           loErr.printStackTrace();
         }
       }
-
 
     }
 

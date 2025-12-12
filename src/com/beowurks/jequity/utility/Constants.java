@@ -220,8 +220,8 @@ final public class Constants
   public final static String MANUAL_WEB_PAGE_URL = "manual.web.page.url";
   public final static String MANUAL_ALPHA_VANTAGE_URL = "manual.alpha.vantage.url";
 
-  public final static String WEB_MARKER_DEFAULT_VALUE_DESCRIPTION = "#quote-header-info h1";
-  public final static String WEB_MARKER_DEFAULT_VALUE_LASTTRADE = "#quote-header-info div[class^=My] fin-streamer:first-child";
+  public final static String WEB_MARKER_DEFAULT_VALUE_DESCRIPTION = "section.container div.top h1[class^=yf-]";
+  public final static String WEB_MARKER_DEFAULT_VALUE_LASTTRADE = "section.container div.bottom span:first-child";
 
   public final static int WEB_MARKER_SOURCE_BEOWURKS_DEFAULT = 0;
   public final static int WEB_MARKER_SOURCE_APPLICATION = 1;
@@ -279,7 +279,7 @@ final public class Constants
   public final static String UNKNOWN_STOCK_SYMBOL = "Unknown Stock Symbol";
 
   public final static int THREAD_ERROR_DISPLAY_DELAY = 2500;
-  public final static String WEB_PAGE_URL = "https://finance.yahoo.com/quote/%s?p=%s";
+  public final static String WEB_PAGE_URL = "https://finance.yahoo.com/quote/%s/?p=%s";
   public final static String YAHOO_DAILY_MARKER = "**";
   public final static String YAHOO_DAILY_PREVCLOSE = "Previous Close";
   public final static String YAHOO_DAILY_OPEN = "Open";
