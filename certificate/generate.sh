@@ -40,7 +40,7 @@ US
 Texas
 Austin
 Beowurks.com
-Open-Source Software
+Beowurks Open-Source Software
 Beowurks OSS Root Certificate
 efann@beowurks.com
 EOF
