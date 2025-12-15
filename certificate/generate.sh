@@ -7,11 +7,22 @@
 #
 #
 
-echo "This script generates a self-signed x509 certificate on Linux that's valid for 10 years."
+if [ -z "$1" ]; then
+  echo -e "\nOne must pass the password for the private key. Exiting. . . .\n\n"
+  exit 1
+fi
 
-openssl genrsa -aes256 -out rootSSO.key 16384
+if [ -z "$2" ]; then
+  echo -e "\nOne must pass the password for the PKCS12 keystore. Exiting. . . .\n\n"
+  exit 1
+fi
 
-openssl req -x509 -new -nodes -key rootSSO.key -sha512 -days 3650 -out rootSSO.pem<<EOF
+echo -e "This script generates a self-signed x509 certificate on Linux that's valid for 10 years.\nRunning the following:\n"
+echo -e "openssl genrsa -aes256 -out rootSSO.key 16384"
+
+openssl genrsa -aes256 -out rootSSO.key 16384 -passout pass:"$1"
+
+openssl req -x509 -new -nodes -key rootSSO.key -sha512 -days 3650 -passin pass:"$1" -out rootSSO.pem<<EOF
 US
 Texas
 Austin
@@ -22,3 +33,6 @@ efann@beowurks.com
 EOF
 
 openssl x509 -text -noout -in rootSSO.pem
+# Combine them into a PKCS12 keystore (my-keystore.pfx)
+openssl pkcs12 -export -out rootSSO.pfx -inkey rootSSO.key -in rootSSO.pem -name "SSO Certificate" -passin pass:"$1" -passout pass:"$2"
+
