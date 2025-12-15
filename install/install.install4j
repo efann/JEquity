@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="10.0.9" transformSequenceNumber="10">
-  <directoryPresets config="D:/IntelliJ/JEquity/images" />
-  <application name="JEquity" applicationId="3320-6753-1790-7084" mediaDir="D:/temp/install4j/JEquity/media" mediaFilePattern="${compiler:sys.shortName}_${compiler:sys.jreBundleArch}_${compiler:sys.version}" shortName="JEquity" publisher="Beowurks" publisherWeb="https://www.beowurks.com/applications/single/JEquity" version="2025.0.1.383" convertDotsToUnderscores="false" macVolumeId="704ca49a6335aefd" javaMinVersion="19" javaMaxVersion="19">
+  <directoryPresets config="D:/OneDrive/Downloads/Certificates/OSS/rootOSS.pfx" />
+  <application name="JEquity" applicationId="3320-6753-1790-7084" mediaDir="D:/temp/install4j/JEquity/media" mediaFilePattern="${compiler:sys.shortName}_${compiler:sys.jreBundleArch}_${compiler:sys.version}" shortName="JEquity" publisher="Beowurks" publisherWeb="https://www.beowurks.com/applications/single/JEquity" version="2025.0.2.389" convertDotsToUnderscores="false" macVolumeId="704ca49a6335aefd" javaMinVersion="19" javaMaxVersion="19">
     <languages>
       <principalLanguage id="en" customLocalizationFile="D:/IntelliJ/JEquity/install/English.utf8" />
     </languages>
-    <codeSigning macPkcs12File="D:/OneDrive/Downloads/Certificates/Apple/DeveloperCertificates.p12" windowsEnabled="true" windowsKeySource="windows">
+    <codeSigning macPkcs12File="D:/OneDrive/Downloads/Certificates/Apple/DeveloperCertificates.p12" windowsEnabled="true" windowsPkcs12File="D:/OneDrive/Downloads/Certificates/OSS/rootOSS.pfx">
       <windowsKeystoreIdentifier issuer="Sectigo RSA Code Signing CA" serial="83b2b0638de0f944f6bf5c4bbf6ffa94" subject="Beowurks" />
     </codeSigning>
     <jreBundles jdkProviderId="Liberica" release="19/19.0.2+9">
