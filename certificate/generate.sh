@@ -17,7 +17,7 @@ if [[ -z "$1" || -z "$2" ]]; then
 fi
 
 LINE_MARKER="\n========================================================================================"
-BASE_FILE='rootSSO'
+BASE_FILE='rootOSS'
 
 echo -e $LINE_MARKER
 echo -e "\nRemoving previous $BASE_FILE files."
