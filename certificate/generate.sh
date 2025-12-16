@@ -17,7 +17,7 @@ if [[ -z "$1" || -z "$2" ]]; then
 fi
 
 LINE_MARKER="\n========================================================================================"
-BASE_FILE='rootOSS'
+BASE_FILE='beowurksOSS'
 
 echo -e $LINE_MARKER
 echo -e "\nRemoving previous $BASE_FILE files."
@@ -52,9 +52,10 @@ fi
 echo -e $LINE_MARKER
 
 openssl x509 -text -noout -in $BASE_FILE.pem
-# Combine them into a PKCS12 keystore (my-keystore.pfx)
-echo -e "\nopenssl pkcs12 -export -out $BASE_FILE.pfx -inkey $BASE_FILE.key -in $BASE_FILE.pem -name SSO Certificate -passin pass:$1 -passout pass:$2"
-openssl pkcs12 -export -out $BASE_FILE.pfx -inkey $BASE_FILE.key -in $BASE_FILE.pem -name "SSO Certificate" -passin pass:"$1" -passout pass:"$2"
+echo -e $LINE_MARKER
+
+echo -e "\nopenssl pkcs12 -export -out $BASE_FILE.pfx -inkey $BASE_FILE.key -in $BASE_FILE.pem -name 'Beowurks SSO Certificate' -passin pass:$1 -passout pass:$2"
+openssl pkcs12 -export -out $BASE_FILE.pfx -inkey $BASE_FILE.key -in $BASE_FILE.pem -name "Beowurks SSO Certificate" -passin pass:"$1" -passout pass:"$2"
 if [ $? -ne 0 ]; then
   echo "An error occurred with 'openssl pkcs12 -export'" >&2
   exit 1
