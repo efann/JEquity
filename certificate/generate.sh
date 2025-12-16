@@ -35,15 +35,7 @@ fi
 echo -e $LINE_MARKER
 
 echo -e "\nopenssl req -x509 -new -nodes -key $BASE_FILE.key -sha512 -days 3650 -passin pass:$1 -out $BASE_FILE.pem"
-openssl req -x509 -new -nodes -key $BASE_FILE.key -sha512 -days 3650 -passin pass:"$1" -out $BASE_FILE.pem<<EOF
-US
-Texas
-Austin
-Beowurks.com
-Beowurks Open-Source Software
-Beowurks OSS Root Certificate
-efann@beowurks.com
-EOF
+openssl req -x509 -new -nodes -key $BASE_FILE.key -sha512 -days 3650 -passin pass:"$1" -out $BASE_FILE.pem -subj "/CN=beowurks.com/C=US/ST=Texas/L=Austin/O=Beowurks OSS Root Certificate"
 
 if [ $? -ne 0 ]; then
   echo "An error occurred with 'openssl req -x509'" >&2
